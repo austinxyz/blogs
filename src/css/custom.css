@@ -28,3 +28,44 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* Blog post styling */
+article header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+article header p {
+  font-size: 1.1rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+/* Collection pages */
+.container h1 {
+  margin-bottom: 1rem;
+}
+
+.container > p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+/* Responsive images */
+article img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Code blocks */
+pre {
+  border-radius: 8px;
+}
+
+/* Tags */
+.badge {
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
