@@ -93,6 +93,235 @@
         <category label="leadership" term="leadership"/>
     </entry>
     <entry>
+        <title type="html"><![CDATA[Taming AI Agent Uncertainty: What Resume Screening Taught Me About Reliability]]></title>
+        <id>https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty</id>
+        <link href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty"/>
+        <updated>2025-12-25T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Building reliable AI agents by applying HR best practices to manage uncertainty. Lessons learned from developing a resume screening agent with inconsistent scoring.]]></summary>
+        <content type="html"><![CDATA[<p>Same resume. Same job description. Two different scores: 78/100, then 68/100.</p>
+<p>I had built a <code>resume-jd-matcher</code> agent to automate candidate screening. On a whim, I ran the same resume through it twice. The inconsistency wasn't just frustrating—it was dangerous. How could I trust hiring decisions based on unpredictable evaluations? How could I ensure fairness to candidates when the same resume might score differently depending on when it was assessed?</p>
+<p><strong>The core challenge:</strong> AI agents complete tasks differently than traditional programs. They're probabilistic, not deterministic. The same input can produce different outputs due to sampling and contextual variations. In many ways, AI behaves more like human judgment than code execution.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-familiar-problem">The Familiar Problem<a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#the-familiar-problem" class="hash-link" aria-label="Direct link to The Familiar Problem" title="Direct link to The Familiar Problem" translate="no">​</a></h2>
+<p>This challenge felt strangely familiar. Human hiring managers face the exact same issues:</p>
+<ul>
+<li class="">Reviewing the same resume today versus tomorrow might yield different impressions</li>
+<li class="">Different interviewers have inconsistent opinions about the same candidate</li>
+<li class="">It's hard to quantify what "good enough" actually means</li>
+</ul>
+<p>But HR has spent decades developing best practices to manage subjectivity. Could we apply these same principles to AI agents?</p>
+<blockquote>
+<p><strong>What if the solution to AI uncertainty already exists in how we handle human uncertainty?</strong></p>
+</blockquote>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-humans-ensure-objectivity">How Humans Ensure Objectivity<a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#how-humans-ensure-objectivity" class="hash-link" aria-label="Direct link to How Humans Ensure Objectivity" title="Direct link to How Humans Ensure Objectivity" translate="no">​</a></h2>
+<p>When designing fair evaluation systems, HR professionals use several proven strategies:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-process-decomposition">1. <strong>Process Decomposition</strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#1-process-decomposition" class="hash-link" aria-label="Direct link to 1-process-decomposition" title="Direct link to 1-process-decomposition" translate="no">​</a></h3>
+<p>Break the judgment process into multiple steps. For deterministic steps, use programmatic checks (e.g., "Does the candidate have a bachelor's degree?" → Yes/No). For subjective steps, provide clear criteria.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-detailed-scoring-rubrics">2. <strong>Detailed Scoring Rubrics</strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#2-detailed-scoring-rubrics" class="hash-link" aria-label="Direct link to 2-detailed-scoring-rubrics" title="Direct link to 2-detailed-scoring-rubrics" translate="no">​</a></h3>
+<p>Instead of vague assessments ("strong candidate"), use quantified scoring with explicit formulas:</p>
+<ul>
+<li class="">3 years experience = 8 points</li>
+<li class="">4 years experience = 9 points</li>
+<li class="">5+ years experience = 10 points</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-review-and-consistency-checks">3. <strong>Review and Consistency Checks</strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#3-review-and-consistency-checks" class="hash-link" aria-label="Direct link to 3-review-and-consistency-checks" title="Direct link to 3-review-and-consistency-checks" translate="no">​</a></h3>
+<p>Compare assessments to identify inconsistencies. Flag outliers for re-review.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-multi-reviewer-validation">4. <strong>Multi-Reviewer Validation</strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#4-multi-reviewer-validation" class="hash-link" aria-label="Direct link to 4-multi-reviewer-validation" title="Direct link to 4-multi-reviewer-validation" translate="no">​</a></h3>
+<p>Have multiple people evaluate the same candidate. Aggregate their independent judgments.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-reference-benchmarks">5. <strong>Reference Benchmarks</strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#5-reference-benchmarks" class="hash-link" aria-label="Direct link to 5-reference-benchmarks" title="Direct link to 5-reference-benchmarks" translate="no">​</a></h3>
+<p>Provide calibration examples: "This is what a 90/100 candidate looks like. This is 70/100."</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-feedback-loops">6. <strong>Feedback Loops</strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#6-feedback-loops" class="hash-link" aria-label="Direct link to 6-feedback-loops" title="Direct link to 6-feedback-loops" translate="no">​</a></h3>
+<p>Track false positives and negatives. Update criteria based on actual outcomes.</p>
+<p>These aren't theoretical—they're battle-tested practices that make human evaluation systems work.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="translating-hr-principles-to-ai-agents">Translating HR Principles to AI Agents<a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#translating-hr-principles-to-ai-agents" class="hash-link" aria-label="Direct link to Translating HR Principles to AI Agents" title="Direct link to Translating HR Principles to AI Agents" translate="no">​</a></h2>
+<p>Here's how I adapted each HR best practice for my AI agent system:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-process-decomposition--workflows--scriptmcp">1. <strong>Process Decomposition → Workflows + Script/MCP</strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#1-process-decomposition--workflows--scriptmcp" class="hash-link" aria-label="Direct link to 1-process-decomposition--workflows--scriptmcp" title="Direct link to 1-process-decomposition--workflows--scriptmcp" translate="no">​</a></h3>
+<p><strong>Agents naturally support workflows:</strong> Break evaluation into stages (information extraction → evidence categorization → score calculation).</p>
+<p><strong>Deterministic parts → Tools:</strong> For programmatic checks (e.g., calculating years of experience), use Script or MCP tools instead of LLM reasoning. This removes uncertainty from parts of the process that should be deterministic.</p>
+<div class="language-python codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-python codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token comment" style="color:#999988;font-style:italic"># Instead of asking the AI to "estimate years of experience"</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token comment" style="color:#999988;font-style:italic"># Use a deterministic function:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token keyword" style="color:#00009f">def</span><span class="token plain"> </span><span class="token function" style="color:#d73a49">calculate_years_of_experience</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">resume_data</span><span class="token punctuation" style="color:#393A34">)</span><span class="token punctuation" style="color:#393A34">:</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    experiences </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> resume_data</span><span class="token punctuation" style="color:#393A34">[</span><span class="token string" style="color:#e3116c">'work_history'</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    total_months </span><span class="token operator" style="color:#393A34">=</span><span class="token plain"> </span><span class="token builtin">sum</span><span class="token punctuation" style="color:#393A34">(</span><span class="token plain">exp</span><span class="token punctuation" style="color:#393A34">[</span><span class="token string" style="color:#e3116c">'duration_months'</span><span class="token punctuation" style="color:#393A34">]</span><span class="token plain"> </span><span class="token keyword" style="color:#00009f">for</span><span class="token plain"> exp </span><span class="token keyword" style="color:#00009f">in</span><span class="token plain"> experiences</span><span class="token punctuation" style="color:#393A34">)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    </span><span class="token keyword" style="color:#00009f">return</span><span class="token plain"> total_months </span><span class="token operator" style="color:#393A34">/</span><span class="token plain"> </span><span class="token number" style="color:#36acaa">12</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-detailed-scoring-rubrics--explicit-formulas-in-prompts">2. <strong>Detailed Scoring Rubrics → Explicit Formulas in Prompts</strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#2-detailed-scoring-rubrics--explicit-formulas-in-prompts" class="hash-link" aria-label="Direct link to 2-detailed-scoring-rubrics--explicit-formulas-in-prompts" title="Direct link to 2-detailed-scoring-rubrics--explicit-formulas-in-prompts" translate="no">​</a></h3>
+<p>I created a <code>scoring-rubric.md</code> that provides precise formulas for each category:</p>
+<div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> Years of Experience (10 points)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">if relevant_years &gt;= 5:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    score = 10 points</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">elif relevant_years &gt;= 3:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    score = 8 + (years - 3) × 1 point</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">elif relevant_years &gt;= 2:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    score = 6 points</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">else:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    score = (relevant_years / 2) × 6 points</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token bold content">Evidence required:</span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token plain"> Extract specific job titles, dates, and responsibilities</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token bold content">Round down when uncertain:</span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token plain"> If dates are ambiguous, use the lower estimate</span><br></span></code></pre></div></div>
+<p>This eliminates ambiguity. Instead of "evaluate experience level," the agent now has clear mathematical guidance.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-review-and-consistency--calibration-checks">3. <strong>Review and Consistency → Calibration Checks</strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#3-review-and-consistency--calibration-checks" class="hash-link" aria-label="Direct link to 3-review-and-consistency--calibration-checks" title="Direct link to 3-review-and-consistency--calibration-checks" translate="no">​</a></h3>
+<p>I added a calibration step to the agent prompt:</p>
+<div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token bold punctuation" style="color:#393A34">**</span><span class="token bold content">Calibration Check</span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Most similar to: [Reference Example A/B/C/D]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Score differential: [Higher/Lower than reference by X points]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Justification: [If differential &gt;10 points, explain why]</span><br></span></code></pre></div></div>
+<p>The agent must compare every evaluation against benchmark cases and provide reasoning for deviations.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-multi-reviewer--multi-agent-validation">4. <strong>Multi-Reviewer → Multi-Agent Validation</strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#4-multi-reviewer--multi-agent-validation" class="hash-link" aria-label="Direct link to 4-multi-reviewer--multi-agent-validation" title="Direct link to 4-multi-reviewer--multi-agent-validation" translate="no">​</a></h3>
+<p>Run the same resume through multiple agent configurations:</p>
+<ul>
+<li class="">Agent A (Conservative): Strict standards</li>
+<li class="">Agent B (Balanced): Standard criteria</li>
+<li class="">Agent C (Optimistic): Values potential more</li>
+</ul>
+<p>If scores diverge by &gt;10 points, flag for human review.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-reference-benchmarks--example-resume-library">5. <strong>Reference Benchmarks → Example Resume Library</strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#5-reference-benchmarks--example-resume-library" class="hash-link" aria-label="Direct link to 5-reference-benchmarks--example-resume-library" title="Direct link to 5-reference-benchmarks--example-resume-library" translate="no">​</a></h3>
+<p>I created <code>reference-resumes.md</code> with 4 calibration examples:</p>
+<div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token bold punctuation" style="color:#393A34">**</span><span class="token bold content">Example A: 92/100 (Strong Recommend)</span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Profile: Deep kernel expert with 6 years experience</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Key strengths: Led performance optimization team, 15+ merged patches to Linux kernel</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Why 92: Exceeds requirements on technical depth and leadership</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token bold content">Example B: 76/100 (Recommend with Reservations)</span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Profile: Strong K8s background but weaker kernel depth</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Key strengths: Scaled infrastructure to 10K nodes</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Why 76: Meets most requirements but lacks low-level systems experience</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token bold content">Example C: 58/100 (Maybe)</span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Profile: Application developer transitioning to infrastructure</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Key strengths: Fast learner, some container experience</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Why 58: Has potential but significant skill gaps</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token bold content">Example D: 32/100 (Do Not Recommend)</span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Profile: IT support with no programming experience</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Why 32: Fundamental skill mismatch</span><br></span></code></pre></div></div>
+<p>These anchors help the agent understand what different score ranges represent.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-feedback-loops--miss-tracking">6. <strong>Feedback Loops → Miss Tracking</strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#6-feedback-loops--miss-tracking" class="hash-link" aria-label="Direct link to 6-feedback-loops--miss-tracking" title="Direct link to 6-feedback-loops--miss-tracking" translate="no">​</a></h3>
+<p>After interviews, I log outcomes:</p>
+<div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token bold punctuation" style="color:#393A34">**</span><span class="token bold content">Interview Outcome Log</span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Candidate: John Doe</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Resume Score: 82/100</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Interview Result: Rejected (failed system design)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Root Cause Analysis:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Agent scored Kubernetes experience as 17/20</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Candidate only knew basic kubectl commands</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Discrepancy: Agent gave "knows kubectl" 8/10, should be 3-4/10</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Action: Updated rubric with concrete skill level definitions</span><br></span></code></pre></div></div>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-results-before-vs-after">The Results: Before vs. After<a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#the-results-before-vs-after" class="hash-link" aria-label="Direct link to The Results: Before vs. After" title="Direct link to The Results: Before vs. After" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="original-agent">Original Agent<a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#original-agent" class="hash-link" aria-label="Direct link to Original Agent" title="Direct link to Original Agent" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Prompt:</strong> Generic instructions ("Evaluate candidate fit for this role")</li>
+<li class=""><strong>Scoring:</strong> Subjective match levels (Strong/Partial/Weak)</li>
+<li class=""><strong>Output:</strong> Narrative assessment</li>
+<li class=""><strong>Consistency:</strong> ±10 point variance on same resume</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="improved-agent">Improved Agent<a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#improved-agent" class="hash-link" aria-label="Direct link to Improved Agent" title="Direct link to Improved Agent" translate="no">​</a></h3>
+<ul>
+<li class=""><strong>Prompt:</strong> Explicit workflow with forced rubric reading</li>
+<li class=""><strong>Scoring:</strong> Quantified formulas across 7 categories (Education, Experience, Kernel/Linux, Programming, Kubernetes, Domain Experience, Leadership)</li>
+<li class=""><strong>Output:</strong> Tabular breakdown with evidence citations</li>
+<li class=""><strong>Consistency:</strong> ±4 point variance (60% improvement)</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="quantified-impact">Quantified Impact<a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#quantified-impact" class="hash-link" aria-label="Direct link to Quantified Impact" title="Direct link to Quantified Impact" translate="no">​</a></h3>
+<table><thead><tr><th>Metric</th><th>Before</th><th>After</th><th>Improvement</th></tr></thead><tbody><tr><td>Score Variance</td><td>±10 pts</td><td>±4 pts</td><td>60% reduction</td></tr><tr><td>Explainability</td><td>Narrative</td><td>Table + Evidence</td><td>Qualitative leap</td></tr><tr><td>Calibration</td><td>None</td><td>4 reference cases</td><td>N/A</td></tr><tr><td>Conservative Scoring</td><td>No</td><td>Yes (round down when uncertain)</td><td>Fewer false positives</td></tr></tbody></table>
+<blockquote>
+<p><strong>Key insight:</strong> The variance didn't disappear—it's inherent to AI. But by applying HR principles, I made it predictable and manageable.</p>
+</blockquote>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-production-safety-question">The Production Safety Question<a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#the-production-safety-question" class="hash-link" aria-label="Direct link to The Production Safety Question" title="Direct link to The Production Safety Question" translate="no">​</a></h2>
+<p>This raises a critical question for any business team deploying agents: <strong>If AI agent behavior is unpredictable, is it dangerous to use them in production environments where mistakes could cause irreversible damage?</strong></p>
+<p>Wrong changes to production systems can cascade into outages, data loss, or security breaches. We need additional safeguards.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="making-ai-agents-production-safe">Making AI Agents Production-Safe<a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#making-ai-agents-production-safe" class="hash-link" aria-label="Direct link to Making AI Agents Production-Safe" title="Direct link to Making AI Agents Production-Safe" translate="no">​</a></h3>
+<p>The same core principles apply, plus extra guardrails:</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-same-core-principles">1. <strong>Same Core Principles</strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#1-same-core-principles" class="hash-link" aria-label="Direct link to 1-same-core-principles" title="Direct link to 1-same-core-principles" translate="no">​</a></h4>
+<ul>
+<li class=""><strong>Process decomposition:</strong> Separate deterministic work (via Skills/MCP using programmatic checks) from AI decisions</li>
+<li class=""><strong>Validation and rollback steps:</strong> Every change must have a validation phase and rollback plan</li>
+<li class=""><strong>Error tracking:</strong> Log past mistakes in agent prompts to prevent repetition</li>
+</ul>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-additional-production-safeguards">2. <strong>Additional Production Safeguards</strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#2-additional-production-safeguards" class="hash-link" aria-label="Direct link to 2-additional-production-safeguards" title="Direct link to 2-additional-production-safeguards" translate="no">​</a></h4>
+<p><strong>a) AI Plans, Humans Execute</strong></p>
+<p>The AI agent generates implementation plans, tests them in staging, but humans approve and execute production changes.</p>
+<div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Example Workflow:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Agent: "Here's the migration plan for upgrading the system..."</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[Agent runs plan in test cluster]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Agent: "Tests passed. Here's the production runbook."</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Human: [Reviews, approves, executes production change]</span><br></span></code></pre></div></div>
+<p><strong>b) Deterministic Code Generation</strong></p>
+<p>For programmatic tasks with clear specs, use AI for "vibe coding":</p>
+<ol>
+<li class="">AI writes code</li>
+<li class="">Tests validate correctness</li>
+<li class="">Code review ensures quality</li>
+<li class="">Code executes deterministically in production</li>
+</ol>
+<p>The uncertainty is in the creative phase (writing), not the execution phase (running).</p>
+<p><strong>c) Leverage AI's Documentation Advantage</strong></p>
+<p>AI excels at documentation. Use it to:</p>
+<ul>
+<li class="">Generate detailed runbooks for every operation</li>
+<li class="">Automatically maintain changelogs</li>
+<li class="">Create post-mortems from incident data</li>
+</ul>
+<p>This preserves institutional knowledge and enables auditability.</p>
+<p><strong>d) Keep Humans in the Loop</strong></p>
+<p>AI is co-pilot, not autopilot:</p>
+<ul>
+<li class=""><strong>Human-driven:</strong> Humans initiate and guide workflows</li>
+<li class=""><strong>Critical step approvals:</strong> Dangerous operations require human confirmation</li>
+<li class=""><strong>Human review:</strong> Humans review documentation and provide feedback</li>
+<li class=""><strong>Continuous improvement:</strong> Feedback loops from human oversight improve agent behavior</li>
+</ul>
+<p><strong>Key safety properties:</strong></p>
+<ul>
+<li class="">Deterministic checks (compatibility, health) use programmatic tools</li>
+<li class="">AI handles planning and documentation (non-destructive)</li>
+<li class="">Humans approve each phase transition</li>
+<li class="">Automatic rollback on health check failure</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="best-practices-for-ai-agent-development">Best Practices for AI Agent Development<a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#best-practices-for-ai-agent-development" class="hash-link" aria-label="Direct link to Best Practices for AI Agent Development" title="Direct link to Best Practices for AI Agent Development" translate="no">​</a></h2>
+<p>Based on this experience, here are my guidelines for building reliable AI agents:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="for-non-destructive-tasks-eg-resume-screening">For Non-Destructive Tasks (e.g., Resume Screening)<a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#for-non-destructive-tasks-eg-resume-screening" class="hash-link" aria-label="Direct link to For Non-Destructive Tasks (e.g., Resume Screening)" title="Direct link to For Non-Destructive Tasks (e.g., Resume Screening)" translate="no">​</a></h3>
+<p><strong>1. Quantify Everything</strong></p>
+<ul>
+<li class="">Replace subjective assessments with numerical scores</li>
+<li class="">Provide explicit formulas and thresholds</li>
+<li class="">Cite evidence for every claim</li>
+</ul>
+<p><strong>2. Provide Reference Anchors</strong></p>
+<ul>
+<li class="">Include calibration examples in prompts</li>
+<li class="">Define what "excellent" vs. "poor" looks like</li>
+<li class="">Force agents to compare outputs against benchmarks</li>
+</ul>
+<p><strong>3. Enforce Consistency Checks</strong></p>
+<ul>
+<li class="">Build calibration steps into workflows</li>
+<li class="">Flag large deviations for review</li>
+<li class="">Track variance over time</li>
+</ul>
+<p><strong>4. Default to Conservative</strong></p>
+<ul>
+<li class="">When uncertain, round scores down</li>
+<li class="">Prefer false negatives over false positives</li>
+<li class="">Explicitly acknowledge uncertainty</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="for-destructiveproduction-impacting-tasks">For Destructive/Production-Impacting Tasks<a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#for-destructiveproduction-impacting-tasks" class="hash-link" aria-label="Direct link to For Destructive/Production-Impacting Tasks" title="Direct link to For Destructive/Production-Impacting Tasks" translate="no">​</a></h3>
+<p><strong>5. Separate Planning from Execution</strong></p>
+<ul>
+<li class="">AI generates plans and tests them</li>
+<li class="">Humans approve and execute critical changes</li>
+<li class="">Clear separation of concerns</li>
+</ul>
+<p><strong>6. Automate Validation</strong></p>
+<ul>
+<li class="">Every change has programmatic health checks</li>
+<li class="">Automatic rollback on failure</li>
+<li class="">No AI decision is final without verification</li>
+</ul>
+<p><strong>7. Document Everything</strong></p>
+<ul>
+<li class="">AI generates runbooks for every operation</li>
+<li class="">Changelogs are automatic and detailed</li>
+<li class="">Post-mortems include AI decision reasoning</li>
+</ul>
+<p><strong>8. Human Oversight is Mandatory</strong></p>
+<ul>
+<li class="">Dangerous operations require explicit approval</li>
+<li class="">Humans review all AI-generated documentation</li>
+<li class="">Feedback loops: humans correct AI mistakes</li>
+</ul>
+<p><strong>9. Fail-Safe Defaults</strong></p>
+<ul>
+<li class="">AI defaults to no-op when uncertain</li>
+<li class="">Irreversible operations require explicit confirmation</li>
+<li class="">Graceful degradation: fall back to manual processes</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-call-for-community-input">A Call for Community Input<a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#a-call-for-community-input" class="hash-link" aria-label="Direct link to A Call for Community Input" title="Direct link to A Call for Community Input" translate="no">​</a></h2>
+<p>These are initial best practices based on one use case (resume screening) and considerations for production systems. I'm sharing them to start a conversation, not to claim they're complete.</p>
+<blockquote>
+<p><strong>These are starting points, not final answers.</strong></p>
+</blockquote>
+<p><strong>I invite you to contribute your experience:</strong></p>
+<ul>
+<li class="">Have you built AI agents with consistency challenges?</li>
+<li class="">What techniques have you used to ensure reliability?</li>
+<li class="">What additional safeguards should we consider for production environments?</li>
+<li class="">Where do you see these principles falling short?</li>
+</ul>
+<p>The field of AI agent reliability is still emerging. The more we share concrete experiences—both successes and failures—the faster we'll develop robust practices.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="discussion">Discussion<a href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty#discussion" class="hash-link" aria-label="Direct link to Discussion" title="Direct link to Discussion" translate="no">​</a></h2>
+<p>What challenges have you faced with AI agent consistency? Share your experiences and recommendations in the comments. Let's build a knowledge base together.</p>
+<hr>
+<p><em>If you found this useful, consider sharing it with your team. The conversation around AI reliability benefits from diverse perspectives across different domains and use cases.</em></p>]]></content>
+        <author>
+            <name>Austin Xu</name>
+            <email>austin.xyz@gmail.com</email>
+            <uri>https://github.com/austinxyz</uri>
+        </author>
+        <category label="ai" term="ai"/>
+        <category label="agents" term="agents"/>
+        <category label="machine-learning" term="machine-learning"/>
+        <category label="best-practices" term="best-practices"/>
+        <category label="reliability" term="reliability"/>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[[6/6] Claude Code: Conclusion and Future Outlook]]></title>
         <id>https://austinxyz.github.io/blogs/blog/2025/12/20/claude-code-conclusion</id>
         <link href="https://austinxyz.github.io/blogs/blog/2025/12/20/claude-code-conclusion"/>
