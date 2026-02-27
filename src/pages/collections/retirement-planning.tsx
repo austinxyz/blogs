@@ -1,10 +1,11 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import {usePluginData} from '@docusaurus/useGlobalData';
+import {useAllPluginInstancesData} from '@docusaurus/useGlobalData';
 
 export default function RetirementPlanning(): JSX.Element {
-  const blogData = usePluginData('docusaurus-plugin-content-blog', 'default') as any;
+  const allData = useAllPluginInstancesData('docusaurus-plugin-content-blog');
+  const blogData = allData?.default;
   const allPosts = blogData?.blogPosts || [];
 
   // Filter posts by tag
