@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import Link from '@docusaurus/Link';
 import styles from './styles.module.css';
 
 type FeatureItem = {
@@ -47,7 +48,7 @@ function Feature({title, description, link}: FeatureItem) {
       <div className="text--center padding-horiz--md">
         <h3>{title}</h3>
         <p>{description}</p>
-        <a href={link}>Learn more →</a>
+        <Link to={link}>Learn more →</Link>
       </div>
     </div>
   );

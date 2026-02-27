@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: center;
   margin-top: 2rem;
+  gap: 1rem;
 }
 
 @media screen and (max-width: 996px) {
@@ -19,10 +20,5 @@
 
   .buttons {
     flex-direction: column;
-  }
-
-  .buttons > * {
-    margin-left: 0 !important;
-    margin-top: 0.5rem;
   }
 }

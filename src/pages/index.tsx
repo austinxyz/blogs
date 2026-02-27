@@ -22,8 +22,7 @@ function HomepageHeader() {
           </Link>
           <Link
             className="button button--outline button--secondary button--lg"
-            to="/about"
-            style={{marginLeft: '1rem'}}>
+            to="/about">
             About Me
           </Link>
         </div>
