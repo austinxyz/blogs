@@ -1,6 +1,6 @@
 ---
 title: "[5/6] Claude Code: Use Cases and Limitations"
-date: 2026-03-03
+date: 2025-12-19
 authors: [austin]
 tags: [ai, claude-code, best-practices]
 description: "Real-world use cases for Claude Code and understanding its current limitations."

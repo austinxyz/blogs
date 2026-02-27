@@ -1,6 +1,6 @@
 ---
 title: "[2/6] Claude Code: Feature Overview and Capabilities"
-date: 2026-02-28
+date: 2025-12-16
 authors: [austin]
 tags: [ai, claude-code, development-tools]
 description: "A comprehensive overview of Claude Code's features, from code generation to debugging and testing."

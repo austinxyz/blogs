@@ -1,6 +1,6 @@
 ---
 title: "[3/6] Claude Code: Development Walkthrough"
-date: 2026-03-01
+date: 2025-12-17
 authors: [austin]
 tags: [ai, claude-code, development-tools, tutorial]
 description: "A step-by-step walkthrough of using Claude Code for real-world development tasks."
