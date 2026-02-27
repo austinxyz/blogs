@@ -1,18 +1,19 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import {useAllPluginInstancesData} from '@docusaurus/useGlobalData';
+import useGlobalData from '@docusaurus/useGlobalData';
 
 export default function AI(): JSX.Element {
-  // Get blog data from all plugin instances
-  const allData = useAllPluginInstancesData('docusaurus-plugin-content-blog');
-  const blogData = allData?.default;
+  const globalData = useGlobalData();
+
+  // Access blog data from global data
+  const blogData = globalData?.['docusaurus-plugin-content-blog']?.['default'];
   const allPosts = blogData?.blogPosts || [];
 
-  // Filter posts by tag (case-insensitive)
+  // Filter posts by tag
   const filteredPosts = allPosts.filter((post: any) =>
-    post.metadata.tags.some((tag: any) =>
-      tag.label.toLowerCase() === 'ai'
+    post.metadata?.tags?.some((tag: any) =>
+      tag.label?.toLowerCase() === 'ai'
     )
   );
 

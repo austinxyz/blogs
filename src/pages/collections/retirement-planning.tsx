@@ -1,55 +1,44 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import {useAllPluginInstancesData} from '@docusaurus/useGlobalData';
+import useGlobalData from '@docusaurus/useGlobalData';
 
-export default function RetirementPlanning(): JSX.Element {
-  const allData = useAllPluginInstancesData('docusaurus-plugin-content-blog');
-  const blogData = allData?.default;
+export default function Collection(): JSX.Element {
+  const globalData = useGlobalData();
+  const blogData = globalData?.['docusaurus-plugin-content-blog']?.['default'];
   const allPosts = blogData?.blogPosts || [];
-
-  // Filter posts by tag
+  
+  // Get collection name from filename
+  const collectionName = 'COLLECTION_NAME';
   const filteredPosts = allPosts.filter((post: any) =>
-    post.metadata.tags.some((tag: any) => tag.label === 'retirement-planning')
+    post.metadata?.tags?.some((tag: any) =>
+      tag.label?.toLowerCase() === collectionName
+    )
   );
 
   return (
-    <Layout
-      title="Retirement Planning"
-      description="Preparing for retirement, financial independence, and life after full-time work.">
+    <Layout title="Collection" description="Collection description">
       <main className="container margin-vert--lg">
         <div className="row">
           <div className="col col--8 col--offset-2">
-            <h1>Retirement Planning</h1>
-            <p className="margin-bottom--lg">
-              Preparing for retirement, financial independence, and life after full-time work.
-            </p>
-
+            <h1>Collection</h1>
             {filteredPosts.length === 0 ? (
               <div className="alert alert--info">
-                <p>No posts yet in this collection. Check back soon!</p>
+                <p>No posts yet in this collection.</p>
               </div>
             ) : (
               <div>
                 {filteredPosts.map((post: any) => (
                   <article key={post.id} className="margin-bottom--xl">
-                    <h2>
-                      <Link to={post.metadata.permalink}>
-                        {post.metadata.title}
-                      </Link>
-                    </h2>
+                    <h2><Link to={post.metadata.permalink}>{post.metadata.title}</Link></h2>
                     <div className="margin-bottom--sm">
                       <time dateTime={post.metadata.date}>
                         {new Date(post.metadata.date).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
+                          year: 'numeric', month: 'long', day: 'numeric'
                         })}
                       </time>
                     </div>
-                    {post.metadata.description && (
-                      <p>{post.metadata.description}</p>
-                    )}
+                    {post.metadata.description && <p>{post.metadata.description}</p>}
                     <Link to={post.metadata.permalink}>Read more →</Link>
                   </article>
                 ))}
