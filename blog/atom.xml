@@ -1717,12 +1717,14 @@ The term "Vibe Coding" originated from the developer community's playful descrip
         <content type="html"><![CDATA[<blockquote>
 <p>Exploring best practices for AI-assisted programming (Vibe Coding) through the real development journey of the Finance project</p>
 </blockquote>
-<p><strong>Author</strong>: Austin Xu
-<strong>Project</strong>: Family Finance Management System (Spring Boot + Vue 3 Full-Stack Application)
-<strong>Development Period</strong>: November 2025 - Present
-<strong>Code Scale</strong>: ~41,000 lines of code, 127 Java files, 33 Vue components, 25 database tables
-<strong>Net Development Time</strong>: ~20 hours (weekend and evening spare time)
-<strong>GitHub</strong>: <a href="https://github.com/austinxyz/finance" target="_blank" rel="noopener noreferrer" class="">https://github.com/austinxyz/finance</a></p>
+<ul>
+<li class=""><strong>Author</strong>: Austin Xu</li>
+<li class=""><strong>Project</strong>: Family Finance Management System (Spring Boot + Vue 3 Full-Stack Application)</li>
+<li class=""><strong>Development Period</strong>: November 2025 - Present</li>
+<li class=""><strong>Code Scale</strong>: ~41,000 lines of code, 127 Java files, 33 Vue components, 25 database tables</li>
+<li class=""><strong>Net Development Time</strong>: ~20 hours (weekend and evening spare time)</li>
+<li class=""><strong>GitHub</strong>: <a href="https://github.com/austinxyz/finance" target="_blank" rel="noopener noreferrer" class="">https://github.com/austinxyz/finance</a></li>
+</ul>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="series-overview">Series Overview<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#series-overview" class="hash-link" aria-label="Direct link to Series Overview" title="Direct link to Series Overview" translate="no">​</a></h2>
 <p>This is a complete guide to Claude Code based on real-world experience building a production application. Through developing a family finance management system entirely with Claude Code, I've documented practical insights, best practices, and lessons learned that go beyond typical AI tool tutorials.</p>
@@ -1895,13 +1897,15 @@ Start with Part 4 (methodology evolution) to see how AI changes established prac
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-youll-learn">What You'll Learn<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#what-youll-learn" class="hash-link" aria-label="Direct link to What You'll Learn" title="Direct link to What You'll Learn" translate="no">​</a></h2>
 <p>By the end of this series, you'll be able to:</p>
-<p>✅ <strong>Understand Vibe Coding</strong> - The new programming paradigm enabled by AI
-✅ <strong>Use Claude Code Effectively</strong> - Master Skills, Hooks, MCP, and CLAUDE.md
-✅ <strong>Build Full Applications</strong> - Complete development cycles from idea to deployment
-✅ <strong>Adapt Methodologies</strong> - Apply Agile, TDD, and OOP in the AI era
-✅ <strong>Make Informed Decisions</strong> - Know when to use (or not use) AI assistance
-✅ <strong>Measure Productivity</strong> - Quantify the impact of AI on development speed
-✅ <strong>Avoid Common Pitfalls</strong> - Learn from real-world challenges and solutions</p>
+<ul>
+<li class="">✅ <strong>Understand Vibe Coding</strong> - The new programming paradigm enabled by AI</li>
+<li class="">✅ <strong>Use Claude Code Effectively</strong> - Master Skills, Hooks, MCP, and CLAUDE.md</li>
+<li class="">✅ <strong>Build Full Applications</strong> - Complete development cycles from idea to deployment</li>
+<li class="">✅ <strong>Adapt Methodologies</strong> - Apply Agile, TDD, and OOP in the AI era</li>
+<li class="">✅ <strong>Make Informed Decisions</strong> - Know when to use (or not use) AI assistance</li>
+<li class="">✅ <strong>Measure Productivity</strong> - Quantify the impact of AI on development speed</li>
+<li class="">✅ <strong>Avoid Common Pitfalls</strong> - Learn from real-world challenges and solutions</li>
+</ul>
 <hr>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="getting-started">Getting Started<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#getting-started" class="hash-link" aria-label="Direct link to Getting Started" title="Direct link to Getting Started" translate="no">​</a></h2>
 <p>Ready to explore AI-assisted development? Start with <strong><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/15/claude-code-introduction">Part 1: Introduction to AI-Assisted Development →</a></strong></p>
