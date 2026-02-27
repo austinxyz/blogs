@@ -10,7 +10,7 @@ description: Austin Xu's professional resume
 📧 austin.xyz@gmail.com | 📱 (408) 797-7545
 🔗 [LinkedIn](https://www.linkedin.com/in/austin-yanzhao-xu-6301ab6) | 💻 [GitHub](https://github.com/austinxyz)
 
-[Download PDF Resume](/downloads/Austin-Xu-Resume.pdf)
+<!-- [Download PDF Resume](/blogs/downloads/Austin-Xu-Resume.pdf) -->
 
 ---
 
