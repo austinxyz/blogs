@@ -3,7 +3,6 @@ title: "[1/6] Claude Code: Introduction to AI-Assisted Development"
 date: 2026-02-27
 authors: [austin]
 tags: [ai, claude-code, development-tools]
-collections: [ai]
 description: "An introduction to Claude Code, Anthropic's AI-powered development assistant that's changing how we write software."
 ---
 

@@ -3,7 +3,6 @@ title: "[6/6] Claude Code: Conclusion and Future Outlook"
 date: 2026-03-04
 authors: [austin]
 tags: [ai, claude-code, future-of-development]
-collections: [ai]
 description: "Final thoughts on Claude Code and the future of AI-assisted software development."
 ---
 

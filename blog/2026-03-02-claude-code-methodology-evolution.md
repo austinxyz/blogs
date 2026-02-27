@@ -3,7 +3,6 @@ title: "[4/6] Claude Code: Evolution of Development Methodology"
 date: 2026-03-02
 authors: [austin]
 tags: [ai, claude-code, methodology, software-engineering]
-collections: [ai]
 description: "How Claude Code is evolving software development methodologies and practices."
 ---
 
