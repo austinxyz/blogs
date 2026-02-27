@@ -1,8 +1,9 @@
 ---
 title: "My Tennis Journey: Royal Flush Team and USTA National Championship"
-date: 2026-03-05
+date: 2023-12-15
 authors: [austin]
 tags: [hobbies, tennis, sports]
+collections: [hobbies]
 description: "My journey from recreational player to USTA national champion with the Royal Flush team."
 ---
 

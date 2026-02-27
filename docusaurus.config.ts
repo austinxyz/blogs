@@ -4,7 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'Austin Xu',
-  tagline: 'Platform Engineering Leader | Tennis Enthusiast | Lifelong Learner',
+  tagline: 'Cloud Platform Engineering Leader | Tennis Enthusiast | Lifelong Learner',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future

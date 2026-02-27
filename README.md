@@ -1,6 +1,6 @@
 # Austin Xu's Personal Blog
 
-A blog-centric personal brand site for Austin Xu, Platform Engineering Leader at eBay. This site showcases technical insights, career experiences, and personal interests through curated blog collections.
+A blog-centric personal brand site for Austin Xu, Cloud Platform Engineering Leader at eBay. This site showcases technical insights, career experiences, and personal interests through curated blog collections.
 
 Built with [Docusaurus](https://docusaurus.io/), a modern static website generator optimized for content-centric websites.
 

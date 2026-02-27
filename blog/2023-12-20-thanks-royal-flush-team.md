@@ -1,8 +1,9 @@
 ---
 title: "Thanks to the Royal Flush 40+ 7.0 Team"
-date: 2026-03-06
+date: 2023-12-20
 authors: [austin]
 tags: [hobbies, tennis, gratitude, sports]
+collections: [hobbies]
 description: "A heartfelt thanks to my Royal Flush teammates for an incredible season and national championship."
 ---
 
