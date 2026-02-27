@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkdocusaurus_temp=globalThis.webpackChunkdocusaurus_temp||[]).push([[6091],{3923(e){e.exports=JSON.parse('{"metadata":{"permalink":"/blogs/blog","page":1,"postsPerPage":10,"totalPages":2,"totalCount":12,"nextPage":"/blogs/blog/page/2","blogDescription":"Thoughts on cloud computing, leadership, and life","blogTitle":"Blog"}}')}}]);
