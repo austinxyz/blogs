@@ -20,7 +20,7 @@ const FeatureList: FeatureItem[] = [
         Kubernetes, DevOps, SRE, and developer experience at eBay.
       </>
     ),
-    link: '/collections/cloud-computing',
+    link: '/blog/tags/cloud-computing',
   },
   {
     title: 'AI & Development',
@@ -31,7 +31,7 @@ const FeatureList: FeatureItem[] = [
         and sharing practical insights on modern software engineering.
       </>
     ),
-    link: '/collections/ai',
+    link: '/blog/tags/ai',
   },
   {
     title: 'Leadership & Growth',
@@ -42,7 +42,7 @@ const FeatureList: FeatureItem[] = [
         mentoring engineers to build better systems and careers.
       </>
     ),
-    link: '/collections/leadership',
+    link: '/blog/tags/leadership',
   },
   {
     title: 'Tennis & Life',
@@ -53,7 +53,7 @@ const FeatureList: FeatureItem[] = [
         Lessons from the court that apply to work and life.
       </>
     ),
-    link: '/collections/hobbies',
+    link: '/blog/tags/hobbies',
   },
 ];
 
