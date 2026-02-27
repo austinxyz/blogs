@@ -6,7 +6,7 @@
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://austinxyz.github.io/blogs/blog"/>
     <subtitle>Austin Xu Blog</subtitle>
-    <icon>https://austinxyz.github.io/blogs/img/favicon.ico</icon>
+    <icon>https://austinxyz.github.io/blogs/img/favicon.svg</icon>
     <entry>
         <title type="html"><![CDATA[[6/6] Claude Code: Conclusion and Future Outlook]]></title>
         <id>https://austinxyz.github.io/blogs/blog/2026/03/04/claude-code-conclusion</id>
