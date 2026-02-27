@@ -8,12 +8,12 @@ description: "A comprehensive 6-part series exploring AI-assisted programming th
 
 > Exploring best practices for AI-assisted programming (Vibe Coding) through the real development journey of the Finance project
 
-**Author**: Austin Xu
-**Project**: Family Finance Management System (Spring Boot + Vue 3 Full-Stack Application)
-**Development Period**: November 2025 - Present
-**Code Scale**: ~41,000 lines of code, 127 Java files, 33 Vue components, 25 database tables
-**Net Development Time**: ~20 hours (weekend and evening spare time)
-**GitHub**: [https://github.com/austinxyz/finance](https://github.com/austinxyz/finance)
+- **Author**: Austin Xu
+- **Project**: Family Finance Management System (Spring Boot + Vue 3 Full-Stack Application)
+- **Development Period**: November 2025 - Present
+- **Code Scale**: ~41,000 lines of code, 127 Java files, 33 Vue components, 25 database tables
+- **Net Development Time**: ~20 hours (weekend and evening spare time)
+- **GitHub**: [https://github.com/austinxyz/finance](https://github.com/austinxyz/finance)
 
 <!--truncate-->
 
@@ -202,13 +202,13 @@ This real project provides concrete examples throughout the series rather than t
 
 By the end of this series, you'll be able to:
 
-✅ **Understand Vibe Coding** - The new programming paradigm enabled by AI
-✅ **Use Claude Code Effectively** - Master Skills, Hooks, MCP, and CLAUDE.md
-✅ **Build Full Applications** - Complete development cycles from idea to deployment
-✅ **Adapt Methodologies** - Apply Agile, TDD, and OOP in the AI era
-✅ **Make Informed Decisions** - Know when to use (or not use) AI assistance
-✅ **Measure Productivity** - Quantify the impact of AI on development speed
-✅ **Avoid Common Pitfalls** - Learn from real-world challenges and solutions
+- ✅ **Understand Vibe Coding** - The new programming paradigm enabled by AI
+- ✅ **Use Claude Code Effectively** - Master Skills, Hooks, MCP, and CLAUDE.md
+- ✅ **Build Full Applications** - Complete development cycles from idea to deployment
+- ✅ **Adapt Methodologies** - Apply Agile, TDD, and OOP in the AI era
+- ✅ **Make Informed Decisions** - Know when to use (or not use) AI assistance
+- ✅ **Measure Productivity** - Quantify the impact of AI on development speed
+- ✅ **Avoid Common Pitfalls** - Learn from real-world challenges and solutions
 
 ---
 
