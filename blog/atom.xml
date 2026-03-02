@@ -2,11 +2,70 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://austinxyz.github.io/blogs/blog</id>
     <title>Austin Xu Blog</title>
-    <updated>2026-02-26T00:00:00.000Z</updated>
+    <updated>2026-03-01T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://austinxyz.github.io/blogs/blog"/>
     <subtitle>Austin Xu Blog</subtitle>
     <icon>https://austinxyz.github.io/blogs/img/favicon.svg</icon>
+    <entry>
+        <title type="html"><![CDATA[Does AI/Vibe Coding Really Deliver 10x Productivity?]]></title>
+        <id>https://austinxyz.github.io/blogs/blog/2026/03/01/ai-vibe-coding-10x-productivity</id>
+        <link href="https://austinxyz.github.io/blogs/blog/2026/03/01/ai-vibe-coding-10x-productivity"/>
+        <updated>2026-03-01T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Honest reflections on whether AI-assisted development actually delivers the 10x productivity promise — what works, what disappoints, and what it means at team scale.]]></summary>
+        <content type="html"><![CDATA[<p>In early 2026, Anthropic published a case study: 16 Claude agents, working in parallel Docker containers, wrote 100,000 lines of Rust code in a few weeks — a C compiler that could successfully compile the Linux kernel. The API bill came to roughly $20,000. By almost any measure, it was an extraordinary result.</p>
+<p>Then I mentioned it to a friend of mine, a CTO at a small startup. His response: <em>"The best strategy right now is probably to wait."</em></p>
+<p>That tension — between a genuine technical milestone and a seasoned engineer's skepticism — is what this post is really about.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-noise-around-10x">The Noise Around 10x<a href="https://austinxyz.github.io/blogs/blog/2026/03/01/ai-vibe-coding-10x-productivity#the-noise-around-10x" class="hash-link" aria-label="Direct link to The Noise Around 10x" title="Direct link to The Noise Around 10x" translate="no">​</a></h2>
+<p>The AI productivity conversation has a familiar shape. On one side: breathless claims about 10x engineers, the death of junior developers, and Karpathy's "Software 3.0." On the other: practitioners who've tried the tools and found the reality more complicated than the demos suggest.</p>
+<p>He cuts through both extremes well: when an entire industry's revenue depends on harvesting people's anxiety — <em>you'll be left behind if you don't adopt this now</em>, or <em>you can get rich with this immediately</em> — that's a warning sign. And he's right that most people claiming "AI works perfectly now" are overstating it.</p>
+<p>But the macro trend is real. The people dismissing it entirely are also wrong. The truth is somewhere more interesting than either camp admits, and I've spent the past several months trying to find it — through a personal finance management system, this blog system, and a resume screening agent.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-vibe-coding-disappoints-in-practice">Why Vibe Coding Disappoints in Practice<a href="https://austinxyz.github.io/blogs/blog/2026/03/01/ai-vibe-coding-10x-productivity#why-vibe-coding-disappoints-in-practice" class="hash-link" aria-label="Direct link to Why Vibe Coding Disappoints in Practice" title="Direct link to Why Vibe Coding Disappoints in Practice" translate="no">​</a></h2>
+<p>"Vibe coding" — Karpathy's term — describes a mode of development where you describe what you want in natural language and let the AI figure out the rest. It sounds liberating. In demos, it looks effortless. Here's what the demos don't show:</p>
+<p><strong>Sessions drift.</strong> AI models have context windows, and long conversations accumulate noise. After an hour of back-and-forth, the model loses track of constraints established early in the session. The code it writes in hour three doesn't quite match the architecture it agreed to in hour one.</p>
+<p><strong>Without tests, AI solves the wrong problem efficiently.</strong> This is the killer. If your verification loop is loose — if you're eyeballing the output — the AI will confidently build exactly what you didn't ask for. The Anthropic compiler team spent enormous effort on high-quality test suites precisely because an autonomous AI without a tight feedback loop goes off the rails at speed.</p>
+<p><strong>Spec-driven development feels like losing your pairing partner.</strong> I tried breaking features into 40+ granular tasks with full specs. It reduced chaos and the AI stayed on track. But it stopped feeling like pair programming. I was waiting, not collaborating. The overhead of maintaining the spec system started eating the productivity gains.</p>
+<p><strong>Multi-agent, multi-window multiplies your context switching, not the AI's.</strong> I experimented with running multiple Claude instances in parallel. The bottleneck turned out to be me — my own attention was the scarce resource.</p>
+<p>None of this means the tools don't work. It means they require a different discipline than the demos suggest.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-actually-gets-you-to-10x">What Actually Gets You to 10x<a href="https://austinxyz.github.io/blogs/blog/2026/03/01/ai-vibe-coding-10x-productivity#what-actually-gets-you-to-10x" class="hash-link" aria-label="Direct link to What Actually Gets You to 10x" title="Direct link to What Actually Gets You to 10x" translate="no">​</a></h2>
+<p>After months of daily use across multiple projects, these are the practices that actually move the needle.</p>
+<p><strong>1. CLAUDE.md is your foundation.</strong>
+A well-maintained project context file is the single highest-ROI investment you can make. It prevents the AI from repeating mistakes, re-learning your conventions, or contradicting decisions you've already made. Every time the AI does something wrong that it shouldn't have needed to be told, that goes in CLAUDE.md. The compounding effect is real.</p>
+<p><strong>2. Plan → Review → Execute, not vibe → fix → vibe.</strong>
+The workflow that works: use planning mode to design the approach, review it before touching code, then execute. I've been combining <code>planning-with-files</code> and <code>superpowers</code> skills for this — persistent markdown plans the AI can read across sessions, with structured review checkpoints. The overhead feels like friction until you realize how much rework you're avoiding.</p>
+<p><strong>3. Replace vibe with tools wherever you can.</strong>
+Every time you ask an AI to "figure out" something that's actually deterministic — reading a config, running a query, executing a known command sequence — you're introducing unnecessary uncertainty. MCPs, scripts, and templates convert vague AI judgment calls into reliable tool invocations. The more you constrain the problem space, the more predictable the output.</p>
+<p><strong>4. Tests close the loop.</strong>
+Not because testing is virtuous in some abstract sense, but because without automated verification, you can't let the AI work autonomously. Tests are what transform AI from an assistant that needs constant supervision into something that can run unsupervised. Contract-driven development — define the interface, let AI generate tests from it, then implement to pass those tests — has worked well for me.</p>
+<p><strong>5. Do less, better.</strong>
+AI makes it easy to generate a lot of things: documentation, boilerplate, edge case handlers, abstractions. Most of it makes the codebase worse. The discipline is subtraction: <code>.claudeignore</code> to keep the context clean, concise docs that stay synchronized, small iterations that stay reviewable. Complexity is cheap to create and expensive to maintain.</p>
+<p><strong>6. Agile thinking collapses into one person.</strong>
+The AI era has effectively collapsed the design/dev/test/deploy cycle for solo projects. What used to be sequential ceremonies — sprint planning, standup, review, retrospective — can now happen within a single focused session. Small iterations, tests first, immediate feedback. This is where the gains are most tangible and most reliable.</p>
+<p>The honest number? For the right tasks — greenfield features, focused refactors, documentation, test generation — I see something close to 3–5x on a good day. Not every day, not for everything. But consistently, for the tasks where it works, it's genuinely transformative.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="from-solo-to-team-scale">From Solo to Team Scale<a href="https://austinxyz.github.io/blogs/blog/2026/03/01/ai-vibe-coding-10x-productivity#from-solo-to-team-scale" class="hash-link" aria-label="Direct link to From Solo to Team Scale" title="Direct link to From Solo to Team Scale" translate="no">​</a></h2>
+<p>Here's where it gets complicated.</p>
+<p>Individual productivity gains are real. But organizations are not simply collections of individuals, and the math stops being straightforward when you try to reason about what AI means at team or company scale.</p>
+<p>If one engineer with AI can do the work of several, the immediate instinct is: <em>great, we need fewer people, or we can do more with the same team.</em> Both are probably partially true. But the dependencies between teams don't shrink just because individuals move faster. An IC who can build ten things still needs product decisions, design reviews, security sign-off, and infrastructure support. Individual speed can surface coordination costs more visibly than it resolves them.</p>
+<p>A few specific challenges I see at scale:</p>
+<p><strong>AI over-engineers collaboration surfaces.</strong> When AI generates perfect documentation, perfectly structured code, and exhaustive test coverage, it paradoxically becomes harder for colleagues to contribute. The bar for a pull request quietly rises. Disagreements become harder to resolve because the AI-generated baseline looks authoritative. Sometimes a messy codebase is easier to change than a pristine one.</p>
+<p><strong>Production risk doesn't disappear.</strong> An incident in production can cause irreversible damage — data loss, customer impact, compliance violations. AI cannot and should not have autonomous authority over production systems. The human-in-the-loop requirement isn't a limitation to work around; it's the right design. AI plans, humans approve and execute.</p>
+<p><strong>Skill atrophy is a real risk.</strong> If you rely on AI for every technical decision, what happens when the AI is wrong and you can't tell? The engineers who get the most from AI are the ones who understand what it's doing well enough to catch its mistakes. That requires maintaining real technical depth — which sometimes means doing things the hard way.</p>
+<p><strong>Management expectations can be the most dangerous failure mode.</strong> "If AI gives us 10x productivity, we should be doing 10x the work" — applied uncritically, this logic leads to burnout, quality collapse, and the loss of conditions that make AI-assisted development work in the first place.</p>
+<p>What helps at scale: shared MCP libraries that standardize how AI interacts with your systems, high cohesion and low coupling at the individual level so AI-assisted work has fewer dangerous blast radii, and honest conversations about what AI can and can't be trusted to do unsupervised.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-honest-answer">The Honest Answer<a href="https://austinxyz.github.io/blogs/blog/2026/03/01/ai-vibe-coding-10x-productivity#the-honest-answer" class="hash-link" aria-label="Direct link to The Honest Answer" title="Direct link to The Honest Answer" translate="no">​</a></h2>
+<p>AI/Vibe Coding is developing fast and the productivity gains are real. I've experienced them firsthand. But it's an easy-to-start, hard-to-master discipline. The ceiling is high. So is the learning curve.</p>
+<p>He's instinct to wait isn't wrong, exactly. The hype warrants skepticism, and the tools are still rough around the edges. But they aren't standing still. The gap between an engineer who has figured out how to work well with AI and one who hasn't is widening every month.</p>
+<p>The limiting factor isn't the tools anymore. The tools are good enough. The limiting factor is the engineer — their discipline, their taste, their willingness to invest in the feedback loops and context structures that let AI work well.</p>
+<p>The question isn't whether AI can deliver 10x. In the right conditions, it can, and then some. The question is whether you've built the conditions.</p>]]></content>
+        <author>
+            <name>Austin Xu</name>
+            <email>austin.xyz@gmail.com</email>
+            <uri>https://github.com/austinxyz</uri>
+        </author>
+        <category label="ai" term="ai"/>
+        <category label="career-development" term="career-development"/>
+        <category label="cloud-computing" term="cloud-computing"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[20 Years of Platform Engineering: Lessons from Building Cloud at Scale]]></title>
         <id>https://austinxyz.github.io/blogs/blog/2026/02/26/20-years-platform-engineering</id>
