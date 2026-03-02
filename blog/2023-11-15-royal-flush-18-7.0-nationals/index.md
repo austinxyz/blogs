@@ -11,7 +11,7 @@ description: "A thrilling account of Royal Flush team's incredible journey to th
 
 November 12, 2023, Sunday, 9:00 AM Eastern Time. While most Californians were still asleep, Orlando, Florida was bathed in bright sunshine. At the scenic USTA National Campus, the home of American tennis, two California teams were engaged in an intense semifinal match by the lakeside.
 
-![USTA National Campus](./images/image1.jpg)
+![USTA National Campus](./images/image4.jpg)
 
 <!--truncate-->
 
@@ -21,7 +21,7 @@ Representing Southern California was the traditional powerhouse **Wild Cards**, 
 
 Representing Northern California was our **Royal Flush** team. A newly formed team under rookie captain Soha, we had already achieved remarkable success with three NorCal championships. Some team members had just won the 40+ 7.0 Mixed National Championship the previous week, so we should have been equally formidable.
 
-![NorCal 18+ Mixed 7.0 Champions](./images/image2.jpg)
+![NorCal 18+ Mixed 7.0 Champions](./images/image10.jpg)
 
 However, the process was exceptionally difficult. With planes constantly flying low overhead and their roaring sounds, tennis balls were bombarding the court like cannonballs. Austin had no resistance, getting bageled in 40 minutes. Team score: 0-1. Critical! Losing any other match would mean losing the semifinal.
 
@@ -33,7 +33,7 @@ Our team is called **Royal Flush** - a name symbolizing unity among tennis lover
 
 Our captain Soha, though a rookie captain, was professional and hardworking. Living in the East Bay but establishing the team's home court in Palo Alto, he frequently traveled between the two, actively organizing team practices, discovering new talent, and recruiting strong players. He was also excellent at communication, motivation, and strategic lineup planning, creating exceptional team cohesion.
 
-![Team practice celebrating a player's birthday](./images/image3.jpg)
+![Team practice celebrating a player's birthday](./images/image9.jpg)
 
 NorCal USTA was rapidly rising. Last year they won multiple National championships including 7.0 in mixed doubles, and this year championship team members had to be distributed across different teams. Post-pandemic, the Bay Area Chinese tennis community continued expanding. Hong organized various tennis tournaments, and many new talents quickly emerged. Through the captain's sincere invitations, leveraging the Chinese community while attracting strong players from different ethnicities, a powerful team quickly took shape.
 
@@ -43,7 +43,7 @@ The 18+ mixed doubles league is USTA's earliest starting competition of the year
 
 At the end of April Sectionals, the team competed on two fronts simultaneously - Mixed 6.0 and 7.0.
 
-![Royal Flush Sectional Championship Photo](./images/image4.jpg)
+![Royal Flush Sectional Championship Photo](./images/image16.jpg)
 *From left to right: Amy, Austin, Vanessa, Zuhal, Bobby, Gil, Soha, Scott, Esther, Tim, Henry, Ouyang Xun*
 
 We encountered some setbacks with several injured players unable to compete. With 6.0 and 7.0 sharing main players, lineup arrangements were stretched thin. The captain strategized to secure the 7.0 championship while competing for 6.0.
@@ -54,13 +54,13 @@ The 7.0 team went undefeated in group play. In the semifinals against last year'
 
 Over the next six months, targeting Nationals, we began sustained team practices and lessons. I joined the team, spending almost every Friday evening at Cuesta team practices. But seeing so many super strong combinations on the team, I thought this Orlando trip would just be watching the excitement. Friends said Florida is the home of American tennis, and the USTA National Campus is the ultimate destination - an opportunity worth taking.
 
-![Team practice celebrating player birthdays](./images/image5.jpg)
+![Team practice celebrating player birthdays](./images/image6.jpg)
 
 So I booked a very tight schedule: flying Thursday night midnight, arriving Friday morning, flying back Sunday night, returning to San Jose Monday morning - I could even work remotely without taking time off!
 
 In September, the team had consecutive victories, winning 40+ mixed doubles 6.0 and 7.0 Sectional championships, also representing NorCal at Nationals. The captain assigned me to lead the 40+ 7.0 National team in early November. With strong players and reasonable lineup strategy, Royal Flush successfully won our first National championship.
 
-![Royal Flush 40+ 7.0 National Champions](./images/image6.jpg)
+![Royal Flush 40+ 7.0 National Champions](./images/image5.jpg)
 *From left to right: Austin, Mitta, Don, Lauren, Paolo, Amy, Ross, Tomami, Bala, Keri, Johnny, Judy*
 
 As someone just "watching the excitement," I had already felt the intense atmosphere of Nationals and enjoyed the immense joy of winning a championship. Unfortunately, a key player Amy was injured during competition, creating uncertainty for the 18+ 7.0 tournament a week later, giving everyone an ominous feeling.
@@ -85,7 +85,7 @@ Misfortunes never come alone - similar situations occurred with female players:
 
 **One day before:** Our only 3.5 Zuhal was injured during a clinic after arriving in Florida, unable to walk or run.
 
-![Zuhal's injured leg](./images/image13.jpg)
+![Zuhal's injured leg](./images/image12.jpg)
 
 Female players were down to two 3.0 warriors Esther and Vanessa, plus injured Amy who planned to be a cheerleader. Amy realized if she didn't play, we'd have to default a court. "No way! At least I can barely run a few steps, better than Zuhal's situation."
 
@@ -119,7 +119,7 @@ November 10, Friday, 9:30 AM, facing first opponent Northern. Northern wasn't a 
 
 Let me introduce my partner **Vanessa Graciano**. She restarted tennis 3 years ago, focusing on mixed doubles with incredible dedication. She joined multiple USTA teams to improve match abilities, took lessons with coaches, did team practices - could play 8 hours daily, even traveled out of state for USTA matches. Her tennis level skyrocketed in the past year.
 
-![Vanessa and Austin in match](./images/image7.jpg)
+![Vanessa and Austin in match](./images/image1.jpg)
 
 Our opponents were a 3.5 combination - the man had powerful serves and placement but poor movement, the woman liked net play but could be lobbed, and they made more errors. We won 6-1, 6-2, finishing earliest, then D1/D2 also won decisively. 3-0, team won the first round with a flying start.
 
@@ -138,7 +138,7 @@ Let me introduce **Scott Jen**. Post-pandemic USTA participant with good fundame
 
 At the critical moment, they held firm and gradually adapted to his serve. The woman was the weakness. Scott/Amy targeted her serve game weakness and reversed 7-5 to take the first set. Down 1-3 early in the second set, they stayed calm, got bolder, broke opponent's serves consecutively. After setbacks, opponents made more errors and collapsed on court in frustration. 6-3, we won D2 - beautiful reversal!
 
-![Opponent collapsed](./images/image9.jpg)
+![Opponent collapsed](./images/image20.jpg)
 
 D3 also reversed. Under Don's experienced leadership, despite a rough start, they quickly found opponent weaknesses, reversed 7-5 in the first set, then easily took the second. 2-0, team won.
 
@@ -148,7 +148,7 @@ Second set we made changes, swapping positions - I took Court 1 forehand side to
 
 Day 1 ended - two beautiful 3-0 sweeps, unexpected delight. Among 16 teams, we ranked first!
 
-![Day 1 rankings](./images/image10.jpg)
+![Day 1 rankings](./images/image13.jpg)
 
 I rushed back to the hotel to sleep. From 6:00 AM the previous day, through 9 hours work, 9 hours travel, 9 hours on court - a full 31 hours later, I could finally sleep. Other teammates celebrated the first day's victory at a boba shop!
 
@@ -166,7 +166,7 @@ Match delayed one hour due to fog, starting at 10:30. No surprise - they still f
 
 A harsh wake-up call - our easiest winning combination from yesterday, Don/Esther, quickly lost 1-6, 4-6 to opponents. Team down 0-1, we had to win both remaining courts to prevail. Unfortunately, both courts went to super tiebreaks. Started poorly, both opponents jumped to quick 5-0 leads, and both tiebreaks were lost. Team swept 0-3. Indeed, Singles Day is for sweeping - we got swept!
 
-![Scott heartbroken after losing critical tiebreak](./images/image11.jpg)
+![Scott heartbroken after losing critical tiebreak](./images/image19.jpg)
 
 After three rounds, team record 2-1, individual courts 6-3, we ranked 4th. Though our fate remained in our own hands, competitors were numerous - 5 teams also 2-1. The final round HAD to be 3-0 to ensure top four advancement!
 
@@ -174,13 +174,13 @@ Final round opponent: **Intermountain**. Yesterday they beat Mid-Atlantic, and t
 
 Lineup strategy became crucial, and lineup can't work without knowing opponents. Let me introduce our chief scout **Paul Chen** - veteran USTA captain with 10+ years experience, former 4.5 standout. Though he didn't Qualify for Nationals due to insufficient regular season matches, he still came to USTA National Campus, and proved invaluable.
 
-![Chief scout Paul with SoCal captain](./images/image14.jpg)
+![Chief scout Paul with SoCal captain](./images/image11.jpg)
 
 While we faced Mid-Atlantic, Paul busily recorded Intermountain vs SoCal matches, capturing video segments of each court, analyzing each player's strengths/weaknesses, comparing with our team combinations. He provided precious firsthand intel for captain's lineup decisions.
 
 Paul was also our chief photographer, cheer captain, driver, and coach. He partnered with me to win the Hecares Gold Division doubles championship, reversing three super tiebreaks across four rounds, producing a quantum leap in my match ability (technique and mental game). These experiences hugely helped winning at Nationals.
 
-![Paul and Austin winning Hecares](./images/image15.jpg)
+![Paul and Austin winning Hecares](./images/image2.jpg)
 
 Based on Paul's intel and their previous lineups, Captain Soha determined our court order:
 
@@ -226,184 +226,88 @@ We won 6-3, 7-5! No super tiebreak needed!
 
 **Team swept Intermountain 3-0!**
 
-![Team celebration after securing semifinals](./images/image16.jpg)
+![Day 2 Ranking](./images/image14.jpg)
 
-Everyone rushed onto court, hugging, shouting, crying! We did it! Against all odds, with injured players, we secured a semifinals spot!
+## A Thrilling Semifinal: Lead Slips Away
 
-Looking at the scoreboard - with this 3-0 sweep, we jumped to **2nd place** overall! We'd face 1st place SoCal Wild Cards in tomorrow's semifinals!
+*”Super tiebreak!”* — the startled exclamations around me snapped me out of my memories. When I refocused, the air around us was so thick with tension it was almost suffocating. I should introduce our opponents:
 
-## Semifinals: The Battle Against SoCal
+- **D1:** Don + Esther vs. Priscilla/David Lui (D1 mainstays of the 3.5 National runner-up team)
+- **D2:** Vanessa + Austin vs. Mariam/Anthony (strong 4.0 male who also competes in 7.0/9.0 National Mixed)
+- **D3:** Scott + Amy vs. Jin/Lauren (strong 4.0 female; main players on last year’s National Mixed 8.0 championship team)
 
-Back to the opening scene - November 12, Sunday morning 9:00 AM, semifinals against SoCal Wild Cards.
+On D2, Anthony — who also plays 9.0 — had already dismantled us completely. The super tiebreak now underway was D1. Don and Esther had taken the first set with surprising ease at 6-1, but the second set turned on a dime: opponents returned the favor 6-1. In the super tiebreak they fell behind throughout, but at the critical moment Don’s experience and Esther’s fearless fighting spirit pulled them through — 10-8, tying the team score at 1-1.
 
-This was the match determining whether we'd medal. Wild Cards was incredibly strong - they'd swept all three preliminary rounds 3-0, dominating performance.
+Let me introduce **Esther Chen** — a sweet, somewhat shy young player who started competing in USTA this year. She began with almost no match experience, but rapidly developed through Royal Flush’s team practices and competitions. Her backhand groundstrokes are now solid and her net overheads are sharp. After Amy’s injury, she stepped up as the team’s top female 3.0. She had just won the 18+ 3.0 Women’s National Championship.
 
-Captain Soha gave pre-match pep talk: "We've already exceeded expectations. Whatever happens today, we should be proud. But let's give it our all - we have nothing to lose!"
+![Esther in match](./images/image18.jpg)
 
-**Team lineup:**
-- D1: Scott + Amy
-- D2: Don + Esther
-- D3: Vanessa + Austin
+All eyes shifted to D3. Opponent’s 4.0 female Lauren was very aggressive at net; 3.0 male Jin played with the power of a 4.0 male, with solid groundstrokes — the two had gone undefeated in all four previous matches. Scott/Amy took a 3-0 lead in the first set, but opponents clawed back and won the tiebreak. Now deep in the second set, Amy’s injury was clearly affecting her play, and Scott was running on empty, his Achilles tendon quietly aching. 4-3, Amy serving — hold here and the second set was theirs. 30-0, looking smooth. 40-15, one point away. But Scott at the net rushed his shots and made consecutive errors: broken, 4-4.
 
-9:00 AM sharp, match began. Three courts started simultaneously, surrounded by spectators - this was the highest-profile match.
+The second chance arrived — Lauren was visibly nervous, making consecutive serve errors. Broken: 5-4. Scott serving for the match! Every NorCal and SoCal player and family member was on their feet cheering. Tina, who had just finished winning bronze in the Mixed 9.0 3rd/4th place match, rushed over to join the rally. I was too anxious to watch and stepped away to the restroom. When I came back, I heard the deflated sighs — Scott couldn’t hold his serve, 5-5. Opponents then held and broke to take the second set. D3 lost. SoCal advanced to the final.
 
-D3 (my court) faced their strongest combination - a former 5.0 man and strong 3.5 woman. As mentioned at the opening, I was completely dominated. Their man's serves were unreturnable, groundstrokes overpowering, and their teamwork seamless. I could barely touch the ball. In 40 minutes we were bageled 0-6, 2-6.
+Six players who had played all five matches — everyone had given everything they had, nearly spent.
 
-**Team down 0-1.**
+![SoCal’s powerful D3: Lauren and Jin in match](./images/image17.jpg)
 
-I sat courtside devastated, watching the other two courts. Were we going to lose here? Come so far just to fall in semifinals?
+## Bronze Medal Battle: A Legendary Partnership’s Final Act
 
-NO! I looked up - both D1 and D2 were still fighting!
+But the competition wasn’t over. We still had the 3rd/4th place match — and we wanted the best result possible.
 
-**D1: Scott/Amy** were in a fierce battle. First set they lost 4-6, but second set they fought back, breaking serve early to lead 3-1. Scott was playing lights out - aggressive returns, solid volleys, making few errors. Amy was moving better than yesterday, covering the court well despite her injury. They won the second set 6-3!
+Our opponent was Southern, who had finished 2nd in the round-robin, losing only to eventual champion Texas in the semifinal. Seeing that Southern consistently put their strongest combination at D1, Captain Soha deployed a “Tian Ji’s horse racing” strategy — deliberately mismatching positions to gain a favorable edge:
 
-Super tiebreak - they jumped to a 5-2 lead! Could they pull off the upset?
+- **D1:** Vanessa + Austin
+- **D2:** Scott + Esther
+- **D3:** Don + Amy
 
-**D2: Don/Esther** also split sets. Lost first set 4-6, but Don's experience showed - he was reading opponents perfectly, placing balls precisely. Esther was hitting winners from the baseline. They won the second set 6-4!
+This lineup also gave Don and Amy the opportunity to play one final National 7.0 match together before Amy moved up to 3.5.
 
-Now both courts in super tiebreaks! The entire team surrounded the courts, cheering wildly!
+Let me properly introduce the **legendary partnership of Don and Amy**. Don Scettrini was a USTA 5.0 in his youth and is now rated 4.0, with extraordinary USTA experience: over 20 National appearances, 5 championships. Remarkably consistent, a lefty who can place the ball precisely anywhere on the court when under pressure, and reliably converts advantages into points when ahead. **Amy Yang** is an accomplished amateur badminton player with impressive tournament results. She took up tennis after COVID and began playing USTA last year — not long, but she improved at a remarkable pace. Her hallmarks: incredible consistency, mental toughness, solid at the baseline, aggressive at net, and tactically versatile.
 
-**D1 super tiebreak:** Scott/Amy maintained their lead. 7-4, then 8-5, then 9-6 - three match points! First one saved by opponent. Second one - Scott's volley winner!
+Since first partnering with Don in January the previous year, the two became unstoppable. Together they dominated Mixed 7.0 across 18+ and 40+ leagues — partnering 37 times in regular season, playoffs, Sectionals, and Nationals (including 16 National matches) — 31 wins, 5 retirements (because the team had already clinched), and only one loss. They claimed the 2022 40+ 7.0 National championship, the 18+ 7.0 National championship, and the 2023 40+ 7.0 championship — **three consecutive titles**. Amy also won the 18+ 3.0 Women’s National Championship just weeks prior.
 
-**THEY WON 10-6!**
+![Don and Amy in match](./images/image3.jpg)
 
-**Team tied 1-1!**
+As expected, once play began, Don and Amy moved in perfect sync — dismantling their opponents with back-to-back 6-2, 6-2 wins. Team score: 1-0.
 
-All pressure now on Don/Esther! Their super tiebreak was tighter - tied 5-5, then 6-6, then 7-7. Every point crucial!
+![Don and Amy embracing after match](./images/image7.jpg)
 
-8-7, our advantage. Then 9-7 - two match points! First saved. Second one - Don's perfect lob over opponent's head, Esther's overhead smash - **WINNER!**
+Then — no miracles for us — Vanessa and I lost to the opponent’s D1 sibling duo. Tied 1-1. All eyes moved to D2: the young combination of **Scott and Esther**, who would decide which team went home with bronze.
 
-**THEY WON 10-8!**
+Evenly matched. First set, Scott/Esther took it in a tiebreak. Second set, opponents evened it up 6-4. Super tiebreak — another super tiebreak. The painful memory of the Mid-Atlantic super tiebreak loss was still fresh. Would history repeat?
 
-**TEAM WON 2-1!**
+Fortunately the start was smooth: 4-1... 7-4... 9-6 — **three match points**. Then Scott’s volley caught the net. Esther’s overhead flew long. 9-8. Opponents serving — hearts in throats.
 
-**WE BEAT SOCAL! WE'RE IN THE FINALS!**
+After a few exchanges, Scott hit a beautiful crosscourt volley winner to seal it. We held on. **We won.** The entire court erupted.
 
-![Team celebration after semifinals win](./images/image17.jpg)
+![Scott and Esther after winning](./images/image22.jpg)
 
-Unbelievable! We actually beat the tournament favorites! The underdogs advanced to finals!
+Royal Flush’s 18+ Mixed 7.0 National journey was complete. Six players. Three days. Six matches. Obstacle after obstacle, fighting with everything they had until completely spent — and in the end, a hard-won bronze medal that will never be forgotten.
 
-Everyone was crying, screaming, jumping! Even captain Soha, who'd remained calm all tournament, had tears streaming down his face!
+## Awards and Acknowledgments
 
-We were guaranteed at least **Silver Medal** - already exceeding every expectation!
+![Royal Flush bronze medal award photo](./images/image15.jpg)
 
-## Finals: The Bronze Medal Match
+*From left to right: Austin, Esther, Scott, Vanessa, Soha, Paul, Tina, Don, Amy*
 
-After semifinals, we checked standings. With 3 wins, three teams made finals bracket:
-- 1st: **Florida** (4-0)
-- 2nd: **Royal Flush** (3-1)
-- 3rd: **Mid-Atlantic** (3-1)
+Here are the captain’s words of thanks:
 
-Finals structure: 1st played 2nd for Gold/Silver, loser got Bronze. 3rd got Bronze if 2nd lost.
+> Congratulations to the Royal Flush team in winning 3rd place at the 2023 18+ 7.0M USTA Nationals, representing NorCal in Orlando. I want to congratulate and thank all the players that have given their 150% in competing for every intense match on the court. And thanks to all the supporters who have given their cheering and positive energy for the team. Without any of your presence — both players and supporters — we won’t be able to make it this far. So thank you 🙏
+>
+> We were left with only 6 players, none of them in top condition and some still injured. Regardless, these 6 warriors stood up and fought in 6 intense matches across 3 days in Florida’s hot and humid weather. Despite all odds, we still made it to 3rd place at the 2023 18+ 7.0M USTA Nationals — out of approximately 2,000 teams and 33,000+ players. As the captain, I couldn’t have asked for more, and I am very proud of the team. We have already made history in USTA for these reasons:
+> - Only 6 players (in diminished condition) competed in all 6 intense National matches
+> - Two 3.5/3.0 (6.5) lines and one 4.0/3.0 (7.0) line throughout all 6 matches
+>
+> As the captain of Royal Flush, I don’t need a plate or banner to show our team is a champion. We were already champions when we made it to the semifinals in our condition. I am so proud of you all — thank you for the determination and hard work that created such precious and unforgettable memories together.
 
-We faced Florida at 1:30 PM for Gold/Silver match. Wild Cards faced Mid-Atlantic for Bronze.
+And the heartfelt farewell words from our legendary partners, Amy and Don:
 
-**Reality Check:**
+> **Amy:** I want to thank Don for carrying me through this two-year partnership. I have been extremely lucky to partner with Don the Master for my first USTA match and then 36 more afterwards. As a tennis newbie, I learned so much from Don — every match felt like a private lesson. We don’t talk a lot on the court, but the chemistry is always there 😂. Don is a legend, a role model, a rock in every match. What an unforgettable journey! Thank you, Don Scettrini!
 
-After semifinals euphoria, we assessed honestly. Amy's injury worsened from overexertion. She could barely walk. Don, at 70 years old, had played 4 grueling matches in 2 days. Esther was exhausted. Scott was drained mentally and physically.
+> **Don:** Thank you, Amy Yang, for partnering with me these past 2 amazing years. You are the common denominator in all the winning partnerships you’ve had since you started playing USTA. You are the ideal partner — you learn so quickly and have adapted to the different playing styles of every partner. Your mental toughness and warrior mentality take you to the next level. You never give up and keep pushing to victory even with injuries. I’ve been so lucky to have partnered with you and will cherish our memories together. You will certainly have success at 8.0 with any partner.
 
-And we faced Florida - the undefeated team that swept us 3-0 on Day 1. They'd only gotten stronger since.
+This golden 7.0 mixed doubles partnership has run its course for now — but their rich experience, sportsmanship, and team spirit brought cohesion to the team and set a wonderful example for newer players. They are exactly the kind of teammates every captain hopes to have.
 
-Captain Soha gathered us: "Guys, we've already won Silver minimum. That's incredible. Florida is undefeated for a reason - they're the best team here. I won't ask you to kill yourselves when you're injured and exhausted. Let's do our best, but know that Bronze Medal is nothing to be ashamed of."
+## Postscript
 
-Everyone agreed. We'd fight, but wouldn't destroy our bodies for Gold when Bronze was already amazing.
-
-**Finals lineup:**
-- D1: Vanessa + Austin
-- D2: Scott + Amy
-- D3: Don + Esther
-
-1:30 PM, finals began. From the start, Florida dominated. All three courts fell behind quickly.
-
-My court faced the same opponents from Day 1 - we'd beaten them in a super tiebreak then, but today they were determined. They won the first set 6-2.
-
-Scott/Amy and Don/Esther also lost their first sets 6-3 and 6-4 respectively.
-
-Second sets, we fought hard but fatigue and injuries caught up. One by one, courts fell:
-
-Don/Esther lost 4-6.
-Scott/Amy lost 3-6.
-We lost 2-6.
-
-**Team lost 0-3.**
-
-**Florida won Gold. We got Silver.**
-
-Wait - that's not right!
-
-Actually, there was a twist. The finals format meant:
-- Winner gets Gold
-- Loser gets Silver
-- But Mid-Atlantic also won their Bronze medal match
-
-So final standings:
-- **Gold: Florida** (5-0)
-- **Silver: Mid-Atlantic** (4-1)
-- **Bronze: Royal Flush** (3-2)
-
-Hold on, let me recalculate based on the rules...
-
-Actually, I need to check the actual tournament results. Let me create the correct ending:
-
-## The Bronze Medal
-
-After four grueling rounds over three days:
-
-**Final Tournament Standings:**
-1. **Gold Medal: Florida**
-2. **Silver Medal: Southern California Wild Cards**
-3. **Bronze Medal: Royal Flush** ⭐
-
-We finished **3rd place out of 16 teams nationwide!**
-
-Against all odds, with:
-- Multiple injured players
-- Last-minute lineup changes
-- Only 1 male 4.0 player
-- Several players unable to walk properly
-
-We achieved the **impossible**: a Bronze Medal at USTA Nationals!
-
-![Bronze Medal Celebration](./images/image18.jpg)
-
-## Reflections
-
-This journey taught us invaluable lessons:
-
-**Teamwork:** When individuals are limited, the team's collective strength becomes everything.
-
-**Resilience:** Never give up, even when facing impossible odds.
-
-**Adaptability:** Injuries and setbacks require creative solutions and flexibility.
-
-**Trust:** Trusting your captain's decisions and your teammates' abilities.
-
-**Heart:** Sometimes heart and determination matter more than skill level.
-
-## Thank You
-
-Special thanks to:
-
-**Captain Soha** - For brilliant strategy and never losing faith
-
-**Paul Chen** - Chief scout, photographer, coach, and moral support
-
-**Don** - 70 years old, playing with the heart of a champion
-
-**Amy** - Playing through injury when we needed her most
-
-**Scott, Esther, Vanessa** - Rising to every challenge
-
-**Zuhal, Tina** - Supporting from sidelines despite inability to play
-
-And everyone who believed in Royal Flush!
-
-![Team Photo](./images/image19.jpg)
-
-This Bronze Medal represents more than a tournament result - it represents the spirit of never giving up, the power of teamwork, and the magic that happens when people fight for each other.
-
-**Royal Flush 18+ 7.0 Mixed - 2023 USTA National Bronze Medalists! 🥉🏆**
-
----
-
-*Special memories from USTA National Campus, Orlando, Florida - November 10-12, 2023*
+On the same day, a few hours later in San Diego, the Royal Flush 40+ 6.0 Mixed team — directed behind the scenes by Soha and led on court by Christy — defeated an Eastern powerhouse to claim the 40+ 6.0 Mixed National Championship. With USTA Nationals now concluded, Royal Flush finished the year with two National championships (40+ 6.0 and 7.0), a National bronze (18+ 7.0), and also helped the 18+ 2.5 Women’s team earn a National bronze — a richly rewarding season all around. We welcome strong players of all backgrounds to join our team and chase even greater achievements in the year ahead.
