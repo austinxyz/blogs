@@ -1,0 +1,22 @@
+# Dependencies - largest token savings (~30k-100k tokens)
+node_modules/
+
+# Build outputs
+build/
+.docusaurus/
+
+# Lock files - large and not useful to read
+package-lock.json
+
+# Static binary assets
+static/img/
+static/downloads/
+blog/**/*.jpg
+blog/**/*.jpeg
+blog/**/*.png
+blog/**/*.gif
+blog/**/*.webp
+blog/**/*.svg
+
+# Misc
+.git/
