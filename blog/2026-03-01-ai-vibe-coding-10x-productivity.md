@@ -58,6 +58,12 @@ AI makes it easy to generate a lot of things: documentation, boilerplate, edge c
 **6. Agile thinking collapses into one person.**
 The AI era has effectively collapsed the design/dev/test/deploy cycle for solo projects. What used to be sequential ceremonies — sprint planning, standup, review, retrospective — can now happen within a single focused session. Small iterations, tests first, immediate feedback. This is where the gains are most tangible and most reliable.
 
+**7. Build and maintain a knowledge base.**
+Architecture decision records, design best practices, conventions your team has settled on — these matter enormously. When the AI has access to well-structured reference material, it stops guessing and starts reasoning from your actual context. A good knowledge base is the difference between an AI that understands your system and one that hallucinates a plausible-looking alternative.
+
+**8. Give it an example to copy from.**
+This one is underrated. When I provide a concrete reference — an existing component, a similar API, a prior implementation — the output quality jumps dramatically. AI is exceptionally good at pattern-matching and adaptation. Without an example, it invents its own patterns. With one, it extends yours. The difference in speed and quality is easily 10x.
+
 The honest number? For the right tasks — greenfield features, focused refactors, documentation, test generation — I see something close to 3–5x on a good day. Not every day, not for everything. But consistently, for the tasks where it works, it's genuinely transformative.
 
 ## From Solo to Team Scale
@@ -84,7 +90,7 @@ What helps at scale: shared MCP libraries that standardize how AI interacts with
 
 AI/Vibe Coding is developing fast and the productivity gains are real. I've experienced them firsthand. But it's an easy-to-start, hard-to-master discipline. The ceiling is high. So is the learning curve.
 
-He's instinct to wait isn't wrong, exactly. The hype warrants skepticism, and the tools are still rough around the edges. But they aren't standing still. The gap between an engineer who has figured out how to work well with AI and one who hasn't is widening every month.
+His instinct to wait isn't wrong, exactly. The hype warrants skepticism, and the tools are still rough around the edges. But they aren't standing still. The gap between an engineer who has figured out how to work well with AI and one who hasn't is widening every month.
 
 The limiting factor isn't the tools anymore. The tools are good enough. The limiting factor is the engineer — their discipline, their taste, their willingness to invest in the feedback loops and context structures that let AI work well.
 
