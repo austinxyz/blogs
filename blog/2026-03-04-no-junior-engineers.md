@@ -51,7 +51,7 @@ I've interviewed a lot of junior engineers over the past few years. My honest as
 - **Technical curiosity.** They adopt new tools fast — AI assistants, new frameworks, emerging practices. They're not waiting for permission to experiment.
 - **Coding fundamentals.** Algorithms, data structures, design patterns — most candidates have solid foundations. The baseline has risen significantly.
 - **Communication.** They can articulate their thinking clearly and hold their own in technical discussions with senior engineers. This used to be a major gap; it's much less so now.
-- **Real-world exposure.** Many have done open source work, side projects, or even early-stage startup experience before they walk into the interview. The resume at 22 looks different than it did ten years ago.
+- **Real-world exposure.** Many have done open source work, side projects, or even early-stage startup experience before they walk into the interview. 
 
 **Where I still see gaps:**
 
@@ -75,7 +75,11 @@ Here's how I think about the core engineering competencies in the AI era:
 
 The last row is where I see the most opportunity for early-career engineers. Everyone is starting from roughly the same place on AI-native development practices — Spec Driven Development, structured prompting, AI-assisted code review. A junior engineer who masters these workflows early isn't just keeping up; they're potentially ahead of senior engineers who haven't adapted.
 
-Paul Graham noted something interesting recently: historically, a 28-year-old programmer was significantly more productive than a 22-year-old, simply due to accumulated experience. That gap is closing. A 22-year-old who uses AI well can now produce at the level of a 28-year-old who doesn't. The experience premium is compressing.
+Paul Graham [captured this dynamic well on X](https://x.com/paulg/status/1746626025964875965), relaying an observation from a tech CEO:
+
+> "Usually 28 year olds are more productive programmers than 22 year olds, because they have more experience. But apparently 22 year olds are now as good as 28 year olds because they're more at ease using AI."
+
+The experience premium is compressing. The engineers who've spent years building up a productivity advantage through accumulated context are seeing that advantage erode — not because experience stopped mattering, but because AI is leveling the execution baseline faster than experience can differentiate it.
 
 ## A Concrete Roadmap for Early-Career Engineers
 
@@ -89,7 +93,7 @@ Given all this, here's how I'd advise a junior engineer to allocate their develo
 
 **Use AI to accelerate your experience curve.** This is the real unlock. The traditional path to large-scale system experience takes years of being in the right place at the right time. AI can compress this by letting you simulate design decisions, explore failure modes, and understand system behavior before you've lived it. Use it that way, not as a code autocomplete.
 
-**Go deep on AI-native development practices.** Spec Driven Development, structured context management, agentic workflows — these aren't hype. They're a genuine productivity multiplier, and the playing field is relatively level right now. Junior engineers who master them early will have a real advantage.
+**Go deep on AI-native development practices.** Vibe Coding, Spec Driven Development, structured context management, agentic workflows — these aren't hype. They're a genuine productivity multiplier, and the playing field is relatively level right now. Junior engineers who master them early will have a real advantage.
 
 ## The Profiles That Actually Worry Me
 
