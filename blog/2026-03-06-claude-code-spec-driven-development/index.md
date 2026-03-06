@@ -88,8 +88,6 @@ openspec init
   Align upfront       Implement           Lock in spec
 ```
 
-![OpenSpec three-phase flow](./images/openspec_flow.svg)
-
 OpenSpec is used in Claude Code as three Skills:
 
 ### Phase 1: `/opsx:propose`
