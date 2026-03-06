@@ -4,10 +4,143 @@
         <title>Austin Xu Blog</title>
         <link>https://austinxyz.github.io/blogs/blog</link>
         <description>Austin Xu Blog</description>
-        <lastBuildDate>Wed, 04 Mar 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 06 Mar 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[[7/6] Claude Code: From Vibe Coding to Spec-Driven Development]]></title>
+            <link>https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development</link>
+            <guid>https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development</guid>
+            <pubDate>Fri, 06 Mar 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[After 40,000 lines of Vibe Coding, I hit a wall. Here's how Spec-Driven Development with OpenSpec fixed the drift problem — and cut feature delivery time to under an hour.]]></description>
+            <content:encoded><![CDATA[<p><em>This is an extended chapter to the <a class="" href="https://austinxyz.github.io/blogs/blog/tags/claude-code">6-part Claude Code series</a>. The first six chapters documented building a full-stack Finance app using Vibe Coding. This chapter covers what came next.</em></p>
+<p>After accumulating 40,000 lines of code with Vibe Coding, a structural problem surfaced:</p>
+<blockquote>
+<p><strong>AI writes code fast. AI also goes off-track fast.</strong></p>
+</blockquote>
+<p>One vague sentence in, AI understands 70% of the requirement and sprints full-speed for two hours — then you realize the core logic is wrong and have to start over. This chapter documents switching to <strong>Spec-Driven Development (SDD)</strong> using <strong>OpenSpec</strong>, completing three production features, and measuring the difference.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-pain-points-that-forced-the-change">The Pain Points That Forced the Change<a href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development#the-pain-points-that-forced-the-change" class="hash-link" aria-label="Direct link to The Pain Points That Forced the Change" title="Direct link to The Pain Points That Forced the Change" translate="no">​</a></h2>
+<p>Before adopting SDD, these problems kept recurring in the Finance project:</p>
+<ul>
+<li class=""><strong>No upfront design</strong>: AI jumped straight to implementation, architectural issues only surfaced after the fact</li>
+<li class=""><strong>AI drift</strong>: without clear task boundaries, a vague requirement could produce wildly different code quality across sessions</li>
+<li class=""><strong>Tests routinely skipped</strong>: Vibe Coding defaults to "get it running first," tests become optional</li>
+<li class=""><strong>Slow debugging</strong>: back-and-forth with AI was inefficient when there were no clear task boundaries to anchor the conversation</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-is-spec-driven-development">What is Spec-Driven Development<a href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development#what-is-spec-driven-development" class="hash-link" aria-label="Direct link to What is Spec-Driven Development" title="Direct link to What is Spec-Driven Development" translate="no">​</a></h2>
+<p>The core principle: <strong>reach consensus before writing code</strong>.</p>
+<p>In Vibe Coding, the flow is:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Idea → One-liner prompt → AI starts coding → Iterate as you go</span><br></span></code></pre></div></div>
+<p>In SDD, the flow is:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Idea → Structured proposal → Task checklist → AI implements by checklist → Archive spec</span><br></span></code></pre></div></div>
+<p>The difference isn't the tooling — it's <strong>when decisions are made</strong>. SDD forces all important decisions (feature scope, technical approach, acceptance criteria) to happen before coding begins, locking them into documents that constrain AI to execute within a well-defined space.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="openspec-the-tool">OpenSpec: The Tool<a href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development#openspec-the-tool" class="hash-link" aria-label="Direct link to OpenSpec: The Tool" title="Direct link to OpenSpec: The Tool" translate="no">​</a></h2>
+<p>OpenSpec is a lightweight CLI built specifically for SDD. Its project structure:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">openspec/</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">├── specs/           # Current full spec (source of truth)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│   └── &lt;capability&gt;/</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│       └── spec.md</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">└── changes/         # In-progress changes</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ├── &lt;change-id&gt;/</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    │   ├── proposal.md   # Why, what, and scope</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    │   ├── design.md     # Technical approach</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    │   ├── tasks.md      # Decomposed implementation checklist</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    │   └── specs/        # Delta spec (additions/modifications only)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    └── archive/          # Completed and archived changes</span><br></span></code></pre></div></div>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">npm install -g @fission-ai/openspec@latest</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">cd your-project</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">openspec init</span><br></span></code></pre></div></div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-three-phase-workflow">The Three-Phase Workflow<a href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development#the-three-phase-workflow" class="hash-link" aria-label="Direct link to The Three-Phase Workflow" title="Direct link to The Three-Phase Workflow" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="OpenSpec three-phase flow" src="https://austinxyz.github.io/blogs/assets/images/openspec_flow-03c097478d8b4706c6803c5073467703.svg" width="1262" height="230" class="img_ev3q"></p>
+<p>OpenSpec is used in Claude Code via three Skills:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="phase-1-opsxpropose">Phase 1: <code>/opsx:propose</code><a href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development#phase-1-opsxpropose" class="hash-link" aria-label="Direct link to phase-1-opsxpropose" title="Direct link to phase-1-opsxpropose" translate="no">​</a></h3>
+<p>Input: A one-sentence requirement
+Output: <code>proposal.md</code>, <code>design.md</code>, <code>tasks.md</code>, delta <code>specs/</code></p>
+<p>This transforms a vague idea into an <strong>executable contract</strong>. AI acts as architect and product manager; you act as reviewer. The most important thing to check: is <code>tasks.md</code> decomposed reasonably, and are acceptance criteria clear? <strong>Fixing issues here is far cheaper than tearing things apart mid-implementation.</strong></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="phase-2-opsxapply">Phase 2: <code>/opsx:apply</code><a href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development#phase-2-opsxapply" class="hash-link" aria-label="Direct link to phase-2-opsxapply" title="Direct link to phase-2-opsxapply" translate="no">​</a></h3>
+<p>Input: Reviewed and approved <code>tasks.md</code>
+Output: Code, tests, and configuration implemented task by task</p>
+<p>AI executes in order, marking each <code>[x]</code> on completion. You can pause, review, correct direction, and resume. Key discipline: <strong>don't insert new requirements during implementation</strong>. If requirements change, update the proposal first, then resume apply.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="phase-3-opsxarchive">Phase 3: <code>/opsx:archive</code><a href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development#phase-3-opsxarchive" class="hash-link" aria-label="Direct link to phase-3-opsxarchive" title="Direct link to phase-3-opsxarchive" translate="no">​</a></h3>
+<p>Input: Completed change directory
+Output: Delta spec merged into <code>openspec/specs/</code>, change moved to <code>archive/</code></p>
+<p>This keeps the spec library always representing "the current state of the system" — the starting point for every subsequent change.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="configyaml-the-most-important-investment">config.yaml: The Most Important Investment<a href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development#configyaml-the-most-important-investment" class="hash-link" aria-label="Direct link to config.yaml: The Most Important Investment" title="Direct link to config.yaml: The Most Important Investment" translate="no">​</a></h2>
+<p>After Feature 1, I realized I'd skipped a critical setup step: <code>openspec/config.yaml</code>. This is OpenSpec's equivalent of <code>CLAUDE.md</code> — it tells AI about the project's tech stack, coding conventions, and historical mistakes to avoid.</p>
+<p><strong>Initializing it:</strong></p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Please update the config.yaml under the openspec directory. Refer to the root CLAUDE.md</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">for tech stack, conventions, and code style guidelines. Refer to README.md for domain</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">knowledge. Use the example format provided in the config.yaml file.</span><br></span></code></pre></div></div>
+<p><strong>The key practice — write every mistake into it:</strong></p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">When developing the runway feature with OpenSpec, two mistakes were made:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">1. Currency was ignored — account amounts were summed directly without conversion</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">2. The fix introduced a performance issue — exchange rates were queried from DB</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   per record, when the Controller layer already has a cached ExchangeRateService</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Please add these to config.yaml so future changes avoid repeating them.</span><br></span></code></pre></div></div>
+<blockquote>
+<p><strong>config.yaml isn't a one-time setup — it's an ever-growing error prevention manual.</strong> Each mistake gets added; AI proactively avoids it in every subsequent change.</p>
+</blockquote>
+<p>This is the biggest behavioral difference between SDD and Vibe Coding. Vibe Coding mistakes leave traces only in git history and tend to recur. SDD mistakes get distilled into structured rules — they become the project's "error prevention DNA."</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="three-features-in-practice">Three Features in Practice<a href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development#three-features-in-practice" class="hash-link" aria-label="Direct link to Three Features in Practice" title="Direct link to Three Features in Practice" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="feature-1-runway-analysis">Feature 1: Runway Analysis<a href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development#feature-1-runway-analysis" class="hash-link" aria-label="Direct link to Feature 1: Runway Analysis" title="Direct link to Feature 1: Runway Analysis" translate="no">​</a></h3>
+<p><strong>Requirement</strong>: Based on current liquid assets and projected monthly expenses, calculate how long the family's funds will last.</p>
+<p>AI generated a checklist of 27 tasks covering backend API, frontend pages, and tests.</p>
+<p><strong>Bugs surfaced during Apply:</strong></p>
+<p><em>Issue 1 — Currency not aligned</em>: The implementation simply summed all account balances, ignoring multi-currency. A USD account and a CNY account added directly, producing completely wrong results. This was a business understanding gap, not a technical one. AI writes code quickly but doesn't spontaneously "think about" currency conversion.</p>
+<p><em>Issue 2 — Every exchange rate lookup hit the database</em>: When fixing the currency issue, AI queried the database for exchange rates per record, making report generation extremely slow. The system already had a cached <code>ExchangeRateService</code>. Both bugs were fixed quickly after pointing them out — and both were written into <code>config.yaml</code>.</p>
+<p><strong>Stats</strong>: ~1,900 lines, 26/27 tasks, ~<strong>2 hours</strong></p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="feature-2-runway-report-persistence-and-pdf-export">Feature 2: Runway Report Persistence and PDF Export<a href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development#feature-2-runway-report-persistence-and-pdf-export" class="hash-link" aria-label="Direct link to Feature 2: Runway Report Persistence and PDF Export" title="Direct link to Feature 2: Runway Report Persistence and PDF Export" translate="no">​</a></h3>
+<p><strong>Requirement</strong>: The Runway page recalculates from scratch every time. Save snapshots for later review.</p>
+<p>This feature went through three requirement changes — a good test of SDD's flexibility:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Initial: Export JSON file to local disk</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">↓ JSON was unfriendly</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Change 1: Export as PDF report instead</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">↓ Changed mind — don't want local-only storage</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Change 2: Persist to backend database, add report list page</span><br></span></code></pre></div></div>
+<p>The third change shifted scope from "pure frontend" to "full-stack with new database table." OpenSpec detected the large scope change and <strong>deleted the already-generated proposal and tasks to regenerate from scratch</strong>.</p>
+<p>This is SDD discipline: <strong>when requirements change significantly, re-propose — don't patch a half-baked proposal.</strong> Experience proved this right. In prior Vibe Coding work, piecemeal modifications to half-formed requirements consistently confused AI and produced worse results.</p>
+<p>The regenerated proposal produced 34 tasks across 11 categories (backend entity/Repository/Service/Controller, frontend components, database migration, backend tests, frontend tests).</p>
+<p><strong>Stats</strong>: ~1,800 lines, 33/34 tasks, ~<strong>38 minutes</strong> (from second proposal to archive)</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="feature-3-property-investment-calculator">Feature 3: Property Investment Calculator<a href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development#feature-3-property-investment-calculator" class="hash-link" aria-label="Direct link to Feature 3: Property Investment Calculator" title="Direct link to Feature 3: Property Investment Calculator" translate="no">​</a></h3>
+<p><strong>Requirement</strong>: Convert an Excel spreadsheet ("The Brutal Calculator") into a native web calculator for Bay Area high-income earners to evaluate after-tax returns on rental property investments.</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">I added an Excel file under the requirement folder (The Brutal Calculator.xlsx).</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Please read the sheet and convert it as a new feature: Property Investment Calculator.</span><br></span></code></pre></div></div>
+<p>AI fully parsed all formula logic and generated 22 tasks across 8 groups — a purely frontend change with no backend or database modifications.</p>
+<p><strong>Problem during Apply</strong>: PMT (mortgage payment) and CUMPRINC (principal paydown) formulas were implemented incorrectly. Fixed after pointing it out. This reflects AI's imperfect understanding of financial formulas, not a code capability issue.</p>
+<p><img decoding="async" loading="lazy" alt="Property Investment Calculator" src="https://austinxyz.github.io/blogs/assets/images/property-calculator-dc63717373850f4574cb81e33f6bda62.png" width="2605" height="1093" class="img_ev3q"></p>
+<p><em>13 editable inputs on the left, five real-time result panels on the right</em></p>
+<p><strong>Stats</strong>: ~2,400 lines, 19/20 tasks, ~<strong>49 minutes</strong></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="side-by-side-comparison">Side-by-Side Comparison<a href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development#side-by-side-comparison" class="hash-link" aria-label="Direct link to Side-by-Side Comparison" title="Direct link to Side-by-Side Comparison" translate="no">​</a></h2>
+<table><thead><tr><th></th><th>runway-analysis</th><th>runway-report</th><th>property-calculator</th></tr></thead><tbody><tr><td><strong>Code added</strong></td><td>~1,900 lines</td><td>~1,800 lines</td><td>~2,400 lines</td></tr><tr><td><strong>Task count</strong></td><td>27</td><td>34</td><td>20</td></tr><tr><td><strong>Complexity</strong></td><td>Full-stack, no new DB table</td><td>Full-stack + new DB table</td><td>Frontend only</td></tr><tr><td><strong>Critical errors</strong></td><td>Currency alignment, rate perf</td><td>API routing, PDF encoding</td><td>Financial formula errors</td></tr><tr><td><strong>Dev time</strong></td><td>~2h</td><td>~38m</td><td>~49m</td></tr></tbody></table>
+<p><strong>Why were Features 2 and 3 so much faster than Feature 1?</strong> Not AI getting smarter. Three reasons:</p>
+<ol>
+<li class=""><strong>config.yaml accumulated lessons</strong> — currency/exchange rate issues written in after Feature 1; Features 2 and 3 didn't repeat them</li>
+<li class=""><strong>Test infrastructure was in place</strong> — Vitest set up after Feature 1; subsequent features built on it directly</li>
+<li class=""><strong>Clearer proposals</strong> — after the first feature, requirements were more precisely specified, reducing AI interpretation errors</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="sdd-vs-vibe-coding-when-to-use-which">SDD vs. Vibe Coding: When to Use Which<a href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development#sdd-vs-vibe-coding-when-to-use-which" class="hash-link" aria-label="Direct link to SDD vs. Vibe Coding: When to Use Which" title="Direct link to SDD vs. Vibe Coding: When to Use Which" translate="no">​</a></h2>
+<table><thead><tr><th>Dimension</th><th>Vibe Coding</th><th>Spec-Driven Development</th></tr></thead><tbody><tr><td><strong>Requirement clarity</strong></td><td>Fuzzy is fine</td><td>Need to think through scope upfront</td></tr><tr><td><strong>Feature complexity</strong></td><td>Small (&lt; 5 files)</td><td>Medium to large (cross-layer, multi-task)</td></tr><tr><td><strong>Drift risk</strong></td><td>High</td><td>Low (task checklist constrains direction)</td></tr><tr><td><strong>Flexibility</strong></td><td>Change direction anytime</td><td>Update proposal before continuing</td></tr><tr><td><strong>Traceability</strong></td><td>Git history only</td><td>Full record in proposal/tasks</td></tr><tr><td><strong>Best for</strong></td><td>Prototyping, exploratory work</td><td>Deliverable features with acceptance criteria</td></tr></tbody></table>
+<p><strong>The practical rule:</strong></p>
+<blockquote>
+<p>Use <strong>Vibe Coding</strong> to validate ideas. Use <strong>SDD</strong> to deliver features.</p>
+</blockquote>
+<p>Specific decision criteria:</p>
+<ul>
+<li class="">✅ Change touches 3+ files → use SDD</li>
+<li class="">✅ Requires both frontend and backend changes → use SDD</li>
+<li class="">✅ Includes database schema changes → use SDD</li>
+<li class="">⚡ Quick UI tweaks, small bug fixes → Vibe Coding is enough</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="key-takeaways">Key Takeaways<a href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development#key-takeaways" class="hash-link" aria-label="Direct link to Key Takeaways" title="Direct link to Key Takeaways" translate="no">​</a></h2>
+<p><strong>Three things that actually mattered:</strong></p>
+<p><strong>1. config.yaml is the highest-ROI investment</strong>
+Spend 30 minutes before writing any code putting the project's tech stack, conventions, and known mistakes into config.yaml. Returns compound with every subsequent feature.</p>
+<p><strong>2. When requirements change significantly, re-propose</strong>
+Feature 2's three-round requirement changes proved this. When scope shifts more than ~50% from the original proposal, starting over is faster. AI works efficiently in clear context; in muddled context, it makes strange decisions.</p>
+<p><strong>3. Write every mistake back into config.yaml</strong>
+This single habit separates SDD from Vibe Coding in practice. Mistakes become rules; rules become institutional memory.</p>
+<p><strong>Quantified results across three features:</strong></p>
+<ul>
+<li class="">Code added: ~<strong>6,100 lines</strong></li>
+<li class="">Tasks completed: <strong>78/81</strong></li>
+<li class="">Total development time: ~<strong>3.5 hours</strong></li>
+<li class="">Average per 100 lines: ~<strong>3.5 minutes</strong></li>
+</ul>
+<p>Feature 1 (~2 hours) included the learning curve and building config.yaml. Features 2 and 3 combined (~87 minutes, ~4,200 lines) represent actual SDD velocity once the workflow is established.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="references">References<a href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development#references" class="hash-link" aria-label="Direct link to References" title="Direct link to References" translate="no">​</a></h2>
+<ul>
+<li class=""><a href="https://github.com/Fission-AI/OpenSpec" target="_blank" rel="noopener noreferrer" class="">OpenSpec on GitHub</a></li>
+<li class=""><a href="https://jimmysong.io/zh/book/ai-handbook/sdd/openspec/" target="_blank" rel="noopener noreferrer" class="">OpenSpec Introduction</a></li>
+<li class=""><a href="https://juejin.cn/post/7605494530017165352" target="_blank" rel="noopener noreferrer" class="">OpenSpec vs SpecKit in Depth</a> <em>(Chinese)</em></li>
+<li class=""><a href="https://github.com/austinxyz/finance" target="_blank" rel="noopener noreferrer" class="">Finance Project Source Code</a> — includes CLAUDE.md, Skills, and openspec configuration</li>
+</ul>]]></content:encoded>
+            <author>austin.xyz@gmail.com (Austin Xu)</author>
+            <category>ai</category>
+            <category>claude-code</category>
+            <category>future-of-development</category>
+        </item>
         <item>
             <title><![CDATA[No Junior Engineers? What AI Really Means for Early-Career Developers]]></title>
             <link>https://austinxyz.github.io/blogs/blog/2026/03/04/no-junior-engineers</link>
