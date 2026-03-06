@@ -8,42 +8,47 @@ description: "After 40,000 lines of Vibe Coding, I hit a wall. Here's how Spec-D
 
 *This is an extended chapter to the [6-part Claude Code series](/blogs/blog/tags/claude-code). The first six chapters documented building a full-stack Finance app using Vibe Coding. This chapter covers what came next.*
 
-After accumulating 40,000 lines of code with Vibe Coding, a structural problem surfaced:
+The first six chapters documented the complete journey of using Claude Code for Vibe Coding — building a full-stack application from scratch and accumulating 40,000 lines of code. Vibe Coding delivered incredible speed, but as the project grew, a structural problem emerged:
 
 > **AI writes code fast. AI also goes off-track fast.**
 
-One vague sentence in, AI understands 70% of the requirement and sprints full-speed for two hours — then you realize the core logic is wrong and have to start over. This chapter documents switching to **Spec-Driven Development (SDD)** using **OpenSpec**, completing three production features, and measuring the difference.
+When you describe a requirement in one sentence, AI might understand 70% of it and then sprint full-speed in that direction for two hours — only for you to realize the core logic is wrong and have to start over.
+
+This isn't theoretical. Before adopting SDD, my real pain points in the Finance project were:
+
+- **Unstructured workflow**: I had to remind AI to organize requirements before writing code, otherwise it jumped straight to implementation
+- **Missing design documentation**: architectural issues only surfaced after implementation, making course corrections expensive
+- **Inconsistent code quality**: the same requirement could produce wildly different code quality across sessions
+- **Tests routinely skipped**: Vibe Coding tends toward "get it running first," making tests optional
+- **Slow debugging**: without clear task boundaries, bugs were hard to locate and back-and-forth with AI was inefficient
+
+This chapter documents a methodology upgrade experiment: introducing **Spec-Driven Development (SDD)** into the Finance project using **OpenSpec**, completing three new features, and comparing results against prior Vibe Coding work.
 
 <!--truncate-->
 
-## The Pain Points That Forced the Change
-
-Before adopting SDD, these problems kept recurring in the Finance project:
-
-- **No upfront design**: AI jumped straight to implementation, architectural issues only surfaced after the fact
-- **AI drift**: without clear task boundaries, a vague requirement could produce wildly different code quality across sessions
-- **Tests routinely skipped**: Vibe Coding defaults to "get it running first," tests become optional
-- **Slow debugging**: back-and-forth with AI was inefficient when there were no clear task boundaries to anchor the conversation
-
 ## What is Spec-Driven Development
 
-The core principle: **reach consensus before writing code**.
+### Core Idea
 
-In Vibe Coding, the flow is:
+The core principle of Spec-Driven Development is: **reach consensus before writing code**.
+
+In traditional Vibe Coding, the flow is:
+
 ```
 Idea → One-liner prompt → AI starts coding → Iterate as you go
 ```
 
 In SDD, the flow is:
+
 ```
 Idea → Structured proposal → Task checklist → AI implements by checklist → Archive spec
 ```
 
-The difference isn't the tooling — it's **when decisions are made**. SDD forces all important decisions (feature scope, technical approach, acceptance criteria) to happen before coding begins, locking them into documents that constrain AI to execute within a well-defined space.
+The difference isn't the tooling — it's **when decisions are made**. SDD forces all important decisions (feature scope, technical approach, acceptance criteria) to happen before coding begins, locking them into documents that constrain the AI to execute within a well-defined space.
 
-## OpenSpec: The Tool
+### What is OpenSpec
 
-OpenSpec is a lightweight CLI built specifically for SDD. Its project structure:
+OpenSpec is a lightweight AI workflow CLI tool designed specifically for SDD. Its core is a standardized project structure and three commands:
 
 ```
 openspec/
@@ -52,51 +57,73 @@ openspec/
 │       └── spec.md
 └── changes/         # In-progress changes
     ├── <change-id>/
-    │   ├── proposal.md   # Why, what, and scope
+    │   ├── proposal.md   # Why, what, and scope of the change
     │   ├── design.md     # Technical approach
     │   ├── tasks.md      # Decomposed implementation checklist
     │   └── specs/        # Delta spec (additions/modifications only)
     └── archive/          # Completed and archived changes
 ```
 
+**Installation and setup**:
+
 ```bash
 npm install -g @fission-ai/openspec@latest
+openspec --version
+
 cd your-project
 openspec init
 ```
 
-## The Three-Phase Workflow
+## The Three-Phase OpenSpec Workflow
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   PROPOSE   │────▶│    APPLY    │────▶│   ARCHIVE   │
+│             │     │             │     │             │
+│ proposal.md │     │ tasks.md    │     │ specs/ sync │
+│ design.md   │     │ [x] task 1  │     │ change →    │
+│ tasks.md    │     │ [x] task 2  │     │  archive/   │
+│ specs/delta │     │ [ ] task 3  │     │             │
+└─────────────┘     └─────────────┘     └─────────────┘
+  Align upfront       Implement           Lock in spec
+```
 
 ![OpenSpec three-phase flow](./images/openspec_flow.svg)
 
-OpenSpec is used in Claude Code via three Skills:
+OpenSpec is used in Claude Code as three Skills:
 
 ### Phase 1: `/opsx:propose`
 
-Input: A one-sentence requirement
-Output: `proposal.md`, `design.md`, `tasks.md`, delta `specs/`
+Input: A one-sentence description or draft requirement
+Output: `proposal.md` (Why/What/Scope), `design.md` (technical approach), `tasks.md` (decomposed task checklist), `specs/` (delta spec)
 
-This transforms a vague idea into an **executable contract**. AI acts as architect and product manager; you act as reviewer. The most important thing to check: is `tasks.md` decomposed reasonably, and are acceptance criteria clear? **Fixing issues here is far cheaper than tearing things apart mid-implementation.**
+This phase transforms a vague idea into an **executable contract**. AI plays the role of architect and product manager; you play the reviewer.
+
+**Key action**: Review `tasks.md` — check that task decomposition is reasonable and acceptance criteria are clear. **Fixing issues here is far cheaper than tearing things apart mid-implementation.**
 
 ### Phase 2: `/opsx:apply`
 
 Input: Reviewed and approved `tasks.md`
-Output: Code, tests, and configuration implemented task by task
+Output: Code, tests, and configuration changes implemented item by item
 
-AI executes in order, marking each `[x]` on completion. You can pause, review, correct direction, and resume. Key discipline: **don't insert new requirements during implementation**. If requirements change, update the proposal first, then resume apply.
+AI executes tasks in order, marking each `[x]` on completion. You can pause at any point, review progress, correct direction, and resume.
+
+**Key action**: Don't insert new requirements during implementation. If requirements change, update the proposal first, then resume apply — that's SDD discipline.
 
 ### Phase 3: `/opsx:archive`
 
 Input: Completed change directory
-Output: Delta spec merged into `openspec/specs/`, change moved to `archive/`
+Output: Delta spec merged back into `openspec/specs/`, change directory moved to `archive/`
 
-This keeps the spec library always representing "the current state of the system" — the starting point for every subsequent change.
+Archiving keeps the spec library (`specs/`) always representing "the current state of the system," becoming the starting point for the next change.
 
-## config.yaml: The Most Important Investment
+## config.yaml: OpenSpec's "Project Memory"
 
-After Feature 1, I realized I'd skipped a critical setup step: `openspec/config.yaml`. This is OpenSpec's equivalent of `CLAUDE.md` — it tells AI about the project's tech stack, coding conventions, and historical mistakes to avoid.
+After completing the first feature, I realized I'd skipped an important setup step: configuring `openspec/config.yaml`. Ideally this should be done before the first feature, but better late than never — starting from the second feature, it began paying dividends.
 
-**Initializing it:**
+This file is OpenSpec's equivalent of `CLAUDE.md` — it tells AI about the project's tech stack, coding conventions, and historical mistakes to avoid.
+
+**Initializing config.yaml**:
 
 ```
 Please update the config.yaml under the openspec directory. Refer to the root CLAUDE.md
@@ -104,7 +131,16 @@ for tech stack, conventions, and code style guidelines. Refer to README.md for d
 knowledge. Use the example format provided in the config.yaml file.
 ```
 
-**The key practice — write every mistake into it:**
+After AI generated the initial version, I made two targeted additions:
+
+**Adding a testing strategy**:
+
+```
+Please add a testing strategy to config.yaml. This is a full-stack application —
+testing should cover both backend API testing and frontend UI testing.
+```
+
+**Documenting historical mistakes (to prevent recurrence)**:
 
 ```
 When developing the runway feature with OpenSpec, two mistakes were made:
@@ -115,9 +151,7 @@ When developing the runway feature with OpenSpec, two mistakes were made:
 Please add these to config.yaml so future changes avoid repeating them.
 ```
 
-> **config.yaml isn't a one-time setup — it's an ever-growing error prevention manual.** Each mistake gets added; AI proactively avoids it in every subsequent change.
-
-This is the biggest behavioral difference between SDD and Vibe Coding. Vibe Coding mistakes leave traces only in git history and tend to recur. SDD mistakes get distilled into structured rules — they become the project's "error prevention DNA."
+> **config.yaml isn't a one-time setup — it's an ever-growing error prevention manual.** Each new mistake gets added, and AI proactively avoids it in every subsequent change.
 
 ## Three Features in Practice
 
@@ -125,39 +159,85 @@ This is the biggest behavioral difference between SDD and Vibe Coding. Vibe Codi
 
 **Requirement**: Based on current liquid assets and projected monthly expenses, calculate how long the family's funds will last.
 
-AI generated a checklist of 27 tasks covering backend API, frontend pages, and tests.
+**Propose**:
 
-**Bugs surfaced during Apply:**
+```
+I want to add a new function, runway analysis. I have one example at C:\...\runway-calculation,
+please use the same structure. You can get future monthly expenses from the system,
+and liquid assets from the system. Please create a proposal.
+```
 
-*Issue 1 — Currency not aligned*: The implementation simply summed all account balances, ignoring multi-currency. A USD account and a CNY account added directly, producing completely wrong results. This was a business understanding gap, not a technical one. AI writes code quickly but doesn't spontaneously "think about" currency conversion.
+AI generated a checklist of 27 tasks covering backend API, frontend pages, and tests — with only one manual task (testing via Swagger UI).
 
-*Issue 2 — Every exchange rate lookup hit the database*: When fixing the currency issue, AI queried the database for exchange rates per record, making report generation extremely slow. The system already had a cached `ExchangeRateService`. Both bugs were fixed quickly after pointing them out — and both were written into `config.yaml`.
+**Problems discovered during Apply**:
 
-**Stats**: ~1,900 lines, 26/27 tasks, ~**2 hours**
+*Issue 1 (critical bug): Currency not aligned*
+
+The initial implementation simply summed all account balances, ignoring multi-currency — a USD account and a CNY account added directly, producing completely wrong results.
+
+Root cause: this was a business understanding problem, not a technical one. AI writes code quickly but doesn't spontaneously "think about" the need for currency conversion.
+
+After fixing that, a second problem appeared:
+
+*Issue 2 (performance bug): Every exchange rate lookup hit the database*
+
+When fixing the currency issue, AI queried the database for exchange rates on every single record, making report generation extremely slow. The system already had a cached `ExchangeRateService` that only needed to be called once.
+
+Both bugs were fixed quickly after pointing them out — but more importantly: **both were written into config.yaml**, protecting all future changes from repeating them.
+
+**After Runway Analysis was complete, requirements expanded**: adding the ability to exclude specific liquid assets and adjust individual expense items — normal in SDD, completed by updating the proposal and continuing apply.
+
+**Stats**:
+- Code added: ~1,900 lines, 18 files
+- Tasks completed: 26/27 (1 manual)
+- Development time: ~**2 hours**
 
 ---
 
 ### Feature 2: Runway Report Persistence and PDF Export
 
-**Requirement**: The Runway page recalculates from scratch every time. Save snapshots for later review.
+**Requirement**: The Runway page recalculates from scratch every time it opens. There's no way to save a snapshot for later review.
+
+**How SDD handles requirement changes**:
 
 This feature went through three requirement changes — a good test of SDD's flexibility:
 
 ```
 Initial: Export JSON file to local disk
-↓ JSON was unfriendly
+↓ User found JSON unfriendly
 Change 1: Export as PDF report instead
-↓ Changed mind — don't want local-only storage
+↓ User changed mind, didn't want local-only storage
 Change 2: Persist to backend database, add report list page
 ```
 
-The third change shifted scope from "pure frontend" to "full-stack with new database table." OpenSpec detected the large scope change and **deleted the already-generated proposal and tasks to regenerate from scratch**.
+The third change was the most significant — requirements shifted from "pure frontend" to "full-stack with new database table."
 
-This is SDD discipline: **when requirements change significantly, re-propose — don't patch a half-baked proposal.** Experience proved this right. In prior Vibe Coding work, piecemeal modifications to half-formed requirements consistently confused AI and produced worse results.
+**Key decision**: OpenSpec detected the large scope change and deleted the already-generated proposal and tasks to regenerate from scratch.
+
+This is SDD discipline: **don't patch a half-baked proposal — when requirements change significantly, re-propose.** Experience proved this right — in prior Vibe Coding work, piecemeal modifications to half-formed requirements consistently confused AI and produced worse results.
 
 The regenerated proposal produced 34 tasks across 11 categories (backend entity/Repository/Service/Controller, frontend components, database migration, backend tests, frontend tests).
 
-**Stats**: ~1,800 lines, 33/34 tasks, ~**38 minutes** (from second proposal to archive)
+**Problems during Apply**:
+
+- **API routing error**: Save Report didn't work — diagnosis revealed a Controller routing misconfiguration. Added to config.yaml.
+- **PDF Chinese character corruption**: The PDF library AI initially chose didn't support Chinese. Switching to a different implementation resolved it.
+- **Mock test failures**: New mock testing framework had incorrect initial configuration; fixed based on error output.
+
+**Post-archive follow-up**:
+
+Test coverage was still weak (frontend UI tests were manual only). A dedicated Vitest + Vue Test Utils setup was done afterward:
+
+```bash
+# Install component testing framework
+npm install -D vitest @vue/test-utils @vitejs/plugin-vue jsdom
+# Update vite.config.js to configure test environment
+```
+
+**Stats**:
+- Code added: ~1,800 lines, 25 files
+- Tasks completed: 33/34
+- Development time: ~**38 minutes** (from second proposal to archive)
 
 ---
 
@@ -165,20 +245,34 @@ The regenerated proposal produced 34 tasks across 11 categories (backend entity/
 
 **Requirement**: Convert an Excel spreadsheet ("The Brutal Calculator") into a native web calculator for Bay Area high-income earners to evaluate after-tax returns on rental property investments.
 
+**Propose**:
+
 ```
 I added an Excel file under the requirement folder (The Brutal Calculator.xlsx).
 Please read the sheet and convert it as a new feature: Property Investment Calculator.
+I may add a new group (投资/Investments) in the sidebar.
 ```
 
-AI fully parsed all formula logic and generated 22 tasks across 8 groups — a purely frontend change with no backend or database modifications.
+Reading the Excel file took some setup time (an xlsx parsing tool needed to be installed), but AI fully parsed all formula logic and generated:
+- 8 task groups, 22 tasks
+- Covering: Vue component, formula utilities, route registration, Sidebar changes, Vue component tests
 
-**Problem during Apply**: PMT (mortgage payment) and CUMPRINC (principal paydown) formulas were implemented incorrectly. Fixed after pointing it out. This reflects AI's imperfect understanding of financial formulas, not a code capability issue.
+This was the only **purely frontend** change among the three features — no backend changes, no database changes.
 
-![Property Investment Calculator](./images/property-calculator.png)
+**Problems during Apply**:
 
-*13 editable inputs on the left, five real-time result panels on the right*
+- **Formula calculation errors**: PMT (mortgage payment) and CUMPRINC (principal paydown) were implemented incorrectly. Fixed after pointing it out. This type of error reflects AI's imperfect understanding of financial formulas, not a code capability issue.
 
-**Stats**: ~2,400 lines, 19/20 tasks, ~**49 minutes**
+Post-apply, some UI adjustments were made (2-column layout changed to 3-column, label display tweaks), all completing smoothly.
+
+![Property Investment Calculator Screenshot](./images/property-calculator.png)
+
+*Figure: Property Investment Calculator — 13 editable inputs on the left, five real-time result panels on the right*
+
+**Stats**:
+- Code added: ~2,400 lines, 22 files
+- Tasks completed: 19/20 (task 20 was optional manual testing, verified by user)
+- Development time: ~**49 minutes**
 
 ---
 
@@ -189,27 +283,30 @@ AI fully parsed all formula logic and generated 22 tasks across 8 groups — a p
 | **Code added** | ~1,900 lines | ~1,800 lines | ~2,400 lines |
 | **Task count** | 27 | 34 | 20 |
 | **Complexity** | Full-stack, no new DB table | Full-stack + new DB table | Frontend only |
+| **Test coverage** | Manual backend tests | Auto backend + manual frontend | Auto frontend + backend |
 | **Critical errors** | Currency alignment, rate perf | API routing, PDF encoding | Financial formula errors |
 | **Dev time** | ~2h | ~38m | ~49m |
 
-**Why were Features 2 and 3 so much faster than Feature 1?** Not AI getting smarter. Three reasons:
+**Why were Features 2 and 3 so much faster than Feature 1?**
 
-1. **config.yaml accumulated lessons** — currency/exchange rate issues written in after Feature 1; Features 2 and 3 didn't repeat them
-2. **Test infrastructure was in place** — Vitest set up after Feature 1; subsequent features built on it directly
-3. **Clearer proposals** — after the first feature, requirements were more precisely specified, reducing AI interpretation errors
+It wasn't AI getting smarter. Three reasons:
+
+1. **config.yaml accumulated lessons**: The currency/exchange rate issues were written into config after Feature 1. Features 2 and 3 didn't repeat them.
+2. **Test infrastructure was in place**: Vitest was set up after Feature 1; subsequent features built on it directly.
+3. **Clearer requirements**: After the first feature, proposal descriptions became more precise, reducing AI's interpretation errors.
 
 ## SDD vs. Vibe Coding: When to Use Which
 
 | Dimension | Vibe Coding | Spec-Driven Development |
 |---|---|---|
-| **Requirement clarity** | Fuzzy is fine | Need to think through scope upfront |
+| **Requirement clarity** | Fuzzy is fine, define as you go | Need to think through feature scope upfront |
 | **Feature complexity** | Small (< 5 files) | Medium to large (cross-layer, multi-task) |
-| **Drift risk** | High | Low (task checklist constrains direction) |
-| **Flexibility** | Change direction anytime | Update proposal before continuing |
-| **Traceability** | Git history only | Full record in proposal/tasks |
-| **Best for** | Prototyping, exploratory work | Deliverable features with acceptance criteria |
+| **Drift risk** | High (AI runs fast in wrong direction) | Low (task checklist constrains direction) |
+| **Flexibility** | High (change direction anytime) | Requires updating proposal before continuing |
+| **Traceability** | Depends on git history | Full record in proposal/tasks |
+| **Best for** | Prototyping, exploratory features | Deliverable features with acceptance criteria |
 
-**The practical rule:**
+**Practical recommendation**:
 
 > Use **Vibe Coding** to validate ideas. Use **SDD** to deliver features.
 
@@ -217,35 +314,69 @@ Specific decision criteria:
 - ✅ Change touches 3+ files → use SDD
 - ✅ Requires both frontend and backend changes → use SDD
 - ✅ Includes database schema changes → use SDD
+- ✅ Has explicit acceptance criteria → use SDD
 - ⚡ Quick UI tweaks, small bug fixes → Vibe Coding is enough
+
+## OpenSpec vs. Other SDD Tools
+
+Three AI workflow tools with different positioning:
+
+| | **OpenSpec** | **SpecKit** | **Superpowers** |
+|---|---|---|---|
+| **Positioning** | Lightweight CLI, focused on change management | Heavyweight spec framework, full SDD system | Claude Code Skills extension library |
+| **Spec approach** | Delta spec (write only what changes) | Full spec (complete specification documents) | Skill-based workflows |
+| **Learning curve** | Low (up and running in a day) | High (requires understanding the spec system) | Low (use Skills directly) |
+| **Best for** | Small-to-medium projects, fast iteration | Large projects needing strict spec governance | Enhancing Claude Code capabilities |
+| **Archive mechanism** | Built-in (`archive` command) | Built-in | None |
+
+I've used SpecKit-style full-spec SDD at work, OpenSpec on this Finance project, and Superpowers on a personal blog project. My current preference is OpenSpec, and I'm exploring combining it with Superpowers.
+
+OpenSpec handles change management and spec accumulation; Superpowers adds day-to-day workflow enhancements (like `brainstorming` and `verification-before-completion`). They don't conflict — they stack.
 
 ## Key Takeaways
 
-**Three things that actually mattered:**
+**Three core recommendations**:
 
-**1. config.yaml is the highest-ROI investment**
-Spend 30 minutes before writing any code putting the project's tech stack, conventions, and known mistakes into config.yaml. Returns compound with every subsequent feature.
+**1. config.yaml is the most important investment**
 
-**2. When requirements change significantly, re-propose**
-Feature 2's three-round requirement changes proved this. When scope shifts more than ~50% from the original proposal, starting over is faster. AI works efficiently in clear context; in muddled context, it makes strange decisions.
+Before writing any code, spend 30 minutes putting the project's tech stack, conventions, and known mistakes into config.yaml. This is a one-time investment that pays back on every subsequent feature, with returns that compound over time.
+
+**2. When requirements change significantly, re-propose — don't patch a half-baked proposal**
+
+Feature 2's three-round requirement changes proved this. When the scope shifts more than ~50% from the original proposal, starting over is faster. AI works more efficiently in clear context; in muddled context, it makes strange decisions.
 
 **3. Write every mistake back into config.yaml**
-This single habit separates SDD from Vibe Coding in practice. Mistakes become rules; rules become institutional memory.
 
-**Quantified results across three features:**
+This is the biggest behavioral difference between SDD and Vibe Coding. Vibe Coding mistakes leave traces only in git history and tend to recur. SDD mistakes get distilled into structured rules — they become the project's "error prevention DNA."
 
+**Quantified results**:
+
+Three features combined:
 - Code added: ~**6,100 lines**
 - Tasks completed: **78/81**
 - Total development time: ~**3.5 hours**
-- Average per 100 lines: ~**3.5 minutes**
+- Average per 100 lines of code: ~**3.5 minutes**
 
-Feature 1 (~2 hours) included the learning curve and building config.yaml. Features 2 and 3 combined (~87 minutes, ~4,200 lines) represent actual SDD velocity once the workflow is established.
+Feature 1 (~2 hours) included the cost of learning the workflow and building config.yaml. Features 2 and 3 (combined ~87 minutes, ~4,200 lines) represent the actual velocity once SDD is established.
 
 ---
 
 ## References
 
-- [OpenSpec on GitHub](https://github.com/Fission-AI/OpenSpec)
-- [OpenSpec Introduction](https://jimmysong.io/zh/book/ai-handbook/sdd/openspec/)
-- [OpenSpec vs SpecKit in Depth](https://juejin.cn/post/7605494530017165352) *(Chinese)*
-- [Finance Project Source Code](https://github.com/austinxyz/finance) — includes CLAUDE.md, Skills, and openspec configuration
+**OpenSpec**
+- [OpenSpec on GitHub](https://github.com/Fission-AI/OpenSpec) — Official project on GitHub
+- [OpenSpec Introduction](https://jimmysong.io/zh/book/ai-handbook/sdd/openspec/) — Full workflow documentation and config.yaml reference
+
+**Spec-Driven Development — Further Reading**
+- [OpenSpec vs SpecKit in Depth](https://juejin.cn/post/7605494530017165352) — Detailed comparison of design philosophy and use cases *(Chinese)*
+- [SpecKit vs OpenSpec Comparison](https://intent-driven.dev/knowledge/spec-kit-vs-openspec/) — Technical comparison from intent-driven.dev
+
+**Superpowers**
+- [Superpowers Claude Code Skills](https://github.com/anthropics/claude-code) — Workflow enhancement skills for Claude Code, combinable with OpenSpec
+
+**Other Chapters in This Series**
+- [Chapter 4: Software Development Methodology in the AI Era](/blogs/blog/2025/12/18/claude-code-methodology-evolution) — Vibe Coding methodology background
+- [Chapter 6: Conclusion and Future Outlook](/blogs/blog/2025/12/20/claude-code-conclusion) — Finance project overall data and lessons
+
+**Finance Project**
+- [GitHub Repository](https://github.com/austinxyz/finance) — Full source code for all examples in this article, including CLAUDE.md, Skills, and openspec configuration
