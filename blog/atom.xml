@@ -2,11 +2,86 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://austinxyz.github.io/blogs/blog</id>
     <title>Austin Xu Blog</title>
-    <updated>2026-03-09T00:00:00.000Z</updated>
+    <updated>2026-03-16T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://austinxyz.github.io/blogs/blog"/>
     <subtitle>Austin Xu Blog</subtitle>
     <icon>https://austinxyz.github.io/blogs/img/favicon.svg</icon>
+    <entry>
+        <title type="html"><![CDATA[How Ops Engineers Can Stay Relevant in the Age of AI: Becoming a Platform Engineer]]></title>
+        <id>https://austinxyz.github.io/blogs/blog/2026/03/16/platform-engineer-vs-ops-engineer</id>
+        <link href="https://austinxyz.github.io/blogs/blog/2026/03/16/platform-engineer-vs-ops-engineer"/>
+        <updated>2026-03-16T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[What actually separates a Cloud Platform Engineer from a DevOps/Ops Engineer — and why the gap matters more than ever in the age of AI.]]></summary>
+        <content type="html"><![CDATA[<p>Two engineers. Two hundred clusters. Half a million nodes. Two million instances. Every year, two major Kubernetes version upgrades across the entire fleet — with zero incidents.</p>
+<p>That's not a team of twenty. That's two people. And the reason it was possible isn't the tooling. It's the way we thought about the problem.</p>
+<p>After years building Cloud Platform at eBay and interviewing dozens of engineers for Platform roles, I've noticed a pattern. Most candidates who call themselves "DevOps" or "Cloud Operations" engineers are skilled, hardworking, and technically capable. But there's a fundamental difference in how they think — and that difference determines whether you're managing problems forever, or systematically eliminating them.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-interview-pattern">The Interview Pattern<a href="https://austinxyz.github.io/blogs/blog/2026/03/16/platform-engineer-vs-ops-engineer#the-interview-pattern" class="hash-link" aria-label="Direct link to The Interview Pattern" title="Direct link to The Interview Pattern" translate="no">​</a></h2>
+<p>When I interview candidates for Platform Engineering roles, I ask questions that are deliberately open-ended. One of my favorites: <em>"How would you design a system to upgrade the OS across an entire Kubernetes fleet?"</em></p>
+<p>The Ops answer sounds like this: "I'd write an automation script that SSHs into each node, drains it, upgrades the OS, and brings it back. We could parallelize it with some batching logic."</p>
+<p>That's a competent answer. It would work. It would also need to be rewritten for the next fleet, extended for edge cases, debugged when something goes wrong at 2am, and maintained forever by whoever wrote it.</p>
+<p>The Platform answer sounds different: "I'd model node upgrades as a desired state in Kubernetes — write a CRD that declares the target OS version and upgrade policy, and a Controller that reconciles the actual state toward that target. The platform enforces the policy; engineers just declare what they want."</p>
+<p>This is the gap I keep seeing. Many DevOps candidates can configure CI/CD pipelines, write Terraform workflows, and automate deployments on cloud platforms. They're genuinely good at it. But when they move to the next project or the next client, they do it again — from scratch. The work doesn't compound.</p>
+<p>Another pattern: K8s fluency that stays at the surface. Most candidates can create Services, Deployments, and configure Pod specs. Far fewer have written a CRD or built a Controller. Using Kubernetes and <em>extending</em> Kubernetes are very different skills — and that distinction is a reliable signal of platform thinking.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-core-difference-solving-the-problem-vs-eliminating-the-problem-class">The Core Difference: Solving the Problem vs. Eliminating the Problem Class<a href="https://austinxyz.github.io/blogs/blog/2026/03/16/platform-engineer-vs-ops-engineer#the-core-difference-solving-the-problem-vs-eliminating-the-problem-class" class="hash-link" aria-label="Direct link to The Core Difference: Solving the Problem vs. Eliminating the Problem Class" title="Direct link to The Core Difference: Solving the Problem vs. Eliminating the Problem Class" translate="no">​</a></h2>
+<p>The deepest difference between Ops and Platform thinking isn't the tools. It's the question you ask when something breaks.</p>
+<p>An Ops engineer asks: <em>"How do I fix this?"</em></p>
+<p>A Platform engineer asks: <em>"Why does this keep happening, and how do I make it impossible for this class of problem to recur?"</em></p>
+<table><thead><tr><th></th><th>Ops Thinking</th><th>Platform Thinking</th></tr></thead><tbody><tr><td><strong>When an alert fires</strong></td><td>Respond and resolve</td><td>Why does this alert exist? Can it be designed away?</td></tr><tr><td><strong>When teams ask "how do I deploy?"</strong></td><td>Write a runbook</td><td>Build a self-service deployment platform</td></tr><tr><td><strong>When the same bug hits three teams</strong></td><td>Fix each instance</td><td>Abstract the fix into a platform guardrail</td></tr><tr><td><strong>Customer</strong></td><td>The infrastructure itself</td><td>Internal engineering teams</td></tr><tr><td><strong>Goal</strong></td><td>Keep systems running</td><td>Enable teams to move faster and safer</td></tr></tbody></table>
+<p>The customer question matters a lot. Ops engineers are often measured by uptime and ticket resolution. Platform engineers should be measured by the productivity and autonomy of the teams they serve. Your platform is a product. Your users are engineers. Their developer experience (DX) is your NPS score.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-ebay-example-what-platform-thinking-looks-like-at-scale">The eBay Example: What Platform Thinking Looks Like at Scale<a href="https://austinxyz.github.io/blogs/blog/2026/03/16/platform-engineer-vs-ops-engineer#the-ebay-example-what-platform-thinking-looks-like-at-scale" class="hash-link" aria-label="Direct link to The eBay Example: What Platform Thinking Looks Like at Scale" title="Direct link to The eBay Example: What Platform Thinking Looks Like at Scale" translate="no">​</a></h2>
+<p>At eBay, our Cloud Platform team managed 200+ Kubernetes clusters serving 5,000+ applications, running on 500,000 nodes and 2 million instances. Every year, we needed to upgrade all clusters to the latest Kubernetes version, add roughly replace a third more clusters, onboard hundreds of new applications, and patch OS images monthly to eliminate critical security vulnerabilities.</p>
+<p>There's simply no Ops path to doing this. No amount of runbooks or scripts scales to that complexity without becoming a full-time firefighting operation.</p>
+<p>For Kubernetes version upgrades alone, the challenge looked like this: we had dozens of customer patches — custom configurations and modifications for each of the 20+ internal platforms using our clusters (web framework, search, Hadoop, database, AI platform, and more). Each platform needed to validate on the new K8s version. The validated release then needed to roll out to 200+ clusters with zero service disruption.</p>
+<p>The Platform approach:</p>
+<p><strong>Patch standardization.</strong> Every customer patch was formalized: structured description, core requirements, design rationale, test cases. This structure made patches auditable, reviewable — and eventually, AI-generatable. When a new K8s version drops, we can now automatically generate upgrade PRs for each patch by combining the patch specification with the new version's changelog.</p>
+<p><strong>Validation as a platform.</strong> We stood up clusters running the candidate K8s version and opened them to each internal platform team. Teams owned their test cases and validation metrics. The platform ran validation automatically and produced test reports. Each platform could self-service their validation rather than waiting in a queue.</p>
+<p><strong>Deployment as a platform.</strong> The control plane upgrade platform supported configurable strategies — parallel batching, staged rollouts, automatic rollback gates — rather than a one-off script someone had to babysit.</p>
+<p>Result: two engineers maintained this platform and executed two major upgrades per year, across 200+ clusters, upgrading nearly 100 components with dozens of patches, with no incidents.</p>
+<p>The leverage is the point. Two people doing the work of what would otherwise require a large team — not because they worked harder, but because they built a system that worked for them.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-platform-thinking-actually-requires">What Platform Thinking Actually Requires<a href="https://austinxyz.github.io/blogs/blog/2026/03/16/platform-engineer-vs-ops-engineer#what-platform-thinking-actually-requires" class="hash-link" aria-label="Direct link to What Platform Thinking Actually Requires" title="Direct link to What Platform Thinking Actually Requires" translate="no">​</a></h2>
+<p>After watching engineers develop (or not develop) this mindset over the years, I've identified five capabilities that distinguish platform thinkers:</p>
+<p><strong>1. Abstraction over automation</strong></p>
+<p>The most critical skill. Automation solves <em>a</em> problem. Abstraction solves a <em>class</em> of problems. The difference is whether your solution handles one team's specific deployment, or provides a general deployment capability that every team can use — including teams with slightly different requirements.</p>
+<p>Abstraction ability determines whether you can solve one person's problem or a thousand people's similar-but-not-identical problems. It's what separates a script from a platform.</p>
+<p><strong>2. Product thinking</strong></p>
+<p>Platform engineers build internal products. That means thinking about API design, documentation, migration costs, and adoption. A platform no one uses isn't a platform — it's an expensive unused tool. The best platform engineers I've worked with obsess over their users' experience the same way product managers obsess over customers.</p>
+<p><strong>3. Leverage mindset</strong></p>
+<p>Ask yourself: does my work this week multiply my impact, or does it only solve today's problem? If one engineer's output can benefit 100 teams, that's leverage. If your work can only scale as fast as you can personally execute it, that's Ops. Both are valuable — but only one compounds.</p>
+<p><strong>4. Systems over processes</strong></p>
+<p>Ops culture tends toward process: checklists, runbooks, approval gates enforced by humans. Platform culture prefers system constraints: Policy as Code, Admission Webhooks, automated guardrails. A process can be skipped. A system constraint can't. Embed correctness into the platform rather than relying on people to follow rules correctly every time.</p>
+<p><strong>5. Avoid being the hero</strong></p>
+<p>Ops culture often produces heroes — the person who knows how everything works, who gets called at 2am, whose institutional knowledge is irreplaceable. That person looks valuable. But they're also a single point of failure, and they're not building anything that outlasts them.</p>
+<p>Platform culture optimizes for "no heroes needed." Every capability should be self-service. Every critical piece of knowledge should be encoded in the system, not held in someone's head.</p>
+<hr>
+<p>I've seen both trajectories play out on my team. One engineer spent decades in Ops thinking — always busy, always solving problems, always the person with the answers. But the work never compounded. The problems were always new versions of old problems. When the technology shifted, their knowledge became a liability rather than an asset.</p>
+<p>Another engineer joined with limited Kubernetes experience. But he had platform instincts from the start: he asked "why does this keep happening?" before he asked "how do I fix this?" he thought about his changes in terms of who else could benefit. In three to four years, he went from junior engineer to leading the development of an autonomous upgrade platform.</p>
+<p>The technology changes. The mindset is what compounds.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-ai-factor-why-this-matters-more-now">The AI Factor: Why This Matters More Now<a href="https://austinxyz.github.io/blogs/blog/2026/03/16/platform-engineer-vs-ops-engineer#the-ai-factor-why-this-matters-more-now" class="hash-link" aria-label="Direct link to The AI Factor: Why This Matters More Now" title="Direct link to The AI Factor: Why This Matters More Now" translate="no">​</a></h2>
+<p>The rise of AI coding tools changes the calculus significantly.</p>
+<p>AI is excellent at well-defined, repetitive work. Writing an automation script for a known task. Fixing a specific bug with a clear stack trace. Generating Terraform for a standard deployment pattern. This is precisely the work that fills an Ops engineer's day.</p>
+<p>The Ops hero — the person whose value is encyclopedic knowledge of how systems behave — is increasingly replicable by a large language model that has been trained on more Ops knowledge than any individual could accumulate in a career.</p>
+<p>Platform engineering is different. Abstracting specific, messy real-world requirements into a clean, general platform capability requires judgment that AI doesn't yet have. Deciding which non-functional requirements matter (reliability vs. cost vs. developer experience), where to draw abstraction boundaries, how to design for the 80% use case while not blocking the 20% edge cases — these are synthesis problems that require context, taste, and experience.</p>
+<p>AI can help a platform engineer move faster. It can generate the implementation once the abstraction is clear. But it can't do the abstraction itself — at least not yet.</p>
+<p>In other words: AI accelerates Platform engineering, but it replaces Ops work.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="who-should-read-this">Who Should Read This<a href="https://austinxyz.github.io/blogs/blog/2026/03/16/platform-engineer-vs-ops-engineer#who-should-read-this" class="hash-link" aria-label="Direct link to Who Should Read This" title="Direct link to Who Should Read This" translate="no">​</a></h2>
+<p>This post is for Ops and DevOps engineers who want to make the transition — who are good at their jobs but sense that something is missing, that the work isn't compounding, that they're solving similar problems on repeat.</p>
+<p>The transition isn't about learning new tools. Kubernetes, Terraform, and CI/CD platforms are table stakes. The transition is about changing the question you ask when you encounter a problem.</p>
+<p>Not "how do I fix this?" but "how do I make this class of problem go away?"</p>
+<p>Not "how do I automate this for this customer?" but "how do I build something that 100 customers can use without my involvement?"</p>
+<p>Not "how do I become the person everyone depends on?" but "how do I build something that doesn't need me?"</p>
+<p>An Ops engineer who doesn't think about platforms is not only leaving impact on the table — in the age of AI, they're also the most exposed. The work that fills an Ops calendar is exactly the work AI does well.</p>
+<p>The engineers who will matter most in the next decade are the ones who build the systems AI assists with, not the ones who do the work AI replaces.</p>]]></content>
+        <author>
+            <name>Austin Xu</name>
+            <email>austin.xyz@gmail.com</email>
+            <uri>https://github.com/austinxyz</uri>
+        </author>
+        <category label="cloud-computing" term="cloud-computing"/>
+        <category label="kubernetes" term="kubernetes"/>
+        <category label="leadership" term="leadership"/>
+        <category label="career-development" term="career-development"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Twenty Years of Agile, One Year of AI — Here's What Survived]]></title>
         <id>https://austinxyz.github.io/blogs/blog/2026/03/09/agile-development-in-ai-coding</id>
