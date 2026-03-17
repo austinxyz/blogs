@@ -10,7 +10,7 @@ Two engineers. Two hundred clusters. Half a million nodes. Two million instances
 
 That's not a team of twenty. That's two people. And the reason it was possible isn't the tooling. It's the way we thought about the problem.
 
-After years building Cloud Platform at eBay and interviewing dozens of engineers for Platform roles, I've noticed a pattern. Most candidates who call themselves "DevOps" or "Cloud Operations" engineers are skilled, hardworking, and technically capable. But there's a fundamental difference in how they think — and that difference determines whether you're managing problems forever, or systematically eliminating them.
+After years building Cloud Platform at a large e-commerce company and interviewing dozens of engineers for Platform roles, I've noticed a pattern. Most candidates who call themselves "DevOps" or "Cloud Operations" engineers are skilled, hardworking, and technically capable. But there's a fundamental difference in how they think — and that difference determines whether you're managing problems forever, or systematically eliminating them.
 
 <!--truncate-->
 
@@ -46,9 +46,9 @@ A Platform engineer asks: *"Why does this keep happening, and how do I make it i
 
 The customer question matters a lot. Ops engineers are often measured by uptime and ticket resolution. Platform engineers should be measured by the productivity and autonomy of the teams they serve. Your platform is a product. Your users are engineers. Their developer experience (DX) is your NPS score.
 
-## The eBay Example: What Platform Thinking Looks Like at Scale
+## A Real Example: What Platform Thinking Looks Like at Scale
 
-At eBay, our Cloud Platform team managed 200+ Kubernetes clusters serving 5,000+ applications, running on 500,000 nodes and 2 million instances. Every year, we needed to upgrade all clusters to the latest Kubernetes version, add roughly replace a third more clusters, onboard hundreds of new applications, and patch OS images monthly to eliminate critical security vulnerabilities.
+At my previous company, our Cloud Platform team managed 200+ Kubernetes clusters serving 5,000+ applications, running on 500,000 nodes and 2 million instances. Every year, we needed to upgrade all clusters to the latest Kubernetes version, add roughly a third more clusters, onboard hundreds of new applications, and patch OS images monthly to eliminate critical security vulnerabilities.
 
 There's simply no Ops path to doing this. No amount of runbooks or scripts scales to that complexity without becoming a full-time firefighting operation.
 
