@@ -70,7 +70,7 @@ This is the part most architecture posts skip. Here are the real problems we ran
 
 ## AI Native Applications: What's Actually Different
 
-[Jimmy Song's framing](https://jimmysong.io/zh/book/ai-native-infra/) captures the core shift well: Cloud Native asks "how do I make this service highly available, scalable, and observable?" AI Native asks "how does this agent make high-quality decisions in an uncertain environment, and how do I govern that safely?"
+[Jimmy Song's framing](https://jimmysong.io/book/ai-native-infra/) captures the core shift well: Cloud Native asks "how do I make this service highly available, scalable, and observable?" AI Native asks "how does this agent make high-quality decisions in an uncertain environment, and how do I govern that safely?"
 
 The two paradigms aren't replacements for each other — AI Native is built on the Cloud Native foundation. But it reconstructs the abstraction layer above it.
 
