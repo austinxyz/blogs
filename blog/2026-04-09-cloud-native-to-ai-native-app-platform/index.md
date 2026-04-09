@@ -7,7 +7,7 @@ description: "Building a platform that treats Agents as first-class runtime obje
 slug: cloud-native-to-ai-native-app-platform
 ---
 
-*This is Part 2 of a two-part series. [Part 1](/blog/cloud-native-to-ai-native-infra) covers the infrastructure layer — GPU clusters, schedulers, and hardware platform management. This post covers the application platform layer: what it means to build a platform that treats Agents as first-class runtime objects.*
+*This is Part 2 of a three-part series on AI Native Infrastructure. [Part 1](/blog/cloud-native-to-ai-native-infra) covers the infrastructure layer — GPU clusters, schedulers, and hardware platform management. This post covers the application platform layer. [Part 3](/blog/iac-k8s-ai-native) covers IaC and Kubernetes as a two-layer control plane.*
 
 ---
 
@@ -161,3 +161,7 @@ Sri's factory analogy points at something real. The teams that will move fastest
 The belt isn't the CI pipeline specifically, or the staging environment, or the sprint planning cycle. The belt is the assumption that the platform doesn't need to change because the workload changed.
 
 That assumption is the thing worth questioning.
+
+---
+
+*Back to [Part 1](/blog/cloud-native-to-ai-native-infra): the infrastructure layer. Continue to [Part 3](/blog/iac-k8s-ai-native): how IaC and Kubernetes divide the work as a two-layer control plane.*

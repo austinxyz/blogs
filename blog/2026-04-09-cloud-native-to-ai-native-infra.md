@@ -1,14 +1,19 @@
 ---
-title: "From Cloud Native to AI Native: An Infra Platform Engineer's Perspective"
-date: 2026-04-08
+title: "From Cloud Native to AI Native Infrastructure: An Infra Platform Engineer's Perspective"
+date: 2026-04-09
 authors: [austin]
 tags: [ai, cloud-computing, kubernetes]
-description: "What Cloud Native infrastructure experience actually transfers to AI Native, and what needs to be rebuilt from scratch — a practitioner's honest account."
+description: "What Cloud Native infrastructure experience transfers to AI Native GPU clusters and hardware platforms — and what needs to be rebuilt from scratch."
+slug: cloud-native-to-ai-native-infra
+---
+
+*This is Part 1 of a three-part series on AI Native Infrastructure. Part 1 covers the infrastructure layer — GPU clusters, schedulers, and hardware platform management. [Part 2](/blog/cloud-native-to-ai-native-app-platform) covers the application platform layer. [Part 3](/blog/iac-k8s-ai-native) covers IaC and Kubernetes as a two-layer control plane.*
+
 ---
 
 I've spent the past several years running one of the larger Kubernetes deployments I know of — 200+ clusters, 5,000+ applications, 500,000 nodes, 2 million instances. When the AI wave hit and my team started getting serious about GPU infrastructure, I kept asking myself: how much of what we built actually transfers? Where do we have to start over?
 
-This post is my attempt to answer that question honestly. It's not a technology comparison or a vendor evaluation. It's a practitioner's account of what Cloud Native taught me, where it fell short, and what an AI Native infrastructure actually demands.
+This post is my attempt to answer that question honestly. It's not a technology comparison or a vendor evaluation. It's a practitioner's account of what Cloud Native taught me, where it fell short, and what AI Native infrastructure at the hardware and cluster management layer actually demands.
 
 <!--truncate-->
 
@@ -70,23 +75,18 @@ This is the part most architecture posts skip. Here are the real problems we ran
 
 ## AI Native Applications: What's Actually Different
 
-[Jimmy Song's framing](https://jimmysong.io/book/ai-native-infra/) captures the core shift well: Cloud Native asks "how do I make this service highly available, scalable, and observable?" AI Native asks "how does this agent make high-quality decisions in an uncertain environment, and how do I govern that safely?"
-
-The two paradigms aren't replacements for each other — AI Native is built on the Cloud Native foundation. But it reconstructs the abstraction layer above it.
-
-Here's what the differences look like across the dimensions that matter most to infrastructure engineers:
+At the infrastructure layer, the question isn't about agents making decisions — it's about what the underlying hardware platform needs to look like to support AI workloads at all. Here's where the differences hit hardest for infra engineers:
 
 | Dimension | Cloud Native | AI Native |
 |-----------|-------------|-----------|
 | **Compute Resource** | CPU/Memory, elastically overcommittable, linear cost growth | GPU at core, integer non-overcommittable, $25K–40K per card, hard cost ceiling |
-| **Workload Shape** | Stateless services + short batch, Pods can be killed at any time | Long-running training (days–weeks) + inference serving + stateful Agent runtimes |
-| **Execution Unit & Determinism** | Service responds to deterministic request/response, behavior is predictable and orchestrable | Agent/Model executes action/decision/side-effect, inference is non-deterministic, context is fluid |
-| **Failure Tolerance & Reliability** | Fast restart recovery, reliable delivery of deterministic systems (SLA uptime) | Checkpoint-based stateful recovery, controllable operation of non-deterministic systems (behavior must be attributable and auditable) |
-| **Communication Pattern** | East-west HTTP/gRPC, L7 traffic governance | GPU-to-GPU all-reduce via NCCL over InfiniBand, network bandwidth is a direct training throughput constraint |
+| **Workload Shape** | Stateless services + short batch, Pods can be killed at any time | Long-running training (days–weeks) + inference serving |
+| **Failure Tolerance & Reliability** | Fast restart recovery; infrastructure doesn't need to know what the workload was doing | Checkpoint-based stateful recovery; hours of compute lost per restart |
+| **Communication Pattern** | East-west HTTP/gRPC, L7 traffic governance | GPU-to-GPU all-reduce via NCCL over InfiniBand; network bandwidth is a direct training throughput constraint |
 | **Scaling Unit** | Single Pod, elastic horizontal scaling | Gang scheduling — all workers launch together or the job fails entirely |
-| **SLA & Observability** | P99 latency/throughput, error rate, service dependency tracing | GPU utilization (target 85–95%), MFU, SM utilization, ECC errors, token cost per query |
-| **Governance & Platform Role** | Govern service/instance/request, provide stable runtime for services | Govern model behavior / compute scarcity / uncertainty itself, provide measurable and attributable system boundaries for Agents |
-| **Context & State** | Stateless by default, short-lived sessions | Agents require long context windows and persistent state — Infra must explicitly support this |
+| **SLA & Observability** | P99 latency/throughput, error rate, service dependency tracing | GPU utilization (target 85–95%), MFU, SM utilization, ECC errors, job completion time |
+
+The questions of agent governance, token economics, and what it means to treat an Agent as a first-class runtime object belong to the platform layer above this — that's the subject of [Part 2](/blog/cloud-native-to-ai-native-app-platform). How IaC and Kubernetes divide this work between them is the subject of [Part 3](/blog/iac-k8s-ai-native).
 
 ---
 
@@ -147,8 +147,6 @@ After doing this transition in practice, here's my honest assessment of what Clo
 | Failure philosophy | Failure Tolerance & Reliability | From "fast restart, stateless recovery" to "checkpoint-based stateful recovery." Failure cost goes from seconds to hours. |
 | Network perspective | Communication Pattern | From "L7 traffic governance" to "collective communication performance tuning (NCCL/RDMA)." The network is now a compute resource. |
 | Scaling logic | Scaling Unit | From "single Pod elastic scaling" to "Gang scheduling, all-or-nothing." One unschedulable worker blocks the entire job. |
-| Execution unit mental model | Execution Unit & Determinism | Cloud Native has no equivalent. Agent action/side-effect is a new abstraction that needs to be built from scratch. |
-| State management | Context & State | Stateless-by-default doesn't apply. Agent long context windows and persistent state require explicit Infra design. |
 
 ---
 
@@ -170,10 +168,14 @@ The most common mistake I see is treating AI infrastructure as a specialization 
 
 ## Closing: The Medium Changes, the Thinking Doesn't
 
-Cloud Native taught me three things that I carry into AI Native work: design for declarative state, build platforms rather than tools, and encode correctness into the system rather than relying on human discipline.
+Cloud Native taught me three things that I carry into AI Native infrastructure work: design for declarative state, build platforms rather than tools, and encode correctness into the system rather than relying on human discipline.
 
-AI Native infrastructure is harder in specific ways — the hardware is more expensive, the failure modes are more exotic, and the workloads are genuinely non-deterministic in ways that Cloud Native never was. It demands new technical knowledge and some genuine unlearning.
+At the hardware and cluster management layer, AI Native infrastructure is harder in specific ways — the hardware is more expensive, the failure modes are more exotic, and the communication patterns require a completely different mental model. It demands new technical knowledge and some genuine unlearning.
 
-But the underlying engineering discipline is the same. The goal is still to take a rapidly evolving hardware and software landscape and build a platform layer that absorbs the complexity — so the people building on top of it can focus on what they're actually trying to accomplish.
+But the underlying engineering discipline is the same. The goal is still to take a rapidly evolving hardware landscape and build a platform layer that absorbs the complexity — so the teams building on top of it can focus on what they're actually trying to accomplish.
 
 The medium changes. The thinking doesn't.
+
+---
+
+*Continue to [Part 2](/blog/cloud-native-to-ai-native-app-platform): how to build a platform that treats Agents as first-class runtime objects. Or jump to [Part 3](/blog/iac-k8s-ai-native): how IaC and Kubernetes divide the work between them as a two-layer control plane.*
