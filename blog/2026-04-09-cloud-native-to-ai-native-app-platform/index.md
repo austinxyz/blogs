@@ -58,25 +58,20 @@ AI Native applications — specifically anything involving agents, RAG pipelines
 | **Resource consumption** | Predictable per-request CPU/memory | Highly variable token consumption; agent branching and reflection loops create long-tail cost distribution |
 | **State** | Stateless preferred; session is ephemeral | Long context windows, KV cache, memory stores are first-class infrastructure assets |
 | **Governance object** | Service instance, request count, error rate | Agent behavior, token spend, tool call chains, output quality |
-| **Validation** | Unit test + integration test → CI pipeline → deploy | Code generation is fast; validating against a live distributed system is slow and complex |
 
-The last row is where the platform pressure is most acute right now. And it connects directly to the belt problem.
+Each of these differences changes what the platform needs to govern. Together, they expose a fundamental problem with the existing platform contract.
 
 ---
 
-## The CI Pipeline Is the Belt
+## The Platform Contract Is the Belt
 
-[A recent analysis from Signadot](https://thenewstack.io/ai-agent-validation-bottleneck/) puts the problem precisely: AI coding agents have inverted the economics of software development. Producing code is now fast. Validating it is still slow.
+Most organizations running agents today do the obvious thing: they package the agent as a container and deploy it as a Deployment. The entire Cloud Native platform governance machinery keeps running — health checks, resource quotas, image versioning, distributed tracing. Everything works. None of it tells you anything meaningful about what the agent is actually doing.
 
-In a traditional enterprise environment, a CI pipeline triggers after a pull request is opened, runs tests against a shared staging environment, and reports results 20–40 minutes later. That model was designed for a world where developers produce a few PRs per day. When an agent-assisted developer produces a dozen PRs per day — or an autonomous agent produces them continuously — the queue backs up and developers spend most of their time managing the pipeline rather than building software.
+Health checks look for HTTP 200. The agent returns 200 whether it produced a correct answer, hallucinated, or entered an infinite tool-call loop. Resource quotas track CPU and memory. The agent's actual cost driver — token consumption — is invisible to the platform. Image versioning tracks container tags. A prompt change that fundamentally alters agent behavior looks identical to the platform as a no-op config update. Distributed tracing records request latency. It says nothing about which tools were called, in what order, at what token cost, or whether the output was any good.
 
-The agent accelerated the input. The system around it didn't change. Productivity gains are lost at the validation step.
+This is the belt. Not a CI pipeline, not a staging environment. The assumption that **"container + HTTP endpoint + CPU/memory quota" is sufficient to govern any workload** — and therefore that Agents can be dropped into the existing platform without changing the platform.
 
-This is the same pattern I saw during our large-scale application migration. We built tooling that automated migrations at speed, but the validation and traffic-switching steps were still sequential checkpoints that every application had to pass through one by one. The automation surfaced the bottleneck. We had to redesign the validation stage — building dry-run validation, automated spec matching, and phased cutover — before the end-to-end throughput actually improved.
-
-For AI Native app platforms, the equivalent work is giving agents access to **realistic, isolated validation environments that can be provisioned on demand** — not a shared staging cluster where changes queue up. Kubernetes-native sandbox approaches (using service mesh routing to create lightweight ephemeral environments per change) change the economics: when environments are cheap and fast, they stop being a scarce resource and become a tool agents can use programmatically within their own workflow.
-
-The goal is to collapse the feedback loop: instead of write → commit → wait for CI → discover failure → fix, the cycle becomes write → validate against live system → present verified result.
+The Deployment abstraction is the old shafts and belts. You dropped the new motor into the existing runtime, connected it to the existing health checks and resource quotas, and called it deployed. The agent runs. The governance doesn't work.
 
 ---
 
@@ -156,11 +151,11 @@ The **cost predictability assumption** needs to be replaced with cost governance
 
 In both eras, the Platform Engineer's job is the same at the core: take the complexity that would otherwise land on every application team, absorb it into the platform, and give teams a stable surface that lets them focus on what they're actually building.
 
-Sri's factory analogy points at something real. The teams that will move fastest aren't the ones with the best AI models. They're the ones that redesigned their factory floor — who looked at the validation pipeline, the agent lifecycle, the cost attribution, and the governance architecture, and rebuilt those for the new workload rather than wrapping AI around the old processes.
+Sri's factory analogy points at something real. The teams that will move fastest aren't the ones with the best AI models. They're the ones that redesigned their factory floor — who looked at the agent lifecycle, the cost attribution, the tool governance, and the observability architecture, and rebuilt those for the new workload rather than wrapping Agents around the old platform contract.
 
-The belt isn't the CI pipeline specifically, or the staging environment, or the sprint planning cycle. The belt is the assumption that the platform doesn't need to change because the workload changed.
+The belt is the assumption that an Agent is just another container, and that the platform doesn't need to know the difference.
 
-That assumption is the thing worth questioning.
+That assumption is the thing worth replacing.
 
 ---
 
