@@ -1,6 +1,6 @@
 ---
 title: "From Cloud Native Apps to AI Native Agent Platforms: The Belts Are the Problem"
-date: 2026-04-10T08:00
+date: 2026-04-09T08:00
 authors: [austin]
 tags: [ai, cloud-computing, kubernetes, leadership]
 description: "Building a platform that treats Agents as first-class runtime objects — what Cloud Native app platform experience transfers, and where the real bottlenecks are."
