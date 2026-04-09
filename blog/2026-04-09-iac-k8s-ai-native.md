@@ -11,9 +11,9 @@ slug: iac-k8s-ai-native
 
 ---
 
-Meta manages its GPU infrastructure with approximately 2 million lines of Terraform. That number gets cited often as evidence that Infrastructure as Code is the answer to AI infra management at scale.
+At hyperscale, managing GPU infrastructure without IaC is not a workflow — it's a liability. Companies like Meta operate GPU clusters at a scale where configuration drift, firmware inconsistency, or an undocumented network topology change can silently degrade a week-long training run. IaC is how you make infrastructure state auditable, reviewable, and reproducible.
 
-But it's worth asking: what exactly is Terraform managing in those 2 million lines? And what is it *not* managing?
+But IaC alone isn't sufficient. It's worth asking: what exactly is Terraform managing? And what is it *not* managing?
 
 The answer to that question reveals something important about how AI Native infrastructure actually needs to be governed — and why Kubernetes, despite not being designed for GPU workloads, remains the right runtime control plane for both the infrastructure layer and the application layer above it.
 
@@ -139,7 +139,7 @@ IaC handles everything that should be version-controlled, reviewed, and applied 
 
 Kubernetes handles everything that needs continuous reconciliation: workload placement, resource enforcement, health response, agent lifecycle. The extension model — CRD + Operator + Admission Webhook — is how you teach Kubernetes about new resource types without forking the core platform. This is what made Kubernetes the right foundation for Cloud Native, and it's what makes it the right foundation for AI Native.
 
-The 2 million lines of Terraform aren't competing with Kubernetes. They're provisioning the substrate that Kubernetes governs. Understanding that separation is the starting point for building AI infrastructure that stays manageable as it scales.
+The IaC layer isn't competing with Kubernetes. It's provisioning the substrate that Kubernetes governs. Understanding that separation is the starting point for building AI infrastructure that stays manageable as it scales.
 
 ---
 

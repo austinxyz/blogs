@@ -134,7 +134,7 @@ After doing this transition in practice, here's my honest assessment of what Clo
 
 | Transferable Capability | Table Dimension | Why It Transfers |
 |------------------------|----------------|-----------------|
-| Declarative IaC, immutable images | Compute Resource | GPU cluster management needs IaC more, not less — Meta manages GPU infra with 2 million lines of Terraform. This is not optional. |
+| Declarative IaC, immutable images | Compute Resource | GPU cluster management needs IaC more, not less. At hyperscale, every firmware version, network topology, and node image must be version-controlled and auditable. This is not optional. |
 | Platform thinking: encode correctness as technical constraint | Governance & Platform Role | The governance objects change (service → model behavior), but replacing runbook discipline with admission controllers and policy-as-code works the same way. |
 | Cluster lifecycle automation (build/upgrade/decommission) | Workload Shape | GPU training cluster lifecycle management mirrors Kubernetes cluster lifecycle. The automation patterns transfer directly. |
 | Observability methodology: define SLOs first, then alert signals, then auto-recovery | SLA & Observability | The metrics change (SM utilization replaces P99), but the method — working backwards from user-visible SLOs to leading indicators — is identical. |
