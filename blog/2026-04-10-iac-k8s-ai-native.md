@@ -1,6 +1,6 @@
 ---
 title: "IaC and Kubernetes: The Two-Layer Control Plane for AI Native Infrastructure"
-date: 2026-04-11
+date: 2026-04-10T10:00
 authors: [austin]
 tags: [ai, cloud-computing, kubernetes]
 description: "Why Terraform and Kubernetes aren't alternatives for AI Native infrastructure — and how they divide the work between provisioning-time and runtime control."

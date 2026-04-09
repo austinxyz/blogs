@@ -1,6 +1,6 @@
 ---
 title: "From Cloud Native to AI Native Infrastructure: An Infra Platform Engineer's Perspective"
-date: 2026-04-09
+date: 2026-04-08
 authors: [austin]
 tags: [ai, cloud-computing, kubernetes]
 description: "What Cloud Native infrastructure experience transfers to AI Native GPU clusters and hardware platforms — and what needs to be rebuilt from scratch."
