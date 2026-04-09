@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://austinxyz.github.io/blogs/blog</id>
     <title>Austin Xu Blog</title>
-    <updated>2026-04-11T00:00:00.000Z</updated>
+    <updated>2026-04-10T10:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://austinxyz.github.io/blogs/blog"/>
     <subtitle>Austin Xu Blog</subtitle>
@@ -11,7 +11,7 @@
         <title type="html"><![CDATA[IaC and Kubernetes: The Two-Layer Control Plane for AI Native Infrastructure]]></title>
         <id>https://austinxyz.github.io/blogs/blog/iac-k8s-ai-native</id>
         <link href="https://austinxyz.github.io/blogs/blog/iac-k8s-ai-native"/>
-        <updated>2026-04-11T00:00:00.000Z</updated>
+        <updated>2026-04-10T10:00:00.000Z</updated>
         <summary type="html"><![CDATA[Why Terraform and Kubernetes aren't alternatives for AI Native infrastructure — and how they divide the work between provisioning-time and runtime control.]]></summary>
         <content type="html"><![CDATA[<p><em>This is Part 3 of a three-part series on AI Native Infrastructure. <a class="" href="https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-infra">Part 1</a> covers GPU cluster management. <a class="" href="https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-app-platform">Part 2</a> covers agent platform engineering. This post covers IaC and Kubernetes as the two-layer control plane that makes both work at scale.</em></p>
 <hr>
@@ -95,7 +95,7 @@
         <title type="html"><![CDATA[From Cloud Native Apps to AI Native Agent Platforms: The Belts Are the Problem]]></title>
         <id>https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-app-platform</id>
         <link href="https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-app-platform"/>
-        <updated>2026-04-10T00:00:00.000Z</updated>
+        <updated>2026-04-10T08:00:00.000Z</updated>
         <summary type="html"><![CDATA[Building a platform that treats Agents as first-class runtime objects — what Cloud Native app platform experience transfers, and where the real bottlenecks are.]]></summary>
         <content type="html"><![CDATA[<p><em>This is Part 2 of a three-part series on AI Native Infrastructure. <a class="" href="https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-infra">Part 1</a> covers the infrastructure layer — GPU clusters, schedulers, and hardware platform management. This post covers the application platform layer. <a class="" href="https://austinxyz.github.io/blogs/blog/iac-k8s-ai-native">Part 3</a> covers IaC and Kubernetes as a two-layer control plane.</em></p>
 <hr>
@@ -193,7 +193,7 @@
         <title type="html"><![CDATA[From Cloud Native to AI Native Infrastructure: An Infra Platform Engineer's Perspective]]></title>
         <id>https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-infra</id>
         <link href="https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-infra"/>
-        <updated>2026-04-09T00:00:00.000Z</updated>
+        <updated>2026-04-08T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[What Cloud Native infrastructure experience transfers to AI Native GPU clusters and hardware platforms — and what needs to be rebuilt from scratch.]]></summary>
         <content type="html"><![CDATA[<p><em>This is Part 1 of a three-part series on AI Native Infrastructure. Part 1 covers the infrastructure layer — GPU clusters, schedulers, and hardware platform management. <a class="" href="https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-app-platform">Part 2</a> covers the application platform layer. <a class="" href="https://austinxyz.github.io/blogs/blog/iac-k8s-ai-native">Part 3</a> covers IaC and Kubernetes as a two-layer control plane.</em></p>
 <hr>
