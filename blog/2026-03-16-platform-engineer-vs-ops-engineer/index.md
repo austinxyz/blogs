@@ -48,7 +48,7 @@ The customer question matters a lot. Ops engineers are often measured by uptime 
 
 ## A Real Example: What Platform Thinking Looks Like at Scale
 
-At my previous company, our Cloud Platform team managed 200+ Kubernetes clusters serving 5,000+ applications, running on 500,000 nodes and 2 million instances. Every year, we needed to upgrade all clusters to the latest Kubernetes version, add roughly a third more clusters, onboard hundreds of new applications, and patch OS images monthly to eliminate critical security vulnerabilities.
+At my previous company, our Cloud Platform team managed 200+ Kubernetes clusters serving 5,000+ applications, running on 50,000 nodes and 2 million instances. Every year, we needed to upgrade all clusters to the latest Kubernetes version, add roughly a third more clusters, onboard hundreds of new applications, and patch OS images monthly to eliminate critical security vulnerabilities.
 
 There's simply no Ops path to doing this. No amount of runbooks or scripts scales to that complexity without becoming a full-time firefighting operation.
 

@@ -11,7 +11,7 @@ slug: cloud-native-to-ai-native-infra
 
 ---
 
-I've spent the past several years running one of the larger Kubernetes deployments I know of — 200+ clusters, 5,000+ applications, 500,000 nodes, 2 million instances. When the AI wave hit and my team started getting serious about GPU infrastructure, I kept asking myself: how much of what we built actually transfers? Where do we have to start over?
+I've spent the past several years running one of the larger Kubernetes deployments I know of — 200+ clusters, 5,000+ applications, 50,000 nodes, 2 million instances. When the AI wave hit and my team started getting serious about GPU infrastructure, I kept asking myself: how much of what we built actually transfers? Where do we have to start over?
 
 This post is my attempt to answer that question honestly. It's not a technology comparison or a vendor evaluation. It's a practitioner's account of what Cloud Native taught me, where it fell short, and what AI Native infrastructure at the hardware and cluster management layer actually demands.
 
