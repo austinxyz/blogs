@@ -592,6 +592,21 @@ strong { color: var(--ink); font-weight: 600; }
     .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
     .illust { opacity: 0.9 !important; transform: none !important; }
     .slide:not(.is-visible) .illust { opacity: 0.9 !important; transform: none !important; }
+
+    /* 打印时改用系统字体，避免嵌入 CJK web 字体 */
+    body, .slide, .slide-content, p, li, span, div {
+        font-family: "Microsoft YaHei", "PingFang SC", "Heiti SC", "SimHei", sans-serif !important;
+    }
+    h1, h2, h3, .title, .head, .quote, .cover .title, .opener .head,
+    .pillar .name, h2.quote {
+        font-family: "Microsoft YaHei", "PingFang SC", "STSong", "SimSun", serif !important;
+    }
+    em, .cover .byline .by, .chapter-tag, .kicker,
+    .cover .sub, .sub .tagline, .chrome, .attrib, .feat .tag, .pillar .num,
+    .link-list .label, .link-list .url {
+        font-family: Georgia, "Times New Roman", "Microsoft YaHei", serif !important;
+    }
+    .cover .byline .name { font-family: "Microsoft YaHei", "PingFang SC", sans-serif !important; }
 }
 
 /* short viewports */
