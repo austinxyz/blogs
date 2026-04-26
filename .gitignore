@@ -21,3 +21,6 @@ yarn-error.log*
 
 # Source materials (large binary files)
 raw_docs/
+
+# Claude local settings
+.claude/settings.local.json
