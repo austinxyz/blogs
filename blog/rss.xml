@@ -4,38 +4,10 @@
         <title>Austin Xu Blog</title>
         <link>https://austinxyz.github.io/blogs/blog</link>
         <description>Austin Xu Blog</description>
-        <lastBuildDate>Sat, 25 Apr 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 19 Apr 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
-        <item>
-            <title><![CDATA[回国前必做的财务清单——绿卡持有人必知的六件事]]></title>
-            <link>https://austinxyz.github.io/blogs/blog/return-china-financial-checklist</link>
-            <guid>https://austinxyz.github.io/blogs/blog/return-china-financial-checklist</guid>
-            <pubDate>Sat, 25 Apr 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[绿卡持有人回国前，LTR 窗口、Exit Tax、FBAR、Roth Conversion、PFIC 清理、Medicare……一份系统梳理，附 11 张交互式 slides。]]></description>
-            <content:encoded><![CDATA[<p>在美华人回国前，往往面对一张让人头皮发麻的词汇表：<strong>LTR、Exit Tax、FBAR、Roth Conversion、PFIC</strong>……知道这些事情"很重要"，但不知道从哪里下手，也不知道最坏的情况是什么。</p>
-<p>这篇文章用虚构人物<strong>王女士</strong>（55岁，绿卡持有12年，计划5年内回国）作为案例，用问答形式把这些问题系统梳理了一遍。</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="打开-slides">打开 Slides<a href="https://austinxyz.github.io/blogs/blog/return-china-financial-checklist#%E6%89%93%E5%BC%80-slides" class="hash-link" aria-label="Direct link to 打开 Slides" title="Direct link to 打开 Slides" translate="no">​</a></h2>
-<a href="https://austinxyz.github.io/blogs/slides/return-china-financial-checklist.html" target="_blank" rel="noopener"><p>🎯 全屏演示（11 张 · 支持键盘 / 滚轮 / 手机滑动）</p></a>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="四个核心问题">四个核心问题<a href="https://austinxyz.github.io/blogs/blog/return-china-financial-checklist#%E5%9B%9B%E4%B8%AA%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98" class="hash-link" aria-label="Direct link to 四个核心问题" title="Direct link to 四个核心问题" translate="no">​</a></h2>
-<p><strong>Q1：绿卡一定要放弃吗？</strong></p>
-<p>关键是 <strong>LTR 8 年窗口</strong>。持有绿卡满 8 个完整税年后放弃，触发与公民放弃国籍相同的 Exit Tax 规则。8 年前放弃，没有 Exit Tax。听起来简单，但税年计算有陷阱——2018 年 12 月 31 日拿到绿卡，2025 年 1 月 1 日放弃，实际不足 7 年，但按税年算已是第 8 年。</p>
-<p><strong>Q2：Exit Tax 会不会很贵？</strong></p>
-<p>Exit Tax 是 IRS 假设你在放弃绿卡当天"卖掉了全球所有资产"，对账面增值征税。触发条件是成为 <strong>Covered Expatriate</strong>，满足以下三项之一即触发：净资产 ≥ $2M、5 年平均税 ≥ $206K、无法证明 5 年税务完全合规（包括 FBAR）。</p>
-<p>最容易被忽视的是第三项——哪怕资产只有 $1.5M，一年忘报 FBAR，直接触发 Covered 身份。</p>
-<p><strong>Q3：回国前需要做哪些财务清理？</strong></p>
-<p>六件事，按优先级：① 明确绿卡策略、② 启动 Roth Conversion、③ 每年实现资本利得（重置成本基）、④ 清理 PFIC（中国基金/理财）、⑤ 补齐 FBAR 历史申报、⑥ 处理 Medicare。</p>
-<p><strong>Q4：FBAR 是什么？</strong></p>
-<p>境外账户合计超过 $10,000，每年必须申报。中国银行账户、A 股、余额宝、有签字权的父母账户都算。漏报罚款最高达账户余额 50%，且直接影响 Exit Tax 的 Covered 身份认定。</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="这是一个更大知识库的一部分">这是一个更大知识库的一部分<a href="https://austinxyz.github.io/blogs/blog/return-china-financial-checklist#%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E6%9B%B4%E5%A4%A7%E7%9F%A5%E8%AF%86%E5%BA%93%E7%9A%84%E4%B8%80%E9%83%A8%E5%88%86" class="hash-link" aria-label="Direct link to 这是一个更大知识库的一部分" title="Direct link to 这是一个更大知识库的一部分" translate="no">​</a></h2>
-<p>这篇文章来自我正在维护的开源财富规划知识库：<a href="https://github.com/austinxyz/wealth-llm-wiki" target="_blank" rel="noopener noreferrer" class="">wealth-llm-wiki</a>。</p>
-<p>如果你也是在美华人，可以 Fork 这个仓库，填写自己的财务档案，用内置的 Claude Code AI skill（<code>/wealth-advise</code>）生成针对自己情况的个性化分析。</p>
-<hr>
-<p><em>本文内容仅供参考，不构成投资、税务或法律建议。重大财务决策请咨询持牌跨境 CPA 和移民律师。</em></p>]]></content:encoded>
-            <author>austin.xyz@gmail.com (Austin Xu)</author>
-            <category>wealth-management</category>
-        </item>
         <item>
             <title><![CDATA[Stacking OpenSpec and Superpowers: A Combined SDD Workflow]]></title>
             <link>https://austinxyz.github.io/blogs/blog/openspec-superpowers-combined</link>
@@ -178,45 +150,6 @@
             <category>ai</category>
             <category>claude-code</category>
             <category>future-of-development</category>
-        </item>
-        <item>
-            <title><![CDATA[人生下半场 · 一份准备笔记]]></title>
-            <link>https://austinxyz.github.io/blogs/blog/second-half-of-life</link>
-            <guid>https://austinxyz.github.io/blogs/blog/second-half-of-life</guid>
-            <pubDate>Sun, 19 Apr 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[A field note for the second half of life — health, life design, wealth, and work — shared with a senior professional community. Written in Chinese.]]></description>
-            <content:encoded><![CDATA[<p><em>一份写给"中场哨响"之后的自己，也写给每一位还在转型路上的同路人。</em></p>
-<p>最近在一个华人职业群里做了一次分享，主题是 <strong>人生下半场</strong>。借着 GAP 期里的一些思考 —— 关于健康、人生规划、财富、工作，以及 AI 在其中扮演的角色 —— 整理成了这份 18 页的 slides。</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="打开-slides">打开 Slides<a href="https://austinxyz.github.io/blogs/blog/second-half-of-life#%E6%89%93%E5%BC%80-slides" class="hash-link" aria-label="Direct link to 打开 Slides" title="Direct link to 打开 Slides" translate="no">​</a></h2>
-<ul>
-<li class="">
-<a href="https://austinxyz.github.io/blogs/slides/second-half-of-life.html" target="_blank" rel="noopener">全屏演示（HTML · 支持键盘 / 鼠标滚轮 / 手机滑动翻页）</a>
-</li>
-<li class="">
-<a href="https://austinxyz.github.io/blogs/downloads/second-half-of-life.pdf" target="_blank" rel="noopener">PDF 下载</a>
-</li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="四根支柱">四根支柱<a href="https://austinxyz.github.io/blogs/blog/second-half-of-life#%E5%9B%9B%E6%A0%B9%E6%94%AF%E6%9F%B1" class="hash-link" aria-label="Direct link to 四根支柱" title="Direct link to 四根支柱" translate="no">​</a></h2>
-<p>这份 slides 从四个角度切入下半场的准备：</p>
-<ol>
-<li class=""><strong>健康</strong> —— 一切的底。服老，不再放纵。</li>
-<li class=""><strong>人生规划</strong> —— 先想清楚，什么才是适合自己的人生。参考：《斯坦福人生设计课》。</li>
-<li class=""><strong>财富</strong> —— 不是目的，而是让你多一种选择、少一分顾虑的工具。50 岁这一代上有老、下有小，对钱才真正敏感；富人之所以富，是吃透了"信息差"。</li>
-<li class=""><strong>工作</strong> —— 退休还早。大厂继续也好，自己做也好，都算。</li>
-</ol>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="贯穿的主线">贯穿的主线<a href="https://austinxyz.github.io/blogs/blog/second-half-of-life#%E8%B4%AF%E7%A9%BF%E7%9A%84%E4%B8%BB%E7%BA%BF" class="hash-link" aria-label="Direct link to 贯穿的主线" title="Direct link to 贯穿的主线" translate="no">​</a></h2>
-<ul>
-<li class=""><strong>AI 是副驾，不是自动驾驶</strong> —— 用 AI 的三个原则：不畏惧、不依赖、用在杠杆处。</li>
-<li class=""><strong>Naval 的杠杆框架</strong> —— 劳动力 / 资本 / 代码 / 媒体。AI 就是这一代人的 "代码 + 媒体" 杠杆。</li>
-<li class=""><strong>副业</strong> —— 要带杠杆、要有被动收入，不是另一个"出卖时间"的主业。</li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="为什么分享">为什么分享<a href="https://austinxyz.github.io/blogs/blog/second-half-of-life#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%86%E4%BA%AB" class="hash-link" aria-label="Direct link to 为什么分享" title="Direct link to 为什么分享" translate="no">​</a></h2>
-<p>如果你刚好也走到了 50 岁这一程，或正处在职业转型的 GAP 期 —— 希望这份笔记能让你少一点焦虑，多一点从容。</p>
-<p>下半场，我们是同路人。</p>]]></content:encoded>
-            <author>austin.xyz@gmail.com (Austin Xu)</author>
-            <category>reflection</category>
-            <category>career</category>
-            <category>personal</category>
         </item>
         <item>
             <title><![CDATA[IaC and Kubernetes: The Two-Layer Control Plane for AI Native Infrastructure]]></title>
@@ -2753,6 +2686,277 @@ The term "Vibe Coding" originated from the developer community's playful descrip
             <category>ai</category>
             <category>claude-code</category>
             <category>development-tools</category>
+        </item>
+        <item>
+            <title><![CDATA[[0/6] Claude Code in Practice: A Complete Guide to AI-Assisted Development]]></title>
+            <link>https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview</link>
+            <guid>https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview</guid>
+            <pubDate>Sun, 14 Dec 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[A comprehensive 6-part series exploring AI-assisted programming through the development of a family finance system. Learn Vibe Coding best practices with real-world examples.]]></description>
+            <content:encoded><![CDATA[<blockquote>
+<p>Exploring best practices for AI-assisted programming (Vibe Coding) through the real development journey of the Finance project</p>
+</blockquote>
+<ul>
+<li class=""><strong>Author</strong>: Austin Xu</li>
+<li class=""><strong>Project</strong>: Family Finance Management System (Spring Boot + Vue 3 Full-Stack Application)</li>
+<li class=""><strong>Development Period</strong>: November 2025 - Present</li>
+<li class=""><strong>Code Scale</strong>: ~41,000 lines of code, 127 Java files, 33 Vue components, 25 database tables</li>
+<li class=""><strong>Net Development Time</strong>: ~20 hours (weekend and evening spare time)</li>
+<li class=""><strong>GitHub</strong>: <a href="https://github.com/austinxyz/finance" target="_blank" rel="noopener noreferrer" class="">https://github.com/austinxyz/finance</a></li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="series-overview">Series Overview<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#series-overview" class="hash-link" aria-label="Direct link to Series Overview" title="Direct link to Series Overview" translate="no">​</a></h2>
+<p>This is a complete guide to Claude Code based on real-world experience building a production application. Through developing a family finance management system entirely with Claude Code, I've documented practical insights, best practices, and lessons learned that go beyond typical AI tool tutorials.</p>
+<p><strong>What makes this series unique:</strong></p>
+<ul>
+<li class="">✅ <strong>Real Project Validation</strong> - All practices come from the Finance project</li>
+<li class="">✅ <strong>100% AI Generated</strong> - Approximately 41,000 lines of code entirely generated by Claude Code</li>
+<li class="">✅ <strong>Full Lifecycle Coverage</strong> - Complete software engineering lifecycle from requirements to deployment</li>
+<li class="">✅ <strong>Concrete and Actionable</strong> - Actual configuration files, commands, and code examples</li>
+<li class="">✅ <strong>Theory Meets Practice</strong> - References Martin Fowler interviews and industry best practices</li>
+<li class="">✅ <strong>Data-driven</strong> - Quantified productivity metrics and verifiable results</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="table-of-contents">Table of Contents<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#table-of-contents" class="hash-link" aria-label="Direct link to Table of Contents" title="Direct link to Table of Contents" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="part-1-introduction---a-new-programming-paradigm"><strong><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/15/claude-code-introduction">Part 1: Introduction - A New Programming Paradigm</a></strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#part-1-introduction---a-new-programming-paradigm" class="hash-link" aria-label="Direct link to part-1-introduction---a-new-programming-paradigm" title="Direct link to part-1-introduction---a-new-programming-paradigm" translate="no">​</a></h3>
+<p>Discover how AI-assisted programming evolved from code completion to "Vibe Coding"</p>
+<p><strong>Topics Covered:</strong></p>
+<ul>
+<li class="">From Copilot to Vibe Coding</li>
+<li class="">What is Vibe Coding and why it matters</li>
+<li class="">The Value of Vibe Coding (with real productivity data)</li>
+<li class="">Understanding this new programming paradigm</li>
+</ul>
+<p><strong>Key Takeaway:</strong> Learn how to shift from writing code line-by-line to describing what you want and letting AI handle implementation.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="part-2-claude-code-overview"><strong><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/16/claude-code-overview">Part 2: Claude Code Overview</a></strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#part-2-claude-code-overview" class="hash-link" aria-label="Direct link to part-2-claude-code-overview" title="Direct link to part-2-claude-code-overview" translate="no">​</a></h3>
+<p>Comprehensive introduction to Claude Code's capabilities and ecosystem</p>
+<p><strong>Topics Covered:</strong></p>
+<ul>
+<li class="">Background and evolution of Claude Code</li>
+<li class="">Core concepts: Skills, Hooks, MCP, CLAUDE.md</li>
+<li class="">Tool Comparison: Claude Code vs. Cursor, Copilot, Gemini CLI</li>
+<li class="">Why Choose Claude Code</li>
+<li class="">Quick Start guide</li>
+</ul>
+<p><strong>Key Takeaway:</strong> Understand Claude Code's unique strengths and when to use it versus other AI coding tools.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="part-3-full-development-cycle-walkthrough"><strong><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough">Part 3: Full Development Cycle Walkthrough</a></strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#part-3-full-development-cycle-walkthrough" class="hash-link" aria-label="Direct link to part-3-full-development-cycle-walkthrough" title="Direct link to part-3-full-development-cycle-walkthrough" translate="no">​</a></h3>
+<p>Step-by-step walkthrough of building a real application with Claude Code</p>
+<p><strong>Topics Covered:</strong></p>
+<ul>
+<li class=""><strong>Initialization Phase</strong>: Setting up project skeleton</li>
+<li class=""><strong>Requirements Phase</strong>: From vague ideas to precise specifications</li>
+<li class=""><strong>Design Phase</strong>: Architectural decisions and AI's boundaries</li>
+<li class=""><strong>Implementation Phase</strong>: Efficient collaboration and automation</li>
+<li class=""><strong>Testing Phase</strong>: AI-driven quality assurance</li>
+<li class=""><strong>Deployment Phase</strong>: From testing to production</li>
+</ul>
+<p><strong>Key Takeaway:</strong> See exactly how Claude Code handles each stage of development with concrete examples and screenshots.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="part-4-evolution-of-software-development-methodologies"><strong><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution">Part 4: Evolution of Software Development Methodologies</a></strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#part-4-evolution-of-software-development-methodologies" class="hash-link" aria-label="Direct link to part-4-evolution-of-software-development-methodologies" title="Direct link to part-4-evolution-of-software-development-methodologies" translate="no">​</a></h3>
+<p>How AI is transforming established software engineering practices</p>
+<p><strong>Topics Covered:</strong></p>
+<ul>
+<li class=""><strong>Agile Development</strong>: From Sprints to Prompts</li>
+<li class=""><strong>Test-Driven Development (TDD)</strong>: New forms in the AI era</li>
+<li class=""><strong>Object-Oriented Design</strong>: Can AI understand design patterns?</li>
+<li class=""><strong>Code Review</strong>: New balance in human-AI collaboration</li>
+</ul>
+<p><strong>Key Takeaway:</strong> Adapt traditional methodologies for the AI era while maintaining engineering rigor.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="part-5-use-cases-and-limitations"><strong><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/19/claude-code-use-cases-and-limitations">Part 5: Use Cases and Limitations</a></strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#part-5-use-cases-and-limitations" class="hash-link" aria-label="Direct link to part-5-use-cases-and-limitations" title="Direct link to part-5-use-cases-and-limitations" translate="no">​</a></h3>
+<p>Honest assessment of when Claude Code excels and when it struggles</p>
+<p><strong>Topics Covered:</strong></p>
+<ul>
+<li class=""><strong>Most Suitable Scenarios</strong>
+<ul>
+<li class="">Full-stack web applications</li>
+<li class="">CRUD-heavy business logic</li>
+<li class="">Infrastructure automation</li>
+<li class="">Prototyping and MVPs</li>
+</ul>
+</li>
+<li class=""><strong>Unsuitable or Scenarios Requiring Caution</strong>
+<ul>
+<li class="">High-performance computing</li>
+<li class="">Complex algorithms</li>
+<li class="">Novel research problems</li>
+</ul>
+</li>
+<li class=""><strong>Applicability in Team Collaboration</strong>
+<ul>
+<li class="">Individual vs. team usage</li>
+<li class="">Integration with existing workflows</li>
+</ul>
+</li>
+</ul>
+<p><strong>Key Takeaway:</strong> Make informed decisions about when and how to adopt Claude Code in your projects.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="part-6-conclusion-and-outlook"><strong><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/20/claude-code-conclusion">Part 6: Conclusion and Outlook</a></strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#part-6-conclusion-and-outlook" class="hash-link" aria-label="Direct link to part-6-conclusion-and-outlook" title="Direct link to part-6-conclusion-and-outlook" translate="no">​</a></h3>
+<p>Synthesis of lessons learned and future outlook</p>
+<p><strong>Topics Covered:</strong></p>
+<ul>
+<li class=""><strong>Development Data Summary</strong> of the Finance Project</li>
+<li class=""><strong>Core Advantages</strong> of Claude Code</li>
+<li class=""><strong>Current Limitations</strong> and workarounds</li>
+<li class=""><strong>Recommendations for Readers</strong>
+<ul>
+<li class="">For individual developers</li>
+<li class="">For technical managers</li>
+<li class="">For teams considering adoption</li>
+</ul>
+</li>
+</ul>
+<p><strong>Key Takeaway:</strong> Practical roadmap for integrating Claude Code into your development workflow.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="reading-recommendations">Reading Recommendations<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#reading-recommendations" class="hash-link" aria-label="Direct link to Reading Recommendations" title="Direct link to Reading Recommendations" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="for-different-audiences">For Different Audiences<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#for-different-audiences" class="hash-link" aria-label="Direct link to For Different Audiences" title="Direct link to For Different Audiences" translate="no">​</a></h3>
+<p><strong>Individual Developers:</strong>
+Start with Part 1 to understand the paradigm shift, then jump to Part 3 for hands-on walkthrough. Circle back to Parts 2, 4, and 5 as you encounter specific challenges.</p>
+<p><strong>Technical Managers:</strong>
+Read Parts 1, 5, and 6 to understand business value, limitations, and team adoption strategies. Skim Part 3 for technical depth.</p>
+<p><strong>Students/Beginners:</strong>
+Read in order from Part 1 through Part 6. Try building small projects with Claude Code as you progress through each part.</p>
+<p><strong>Experienced Engineers:</strong>
+Start with Part 4 (methodology evolution) to see how AI changes established practices, then read Part 5 (limitations) to understand boundaries. Parts 3 and 6 provide concrete implementation details.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="reading-tips">Reading Tips<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#reading-tips" class="hash-link" aria-label="Direct link to Reading Tips" title="Direct link to Reading Tips" translate="no">​</a></h3>
+<ol>
+<li class=""><strong>Read in Order (Recommended)</strong>: Chapters build on each other and are best understood sequentially</li>
+<li class=""><strong>Practice-Oriented</strong>: Each chapter includes real-world cases - try implementing them in your projects</li>
+<li class=""><strong>Critical Thinking</strong>: Opinions are based on personal experience; adapt to your context</li>
+<li class=""><strong>Hands-On Practice</strong>: Install Claude Code and experiment with small projects while reading</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="project-context-finance-system">Project Context: Finance System<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#project-context-finance-system" class="hash-link" aria-label="Direct link to Project Context: Finance System" title="Direct link to Project Context: Finance System" translate="no">​</a></h2>
+<p>To make this guide concrete, all examples come from developing a family finance management system:</p>
+<p><strong>Tech Stack:</strong></p>
+<ul>
+<li class="">Backend: Spring Boot 3.2 + Java 17</li>
+<li class="">Frontend: Vue 3 + Vite</li>
+<li class="">Database: MySQL 8.0</li>
+<li class="">Deployment: Docker + AWS</li>
+</ul>
+<p><strong>Features Implemented:</strong></p>
+<ul>
+<li class="">Asset management (bank accounts, investments, real estate)</li>
+<li class="">Liability tracking (loans, mortgages, credit cards)</li>
+<li class="">Expense analysis with categories</li>
+<li class="">Investment portfolio tracking</li>
+<li class="">Multi-currency support</li>
+<li class="">Data visualization dashboards</li>
+<li class="">Budget planning tools</li>
+</ul>
+<p><strong>Development Metrics:</strong></p>
+<ul>
+<li class=""><strong>Code Volume</strong>: ~41,000 lines</li>
+<li class=""><strong>File Count</strong>: 127 Java files, 33 Vue components</li>
+<li class=""><strong>Database</strong>: 25 tables with complex relationships</li>
+<li class=""><strong>Time Investment</strong>: ~20 hours net development time</li>
+<li class=""><strong>AI Contribution</strong>: 100% of code generated by Claude Code</li>
+<li class=""><strong>Human Contribution</strong>: Requirements, architecture decisions, testing, refinement</li>
+</ul>
+<p>This real project provides concrete examples throughout the series rather than theoretical scenarios.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="related-resources">Related Resources<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#related-resources" class="hash-link" aria-label="Direct link to Related Resources" title="Direct link to Related Resources" translate="no">​</a></h2>
+<p><strong>Project Repository:</strong></p>
+<ul>
+<li class=""><a href="https://github.com/austinxyz/finance" target="_blank" rel="noopener noreferrer" class="">Finance System GitHub</a> - Full source code and documentation</li>
+</ul>
+<p><strong>Industry Insights:</strong></p>
+<ul>
+<li class=""><a href="https://youtu.be/CQmI4XKTa0U" target="_blank" rel="noopener noreferrer" class="">Martin Fowler Interview: AI's Impact on Software Engineering</a></li>
+<li class=""><a href="https://blog.sshh.io/p/how-i-use-every-claude-code-feature" target="_blank" rel="noopener noreferrer" class="">Shrivu Shankar's Claude Code Practical Experience</a></li>
+</ul>
+<p><strong>Official Documentation:</strong></p>
+<ul>
+<li class=""><a href="https://docs.claude.ai/docs/claude-code" target="_blank" rel="noopener noreferrer" class="">Claude Code Documentation</a></li>
+<li class=""><a href="https://github.com/austinxyz/finance/tree/master/requirement/%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E.md" target="_blank" rel="noopener noreferrer" class="">Finance Project Requirements</a></li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-youll-learn">What You'll Learn<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#what-youll-learn" class="hash-link" aria-label="Direct link to What You'll Learn" title="Direct link to What You'll Learn" translate="no">​</a></h2>
+<p>By the end of this series, you'll be able to:</p>
+<ul>
+<li class="">✅ <strong>Understand Vibe Coding</strong> - The new programming paradigm enabled by AI</li>
+<li class="">✅ <strong>Use Claude Code Effectively</strong> - Master Skills, Hooks, MCP, and CLAUDE.md</li>
+<li class="">✅ <strong>Build Full Applications</strong> - Complete development cycles from idea to deployment</li>
+<li class="">✅ <strong>Adapt Methodologies</strong> - Apply Agile, TDD, and OOP in the AI era</li>
+<li class="">✅ <strong>Make Informed Decisions</strong> - Know when to use (or not use) AI assistance</li>
+<li class="">✅ <strong>Measure Productivity</strong> - Quantify the impact of AI on development speed</li>
+<li class="">✅ <strong>Avoid Common Pitfalls</strong> - Learn from real-world challenges and solutions</li>
+</ul>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="getting-started">Getting Started<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#getting-started" class="hash-link" aria-label="Direct link to Getting Started" title="Direct link to Getting Started" translate="no">​</a></h2>
+<p>Ready to explore AI-assisted development? Start with <strong><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/15/claude-code-introduction">Part 1: Introduction to AI-Assisted Development →</a></strong></p>
+<p>Or jump to any part that interests you:</p>
+<ul>
+<li class=""><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/16/claude-code-overview">Part 2: Claude Code Overview →</a></li>
+<li class=""><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough">Part 3: Development Walkthrough →</a></li>
+<li class=""><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution">Part 4: Methodology Evolution →</a></li>
+<li class=""><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/19/claude-code-use-cases-and-limitations">Part 5: Use Cases and Limitations →</a></li>
+<li class=""><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/20/claude-code-conclusion">Part 6: Conclusion and Outlook →</a></li>
+</ul>
+<hr>
+<p><strong>Version History</strong>:</p>
+<ul>
+<li class="">v1.0 (2025-12-14): Series overview and table of contents</li>
+<li class="">v1.1 (2025-12-18): Initial series completed</li>
+<li class="">v1.2 (2025-12-19): Refined with unified project statistics</li>
+</ul>
+<hr>
+<p><em>This guide represents real-world experience with Claude Code over multiple months of development. Your mileage may vary based on project type, programming languages, and individual workflow preferences.</em></p>]]></content:encoded>
+            <author>austin.xyz@gmail.com (Austin Xu)</author>
+            <category>ai</category>
+            <category>claude-code</category>
+            <category>development-tools</category>
+            <category>guide</category>
+        </item>
+        <item>
+            <title><![CDATA[Thanks to the Royal Flush 40+ 7.0 Team]]></title>
+            <link>https://austinxyz.github.io/blogs/blog/2023/12/20/thanks-royal-flush-team</link>
+            <guid>https://austinxyz.github.io/blogs/blog/2023/12/20/thanks-royal-flush-team</guid>
+            <pubDate>Wed, 20 Dec 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[A heartfelt thanks to my Royal Flush teammates for an incredible season and national championship.]]></description>
+            <content:encoded><![CDATA[<p>Congratulations to the Royal Flush team for winning the 40+ 7.0M USTA Nationals Championship representing NorCal! I keep getting excited and forget to say something important - this is an amazing achievement. Everyone worked hard and contributed to the success, and you are all champions.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-champions-who-delivered">The Champions Who Delivered<a href="https://austinxyz.github.io/blogs/blog/2023/12/20/thanks-royal-flush-team#the-champions-who-delivered" class="hash-link" aria-label="Direct link to The Champions Who Delivered" title="Direct link to The Champions Who Delivered" translate="no">​</a></h2>
+<p><strong>Thanks to Don/Amy, Mitta, Paolo/Keri, and Bala/Judy</strong> - you won the semifinal and final. Your performance under pressure was simply outstanding.</p>
+<p><strong>Thanks to Johnny, Tomami, Laurie, and Ross</strong> - your wins in round robin provided a solid foundation and brought us to a great position for the semifinal and final.</p>
+<p><strong>Last, but most important, thanks to Soha</strong> for building up such a strong team with his hard work, so we can play together to achieve such an impossible achievement!</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="individual-spotlights">Individual Spotlights<a href="https://austinxyz.github.io/blogs/blog/2023/12/20/thanks-royal-flush-team#individual-spotlights" class="hash-link" aria-label="Direct link to Individual Spotlights" title="Direct link to Individual Spotlights" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="don-and-amy---the-dynasty-builders">Don and Amy - The Dynasty Builders<a href="https://austinxyz.github.io/blogs/blog/2023/12/20/thanks-royal-flush-team#don-and-amy---the-dynasty-builders" class="hash-link" aria-label="Direct link to Don and Amy - The Dynasty Builders" title="Direct link to Don and Amy - The Dynasty Builders" translate="no">​</a></h3>
+<p>Don and Amy are really fantastic. They keep winning - from last year's 40+ 7.0 and 18+ 7.0 to this year's 40+ 7.0 national championship. I don't know if anyone in USTA history has such a continuous winning streak as national champions. Their consistency and excellence set the bar for all of us.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mitta---the-bagel-master">Mitta - The Bagel Master<a href="https://austinxyz.github.io/blogs/blog/2023/12/20/thanks-royal-flush-team#mitta---the-bagel-master" class="hash-link" aria-label="Direct link to Mitta - The Bagel Master" title="Direct link to Mitta - The Bagel Master" translate="no">​</a></h3>
+<p>Mitta performed incredibly well. Your first time playing nationals, and you just gave opponents two bagels! Then you played a key line in the Final, stayed consistent, and with a clear volley ended the match, bringing us to the championship. What a debut!</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="paolo---the-master-of-placement">Paolo - The Master of Placement<a href="https://austinxyz.github.io/blogs/blog/2023/12/20/thanks-royal-flush-team#paolo---the-master-of-placement" class="hash-link" aria-label="Direct link to Paolo - The Master of Placement" title="Direct link to Paolo - The Master of Placement" translate="no">​</a></h3>
+<p>Paolo, you are the master on the match. You can play and place the ball anywhere, and the opponent can only look at the ball and sigh. Every time before a match starts, I already count it as team 1:0, so we just need to win another line. If I were your opponent, I would feel so helpless. I still remember your impossible slice drop to finish matches (consecutively in 2 matches) and your smash that brought the team our first match win in the Final.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="keri---cool-under-pressure">Keri - Cool Under Pressure<a href="https://austinxyz.github.io/blogs/blog/2023/12/20/thanks-royal-flush-team#keri---cool-under-pressure" class="hash-link" aria-label="Direct link to Keri - Cool Under Pressure" title="Direct link to Keri - Cool Under Pressure" translate="no">​</a></h3>
+<p>Keri, although you felt nervous, it didn't impact your performance at all. Look at your 4 matches - 3 easy wins plus the crucial first match win for the team in the Final. I saw you saving multiple impossible baseline balls and delivering lots of clear smashes. These are the solid foundation that allowed you to win 4 matches consecutively at nationals.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bala-and-judy---the-perfect-pair">Bala and Judy - The Perfect Pair<a href="https://austinxyz.github.io/blogs/blog/2023/12/20/thanks-royal-flush-team#bala-and-judy---the-perfect-pair" class="hash-link" aria-label="Direct link to Bala and Judy - The Perfect Pair" title="Direct link to Bala and Judy - The Perfect Pair" translate="no">​</a></h3>
+<p>You two are the perfect pair, and I should say the strongest 3.5+3.5 pairing in 7.0 mixed nationals. Starting with a bagel and winning the key match in the semifinal - the opponent had an unbeatable serve, but he felt so frustrated with Bala's perfect returns and Judy's volleys finishing at the net.</p>
+<p>Although you lost in the final, first, the opponent was the strongest pair on their team, and second, you already knew the team had won, so you were relaxed. Trust me - you can beat anyone in 7.0!</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="johnny-and-tomami---the-comeback-artists">Johnny and Tomami - The Comeback Artists<a href="https://austinxyz.github.io/blogs/blog/2023/12/20/thanks-royal-flush-team#johnny-and-tomami---the-comeback-artists" class="hash-link" aria-label="Direct link to Johnny and Tomami - The Comeback Artists" title="Direct link to Johnny and Tomami - The Comeback Artists" translate="no">​</a></h3>
+<p>Thank you for winning against PNW D1. You lost set 1 but quickly adjusted and won back in set 2, then won the super tiebreak as the team's first match win. You know I felt so helpless when all 3 lines lost the first set, and I started planning to seek the #2 team (considering we were #3) as our opponents. But your win brought me back - I got my confidence again.</p>
+<p>Besides that, Johnny also helped with scouting, providing so much important information about our opponents, and recorded our tears of joy for the Final win. Such a precious moment captured forever.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ross-and-laurie---the-mental-warriors">Ross and Laurie - The Mental Warriors<a href="https://austinxyz.github.io/blogs/blog/2023/12/20/thanks-royal-flush-team#ross-and-laurie---the-mental-warriors" class="hash-link" aria-label="Direct link to Ross and Laurie - The Mental Warriors" title="Direct link to Ross and Laurie - The Mental Warriors" translate="no">​</a></h3>
+<p>You also won another crucial match with PNW. We did a last-minute adjustment to let you play D2, and unfortunately, you faced their strongest pair. Really tough match - you lost with a close score in the first set, but you never gave up. Even when down, you turned it around and won the second set in a tiebreak, then won the super tiebreak. Such great mental skills!</p>
+<p>For Laurie, I should also thank Ken. Ken took care of our nutrition and meals, letting the team just focus on playing and winning matches.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="our-captain-and-leadership">Our Captain and Leadership<a href="https://austinxyz.github.io/blogs/blog/2023/12/20/thanks-royal-flush-team#our-captain-and-leadership" class="hash-link" aria-label="Direct link to Our Captain and Leadership" title="Direct link to Our Captain and Leadership" translate="no">​</a></h2>
+<p>Finally, let me spend time thanking our great captain <strong>Soha</strong> and co-captain <strong>Amy</strong>.</p>
+<p>Although Soha wasn't physically with us, he always did the captain's work remotely - by WhatsApp chat group, by phone call, by WeChat, any tools he could leverage. He looked at all opponents' data, collected feedback from everyone, and then made the best decisions for the lineup.</p>
+<p>You may not know this is the first year Soha acted as captain to run multiple USTA teams. Right now, he has won <strong>3 sectional championships and 1 national championship</strong>. I cannot imagine, and I don't think anyone else has made such an achievement in USTA history in their first year. I forecast Soha will build his dynasty in the future for many years. Please stay close with Soha to continue this legend.</p>
+<p><strong>Amy</strong> is another legend. As a player, together with Don, they won 3 consecutive championships. But you may not know Amy also did a lot of work on team building. She helped recruit many good players - Don, Mitta, Judy - all from her recommendations. She's also a role model who motivates others and shares her experience with newer national players.</p>
+<p>Although she got injured and couldn't play in the final, she had already built solid team members - Mitta and Judy performed perfectly, and we won the final!</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="thank-you-to-the-full-roster">Thank You to the Full Roster<a href="https://austinxyz.github.io/blogs/blog/2023/12/20/thanks-royal-flush-team#thank-you-to-the-full-roster" class="hash-link" aria-label="Direct link to Thank You to the Full Roster" title="Direct link to Thank You to the Full Roster" translate="no">​</a></h2>
+<p>Finally, let me thank all team members, especially those who did not attend this national championship. Because of you, the team won all the local, playoff, and sectional matches, so we could attend nationals to represent NorCal and ultimately win the championship!</p>
+<p><strong>The whole team deserved this championship.</strong> Without such a deep bench, we could not have reached the national championship.</p>
+<p>Let's look forward and continue our legend!</p>
+<hr>
+<p><em>To my Royal Flush teammates: You made this season unforgettable. Champions on the court, friends for life.</em></p>]]></content:encoded>
+            <author>austin.xyz@gmail.com (Austin Xu)</author>
+            <category>hobbies</category>
+            <category>tennis</category>
+            <category>gratitude</category>
+            <category>sports</category>
         </item>
     </channel>
 </rss>
