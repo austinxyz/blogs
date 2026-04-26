@@ -5,6 +5,7 @@ authors: [austin]
 tags: [wealth-management]
 description: "绿卡持有人回国前，LTR 窗口、Exit Tax、FBAR、Roth Conversion、PFIC 清理、Medicare……一份系统梳理，附 11 张交互式 slides。"
 slug: return-china-financial-checklist
+unlisted: true
 ---
 
 在美华人回国前，往往面对一张让人头皮发麻的词汇表：**LTR、Exit Tax、FBAR、Roth Conversion、PFIC**……知道这些事情"很重要"，但不知道从哪里下手，也不知道最坏的情况是什么。

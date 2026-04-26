@@ -5,6 +5,7 @@ authors: [austin]
 tags: [reflection, career, personal]
 description: "A field note for the second half of life — health, life design, wealth, and work — shared with a senior professional community. Written in Chinese."
 slug: second-half-of-life
+unlisted: true
 ---
 
 *一份写给"中场哨响"之后的自己，也写给每一位还在转型路上的同路人。*
