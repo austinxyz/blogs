@@ -8,7 +8,7 @@ description: "After 20 years running infrastructure at scale, here's what DevOps
 
 Every organization that has gone through a "DevOps transformation" in the last decade has a story. Most of those stories end the same way: they hired a DevOps team, bought a set of tools, and then wondered why things didn't meaningfully change.
 
-I've been building and running infrastructure at scale for 20 years — from private cloud on OpenStack at eBay to managing 200+ Kubernetes clusters, 50,000 nodes, and 5,000+ applications. If there's one thing I've learned, it's that the most common implementation of DevOps is actually an anti-pattern.
+I've been building and running infrastructure at scale for 20 years — from private cloud on OpenStack at a large-scale e-commerce platform to managing 200+ Kubernetes clusters, 50,000 nodes, and 5,000+ applications. If there's one thing I've learned, it's that the most common implementation of DevOps is actually an anti-pattern.
 
 Let me explain what I mean.
 
@@ -56,7 +56,7 @@ This also changes how you think about automation. Automating provisioning is tab
 
 ## IaC: Not Just Terraform, But a Mindset Shift
 
-I should be transparent about something: eBay didn't use Terraform extensively for our Kubernetes fleet. Our tooling was homegrown — a GitOps-based system with per-cluster YAML configurations, a custom controller (which we called Releaser) that reconciled desired state toward actual state, and eventually ArgoCD as the community-supported path.
+I should be transparent about something: we didn't use Terraform extensively for our Kubernetes fleet. Our tooling was homegrown — a GitOps-based system with per-cluster YAML configurations, a custom controller (which we called Releaser) that reconciled desired state toward actual state, and eventually ArgoCD as the community-supported path.
 
 But the IaC *mindset* was the same: infrastructure as code means infrastructure is reviewable, auditable, and rollback-able. When a configuration change causes an incident, you have a git history that tells you what changed, who changed it, and when. When a new cluster needs to be built, you're not reconstructing it from institutional memory — you're applying a known-good spec.
 
@@ -74,7 +74,7 @@ CI/CD theater looks like this: the pipeline exists, tests run, deployments happe
 
 Real CI/CD practice is measured. The DORA framework provides four metrics that correlate with high-performing engineering organizations: **Deployment Frequency**, **Lead Time for Changes** (commit to production), **Change Failure Rate**, and **Time to Restore Service** (MTTR). Elite-tier teams deploy on demand with sub-one-hour lead time and sub-one-hour MTTR. Those numbers aren't goals; they're outcomes of mature practice.
 
-At eBay, my team owned the Cloud Control Plane CI/CD pipeline — Prow for CI with mandatory e2e test gates, Releaser for GitOps-based CD across 200+ clusters. The more interesting piece was the Federated Deployment Controller we built: a custom Kubernetes controller that orchestrated progressive rollouts cluster by cluster, queried an AI-based health detector for automated go/no-go signals, and triggered automatic rollback on degradation.
+My team owned the Cloud Control Plane CI/CD pipeline — Prow for CI with mandatory e2e test gates, Releaser for GitOps-based CD across 200+ clusters. The more interesting piece was the Federated Deployment Controller we built: a custom Kubernetes controller that orchestrated progressive rollouts cluster by cluster, queried an AI-based health detector for automated go/no-go signals, and triggered automatic rollback on degradation.
 
 We built it for our own control plane deployments. The ECD team — responsible for CI/CD for hundreds of application teams — adopted it as their standard multi-cluster CD mechanism. That's the infrastructure team leverage pattern: build something for your own workload that turns out to generalize. The key wasn't the technology; it was the model. Progressive delivery with automated health gating removes a whole class of "we deployed and broke everything" incidents. Change management becomes controllable, not just visible.
 
@@ -86,7 +86,7 @@ SLOs are often presented as a measurement exercise: define your SLI, set a targe
 
 SLOs turn reliability into a **shared currency** between product and engineering. The error budget is the mechanism. You have N minutes of allowed downtime per month (based on your SLO). As long as you're within budget, ship aggressively. When you're burning through budget, pause feature work and invest in reliability. The debate — "should we slow down?" — stops being a political argument and becomes a math question: "what does the error budget say?"
 
-I learned this first-hand implementing SRE practices for eBay's Kubernetes API server fleet. When I took over, the Federated API Server — the primary entry point for all platform clients — was operating below 90% availability. The worst incident: a Dev API Server stayed down for two full days. No SLOs, no runbooks, no on-call rotation. Every outage was handled ad hoc.
+I learned this first-hand implementing SRE practices for a large-scale Kubernetes API server fleet. When I took over, the Federated API Server — the primary entry point for all platform clients — was operating below 90% availability. The worst incident: a Dev API Server stayed down for two full days. No SLOs, no runbooks, no on-call rotation. Every outage was handled ad hoc.
 
 The first decision that mattered: I set the initial SLO at **99%, not 99.9%**. This was counterintuitive to leadership. But an SLO you can't sustain is worse than no SLO — it teaches engineers to ignore the signal. Starting at 99% from a sub-90% baseline gave meaningful headroom to improve without constant error budget exhaustion. We graduated to 99.9% as infrastructure stabilized and the team developed confidence in the measurement methodology.
 
@@ -102,7 +102,7 @@ There's a common framing that gets the causality backwards: "at high scale, you 
 
 At small scale, manual ops works fine. Teams know each other, incidents are rare, context is shared. DevOps is nice-to-have. At 200+ engineer teams running 5,000+ applications across 50,000 nodes, none of that is true. Without IaC, provisioning becomes the bottleneck. Without mature CI/CD, release velocity drops as change risk grows. Without SRE practices and observability, incident response burns out the on-call rotation.
 
-The math is simple: if every team that needs to deploy does so manually, your deployment capacity grows linearly with headcount. If you invest in CI/CD that enables self-service deployment, it grows independently. At eBay, we were handling 35,000+ deployments per week across 20,000+ app pools. That number is only possible because of platform-level automation — no team of humans could manage it manually.
+The math is simple: if every team that needs to deploy does so manually, your deployment capacity grows linearly with headcount. If you invest in CI/CD that enables self-service deployment, it grows independently. At the scale we were operating at, we were handling 35,000+ deployments per week across 20,000+ app pools. That number is only possible because of platform-level automation — no team of humans could manage it manually.
 
 The flywheel is: DevOps investment reduces operational friction → engineers spend more time building → more capacity for building better DevOps tooling → further reduction in friction. Elite-tier teams aren't faster because they work harder. They've removed the friction that scale introduces.
 
