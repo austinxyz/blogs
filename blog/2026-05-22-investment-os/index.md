@@ -208,5 +208,5 @@ That's what systematic investing looks like in practice.
 
 ## Further Reading
 
-- [Part 1: Building Your Personal Finance Knowledge Base with Claude Code](待发布)
+- Part 1: Building Your Personal Finance Knowledge Base with Claude Code *(coming soon)*
 - [Part 2: From LLM Wiki to Investment Agent — Lessons from Building rwh-overlay](https://austinxyz.github.io/blogs/blog/2026/05/15/rwh-overlay-lessons)

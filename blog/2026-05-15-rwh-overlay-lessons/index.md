@@ -112,7 +112,7 @@ For now, the value is real and immediate for my own use. That's a reasonable pla
 
 ## Further Reading
 
-- [Part 1: Building Your Personal Finance Knowledge Base with Claude Code](待发布)
-- [Part 3: The Investment Operating System — Full Workflow Walkthrough](待发布)
+- Part 1: Building Your Personal Finance Knowledge Base with Claude Code *(coming soon)*
+- Part 3: The Investment Operating System — Full Workflow Walkthrough *(coming soon)*
 - [DevOps at Scale for AI Systems](https://austinxyz.github.io/blogs/blog/2026/04/26/devops-at-scale)
 - [Cloud Native to AI Native App Platform](https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-app-platform)
