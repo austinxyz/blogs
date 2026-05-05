@@ -4,10 +4,406 @@
         <title>Austin Xu Blog</title>
         <link>https://austinxyz.github.io/blogs/blog</link>
         <description>Austin Xu Blog</description>
-        <lastBuildDate>Sun, 26 Apr 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 04 May 2026 21:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[The Investment Operating System: How I Use AI to Manage My Portfolio Systematically]]></title>
+            <link>https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os</link>
+            <guid>https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os</guid>
+            <pubDate>Mon, 04 May 2026 21:00:00 GMT</pubDate>
+            <description><![CDATA[A walkthrough of the Investment Operating System (IOS) — a six-stage framework for systematic stock investing, powered by Claude Code and LLM Wiki, from idea generation to position management.]]></description>
+            <content:encoded><![CDATA[<blockquote>
+<p>This is part 3 of the AI Wealth Management series, exploring how to use Claude Code and LLM Wiki for personal investing.</p>
+</blockquote>
+<p>Most investors I know operate in reaction mode. A friend texts about a hot stock. An earnings beat hits the news. A pundit on X says the sector is turning. Something triggers a buy or sell, and the decision feels analytical — but it's really just noise with a story attached.</p>
+<p>What changed my investing wasn't reading more research or finding better sources. It was building a system. Specifically, it was treating my investment process the way a software engineer treats a production system: with defined inputs, explicit logic, observable state, and predictable outputs.</p>
+<p>I call this the Investment Operating System — IOS for short. It's a six-stage framework that runs on Claude Code and a private LLM Wiki.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="knowledge-base-and-analytical-tools">Knowledge Base and Analytical Tools<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#knowledge-base-and-analytical-tools" class="hash-link" aria-label="Direct link to Knowledge Base and Analytical Tools" title="Direct link to Knowledge Base and Analytical Tools" translate="no">​</a></h2>
+<p>Before walking through the six stages, it's worth being clear about the underlying infrastructure — where the frameworks come from, which commands were built in-house, and how finance-skills relates to the framework logic. If you're curious about the implementation side — how the commands were built, the lessons from extending an open-source LLM wiki, and what it takes to graduate this to a production agent — that's covered in <a href="https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons" target="_blank" rel="noopener noreferrer" class="">Part 2</a>. You don't need it to follow this post.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="analytical-frameworks">Analytical Frameworks<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#analytical-frameworks" class="hash-link" aria-label="Direct link to Analytical Frameworks" title="Direct link to Analytical Frameworks" translate="no">​</a></h3>
+<p>Five frameworks, from two projects:</p>
+<p><strong>Three frameworks from rwh upstream</strong> (brought in with the upstream knowledge base):</p>
+<table><thead><tr><th>Framework</th><th>Core question</th><th>Used in</th></tr></thead><tbody><tr><td><strong>BAIT</strong></td><td>Why is the market mispricing this now?</td><td>Stage 2 (Fundamental Research)</td></tr><tr><td><strong>Moneyball PW EV</strong></td><td>How much does expected value exceed current price?</td><td>Stage 2 (Fundamental Research)</td></tr><tr><td><strong>Asset Types</strong></td><td>What metrics actually apply to this business model?</td><td>Stage 2 (Fundamental Research)</td></tr></tbody></table>
+<p><strong>Two frameworks built in rwh-overlay</strong> (maintained in the overlay's <code>frameworks/</code> directory):</p>
+<table><thead><tr><th>Framework</th><th>Core question</th><th>Used in</th></tr></thead><tbody><tr><td><strong>Chen Yun Method</strong></td><td>Is this stock part of a structural theme?</td><td>Stage 1 (Idea Generation)</td></tr><tr><td><strong>SEPA</strong></td><td>Is the timing technically right to buy?</td><td>Stage 3 (Technical Confirmation)</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="command-inventory">Command Inventory<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#command-inventory" class="hash-link" aria-label="Direct link to Command Inventory" title="Direct link to Command Inventory" translate="no">​</a></h3>
+<p>rwh-overlay includes 14 custom commands (stored in the project's <code>.claude/commands/</code> directory):</p>
+<table><thead><tr><th>Command</th><th>Purpose</th></tr></thead><tbody><tr><td><code>/kb-sync</code></td><td>Build and sync the combined knowledge base from upstream + overlay</td></tr><tr><td><code>/stock-analyze &lt;TICKER&gt;</code></td><td>Full research pipeline: 15-section thesis with BAIT, Moneyball PW EV, Asset Type</td></tr><tr><td><code>/stock-refresh &lt;TICKER&gt;</code></td><td>Thesis update after earnings or material news</td></tr><tr><td><code>/stock-entry &lt;TICKER&gt;</code></td><td>Granular entry and exit point analysis for a specific ticker</td></tr><tr><td><code>/morning-check &lt;TICKER&gt;</code></td><td>Open-time decision: thesis check, SEPA status, entry/stop/target</td></tr><tr><td><code>/morning-check ALL</code></td><td>Batch scan across all positions; surfaces anything requiring action</td></tr><tr><td><code>/etf-analyze &lt;TICKER&gt;</code></td><td>Deep ETF analysis: holdings review, expense ratio, liquidity, sector purity</td></tr><tr><td><code>/etf-check</code></td><td>Event-driven ETF sector DCA decision — checks trigger conditions</td></tr><tr><td><code>/chen-integrate</code></td><td>Parse Chen Yun observations and flag tickers for research</td></tr><tr><td><code>/chen-validate &lt;TICKER&gt;</code></td><td>Cross-validate a Chen-mentioned ticker against the investment frameworks</td></tr><tr><td><code>/market-daily</code></td><td>Daily market report and sector health summary</td></tr><tr><td><code>/market-weekly</code></td><td>Weekly taxable account action plan: TLH opportunities, blue chip candidates, DCA execution</td></tr><tr><td><code>/market-monthly</code></td><td>Monthly portfolio and thesis review</td></tr><tr><td><code>/market-quarterly</code></td><td>Quarterly portfolio and strategy review</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-finance-skills-plugs-in">How finance-skills Plugs In<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#how-finance-skills-plugs-in" class="hash-link" aria-label="Direct link to How finance-skills Plugs In" title="Direct link to How finance-skills Plugs In" translate="no">​</a></h3>
+<p><a href="https://github.com/himself65/finance-skills" target="_blank" rel="noopener noreferrer" class="">finance-skills</a> is installed in plugin mode and provides data retrieval and technical analysis. Each command calls the relevant skills as needed when executing framework logic:</p>
+<table><thead><tr><th>finance-skills tool</th><th>Supports which framework/command</th><th>What it does</th></tr></thead><tbody><tr><td><code>finance-market-analysis:sepa-strategy</code></td><td>SEPA → <code>/morning-check</code></td><td>Stage classification, Trend Template 8-criteria check, VCP/cup-handle pattern recognition, breakout volume validation</td></tr><tr><td><code>finance-earnings:calendar</code></td><td>Moneyball PW EV → <code>/stock-analyze</code></td><td>Latest EPS data, beat/miss vs. estimate, guidance changes — inputs for three-scenario modeling</td></tr><tr><td><code>finance-market:options-flow</code></td><td>BAIT (Technical layer) → <code>/stock-analyze</code></td><td>Institutional options activity, signals for technical selling pressure or short-squeeze setup</td></tr></tbody></table>
+<p>These tools appear across all six stages. The custom commands are the orchestration layer that wires framework logic and finance-skills data retrieval together.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-six-stages-at-a-glance">The Six Stages at a Glance<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#the-six-stages-at-a-glance" class="hash-link" aria-label="Direct link to The Six Stages at a Glance" title="Direct link to The Six Stages at a Glance" translate="no">​</a></h2>
+<p><img decoding="async" loading="lazy" alt="Investment Operating System" src="https://austinxyz.github.io/blogs/assets/images/IOS-59ef32c1bfe26f91fe82642ea2312f0d.png" width="1536" height="1024" class="img_ev3q"></p>
+<p>The IOS runs linearly from idea to position, but it's not a waterfall. Ideas can enter at Stage 1 and die at Stage 2. A position that clears Stage 5 gets monitored continuously through Stage 6, and thesis changes can send it back for re-evaluation. Here's the quick map:</p>
+<ol>
+<li class=""><strong>Idea Generation</strong> — where candidates come from, and what screening criteria they must pass before moving forward</li>
+<li class=""><strong>Fundamental Research</strong> — three parallel frameworks that determine whether the market is mispricing the stock, and by how much</li>
+<li class=""><strong>Technical Confirmation</strong> — trend and pattern analysis to confirm the timing is right, not just the thesis</li>
+<li class=""><strong>Portfolio Allocation</strong> — deciding which account type gets the position, driven by tax and risk logic</li>
+<li class=""><strong>Execution</strong> — entry price, stop-loss, price targets, and a go/no-go market environment check</li>
+<li class=""><strong>Position Management</strong> — explicit rules for every signal that can occur after entry</li>
+</ol>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="stage-1-idea-generation">Stage 1: Idea Generation<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#stage-1-idea-generation" class="hash-link" aria-label="Direct link to Stage 1: Idea Generation" title="Direct link to Stage 1: Idea Generation" translate="no">​</a></h2>
+<p>Every position starts as an idea. The question is whether the idea came from signal or noise.</p>
+<p>I track four sources:</p>
+<p><strong>Chen Yun method.</strong> Chen Yun is an independent analyst whose sector calls I cross-reference for thematic direction. I don't follow his stock picks directly — I use them as a temperature check on which sectors are getting institutional attention. When his thesis aligns with something I'm already seeing in fundamentals, that's a signal worth pursuing.</p>
+<p><strong>Earnings reports.</strong> Beats and misses move stocks, but what I care about is what management says about the next two to four quarters. Guidance changes — especially when a company raises full-year guidance despite beating — often reveal durable inflection points that take months for the market to fully price in.</p>
+<p><strong>News and structural trends.</strong> Right now I'm watching power grid infrastructure, utility-scale battery storage, optical interconnects (driven by hyperscaler AI buildout), and LEO satellite broadband. These are multi-year capital deployment stories. When a specific company within one of these themes starts showing up in multiple sources — an earnings call transcript, a supply chain analysis, a regulatory filing — it crosses my radar.</p>
+<p><strong>Sector rotation signals.</strong> Relative strength shifts between sectors can precede individual stock moves by weeks. When money rotates into industrials after a long period of tech dominance, I start looking for specific industrials plays rather than chasing the sector ETF.</p>
+<p>Once an idea surfaces from any of these sources, I run a quick five-criterion screen before committing research time: sector tailwind present, revenue growth &gt;15% YoY, management credibility, identifiable catalyst within 90 days, and no obvious red flags (accounting concerns, excessive dilution, litigation overhang). If a stock meets three or more, I run <code>/stock-analyze &lt;TICKER&gt;</code>.</p>
+<p><strong>What <code>/stock-analyze</code> does</strong></p>
+<p>This command is the entry point for the full research pipeline. It produces a 15-section thesis document by reading three layers of information in parallel:</p>
+<ol>
+<li class=""><strong>rwh wiki</strong> (blue chips) or <strong>overlay sector analysis</strong> (thematic positions) — distilled fundamental context</li>
+<li class=""><strong>finance-skills <code>finance-earnings:calendar</code></strong> — latest earnings data, EPS vs. estimate, guidance changes</li>
+<li class=""><strong>overlay sector synthesis</strong> — connecting company-level events to the multi-year capital deployment story</li>
+</ol>
+<p>With that data in hand, the command applies three frameworks in sequence: Asset Type determines the right valuation lens → BAIT identifies the mispricing source → Moneyball PW EV quantifies the opportunity. The output writes to <code>wiki/tickers/&lt;TICKER&gt;/thesis.md</code>.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="stage-2-fundamental-research">Stage 2: Fundamental Research<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#stage-2-fundamental-research" class="hash-link" aria-label="Direct link to Stage 2: Fundamental Research" title="Direct link to Stage 2: Fundamental Research" translate="no">​</a></h2>
+<p>This is where most of the intellectual work happens. I run three frameworks in parallel — not sequentially — and require convergence before moving forward.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bait-why-is-the-market-wrong">BAIT: Why Is the Market Wrong?<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#bait-why-is-the-market-wrong" class="hash-link" aria-label="Direct link to BAIT: Why Is the Market Wrong?" title="Direct link to BAIT: Why Is the Market Wrong?" translate="no">​</a></h3>
+<p>BAIT stands for Behavioral, Analytical, Informational, and Technical mispricing. The premise is simple: if the market is efficiently pricing everything, there's no edge. So I ask: in which of these four categories is the market making an error on this stock?</p>
+<ul>
+<li class=""><strong>Behavioral</strong>: Is the market overreacting to short-term bad news on a structurally sound business? Is fear or recency bias driving the price?</li>
+<li class=""><strong>Analytical</strong>: Are consensus models using the wrong assumptions — wrong revenue mix, wrong margin trajectory, wrong addressable market?</li>
+<li class=""><strong>Informational</strong>: Do I have access to data or context that institutional analysts aren't weighting correctly? (Supply chain checks, channel inventory data, regulatory filings that haven't been widely parsed)</li>
+<li class=""><strong>Technical</strong>: Is the stock in a mechanically forced position — index rebalancing, short squeeze setup, options expiration pressure?</li>
+</ul>
+<p>I require overlap in at least three of the four categories for a high-conviction position. A stock where I can only articulate one reason the market is wrong is a low-conviction bet, and I treat position sizing accordingly.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="moneyball-pw-ev-does-the-math-work">Moneyball PW EV: Does the Math Work?<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#moneyball-pw-ev-does-the-math-work" class="hash-link" aria-label="Direct link to Moneyball PW EV: Does the Math Work?" title="Direct link to Moneyball PW EV: Does the Math Work?" translate="no">​</a></h3>
+<p>The second framework is probability-weighted expected value. I model three scenarios — Bull, Base, Bear — with price targets and probability weights for each. The weighted average gives me a PW EV.</p>
+<p>My entry criteria: PW EV must exceed the current price by at least 15%, and the upside-to-downside ratio must be greater than 2:1. This filters out "probably fine" ideas from genuinely asymmetric opportunities.</p>
+<p>For example: if a stock trades at $50, my Bull case is $95 (30% probability), Base is $68 (50% probability), and Bear is $35 (20% probability):</p>
+<p>PW EV = (95 × 0.30) + (68 × 0.50) + (35 × 0.20) = 28.5 + 34 + 7 = $69.50</p>
+<p>That's 39% above current price, with an upside-to-downside ratio of roughly 3.2:1. That clears both thresholds.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="asset-type-which-valuation-metrics-actually-matter">Asset Type: Which Valuation Metrics Actually Matter?<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#asset-type-which-valuation-metrics-actually-matter" class="hash-link" aria-label="Direct link to Asset Type: Which Valuation Metrics Actually Matter?" title="Direct link to Asset Type: Which Valuation Metrics Actually Matter?" translate="no">​</a></h3>
+<p>Not every business should be valued the same way. A SaaS company at 40x revenue is a different analytical problem than an industrials compounder at 18x earnings. This framework forces me to explicitly categorize the business model — recurring revenue software, capital-light marketplace, asset-heavy infrastructure, commodity-exposed manufacturer — before applying any valuation lens. Getting this wrong leads to comparing apples to bulldozers.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-thesismd-structure">The thesis.md Structure<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#the-thesismd-structure" class="hash-link" aria-label="Direct link to The thesis.md Structure" title="Direct link to The thesis.md Structure" translate="no">​</a></h3>
+<p>All three frameworks' outputs get written to <code>wiki/tickers/&lt;TICKER&gt;/thesis.md</code>. The file follows a fixed 15-section structure:</p>
+<table><thead><tr><th>Section</th><th>Content</th></tr></thead><tbody><tr><td>Executive Summary</td><td>One paragraph: why this stock, why now</td></tr><tr><td>Company Overview</td><td>Core business, revenue structure, key customers</td></tr><tr><td>Asset Type Classification</td><td>Growth / Platform / Cyclical / Defensive — determines valuation method</td></tr><tr><td>Competitive Moat</td><td>Moat sources: technology, scale, network effects, regulatory barriers</td></tr><tr><td>Sector Context</td><td>Structural drivers and key risks for the theme</td></tr><tr><td>BAIT Analysis</td><td>Score across four dimensions, note overlap sources</td></tr><tr><td>Moneyball Calculation</td><td>Three scenarios, probability weights, PW EV conclusion</td></tr><tr><td>Bull Case</td><td>Trigger conditions + 12–18 month price target</td></tr><tr><td>Base Case</td><td>Expected path under neutral assumptions</td></tr><tr><td>Bear Case</td><td>Valuation floor if key risks materialize</td></tr><tr><td>Key Catalysts</td><td>Specific events in the next 90 days that could shift market judgment</td></tr><tr><td>Key Risks</td><td>Factors that would invalidate the thesis</td></tr><tr><td>SEPA Technical Status</td><td>Stage classification / Trend Template / current pattern</td></tr><tr><td>Synthesis</td><td>Whether to advance to the next stage, and why</td></tr><tr><td>Changelog</td><td>Timestamped record of what changed and when</td></tr></tbody></table>
+<p>The LLM Wiki tracks how theses evolve over time through that changelog — so I can see when original assumptions are being confirmed versus quietly invalidated.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="stage-3-technical-confirmation">Stage 3: Technical Confirmation<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#stage-3-technical-confirmation" class="hash-link" aria-label="Direct link to Stage 3: Technical Confirmation" title="Direct link to Stage 3: Technical Confirmation" translate="no">​</a></h2>
+<p>A great fundamental thesis at the wrong time is just a slow loss. Technical analysis in the IOS isn't about chart patterns for their own sake — it's about confirming that the price action is consistent with the thesis, and that the stock is in a phase where institutional buying is likely to drive the move I'm expecting.</p>
+<p>I use SEPA — an approach combining Stage Analysis with a Trend Template:</p>
+<p><strong>Stage 2 confirmation.</strong> The stock must be in a Stage 2 uptrend (defined by price above a rising 200-day MA, with shorter MAs in proper sequence). A stock in Stage 3 (topping) or Stage 4 (decline) is not eligible regardless of fundamentals.</p>
+<p><strong>Trend Template.</strong> Eight criteria, including: price above 200-day MA, 200-day MA trending up for at least 4 weeks, price above 50-day MA, 50-day MA above 200-day MA, RS line at or near 52-week highs. I require at least five of eight to pass.</p>
+<p><strong>Pattern recognition.</strong> I'm looking for constructive base patterns: Volatility Contraction Pattern (VCP), cup-and-handle, or flat base. These patterns indicate institutional accumulation — quiet buying that compresses volatility before a breakout. A clear pivot point must be identifiable.</p>
+<p><strong>Volume confirmation.</strong> On the breakout day, volume must exceed 150% of the 50-day average volume. Low-volume breakouts fail significantly more often.</p>
+<p>Running <code>/morning-check &lt;TICKER&gt;</code> against these criteria outputs one of four verdicts: <strong>Execute</strong> (all criteria met, enter at pivot), <strong>Chase 50%</strong> (stock broke out already but within 5% of pivot, take half position), <strong>Wait</strong> (good setup but not triggered yet), or <strong>Skip</strong> (criteria not met, move on).</p>
+<p><strong>Where SEPA comes from, and what <code>/morning-check</code> integrates</strong></p>
+<p>The SEPA analysis is provided by finance-skills' <code>finance-market-analysis:sepa-strategy</code>. That skill automatically handles: 200-day MA slope assessment (Stage 2 classification), all eight Trend Template criteria, VCP contraction count and depth, and breakout volume vs. 50-day average.</p>
+<p><code>/morning-check</code> builds on top of that with additional layers:</p>
+<ul>
+<li class=""><strong>rwh wiki + thesis.md</strong>: current thesis status (is the thesis still intact?)</li>
+<li class=""><strong>finance-earnings<!-- -->:calendar</strong>: earnings this week, whether in quiet period</li>
+<li class=""><strong>data/positions.md</strong>: cost basis, current P&amp;L, the stop-loss level already set</li>
+<li class=""><strong>overlay sector analysis</strong>: whether recent sector news affects the individual thesis</li>
+</ul>
+<p>The final output is an actionable recommendation, not a data dump.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="stage-4-portfolio-allocation">Stage 4: Portfolio Allocation<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#stage-4-portfolio-allocation" class="hash-link" aria-label="Direct link to Stage 4: Portfolio Allocation" title="Direct link to Stage 4: Portfolio Allocation" translate="no">​</a></h2>
+<p>Every position that clears Stages 2 and 3 gets assigned to an account. This isn't arbitrary — it's driven by tax and risk logic.</p>
+<table><thead><tr><th>Asset type</th><th>Account</th></tr></thead><tbody><tr><td>Leveraged ETFs (TQQQ, TSLL)</td><td>Roth IRA only</td></tr><tr><td>High-growth individual stocks (market cap &lt; $100B)</td><td>Roth IRA</td></tr><tr><td>Sector theme ETFs</td><td>Roth IRA</td></tr><tr><td>Blue-chip stocks (market cap &gt; $100B, durable moat, hold ≥ 1 year)</td><td>Taxable</td></tr><tr><td>Broad index ETFs (VTI, QQQ)</td><td>Taxable (DCA)</td></tr></tbody></table>
+<p>The Roth IRA is the high-octane account. Tax-free compounding means I want the highest-expected-return, highest-volatility positions there — the ones that might double, but also might get cut at a 7% stop-loss. All that churn happens with zero tax drag.</p>
+<p>The taxable account is the quality-compound account. Blue chips held longer than a year qualify for long-term capital gains rates. More importantly, the taxable account enables Tax Loss Harvesting — when a position dips, I can sell it to realize a loss that offsets gains elsewhere, then buy a correlated (but not substantially identical) position to maintain market exposure.</p>
+<p>The account assignment rules live permanently in <code>data/profile.md</code>. Every time a trade executes, <code>data/positions.md</code> gets updated to record which account holds the position, along with the tax lot details.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="stage-5-execution">Stage 5: Execution<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#stage-5-execution" class="hash-link" aria-label="Direct link to Stage 5: Execution" title="Direct link to Stage 5: Execution" translate="no">​</a></h2>
+<p>A stock can pass every prior stage and still be entered at the wrong price. Stage 5 is where I define the exact execution parameters before placing any order.</p>
+<p>The <code>/morning-check</code> command outputs:</p>
+<ul>
+<li class=""><strong>Entry price range</strong>: pivot point ± 5% (no chasing more than 5% past the breakout level)</li>
+<li class=""><strong>Stop-loss level</strong>: the lower of the Moneyball Bear Case price and the MA50 at the time of entry</li>
+<li class=""><strong>T1 and T2 price targets</strong>: derived from the Bull and Base scenario price targets</li>
+<li class=""><strong>Risk/reward ratio</strong>: position is only entered if R/R ≥ 2:1 based on stop-loss distance and T1 target</li>
+<li class=""><strong>Market environment check</strong>: SPY and QQQ must both be above their 200-day MA for full-size entry; if below, position size is cut by half</li>
+</ul>
+<p>That last point matters more than people think. Even great individual setups fail at higher rates when the broad market is in a downtrend. The market environment check isn't a filter I override for "exceptional" ideas — it's a hard constraint.</p>
+<p>When I need more granular entry and exit point analysis — for instance, when a stock is near its pivot but I want to evaluate multiple entry scenarios — I run <code>/stock-entry &lt;TICKER&gt;</code>. After entry executes, I manually update <code>data/positions.md</code> with the actual entry price, share count, and stop level.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="stage-6-position-management">Stage 6: Position Management<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#stage-6-position-management" class="hash-link" aria-label="Direct link to Stage 6: Position Management" title="Direct link to Stage 6: Position Management" translate="no">​</a></h2>
+<p>This is where most retail investors break down. Entry is relatively easy to systematize. Management — knowing when to hold, trim, or exit — is where emotion creeps in and rules get bent.</p>
+<p>The IOS makes these decisions explicit before they need to be made.</p>
+<p><strong>Roth IRA positions:</strong></p>
+<table><thead><tr><th>Signal</th><th>Action</th></tr></thead><tbody><tr><td>Hits stop-loss</td><td>Exit 100% — no exceptions</td></tr><tr><td>P&amp;L &gt; +20%, Stage 2 healthy</td><td>Hold, raise stop to breakeven</td></tr><tr><td>P&amp;L &gt; +20%, breaks MA50</td><td>Trim 50%, trail stop on remainder</td></tr><tr><td>Single-day gap up +30%</td><td>Trim 50% to lock gains</td></tr><tr><td>Thesis broken (guidance cut, key executive departure, competitive disruption)</td><td>Lower trim threshold, evaluate full exit</td></tr></tbody></table>
+<p>The stop-loss rule has exactly zero exceptions. The purpose of a stop-loss is to make the decision before you're emotional about it. Once a position is down 7-8% from entry and hits the stop, you exit. The thesis might still be intact. The chart might look like a temporary dip. Exit anyway. This rule has protected more capital for me than any individual stock pick.</p>
+<p><strong>Taxable positions:</strong></p>
+<p>Tax is a first-class variable in the taxable account, not an afterthought. A blue chip in drawdown held for less than one year gets a tax calculation before any sell decision — because selling at a short-term rate and then watching the stock recover is a double loss. The <code>/market-weekly</code> command generates a weekly action plan for the taxable account, including current TLH opportunities, candidates for new blue-chip adds, and DCA execution schedules for index positions.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-private-data-layer">The Private Data Layer<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#the-private-data-layer" class="hash-link" aria-label="Direct link to The Private Data Layer" title="Direct link to The Private Data Layer" translate="no">​</a></h2>
+<p>Here's the part that makes the IOS actually useful rather than theoretically sound: Claude has access to data that's specific to my situation.</p>
+<p>The private layer lives in <code>data/</code>, which is git-ignored entirely. Three files that never leave my machine:</p>
+<ul>
+<li class=""><code>data/positions.md</code> — current holdings in each account, with cost basis, entry date, and current P&amp;L</li>
+<li class=""><code>data/profile.md</code> — risk tolerance, time horizon, tax bracket, liquidity constraints</li>
+<li class=""><code>data/strategy/</code> — annual strategy documents covering macro thesis, sector weightings, and target portfolio composition</li>
+</ul>
+<p>When I run <code>/stock-analyze NVDA</code>, Claude isn't generating generic research. It's reading my current Roth IRA positions and telling me: "You're already at six individual stock positions in Roth, which is your stated maximum. To add NVDA you'd need to exit one existing position. Based on thesis strength ranking, SMCI is the weakest — here's why."</p>
+<p>Without this layer, AI gives you a framework. With it, AI gives you advice for your specific situation. That's the difference between a textbook and a financial advisor who actually knows your portfolio.</p>
+<p><strong>What <code>positions.md</code> looks like</strong></p>
+<p>Here's the template structure (all figures below are illustrative — no real positions):</p>
+<div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token title important punctuation" style="color:#393A34">#</span><span class="token title important"> Positions</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> Roth IRA</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">###</span><span class="token title important"> XXXX (entered: 2025-01)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Entry: $XX.XX | Shares: XXX | Cost basis: $X,XXX</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Stop: $XX.XX | T1: $XX.XX | T2: $XX.XX</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Current status: Stage 2 ✅ | P&amp;L: +XX%</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Thesis status: Active</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Next attention trigger: XXXX earnings (Q1 2025)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> Taxable</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">###</span><span class="token title important"> XXXX (entered: 2024-06)</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Entry: $XX.XX | Shares: XXX | Cost basis: $XX,XXX</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Hold plan: Long-term (&gt;1 year, LTCG rate)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Thesis status: Active</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> TLH status: Last same-ticker purchase &gt;30 days ago, wash sale window open</span><br></span></code></pre></div></div>
+<p>Claude Code reads this file alongside each ticker's wiki thesis and live market data to generate recommendations specific to your actual positions — not a generic analysis.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-week-in-the-life">A Week in the Life<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#a-week-in-the-life" class="hash-link" aria-label="Direct link to A Week in the Life" title="Direct link to A Week in the Life" translate="no">​</a></h2>
+<p>The IOS sounds elaborate on paper. In practice, it runs on about two to three focused hours per week across a regular cadence.</p>
+<p><strong>Monday morning.</strong> <code>/morning-check ALL</code> before the market opens — about fifteen minutes. It surfaces stops to watch, thesis changes, and anything needing pre-market action. If a new entry is confirmed, <code>/stock-entry &lt;TICKER&gt;</code> follows. At close, <code>/market-daily</code> for a sector health snapshot.</p>
+<p><strong>Weekdays.</strong> New ideas arrive asynchronously. If one passes the five-criterion screen mentally, I queue <code>/stock-analyze &lt;TICKER&gt;</code> and review the output when I have time. For existing positions, breaking news — a guidance revision, a key analyst call — triggers <code>/stock-refresh &lt;TICKER&gt;</code> on the spot rather than waiting for the monthly cycle. ETF opportunities follow a separate trigger-based track.</p>
+<p><strong>Sunday.</strong> <code>/market-weekly</code> for the taxable account: TLH opportunities, blue chip candidates, DCA execution for VTI/QQQ.</p>
+<p><strong>Monthly.</strong> <code>/stock-refresh</code> on the five to eight core holdings, plus <code>/market-monthly</code> for a broader portfolio and strategy review.</p>
+<p>The decision logic behind each of these is in the workflow diagrams below. The system doesn't eliminate judgment — I still make the final calls — but the judgment is grounded in a consistent framework rather than whatever mood I'm in on a Tuesday morning.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="four-core-workflows">Four Core Workflows<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#four-core-workflows" class="hash-link" aria-label="Direct link to Four Core Workflows" title="Direct link to Four Core Workflows" translate="no">​</a></h2>
+<p>The system runs on four workflows. Each has explicit inputs, outputs, and commands.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-individual-stock-research--entry">1. Individual Stock Research → Entry<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#1-individual-stock-research--entry" class="hash-link" aria-label="Direct link to 1. Individual Stock Research → Entry" title="Direct link to 1. Individual Stock Research → Entry" translate="no">​</a></h3>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">[New idea]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ├─ Chen Yun signal / sector scan / earnings surprise / news</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ▼ Five-criterion screen: ≥3 pass</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[/stock-analyze &lt;TICKER&gt;]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ├─ BAIT ≥3 overlap? → No: Watch list</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ├─ PW EV &gt; current price +15%, up/down &gt;2:1? → No: Wait</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    └─ Yes ↓</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[/morning-check &lt;TICKER&gt;]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ├─ SEPA Stage 2 + Trend Template ≥5/8</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    └─ Output: Execute / Chase 50% / Wait / Skip</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ↓ Execute</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[/stock-entry &lt;TICKER&gt;]   ← precise entry range, stop, T1/T2 targets</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ↓</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    Update data/positions.md</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-daily-position-monitoring">2. Daily Position Monitoring<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#2-daily-position-monitoring" class="hash-link" aria-label="Direct link to 2. Daily Position Monitoring" title="Direct link to 2. Daily Position Monitoring" translate="no">​</a></h3>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">[Every morning before open]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ↓</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[/morning-check ALL]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ├─ Scan all positions: stop status / technical structure / thesis changes</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ├─ Flag positions with earnings this week</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    └─ Output priority list: act now / watch / no action needed</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[At market close]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ↓</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[/market-daily]   ← sector health summary, notable signal changes</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[Breaking news on existing position mid-week]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ↓</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[/stock-refresh &lt;TICKER&gt;]   ← thesis update without waiting for monthly cycle</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-sector-etf-dca">3. Sector ETF DCA<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#3-sector-etf-dca" class="hash-link" aria-label="Direct link to 3. Sector ETF DCA" title="Direct link to 3. Sector ETF DCA" translate="no">​</a></h3>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">[Trigger (any one of)]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ① Chen Yun ≥3 mentions of this sector in the past 7 days</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ② ETF price ≤ MA50 −5%</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ③ Fear &amp; Greed &lt; 30</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ↓</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[/etf-check --sector &lt;sector-name&gt;]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ├─ Compare ETFs in sector (expense ratio / liquidity / holdings purity)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    └─ Output: recommended ETF + suggested buy amount (based on target allocation gap)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[New sector or deeper evaluation needed]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ↓</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[/etf-analyze &lt;TICKER&gt;]   ← full ETF deep-dive before committing</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ↓ Confirm</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    Update data/positions.md</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-periodic-portfolio-review">4. Periodic Portfolio Review<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#4-periodic-portfolio-review" class="hash-link" aria-label="Direct link to 4. Periodic Portfolio Review" title="Direct link to 4. Periodic Portfolio Review" translate="no">​</a></h3>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">[Every Sunday]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ↓</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[/market-weekly]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ├─ TLH scan: underwater positions + wash sale compliance check</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ├─ Blue chip candidates: rwh latest Initiate/Add + current price assessment</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    └─ DCA execution: VTI/QQQ buy amount for the week</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ↓</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    Writes to data/morning-checks/taxable-action-YYYY-WXX.md (private)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[Monthly]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ↓</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[/stock-refresh &lt;TICKER&gt;] on 5–8 core holdings   ← full re-evaluation with latest earnings</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[/market-monthly]   ← broader portfolio and strategy review</span><br></span></code></pre></div></div>
+<p><strong>System output files</strong></p>
+<table><thead><tr><th>File</th><th>Updated when</th><th>Private?</th></tr></thead><tbody><tr><td><code>wiki/tickers/&lt;TICKER&gt;/thesis.md</code></td><td>After <code>/stock-analyze</code> or <code>/stock-refresh</code></td><td>Public</td></tr><tr><td><code>output/market/YYYY-MM-DD.md</code></td><td>After <code>/market-daily</code></td><td>Public</td></tr><tr><td><code>data/positions.md</code></td><td>After each trade</td><td>Private</td></tr><tr><td><code>data/profile.md</code></td><td>When risk tolerance or tax situation changes</td><td>Private</td></tr><tr><td><code>data/strategy/roth-2026.md</code></td><td>Annual strategy updates</td><td>Private</td></tr><tr><td><code>data/strategy/taxable-2026.md</code></td><td>Annual strategy updates</td><td>Private</td></tr><tr><td><code>data/morning-checks/taxable-action-YYYY-WXX.md</code></td><td>After each <code>/market-weekly</code></td><td>Private</td></tr></tbody></table>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-operating-system-is-the-right-metaphor">Why "Operating System" Is the Right Metaphor<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#why-operating-system-is-the-right-metaphor" class="hash-link" aria-label="Direct link to Why &quot;Operating System&quot; Is the Right Metaphor" title="Direct link to Why &quot;Operating System&quot; Is the Right Metaphor" translate="no">​</a></h2>
+<p>An operating system doesn't make decisions. It provides the environment in which decisions happen reliably. It manages resources, handles interrupts, enforces rules, and keeps processes from interfering with each other.</p>
+<p>That's exactly what the IOS does for investing. It doesn't tell me which stocks will go up. It ensures that every decision I make — buy, hold, trim, exit — is grounded in consistent logic rather than reactive emotion. When a position hits a stop-loss, the OS says exit. When a thesis breaks, the OS says reassess. When a stock has a great fundamental setup but terrible technicals, the OS says wait.</p>
+<p>The AI layer makes this practical at individual investor scale. I don't have a research team. I can't monitor six markets simultaneously or model three scenario trees before every trade. Claude does the analytical heavy lifting; I provide the judgment layer and the private data that makes the output relevant to my actual portfolio.</p>
+<p>The result isn't perfection. Some positions hit stop-losses. Some theses break. But the error rate is lower, the position sizing is more rational, and most importantly — I know why I'm in every position I hold, and I know exactly what would change my mind.</p>
+<p>That's what systematic investing looks like in practice.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="further-reading">Further Reading<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os#further-reading" class="hash-link" aria-label="Direct link to Further Reading" title="Direct link to Further Reading" translate="no">​</a></h2>
+<ul>
+<li class=""><a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki" target="_blank" rel="noopener noreferrer" class="">Part 1: Building Your Personal Finance Knowledge Base with Claude Code</a></li>
+<li class=""><a href="https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons" target="_blank" rel="noopener noreferrer" class="">Part 2: From LLM Wiki to Investment Agent — Lessons from Building rwh-overlay</a></li>
+</ul>]]></content:encoded>
+            <author>austin.xyz@gmail.com (Austin Xu)</author>
+            <category>wealth-management</category>
+            <category>ai</category>
+            <category>claude-code</category>
+        </item>
+        <item>
+            <title><![CDATA[Building rwh-overlay: From Complex Commands to Production-Grade AI Agents]]></title>
+            <link>https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons</link>
+            <guid>https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons</guid>
+            <pubDate>Mon, 04 May 2026 15:00:00 GMT</pubDate>
+            <description><![CDATA[A developer's retrospective on extending an open-source stock analysis LLM wiki into a personal AI investment system — covering complex command and workflow development, the script/LLM seam, and the real engineering challenges of graduating to a standalone agent.]]></description>
+            <content:encoded><![CDATA[<blockquote>
+<p>This is part 2 of the AI Wealth Management series, exploring how to use Claude Code and LLM Wiki for personal investing.</p>
+</blockquote>
+<p>This post is for developers building AI systems. Specifically: how to develop complex, multi-step Claude Code commands and compose them into workflows — and what it actually takes to turn a working personal tool into a production-grade agent.</p>
+<p>The domain is stock investing, but the patterns apply broadly. This post stands on its own — if you want background on what Claude Code is, how LLM Wiki works, and how to build a knowledge base from scratch, <a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki" target="_blank" rel="noopener noreferrer" class="">Part 1</a> covers that, but it's not a prerequisite here.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="starting-point-what-rwh-provides">Starting Point: What rwh Provides<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons#starting-point-what-rwh-provides" class="hash-link" aria-label="Direct link to Starting Point: What rwh Provides" title="Direct link to Starting Point: What rwh Provides" translate="no">​</a></h2>
+<p><a href="https://github.com/kgajjala/rwh" target="_blank" rel="noopener noreferrer" class="">rwh</a> by kgajjala is an open-source LLM wiki for blue-chip stock analysis. The name stands for Richer, Wiser, Happier — a fitting aspiration for an investment knowledge base. It aggregates earnings summaries, analyst ratings, and sector context into a Markdown-based knowledge base that an LLM can reason over directly. Each ticker gets a structured file with fundamentals, recent analyst calls, and thesis notes. The whole thing is designed around Karpathy's LLM Wiki pattern: raw material is distilled into evergreen wiki entries, and you query the wiki to get grounded analysis instead of hallucinated recall.</p>
+<p>The benefits are real:</p>
+<ul>
+<li class="">Well-maintained and actively updated by kgajjala</li>
+<li class="">Structured consistently, so commands that work on one ticker work on all of them</li>
+<li class="">Covers the blue-chip universe thoroughly — earnings beats, analyst upgrades/downgrades, competitive dynamics</li>
+<li class="">The CLAUDE.md in the repo documents the analytical frameworks baked into each ticker's wiki entry, giving any LLM operating on it a clear reasoning scaffold</li>
+</ul>
+<p>Three gaps for my use case:</p>
+<p><strong>Coverage.</strong> rwh covers blue chips. I'm also tracking thematic positions — power grid infrastructure, battery storage, optical interconnects, LEO satellite broadband. These require sector-level synthesis that per-ticker summaries don't provide.</p>
+<p><strong>Personalization.</strong> Generic analysis tells you what's happening. Analysis that accounts for my cost basis, account concentration, and tax situation tells me what to do about it. rwh isn't designed to know your portfolio.</p>
+<p><strong>Workflow.</strong> I needed Claude to produce actionable decisions on a schedule — not just surface information when I ask. That requires composing commands into workflows with defined inputs, defined outputs, and consistent logic.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-i-built">What I Built<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons#what-i-built" class="hash-link" aria-label="Direct link to What I Built" title="Direct link to What I Built" translate="no">​</a></h2>
+<p><a href="https://github.com/austinxyz/rwh-overlay" target="_blank" rel="noopener noreferrer" class="">rwh-overlay</a> is a separate repo that sits alongside rwh and adds four layers on top. A nightly merge pipeline pulls rwh's wiki content and combines it with my overlay's analysis — the two repos stay independent.</p>
+<p><strong>Sector and individual stock analysis.</strong> Beyond rwh's per-ticker coverage, I added sector-level synthesis for the themes I track. Claude pulls recent news, earnings signals, and analyst changes across the sector and produces structured summaries. The key insight: rwh gives the LLM grounding in individual businesses; the sector layer provides the "so what does this mean for the theme" reasoning that connects company-level events to multi-year capital deployment stories.</p>
+<p><strong><a href="https://github.com/himself65/finance-skills" target="_blank" rel="noopener noreferrer" class="">finance-skills</a> integration.</strong> finance-skills is an open-source collection of Claude Code skills for financial data retrieval and analysis. It covers a wide range — earnings calendars, options flow, technical indicator calculation, and more. Claude Code skills have two modes: self-use (stored in your project's <code>.claude/commands/</code>) and plugin mode (installed globally, shared across projects). I use finance-skills as a plugin, so I get their updates without managing the code. Notable: <code>finance-market-analysis:sepa-strategy</code> provides full SEPA technical analysis, which I use as an input to my <code>/morning-check</code> command.</p>
+<p><strong>Custom integration commands.</strong> The overlay adds commands that wire rwh's wiki content and finance-skills' data retrieval together with my private data. The actual command inventory:</p>
+<table><thead><tr><th>Command</th><th>Purpose</th></tr></thead><tbody><tr><td><code>/kb-sync</code></td><td>Build and sync the combined stock knowledge base from upstream + overlay</td></tr><tr><td><code>/stock-analyze &lt;TICKER&gt;</code></td><td>Full research pipeline: 15-section thesis with BAIT, Moneyball PW EV, Asset Type</td></tr><tr><td><code>/stock-refresh &lt;TICKER&gt;</code></td><td>Thesis update after earnings or material news</td></tr><tr><td><code>/stock-entry &lt;TICKER&gt;</code></td><td>Entry and exit point analysis for a specific ticker</td></tr><tr><td><code>/morning-check &lt;TICKER&gt;</code></td><td>Open-time decision: thesis check, SEPA status, entry/stop/target</td></tr><tr><td><code>/morning-check ALL</code></td><td>Batch scan across all positions; surfaces anything requiring action</td></tr><tr><td><code>/etf-analyze &lt;TICKER&gt;</code></td><td>Deep ETF analysis: holdings review, expense ratio, liquidity, sector purity</td></tr><tr><td><code>/etf-check</code></td><td>Event-driven ETF sector DCA decision — checks trigger conditions</td></tr><tr><td><code>/chen-integrate</code></td><td>Parse Chen Yun observations and flag tickers for research</td></tr><tr><td><code>/chen-validate &lt;TICKER&gt;</code></td><td>Cross-validate a Chen-mentioned ticker against the investment frameworks</td></tr><tr><td><code>/market-daily</code></td><td>Daily market report and sector health summary</td></tr><tr><td><code>/market-weekly</code></td><td>Weekly taxable account action plan: TLH opportunities, blue chip candidates, DCA execution</td></tr><tr><td><code>/market-monthly</code></td><td>Monthly portfolio and thesis review</td></tr><tr><td><code>/market-quarterly</code></td><td>Quarterly portfolio and strategy review</td></tr></tbody></table>
+<p>Each command reads from three sources: rwh's wiki (public, upstream), my overlay's sector analysis (public, mine), and <code>data/positions.md</code> + <code>data/profile.md</code> (private, git-ignored). The combination is what makes the output specific rather than generic.</p>
+<p><strong>Auto-merge pipeline.</strong> Nightly, a script merges rwh's wiki content with my overlay analysis into a <code>stock-kb</code> directory, rendered via <a href="https://quartz.jzhao.xyz/" target="_blank" rel="noopener noreferrer" class="">Quartz</a> as a browsable site. The wiki is shareable. So is the output directory — it holds date-tagged market reports with no personal position data. Only the data directory is private — that's where position-specific files live, and it's git-ignored.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-workflow-is-the-product">The Workflow Is the Product<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons#the-workflow-is-the-product" class="hash-link" aria-label="Direct link to The Workflow Is the Product" title="Direct link to The Workflow Is the Product" translate="no">​</a></h2>
+<p>Individual commands are tools. The workflow is what makes them useful.</p>
+<p>Here's the actual decision flow for a new position in the Roth IRA, showing how the commands compose:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">[Idea enters]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ├─ Sector scan / Chen Yun signal / earnings surprise</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ↓</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">[/stock-analyze &lt;TICKER&gt;]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ├─ Reads rwh wiki entry (if blue chip) + sector analysis</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ├─ Applies BAIT framework: identifies mispricing type</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ├─ Runs Moneyball PW EV: Bull/Base/Bear scenarios → weighted EV</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ├─ Applies Asset Type framework: confirms correct valuation lens</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ↓ PW EV &gt; current price + 15%, upside/downside &gt; 2:1?</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    ├─ No → Watch list, re-evaluate after next catalyst</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    └─ Yes ↓</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">         │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    [/morning-check &lt;TICKER&gt;]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">         │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">         ├─ finance-market-analysis:sepa-strategy checks Stage 2 + Trend Template</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">         ├─ Identifies pattern (VCP / cup-handle / flat base) and pivot point</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">         ├─ Checks market environment (SPY/QQQ vs 200MA)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">         │</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">         ↓ Output: Execute / Chase 50% / Wait / Skip</span><br></span></code></pre></div></div>
+<p>The <code>/morning-check ALL</code> variant runs this logic across all current positions each morning, surfacing stops that need attention, approaching targets, and thesis-breaking signals.</p>
+<p>The taxable account has a parallel workflow driven by <code>/market-weekly</code>: every Sunday, it generates a structured action plan covering tax loss harvesting opportunities (checking wash sale compliance), blue chip candidates from rwh's latest Initiate/Add recommendations, and DCA execution for VTI/QQQ. That plan writes to a private file that never gets committed.</p>
+<p>This workflow — not any individual command — is what makes the system useful. The commands are reusable components; the workflow is the product.</p>
+<p>In total: 4 primary workflows (stock entry, daily monitoring, ETF sector DCA, and Chen Yun integration), 14 commands spanning research, position management, and periodic reporting, and a build script that merges the upstream rwh wiki with overlay analysis nightly.</p>
+<p>These four workflows, taken together, form a six-stage investment process — from idea generation through position management. That full picture is documented separately in <a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os" target="_blank" rel="noopener noreferrer" class="">Part 3: The Investment Operating System</a>, which covers how all the stages connect without going into implementation detail.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="five-lessons">Five Lessons<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons#five-lessons" class="hash-link" aria-label="Direct link to Five Lessons" title="Direct link to Five Lessons" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-decouple-from-upstream-ruthlessly">1. Decouple from Upstream Ruthlessly<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons#1-decouple-from-upstream-ruthlessly" class="hash-link" aria-label="Direct link to 1. Decouple from Upstream Ruthlessly" title="Direct link to 1. Decouple from Upstream Ruthlessly" translate="no">​</a></h3>
+<p>First rule: never modify rwh's content files directly. The only exception is the root index, which auto-regenerates from the wiki structure.</p>
+<p>The temptation to "just add a note here" is constant. The cost: upstream merges become painful — you're reconciling diffs against files you've touched, and eventually you fork instead of overlay. That means losing free improvements from kgajjala.</p>
+<p>The payoff: pulling rwh updates is a clean <code>git merge</code>. My work compounds on top of a maintained foundation.</p>
+<p>Implementation: rwh and rwh-overlay are separate repos. The nightly merge pipeline pulls from rwh's repo, reads its wiki content, combines it with my overlay's analysis, and writes to the <code>stock-kb</code> directory. Scripts never write back to rwh's files. The boundary is enforced by convention in the pipeline, not by repo structure — which means it requires discipline to maintain.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-build-workflow-from-pain-not-from-features">2. Build Workflow from Pain, Not from Features<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons#2-build-workflow-from-pain-not-from-features" class="hash-link" aria-label="Direct link to 2. Build Workflow from Pain, Not from Features" title="Direct link to 2. Build Workflow from Pain, Not from Features" translate="no">​</a></h3>
+<p>Every command I built started with a specific frustration. <code>/morning-check</code> started with: "Before the market opens, I need to know which positions are approaching stops, which have earnings this week that affect the thesis, and which patterns are breaking out. I need this in five minutes, not thirty."</p>
+<p>The alternative — designing a comprehensive AI investment advisor and working backward — produces a system that's feature-complete but doesn't fit how you actually think about a portfolio. The scope expands indefinitely because there's always more you could surface.</p>
+<p>Needs-driven design also reveals what rwh and finance-skills actually give you. I didn't plan to use <code>finance-market-analysis:sepa-strategy</code> — I discovered it while looking for a way to automate the SEPA Stage Analysis that was the most time-consuming part of my morning routine. The pain pointed to the tool.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-scripts-for-data-llms-for-interpretation">3. Scripts for Data, LLMs for Interpretation<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons#3-scripts-for-data-llms-for-interpretation" class="hash-link" aria-label="Direct link to 3. Scripts for Data, LLMs for Interpretation" title="Direct link to 3. Scripts for Data, LLMs for Interpretation" translate="no">​</a></h3>
+<p>The commands that work best have a clean seam: a deterministic script fetches and structures the data; the LLM interprets it.</p>
+<p>For earnings signals: a Python script hits the relevant APIs, normalizes the output into a structured staging file. Claude reads the staging file and reasons over it — is this beat significant given the trend? Does it change the thesis? The script doesn't answer those questions. The LLM doesn't fetch structured financial data.</p>
+<p>This matters because LLMs hallucinate facts but reason well over provided facts. Ask an LLM to recall a specific EPS number from memory and you're in trouble. Give it the number and ask what it means in context and you're in good shape. The seam between "retrieval" and "interpretation" is where most AI system bugs live.</p>
+<p>For complex commands, I used Superpowers' brainstorm/plan/TDD workflow: test the script logic independently, wire the LLM reasoning around verified structured output. The scripted parts are fully testable; the LLM parts aren't — which is exactly why you want the LLM touching only interpretation, where the "right answer" is judgment, not a deterministic fact.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-the-directory-boundaries-are-load-bearing">4. The Directory Boundaries Are Load-Bearing<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons#4-the-directory-boundaries-are-load-bearing" class="hash-link" aria-label="Direct link to 4. The Directory Boundaries Are Load-Bearing" title="Direct link to 4. The Directory Boundaries Are Load-Bearing" translate="no">​</a></h3>
+<p>The project has four directories. The distinctions between them look like organizational decisions. They're structural ones.</p>
+<p><strong>raw/</strong>: source material — articles, transcripts, notes collected for research. Input only.</p>
+<p><strong>wiki/</strong>: distilled evergreen analysis, organized by ticker and sector. Publicly shareable. Thesis notes, sector syntheses, framework documentation — work you'd put in a public repo.</p>
+<p><strong>output/</strong>: date-tagged reports with no personal position data. Market dailies, sector summaries, public analysis outputs. Shareable — market commentary that's useful without knowing your holdings.</p>
+<p><strong>data/</strong>: the private layer. Strategy documents tied to your actual positions, and date-tagged analysis reports that incorporate your holdings. Git-ignored. Never shareable.</p>
+<p>The load-bearing distinction is between wiki + output (public) and data (private). Blur this and you get one of two failure modes: you accidentally expose holdings or cost basis, or you can't share your market research because it's tangled up with personal data.</p>
+<p>The boundary also forces clarity about what the LLM is doing. When it writes to wiki or output, it's doing analysis you'd stand behind publicly. When it writes to data, it's doing synthesis against your specific situation. Keeping them separate makes the system easier to audit and easier to understand when something goes wrong.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-know-the-scaling-limit">5. Know the Scaling Limit<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons#5-know-the-scaling-limit" class="hash-link" aria-label="Direct link to 5. Know the Scaling Limit" title="Direct link to 5. Know the Scaling Limit" translate="no">​</a></h3>
+<p>The LLM wiki approach works well when the ticker universe is bounded. At 150 tickers with regular updates, context window management is still tractable — especially if each command reads selectively rather than loading the full wiki. The limit becomes real when you're trying to reason over thousands of data points simultaneously.</p>
+<p>That's when RAG stops being optional. The wiki's file structure makes chunking natural, and Quartz's rendered output provides a retrieval surface. The architecture anticipates this: the same file organization that works for LLM-in-context today works for vector retrieval later, without restructuring the knowledge base.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="from-commands-to-agent-the-real-engineering-challenges">From Commands to Agent: The Real Engineering Challenges<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons#from-commands-to-agent-the-real-engineering-challenges" class="hash-link" aria-label="Direct link to From Commands to Agent: The Real Engineering Challenges" title="Direct link to From Commands to Agent: The Real Engineering Challenges" translate="no">​</a></h2>
+<p>The current system is largely autonomous — commands run on a schedule, produce structured output, and I review and decide. Claude Code is the runtime.</p>
+<p>The natural next question: what does it take to make this into a standalone agent that doesn't require my Claude Code session as its runtime — one that could serve multiple users?</p>
+<p>The business logic is the easy part. It's already validated: I've been running these workflows for weeks, the decision logic is battle-tested, and the framework is documented. Converting validated business logic to a standalone API is mechanical work.</p>
+<p>The hard part is the operational layer that makes agents trustworthy at scale:</p>
+<p><strong>Script architecture doesn't travel for free.</strong> Scripts written for single-user local execution have hidden assumptions — local file paths, sequential execution, shared environment variables. Making them stateless and containerizable means making those assumptions explicit and eliminating them. Scripts that call <code>/morning-check</code> natively assume there's only one user's <code>data/positions.md</code>. Multi-user means per-tenant data isolation from the start.</p>
+<p><strong>Non-determinism becomes a governance problem.</strong> In personal use, if the recommendation varies slightly from yesterday on the same input, I notice and adjust. At scale, users expect consistency, regulators may require explainability, and debugging requires reproducibility. This means adding prompt versioning, structured input/output logging, and human-in-the-loop gates for consequential actions — none of which are in the current implementation.</p>
+<p><strong>Testing requires a different approach.</strong> Testing commands locally is easy — run them and see what happens. Testing them properly for a production system requires:</p>
+<ul>
+<li class="">Sandbox market data (historical prices, not live)</li>
+<li class="">Fixture-based LLM responses for deterministic behavior testing</li>
+<li class="">End-to-end integration tests across the full workflow</li>
+<li class="">A staging environment that mirrors production without affecting real positions</li>
+</ul>
+<p>The Superpowers TDD workflow already enforces clean testing of script logic. But the full agent path requires environment discipline — a staging layer that validates behavior without burning real API tokens or making real decisions.</p>
+<p><strong>Observability is different for agents.</strong> When an agent produces a wrong recommendation, you need to know: what data it read, which framework it applied, what alternatives it considered, why it chose what it chose. Standard logging doesn't capture this. You need structured agent tracing — recording the full decision context, not just the inputs and outputs. This is the difference between a log that says "recommended Exit" and one that says "recommended Exit because BAIT returned 1 overlap (insufficient), Moneyball PW EV was below current price, and Stage 2 criteria failed."</p>
+<p><strong>Agents need first-class infrastructure treatment.</strong> Running agents in production means answering questions that don't arise for personal use: What does it mean to release a new version of a command? How do you roll back if <code>/morning-check</code> starts producing bad output? How do you enforce spend limits when agent calls are expensive? How do you monitor whether an agent is "working" when correct output is inherently non-deterministic?</p>
+<p><strong>Development methodology shifts fundamentally.</strong> Building Claude Code commands is largely prompt-driven — the Superpowers brainstorm/plan/TDD workflow handles the complexity well, and you can iterate in the terminal without writing much code. A standalone agent is a software product: it requires spec-driven development, proper software architecture, and the full code-level engineering that comes with building a real service. The gap between "I can describe what I want in a prompt" and "I can build and maintain a production codebase that does it reliably" is real, and it's often the most underestimated part of the transition.</p>
+<p>These are the challenges covered in the <a href="https://austinxyz.github.io/blogs/blog/2026/04/26/devops-at-scale" target="_blank" rel="noopener noreferrer" class="">DevOps at Scale</a> post — and the reason the <a href="https://austinxyz.github.io/blogs/blog/2026/04/09/cloud-native-to-ai-native-app-platform" target="_blank" rel="noopener noreferrer" class="">AI Native App Platform</a> post argues that standard DevOps patterns need to adapt for AI-native systems, where observability, governance, and the agent itself need to be first-class infrastructure concepts.</p>
+<p>For rwh-overlay specifically: the productization path is visible, but the real blocker isn't engineering. Investment advice is a regulated activity. The path from personal tool to product for others involves compliance work that has nothing to do with the codebase. That's worth being clear-eyed about before investing in the operational layer.</p>
+<p>For now: the value is real and immediate for personal use. That's a reasonable place to be.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="further-reading">Further Reading<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons#further-reading" class="hash-link" aria-label="Direct link to Further Reading" title="Direct link to Further Reading" translate="no">​</a></h2>
+<ul>
+<li class=""><a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki" target="_blank" rel="noopener noreferrer" class="">Part 1: Building Your Personal Finance Knowledge Base with Claude Code</a></li>
+<li class=""><a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os" target="_blank" rel="noopener noreferrer" class="">Part 3: The Investment Operating System — Full Workflow Walkthrough</a></li>
+<li class=""><a href="https://github.com/kgajjala/rwh" target="_blank" rel="noopener noreferrer" class="">rwh on GitHub</a></li>
+<li class=""><a href="https://github.com/austinxyz/rwh-overlay" target="_blank" rel="noopener noreferrer" class="">rwh-overlay on GitHub</a></li>
+<li class=""><a href="https://github.com/himself65/finance-skills" target="_blank" rel="noopener noreferrer" class="">finance-skills on GitHub</a></li>
+<li class=""><a href="https://austinxyz.github.io/blogs/blog/2026/04/09/cloud-native-to-ai-native-app-platform" target="_blank" rel="noopener noreferrer" class="">AI Native App Platform</a></li>
+<li class=""><a href="https://austinxyz.github.io/blogs/blog/2026/04/26/devops-at-scale" target="_blank" rel="noopener noreferrer" class="">DevOps at Scale for AI Systems</a></li>
+</ul>]]></content:encoded>
+            <author>austin.xyz@gmail.com (Austin Xu)</author>
+            <category>wealth-management</category>
+            <category>ai</category>
+            <category>claude-code</category>
+        </item>
+        <item>
+            <title><![CDATA[Building Your Personal Finance Knowledge Base with Claude Code]]></title>
+            <link>https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki</link>
+            <guid>https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki</guid>
+            <pubDate>Mon, 04 May 2026 09:00:00 GMT</pubDate>
+            <description><![CDATA[A step-by-step guide to building a personal finance knowledge base using Claude Code and the LLM Wiki method — turning your scattered expertise into an AI-powered system that gives personalized advice.]]></description>
+            <content:encoded><![CDATA[<blockquote>
+<p>This is part 1 of the AI Wealth Management series, exploring how to use Claude Code and LLM Wiki for personal investing.</p>
+</blockquote>
+<p>Most people with real expertise — in finance, law, immigration, or anything else — carry it around in their heads, where it helps no one and can't compound. This post is about changing that: building a structured knowledge base that AI can reason over directly, and that can eventually serve others or generate income.</p>
+<p>I'll use personal finance as the example domain. North American finance is genuinely complex — 401K, Roth IRA, HSA, Wash Sale Rule, FBAR, cross-border compliance — and worth systematizing. But the method here is domain-agnostic. Same approach works for any field where you have accumulated expertise.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-two-tools-claude-code-and-llm-wiki">The Two Tools: Claude Code and LLM Wiki<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki#the-two-tools-claude-code-and-llm-wiki" class="hash-link" aria-label="Direct link to The Two Tools: Claude Code and LLM Wiki" title="Direct link to The Two Tools: Claude Code and LLM Wiki" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="claude-code">Claude Code<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki#claude-code" class="hash-link" aria-label="Direct link to Claude Code" title="Direct link to Claude Code" translate="no">​</a></h3>
+<p><a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" class="">Claude Code</a> is Anthropic's CLI-based AI assistant. The key difference from browser-based AI: it runs in your terminal and can read and write files on your computer directly.</p>
+<p>This matters because it changes what "personalized advice" means. A chat-based AI doesn't know your situation — it gives generic answers. Claude Code can read a file describing your actual 401K balance, tax bracket, and current holdings, and give you advice grounded in your specific circumstances.</p>
+<p>You don't need to write code to use it. You give it instructions in plain English.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-llm-wiki-method">The LLM Wiki Method<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki#the-llm-wiki-method" class="hash-link" aria-label="Direct link to The LLM Wiki Method" title="Direct link to The LLM Wiki Method" translate="no">​</a></h3>
+<p><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener noreferrer" class="">Karpathy's LLM Wiki concept</a> proposes a three-layer knowledge structure:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">raw_material/    ← source material: articles, notes, links you collect</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">wiki/            ← distilled knowledge: structured, evergreen reference entries</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">output/          ← synthesis: analysis based on your personal situation</span><br></span></code></pre></div></div>
+<p>The flow: you feed raw material to the AI, it distills it into wiki entries. When you have a decision to make, the AI reads the wiki plus your personal context (in <code>output/</code>) and gives you specific, grounded advice.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-combine-them">Why Combine Them<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki#why-combine-them" class="hash-link" aria-label="Direct link to Why Combine Them" title="Direct link to Why Combine Them" translate="no">​</a></h3>
+<p>Claude Code without a structured knowledge base gives you generic answers — the AI doesn't know what you know. LLM Wiki without Claude Code means manually managing everything yourself. Together: Claude Code becomes the operating system for your knowledge, and the knowledge base makes every answer relevant to your actual situation.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="setting-up-the-project">Setting Up the Project<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki#setting-up-the-project" class="hash-link" aria-label="Direct link to Setting Up the Project" title="Direct link to Setting Up the Project" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="install-the-tools">Install the Tools<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki#install-the-tools" class="hash-link" aria-label="Direct link to Install the Tools" title="Direct link to Install the Tools" translate="no">​</a></h3>
+<p>You need three things:</p>
+<p><strong>VS Code</strong> — for viewing and editing Markdown files. Download at <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" class="">code.visualstudio.com</a>.</p>
+<p><strong>Claude Code</strong> — install via npm:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">npm install -g @anthropic-ai/claude-code</span><br></span></code></pre></div></div>
+<p>Requires Node.js (<a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer" class="">nodejs.org</a>) and a Claude Pro subscription (~$20/month). If you prefer not to use the CLI, Claude.ai's Projects feature can do similar work — but Claude Code is more capable for file operations and skill automation.</p>
+<p><strong>Git + GitHub</strong> — version control for your knowledge base. Install Git at <a href="https://git-scm.com/" target="_blank" rel="noopener noreferrer" class="">git-scm.com</a>, then create a free account at <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="">github.com</a>. New to Git? <a href="https://docs.github.com/en/get-started/getting-started-with-git/set-up-git" target="_blank" rel="noopener noreferrer" class="">GitHub's setup guide</a> is the right starting point.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="initialize-with-a-prompt">Initialize with a Prompt<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki#initialize-with-a-prompt" class="hash-link" aria-label="Direct link to Initialize with a Prompt" title="Direct link to Initialize with a Prompt" translate="no">​</a></h3>
+<p>Create a folder called <code>wealth-llm-wiki</code> and open Claude Code inside it:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">cd ~/Documents/wealth-llm-wiki</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">claude</span><br></span></code></pre></div></div>
+<p>Then paste this initialization prompt:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Initialize a personal finance knowledge base using the LLM Wiki three-layer structure.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Reference Karpathy's LLM Wiki methodology: https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Create:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">1. Directory structure:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - raw_material/ (source articles, notes, links)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - wiki/ (distilled knowledge entries, organized by topic)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - output/ (personal data and analysis — never committed to Git)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">2. README.md in each directory explaining its purpose and conventions</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">3. CLAUDE.md (instructions for Claude Code itself) including:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - Project overview: personal finance knowledge base</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - Directory structure</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - Writing conventions: technical terms in English, explanations in plain language</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - Privacy rules:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">     * Never put personal account balances, specific holdings, or dollar amounts in raw_material/ or wiki/</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">     * All personal data goes in output/ (git-ignored)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">     * Wiki entries use general examples, not personal data</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">4. .gitignore that excludes output/ and *.private files</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">5. git init</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Confirm the directory structure and that CLAUDE.md includes the full privacy rules.</span><br></span></code></pre></div></div>
+<p>After Claude Code runs, your project looks like this:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">wealth-llm-wiki/</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">├── CLAUDE.md</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">├── .gitignore</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">├── raw_material/</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│   └── README.md</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">├── wiki/</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">│   └── README.md</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">└── output/</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    └── README.md</span><br></span></code></pre></div></div>
+<p><strong>CLAUDE.md is the key</strong>: every time you open Claude Code in this project, it reads that file automatically. You never have to re-explain the project context.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="building-the-knowledge-base">Building the Knowledge Base<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki#building-the-knowledge-base" class="hash-link" aria-label="Direct link to Building the Knowledge Base" title="Direct link to Building the Knowledge Base" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-1-create-the-knowledge-skeleton">Step 1: Create the Knowledge Skeleton<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki#step-1-create-the-knowledge-skeleton" class="hash-link" aria-label="Direct link to Step 1: Create the Knowledge Skeleton" title="Direct link to Step 1: Create the Knowledge Skeleton" translate="no">​</a></h3>
+<p>Scaffold your wiki structure first — categories and entry lists before content:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Create the directory structure and outline for a North American personal finance</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">knowledge base under wiki/.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Categories:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">1. financial-basics/ — account types, credit system, net worth calculation</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">2. investing/ — ETF vs active funds, US stocks, asset allocation, brokerage accounts</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">3. tax/ — federal tax brackets, capital gains, Wash Sale Rule, FBAR/FATCA</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">4. retirement/ — 401K, Roth IRA vs Traditional IRA, Mega Backdoor Roth, 401K Rollover</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">5. cross-border/ — US-China wire transfers, foreign account reporting, FX risk</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">6. education/ — 529 Plan basics, 529 vs Roth IRA for education</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">For each category: create the folder and an index.md listing the entries to build.</span><br></span></code></pre></div></div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="step-2-fill-entries-on-demand">Step 2: Fill Entries On Demand<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki#step-2-fill-entries-on-demand" class="hash-link" aria-label="Direct link to Step 2: Fill Entries On Demand" title="Direct link to Step 2: Fill Entries On Demand" translate="no">​</a></h3>
+<p>You don't need to fill everything at once. Build entries when you need them. Here's the full pattern for a 401K Rollover entry:</p>
+<p><strong>First</strong>, collect raw material: go to IRS.gov, Investopedia, or wherever you trust, and paste the relevant content into <code>raw_material/retirement/401k-rollover-sources.md</code> with source links.</p>
+<p><strong>Then</strong>, ask Claude Code to distill it:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Read raw_material/retirement/401k-rollover-sources.md and distill it into a</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">wiki entry at wiki/retirement/401k-rollover.md.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Requirements:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Structure: Overview → Options → Comparison → Key rules → Common mistakes</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Use general examples, no personal dollar amounts</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Link related concepts with [[Wiki Links]] (e.g., [[Traditional IRA]], [[Roth IRA]])</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Add YAML frontmatter: tags: [retirement, 401k, rollover]</span><br></span></code></pre></div></div>
+<p>The output will be a structured entry covering the four rollover options (stay in old plan / roll to new 401K / roll to IRA / cash out), the 60-day rule, Direct vs Indirect rollover mechanics, and the most common mistakes.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="browsing-with-obsidian">Browsing with Obsidian<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki#browsing-with-obsidian" class="hash-link" aria-label="Direct link to Browsing with Obsidian" title="Direct link to Browsing with Obsidian" translate="no">​</a></h2>
+<p><a href="https://obsidian.md/" target="_blank" rel="noopener noreferrer" class="">Obsidian</a> is a Markdown-native knowledge tool that makes navigating the wiki much better than a plain file browser.</p>
+<p>Open your entire <code>wealth-llm-wiki</code> folder as an Obsidian vault (the root directory, not just <code>wiki/</code>) — so you can see <code>raw_material/</code>, <code>wiki/</code>, and <code>output/</code> together.</p>
+<p>Install two community plugins:</p>
+<ul>
+<li class=""><strong>Dataview</strong> — query your wiki like a database ("list all entries tagged <code>retirement</code>")</li>
+<li class=""><strong>Templater</strong> — create templates for personal situation files in <code>output/</code>, so your records stay consistently structured</li>
+</ul>
+<p>The Graph View shows knowledge connections visually as your wiki grows:</p>
+<p><img decoding="async" loading="lazy" alt="Obsidian Graph View showing knowledge connections in the wiki" src="https://austinxyz.github.io/blogs/assets/images/wealth-llm-wiki-graph-ob-dfb69eeb152aa29fb7606b079a97bb24.png" width="2818" height="1878" class="img_ev3q"></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="skills-for-automation">Skills for Automation<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki#skills-for-automation" class="hash-link" aria-label="Direct link to Skills for Automation" title="Direct link to Skills for Automation" translate="no">​</a></h2>
+<p>A <a href="https://docs.anthropic.com/en/docs/claude-code/slash-commands" target="_blank" rel="noopener noreferrer" class="">Claude Code Skill</a> is a structured prompt stored as a file and invoked with a slash command. Once you've created a skill, you call it instead of writing the prompt from scratch. Claude Code can generate skills for you.</p>
+<p>Two useful ones for this knowledge base:</p>
+<p><strong><code>/wealth-extract</code></strong> — distill a new source file into a wiki entry:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Create a skill named wealth-extract.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Function:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Accept a file path in raw_material/ as an argument</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Identify the relevant finance topic</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Distill into a standard wiki entry (structured, [[wiki links]], YAML frontmatter)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Save to the appropriate wiki/ subdirectory</span><br></span></code></pre></div></div>
+<p>Usage: <code>/wealth-extract raw_material/tax/roth-conversion-article.md</code></p>
+<p><strong><code>/wealth-sync</code></strong> — audit what hasn't been processed yet:</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Create a skill named wealth-sync.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Function:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Scan all files in raw_material/</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Compare against wiki/ to find unprocessed source material</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Output a Markdown table: file name, inferred topic, suggested wiki destination</span><br></span></code></pre></div></div>
+<p>Run <code>/wealth-sync</code> weekly to see what's in your raw pile waiting for distillation.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-private-data-layer">The Private Data Layer<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki#the-private-data-layer" class="hash-link" aria-label="Direct link to The Private Data Layer" title="Direct link to The Private Data Layer" translate="no">​</a></h2>
+<p>The <code>output/</code> directory is where generic knowledge becomes personal advice.</p>
+<p>Create <code>output/my-situation.md</code> with your actual details:</p>
+<div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token title important punctuation" style="color:#393A34">#</span><span class="token title important"> Personal Financial Situation</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> Employment</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Software engineer at a tech company, changed jobs this year</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> 401K: employer matches 50% up to 6%</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Tax filing: MFJ, 22% federal bracket, ~$X AGI</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> Accounts</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Roth IRA at Fidelity: $X balance</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Previous employer 401K to roll over: $X</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Taxable brokerage: mostly index funds</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> China assets</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Bank deposits over $10,000 — annual FBAR filing required</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Annual transfers within $10K limit</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> Family</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Married, one child, planning 529 contributions</span><br></span></code></pre></div></div>
+<p>This file is <code>.gitignore</code>'d — it never leaves your computer. But with it in scope, when you ask "should I do a Roth conversion this year?", Claude Code reads your actual tax bracket and account sizes, not a generic example.</p>
+<p>The more specific the file, the more useful the advice.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="publishing-with-quartz">Publishing with Quartz<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki#publishing-with-quartz" class="hash-link" aria-label="Direct link to Publishing with Quartz" title="Direct link to Publishing with Quartz" translate="no">​</a></h2>
+<p>If your wiki content is solid and you want to share it, <a href="https://quartz.jzhao.xyz/" target="_blank" rel="noopener noreferrer" class="">Quartz</a> converts Obsidian-format Markdown to a static website with working wiki links and search. Deploy to GitHub Pages or a cloud platform (Vercel, Cloudflare Pages).</p>
+<p>You control what you publish: <code>wiki/</code> only, or <code>raw_material/</code> and <code>wiki/</code> together if you want to show your research process. <code>output/</code> stays private regardless — the <code>.gitignore</code> enforces this at the repo level.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-this-can-become">What This Can Become<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki#what-this-can-become" class="hash-link" aria-label="Direct link to What This Can Become" title="Direct link to What This Can Become" translate="no">​</a></h2>
+<p>The framework is designed to grow. Depending on your goals:</p>
+<p><strong>Self-use</strong> — better decisions, faster research, clearer questions when you do talk to a CPA or advisor.</p>
+<p><strong>Share raw + wiki</strong> — your knowledge work becomes a public resource. Builds reputation in your domain.</p>
+<p><strong>Partial sharing</strong> — publish the wiki, keep the deep-dive analysis private. The public content demonstrates your expertise; people who want personalized analysis find you.</p>
+<p><strong>Client directory</strong> — set up an <code>output/clients/</code> structure. Use your knowledge base to serve multiple people, with each client's data isolated in their own folder. Output stays private; the wiki is your shared foundation.</p>
+<p><strong>Specialist agent</strong> — once you've served enough clients, the patterns repeat. Build a Claude Code skill that captures your analysis framework, and let it handle the initial pass. You review and finalize.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="further-reading">Further Reading<a href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki#further-reading" class="hash-link" aria-label="Direct link to Further Reading" title="Direct link to Further Reading" translate="no">​</a></h2>
+<ul>
+<li class=""><a href="https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons" target="_blank" rel="noopener noreferrer" class="">Part 2: From LLM Wiki to Investment Agent — Lessons from Building rwh-overlay</a></li>
+<li class=""><a href="https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os" target="_blank" rel="noopener noreferrer" class="">Part 3: The Investment Operating System — Full Workflow Walkthrough</a></li>
+<li class=""><a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank" rel="noopener noreferrer" class="">Karpathy's LLM Wiki Gist</a></li>
+<li class=""><a href="https://github.com/austinxyz/wealth-llm-wiki" target="_blank" rel="noopener noreferrer" class="">wealth-llm-wiki on GitHub</a></li>
+</ul>]]></content:encoded>
+            <author>austin.xyz@gmail.com (Austin Xu)</author>
+            <category>wealth-management</category>
+            <category>ai</category>
+            <category>claude-code</category>
+        </item>
         <item>
             <title><![CDATA[DevOps Is a Culture, Not a Team: What I've Learned Building at Scale]]></title>
             <link>https://austinxyz.github.io/blogs/blog/2026/04/26/devops-at-scale</link>
@@ -2470,520 +2866,6 @@ This one is underrated. When I provide a concrete reference — an existing comp
             <category>claude-code</category>
             <category>development-tools</category>
             <category>tutorial</category>
-        </item>
-        <item>
-            <title><![CDATA[[2/6] Claude Code: Feature Overview and Capabilities]]></title>
-            <link>https://austinxyz.github.io/blogs/blog/2025/12/16/claude-code-overview</link>
-            <guid>https://austinxyz.github.io/blogs/blog/2025/12/16/claude-code-overview</guid>
-            <pubDate>Tue, 16 Dec 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[A comprehensive overview of Claude Code's features, from code generation to debugging and testing.]]></description>
-            <content:encoded><![CDATA[<p>This is part 2 of a 6-part series on Claude Code.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="21-background-of-claude-code">2.1 Background of Claude Code<a href="https://austinxyz.github.io/blogs/blog/2025/12/16/claude-code-overview#21-background-of-claude-code" class="hash-link" aria-label="Direct link to 2.1 Background of Claude Code" title="Direct link to 2.1 Background of Claude Code" translate="no">​</a></h2>
-<p>Claude Code is the official CLI tool launched by Anthropic in 2024, designed to bring Claude's powerful capabilities directly into developers' command-line environments.</p>
-<p><strong>Development Timeline</strong>:</p>
-<ul>
-<li class=""><strong>Early 2024</strong>: Anthropic released Claude 3 series models (Opus, Sonnet, Haiku)</li>
-<li class=""><strong>Mid 2024</strong>: Launched Claude Code CLI, supporting basic code generation and file operations</li>
-<li class=""><strong>Late 2024</strong>: Added advanced features like Skills, Hooks, Planning Mode</li>
-<li class=""><strong>2025</strong>: Became one of the mainstream AI programming tools, forming a competitive landscape with Cursor and Cline</li>
-</ul>
-<p><strong>Core Positioning</strong>:</p>
-<blockquote>
-<p>Claude Code is not a "code completion tool," but an "AI software engineer assistant."</p>
-</blockquote>
-<p>Essential difference from GitHub Copilot:</p>
-<ul>
-<li class=""><strong>Copilot</strong>: Provides real-time code suggestions in the editor (passive)</li>
-<li class=""><strong>Claude Code</strong>: Accepts high-level task descriptions, autonomously executes complete development workflows (active)</li>
-</ul>
-<p><strong>Technical Advantages</strong>:</p>
-<ol>
-<li class=""><strong>Large Context Window</strong>: Sonnet 4 supports 200K tokens, sufficient to understand entire small-to-medium projects</li>
-<li class=""><strong>Tool Calling Capabilities</strong>: Can execute bash commands, read/write files, call APIs, manage git</li>
-<li class=""><strong>Programmable Extensions</strong>: Deep customization of workflows through Skills and Hooks</li>
-<li class=""><strong>MCP Integration</strong>: Model Context Protocol supports connecting external data sources and tools</li>
-</ol>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="22-core-concepts-overview">2.2 Core Concepts Overview<a href="https://austinxyz.github.io/blogs/blog/2025/12/16/claude-code-overview#22-core-concepts-overview" class="hash-link" aria-label="Direct link to 2.2 Core Concepts Overview" title="Direct link to 2.2 Core Concepts Overview" translate="no">​</a></h2>
-<p>Before diving into practice, understand these core concepts:</p>
-<table><thead><tr><th>Concept</th><th>Purpose</th><th>Analogy</th><th>Official Docs</th></tr></thead><tbody><tr><td><strong>CLAUDE.md</strong></td><td>Project constitution for AI, defining rules and constraints</td><td>README + coding standards</td><td><a href="https://docs.claude.ai/docs/claude-code/claude-md" target="_blank" rel="noopener noreferrer" class="">CLAUDE.md Guide</a></td></tr><tr><td><strong>Skills</strong></td><td>Executable scripts encapsulating complex operations</td><td>npm scripts</td><td><a href="https://docs.claude.ai/docs/claude-code/skills" target="_blank" rel="noopener noreferrer" class="">Skills Docs</a></td></tr><tr><td><strong>Slash Commands</strong></td><td>Quick prompt templates</td><td>IDE code snippets</td><td><a href="https://docs.claude.ai/docs/claude-code/slash-commands" target="_blank" rel="noopener noreferrer" class="">Commands Docs</a></td></tr><tr><td><strong>Hooks</strong></td><td>Intercept and validate AI behavior</td><td>Git hooks</td><td><a href="https://docs.claude.ai/docs/claude-code/hooks" target="_blank" rel="noopener noreferrer" class="">Hooks Docs</a></td></tr><tr><td><strong>Planning Mode</strong></td><td>Plan approval workflow for large tasks</td><td>Technical design review</td><td><a href="https://docs.claude.ai/docs/claude-code/planning-mode" target="_blank" rel="noopener noreferrer" class="">Planning Mode</a></td></tr><tr><td><strong>Subagents</strong></td><td>Delegate subtasks to specialized AI</td><td>Microservices architecture</td><td><a href="https://docs.claude.ai/docs/claude-code/agents" target="_blank" rel="noopener noreferrer" class="">Agents Docs</a></td></tr><tr><td><strong>MCP</strong></td><td>Model Context Protocol, connecting external tools</td><td>API gateway</td><td><a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener noreferrer" class="">MCP Spec</a></td></tr></tbody></table>
-<p><strong>Core Workflow</strong>:</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">User provides requirement → Claude reads CLAUDE.md → Calls Hooks for validation</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          ↓</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    Executes Skills (automated operations)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          ↓</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    Generates code → Runs tests → Commits to git</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          ↓</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    Returns result → User reviews</span><br></span></code></pre></div></div>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="23-tool-comparison-claude-code-vs-competitors">2.3 Tool Comparison: Claude Code vs. Competitors<a href="https://austinxyz.github.io/blogs/blog/2025/12/16/claude-code-overview#23-tool-comparison-claude-code-vs-competitors" class="hash-link" aria-label="Direct link to 2.3 Tool Comparison: Claude Code vs. Competitors" title="Direct link to 2.3 Tool Comparison: Claude Code vs. Competitors" translate="no">​</a></h2>
-<table><thead><tr><th>Feature</th><th>Claude Code</th><th>Cursor</th><th>Cline</th><th>GitHub Copilot</th><th>Gemini CLI</th></tr></thead><tbody><tr><td><strong>Code Generation</strong></td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐⭐⭐</td><td>⭐⭐⭐⭐</td><td>⭐⭐⭐⭐</td></tr><tr><td><strong>Command Execution</strong></td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐⭐</td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐</td><td>⭐⭐⭐⭐</td></tr><tr><td><strong>Context Understanding</strong></td><td>⭐⭐⭐⭐⭐ (200K)</td><td>⭐⭐⭐⭐</td><td>⭐⭐⭐⭐</td><td>⭐⭐⭐</td><td>⭐⭐⭐⭐</td></tr><tr><td><strong>Programmability</strong></td><td>⭐⭐⭐⭐⭐ (SDK)</td><td>⭐⭐⭐</td><td>⭐⭐</td><td>⭐⭐</td><td>⭐⭐</td></tr><tr><td><strong>Security Control</strong></td><td>⭐⭐⭐⭐⭐ (Hooks)</td><td>⭐⭐⭐</td><td>⭐⭐⭐</td><td>⭐⭐⭐</td><td>⭐⭐⭐</td></tr><tr><td><strong>UI Friendliness</strong></td><td>⭐⭐ (Pure CLI)</td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐⭐⭐</td><td>⭐⭐</td></tr><tr><td><strong>Learning Curve</strong></td><td>Medium</td><td>Low</td><td>Medium</td><td>Low</td><td>Medium</td></tr><tr><td><strong>MCP Support</strong></td><td>✅ Native</td><td>❌</td><td>✅ Integrated</td><td>❌</td><td>❌</td></tr></tbody></table>
-<p><strong>Real Usage Experience Comparison</strong> (based on Finance project):</p>
-<p><strong>Claude Code</strong>:</p>
-<ul>
-<li class="">✅ <strong>Advantage</strong>: Complete CLI autonomy, extremely efficient once accustomed, highly customizable</li>
-<li class="">✅ <strong>Advantage</strong>: Skills and Hooks build powerful workflows (like <code>/mysql-exec</code>, <code>/git-commit-push</code>)</li>
-<li class="">❌ <strong>Disadvantage</strong>: Initially uncomfortable with pure command-line interface, lacks visual error hints</li>
-<li class=""><strong>Suitable for</strong>: Developers comfortable with command line, projects requiring high automation</li>
-</ul>
-<p><strong>Cline (VS Code Integration)</strong>:</p>
-<ul>
-<li class="">✅ <strong>Advantage</strong>: User-friendly interface, intuitive error hints, seamless IDE integration</li>
-<li class="">✅ <strong>Advantage</strong>: Supports MCP, can connect external tools and data sources</li>
-<li class="">❌ <strong>Disadvantage</strong>: Weaker customization than Claude Code, dependent on VS Code</li>
-<li class=""><strong>Suitable for</strong>: Developers accustomed to IDEs, value visual feedback</li>
-</ul>
-<p><strong>Cursor</strong>:</p>
-<ul>
-<li class="">✅ <strong>Advantage</strong>: Out-of-the-box, lowest learning cost, excellent UI design</li>
-<li class="">❌ <strong>Disadvantage</strong>: Weaker programmability, difficult to build complex automation workflows</li>
-<li class=""><strong>Suitable for</strong>: Personal projects, rapid prototypes, AI programming beginners</li>
-</ul>
-<p><strong>Selection Recommendations</strong>:</p>
-<ul>
-<li class=""><strong>Personal projects/rapid prototypes</strong> → Cursor (UI friendly, out-of-the-box)</li>
-<li class=""><strong>Enterprise projects/custom needs</strong> → Claude Code (programmable, auditable, deep automation)</li>
-<li class=""><strong>Team collaboration/need visualization</strong> → Cline (VS Code integration, user-friendly interface)</li>
-<li class=""><strong>Pure code completion</strong> → GitHub Copilot (lightweight, integrated in editor)</li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="24-why-choose-claude-code">2.4 Why Choose Claude Code<a href="https://austinxyz.github.io/blogs/blog/2025/12/16/claude-code-overview#24-why-choose-claude-code" class="hash-link" aria-label="Direct link to 2.4 Why Choose Claude Code" title="Direct link to 2.4 Why Choose Claude Code" translate="no">​</a></h2>
-<p>Among many AI programming tools, I ultimately chose Claude Code as the primary tool for the Finance project, for the following core reasons:</p>
-<p><strong>1. Complete CLI Autonomy</strong></p>
-<p>Claude Code can not only generate code, but also:</p>
-<ul>
-<li class="">Execute bash commands (run tests, build projects, start services)</li>
-<li class="">Manage git (stage, commit, push, create branches)</li>
-<li class="">Operate databases (through Skills encapsulating MySQL operations)</li>
-<li class="">Build and deploy (Docker images, Kubernetes configs)</li>
-</ul>
-<p><strong>Real Case</strong>:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">You: Add expense budget feature, including backend API, frontend page, database migration</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Claude:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">1. [Create database migration script]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">2. [Execute /mysql-exec database/add_budget_table.sql]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">3. [Generate ExpenseBudget.java, BudgetService.java, BudgetController.java]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">4. [Run ./mvnw test to verify backend]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">5. [Create BudgetManagementView.vue]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">6. [Run npm run build to verify frontend]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">7. [Execute /git-commit-push "feat: add expense budget management"]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Done! Feature complete and pushed to GitHub.</span><br></span></code></pre></div></div>
-<p><strong>2. Powerful Context Understanding</strong></p>
-<ul>
-<li class=""><strong>200K token window</strong> (Sonnet 4): Can "see" the entire Finance project</li>
-<li class=""><strong>Smart Context Selection</strong>: Automatically reads relevant files (via <code>@mentions</code> in CLAUDE.md)</li>
-<li class=""><strong>Session Memory</strong>: Maintains context consistency across multiple requests</li>
-</ul>
-<p><strong>Real Data</strong>:</p>
-<ul>
-<li class="">Finance project has 127 Java files and 33 Vue components</li>
-<li class="">Claude Code can understand cross-layer dependencies (e.g., which backend API frontend calls, database table structure)</li>
-<li class="">Generated code maintains naming and architecture consistency (referencing design principles in CLAUDE.md)</li>
-</ul>
-<p><strong>3. Programmability (Skills &amp; Hooks)</strong></p>
-<p>Encapsulate complex operations through Skills, control AI behavior through Hooks.</p>
-<p><strong>My Skills Examples</strong>:</p>
-<ul>
-<li class=""><code>/setup-java</code>: Configure Java 17 environment + load database credentials</li>
-<li class=""><code>/mysql-exec</code>: Execute SQL files/queries, automatically read <code>.env</code> credentials</li>
-<li class=""><code>/git-commit-push</code>: Stage → Commit (Conventional Commits) → Push</li>
-<li class=""><code>/docker-build-push</code>: Multi-architecture image build (amd64/arm64)</li>
-</ul>
-<p><strong>Hooks Example</strong> (prevent AI from committing when tests fail):</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># .claude/hooks/pre-tool-use.sh</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">if [[ "$TOOL_NAME" == "Bash" ]] &amp;&amp; [[ "$COMMAND" =~ "git commit" ]]; then</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  if [ ! -f /tmp/tests-passed ]; then</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    echo "❌ Tests have not passed. Run tests first."</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    exit 1</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  fi</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">fi</span><br></span></code></pre></div></div>
-<p><strong>4. Security and Controllability</strong></p>
-<ul>
-<li class=""><strong>Permission Management</strong>: Configure which commands AI can execute (e.g., <code>rm -rf</code>)</li>
-<li class=""><strong>Hook Interception</strong>: Validate before AI executes operations (e.g., must run tests before commit)</li>
-<li class=""><strong>Audit Logs</strong>: All operations recorded in <code>.claude/logs/</code></li>
-<li class=""><strong>Sandbox Mode</strong>: Test AI behavior in isolated environment</li>
-</ul>
-<p><strong>Real Results</strong>:
-In 71 commits of the Finance project, not a single one caused code loss or corruption due to AI misoperation.</p>
-<p><strong>5. Real Data Validation</strong></p>
-<p>In the Finance project, <strong>100% of the code was generated by Claude Code</strong>, including:</p>
-<ul>
-<li class="">127 Java backend files (Controllers, Services, Repositories, Models)</li>
-<li class="">33 Vue components (complete frontend interfaces)</li>
-<li class="">25 database tables with all migration scripts and stored procedures</li>
-<li class="">Docker containerization configs and CI/CD workflows</li>
-</ul>
-<p><strong>Project Scale</strong>:</p>
-<ul>
-<li class=""><strong>Backend Code</strong>: 15,748 lines (Java)</li>
-<li class=""><strong>Frontend Code</strong>: 25,131 lines (Vue/JavaScript/TypeScript, 33 components)</li>
-<li class=""><strong>Database</strong>: 25 tables, 11 migration scripts</li>
-<li class=""><strong>Total Code</strong>: Approximately 41,000 lines</li>
-<li class=""><strong>Development Cycle</strong>: November 2025 - present</li>
-<li class=""><strong>Net Development Time</strong>: Approximately 20 hours (fragmented time on weekends and evenings)</li>
-<li class=""><strong>Efficiency Improvement</strong>: Estimated 4-5x compared to traditional development</li>
-</ul>
-<p><strong>Decision Factors for Choosing Claude Code</strong>:</p>
-<ul>
-<li class="">✅ Project requires high automation (backend + frontend + database + deployment)</li>
-<li class="">✅ I'm comfortable with command-line operations, don't depend on IDE</li>
-<li class="">✅ Need programmability (Skills/Hooks) to build standardized workflows</li>
-<li class="">✅ Value security and auditability (enterprise-level requirements)</li>
-</ul>
-<p><strong>If you meet these criteria, I also recommend Claude Code</strong>:</p>
-<ul>
-<li class="">Comfortable with bash/zsh and other command-line tools</li>
-<li class="">Project requires cross-layer operations (code + database + deployment)</li>
-<li class="">Hope to build reusable automated workflows</li>
-<li class="">Value code quality and security control</li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="25-quick-start">2.5 Quick Start<a href="https://austinxyz.github.io/blogs/blog/2025/12/16/claude-code-overview#25-quick-start" class="hash-link" aria-label="Direct link to 2.5 Quick Start" title="Direct link to 2.5 Quick Start" translate="no">​</a></h2>
-<p><strong>Install Claude Code</strong>:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># macOS/Linux</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">npm install -g @anthropic/claude-code</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Configure API Key</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">export ANTHROPIC_API_KEY=your-api-key</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Launch</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">claude</span><br></span></code></pre></div></div>
-<p><strong>First Task</strong>:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">You: Create a simple Express.js server, listen on port 3000, return Hello World</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Claude: [Generate server.js, package.json, run npm install, start server]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">You: Visit http://localhost:3000 to verify</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Claude: [Provide test command curl http://localhost:3000]</span><br></span></code></pre></div></div>
-<p><strong>Recommended Learning Path</strong>:</p>
-<ol>
-<li class="">Read official documentation: <a href="https://docs.claude.ai/docs/claude-code" target="_blank" rel="noopener noreferrer" class="">https://docs.claude.ai/docs/claude-code</a></li>
-<li class="">Try simple tasks (generate code, run tests)</li>
-<li class="">Learn CLAUDE.md configuration (detailed in Chapter 3)</li>
-<li class="">Create first Skill (examples in Chapter 3)</li>
-<li class="">Configure Hooks to control AI behavior</li>
-</ol>
-<p><strong>Next Chapter Preview</strong>:
-Chapter 3 will dive into the complete development lifecycle of the Finance project, showing how to build a production-grade full-stack application from scratch using Claude Code.</p>]]></content:encoded>
-            <author>austin.xyz@gmail.com (Austin Xu)</author>
-            <category>ai</category>
-            <category>claude-code</category>
-            <category>development-tools</category>
-        </item>
-        <item>
-            <title><![CDATA[[1/6] Claude Code: Introduction to AI-Assisted Development]]></title>
-            <link>https://austinxyz.github.io/blogs/blog/2025/12/15/claude-code-introduction</link>
-            <guid>https://austinxyz.github.io/blogs/blog/2025/12/15/claude-code-introduction</guid>
-            <pubDate>Mon, 15 Dec 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[An introduction to Claude Code, Anthropic's AI-powered development assistant that's changing how we write software.]]></description>
-            <content:encoded><![CDATA[<p>This is part 1 of a 6-part series on Claude Code.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="11-from-copilot-to-vibe-coding">1.1 From Copilot to Vibe Coding<a href="https://austinxyz.github.io/blogs/blog/2025/12/15/claude-code-introduction#11-from-copilot-to-vibe-coding" class="hash-link" aria-label="Direct link to 1.1 From Copilot to Vibe Coding" title="Direct link to 1.1 From Copilot to Vibe Coding" translate="no">​</a></h2>
-<p>During 2021-2023, AI-assisted programming was primarily <strong>"completion-based"</strong> tools: GitHub Copilot provided next-line suggestions as you typed code. While revolutionary at the time, this was still the traditional "human writes code, AI assists" model.</p>
-<p>In 2024, GitHub Copilot matured and gained widespread adoption. In the first half of 2025, with the emergence of tools like Claude Code, Cursor, and Gemini CLI, a new programming paradigm gradually took shape. By the second half of 2025, the "Vibe Coding" model matured, fundamentally changing the programming paradigm:</p>
-<ul>
-<li class=""><strong>Traditional Programming</strong>: Developer → Write code → Compile/Test → Debug</li>
-<li class=""><strong>Vibe Coding</strong>: Developer → Describe requirements → AI generates code → Human review</li>
-</ul>
-<p>As Martin Fowler said in his late 2025 interview:</p>
-<blockquote>
-<p>"AI won't replace programmers, but it will change the nature of programming. Future programmers will be more like 'architects + reviewers' rather than 'code craftsmen'."</p>
-</blockquote>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="12-what-is-vibe-coding">1.2 What is Vibe Coding<a href="https://austinxyz.github.io/blogs/blog/2025/12/15/claude-code-introduction#12-what-is-vibe-coding" class="hash-link" aria-label="Direct link to 1.2 What is Vibe Coding" title="Direct link to 1.2 What is Vibe Coding" translate="no">​</a></h2>
-<p>"Vibe Coding" is the community's colorful description of a new generation of AI-assisted programming. The core concept is:</p>
-<blockquote>
-<p><strong>"Shoot and Forget"</strong> - Like launching a missile, set the target and context, let AI autonomously complete the task, humans only verify the final PR.</p>
-</blockquote>
-<p><strong>Three Key Characteristics</strong>:</p>
-<ol>
-<li class=""><strong>High-level Intent Expression</strong> - Use natural language to describe "what to do" rather than "how to do it"</li>
-<li class=""><strong>Autonomous Task Execution</strong> - AI plans steps, writes code, runs tests, submits code</li>
-<li class=""><strong>Result-focused Validation</strong> - Humans focus on code review and final results, not the process</li>
-</ol>
-<p>This model is fundamentally different from traditional "code completion":</p>
-<ul>
-<li class=""><strong>Copilot Mode</strong>: Humans write code, AI provides next-line suggestions (assistance)</li>
-<li class=""><strong>Vibe Coding</strong>: Humans provide requirements, AI completes the entire development workflow (leadership)</li>
-</ul>
-<p><strong>Term Origin</strong>:
-The term "Vibe Coding" originated from the developer community's playful description of the new AI programming approach, first appearing in 2024 on Twitter/X and Reddit developer discussions. It vividly describes the new paradigm of "completing programming by conveying intent (vibe) rather than writing code."</p>
-<p><strong>Advocates</strong>:</p>
-<ul>
-<li class=""><strong>Anthropic</strong>: Provides complete CLI autonomy through Claude Code, the main driver of Vibe Coding</li>
-<li class=""><strong>Cursor</strong>: Deeply integrates AI into IDE, lowering the barrier to Vibe Coding</li>
-<li class=""><strong>Replit</strong>: AI Agent mode, users describe requirements to generate complete applications</li>
-</ul>
-<p><strong>Current Status</strong> (2025):</p>
-<ul>
-<li class="">Has moved from "tech preview" to "production ready" stage</li>
-<li class="">Suitable for personal projects and small-to-medium teams, large enterprises still in pilot phase</li>
-<li class="">Mainstream tools: Claude Code, Cursor, Cline, Gemini CLI</li>
-<li class="">Active community, many best practices and workflows forming</li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="13-the-value-of-vibe-coding">1.3 The Value of Vibe Coding<a href="https://austinxyz.github.io/blogs/blog/2025/12/15/claude-code-introduction#13-the-value-of-vibe-coding" class="hash-link" aria-label="Direct link to 1.3 The Value of Vibe Coding" title="Direct link to 1.3 The Value of Vibe Coding" translate="no">​</a></h2>
-<p>Why can Vibe Coding change software development efficiency?</p>
-<p><strong>1. Eliminates Repetitive Labor</strong></p>
-<ul>
-<li class="">Traditional: CRUD interfaces require manually writing Controller, Service, Repository, Entity, DTO...</li>
-<li class="">Vibe Coding: Describe requirements in one sentence, AI generates all files with consistent naming</li>
-</ul>
-<p><strong>2. Reduces Context Switching Costs</strong></p>
-<ul>
-<li class="">Traditional: Backend → Frontend → Database → Deployment, switching between multiple tech stacks</li>
-<li class="">Vibe Coding: AI masters full-stack technology, completes cross-layer changes in one go</li>
-</ul>
-<p><strong>3. Enables "Think-speed Programming"</strong></p>
-<ul>
-<li class="">Traditional: From idea to code takes hours or even days</li>
-<li class="">Vibe Coding: From idea to runnable code takes only minutes</li>
-</ul>
-<p><strong>Real Case</strong> (Finance Project):</p>
-<ul>
-<li class="">Adding expense budget feature (backend API + frontend page + database script)<!-- -->
-<ul>
-<li class="">Traditional approach: ~4-6 hours</li>
-<li class="">Vibe Coding: 45 minutes (including testing and fixes)</li>
-<li class=""><strong>Efficiency improvement: 5-8x</strong></li>
-</ul>
-</li>
-</ul>
-<p><strong>4. Focus on "What" Rather Than "How"</strong></p>
-<p>In the Finance project, my focus shifted from "writing code" to:</p>
-<ul>
-<li class=""><strong>Requirement iteration and UI refinement</strong> (35%) - New ideas naturally emerge after seeing the interface, rapid iteration</li>
-<li class=""><strong>Architecture refactoring and pattern application</strong> (30%) - While adjusting one interface, refactor similar features</li>
-<li class=""><strong>Learning best practices and workflow optimization</strong> (20%) - Explore best workflows with Claude Code, reduce wait times</li>
-<li class=""><strong>Code review and quality control</strong> (15%) - Ensure generated code meets standards</li>
-</ul>
-<p><strong>Real Experience</strong>:</p>
-<ul>
-<li class="">Early on, I took many detours, wasting time waiting for AI generation and debugging</li>
-<li class="">As I became familiar with the tools (Skills, Hooks, CLAUDE.md), efficiency improved significantly</li>
-<li class="">The iteration speed of "see interface → generate idea → immediately implement" is incomparable to traditional development</li>
-</ul>
-<p>This is what Martin Fowler meant by "programmers more like architects + reviewers," but the actual work is more flexible—a hybrid role of <strong>architect + product manager + reviewer</strong>.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="14-the-value-of-this-article">1.4 The Value of This Article<a href="https://austinxyz.github.io/blogs/blog/2025/12/15/claude-code-introduction#14-the-value-of-this-article" class="hash-link" aria-label="Direct link to 1.4 The Value of This Article" title="Direct link to 1.4 The Value of This Article" translate="no">​</a></h2>
-<p>While there are many introductions to AI programming tools, this article's unique aspects are:</p>
-<ul>
-<li class="">✅ <strong>Real Project Validation</strong> - All practices come from the Finance project (GitHub: <a href="https://github.com/austinxyz/finance" target="_blank" rel="noopener noreferrer" class="">austinxyz/finance</a>)</li>
-<li class="">✅ <strong>100% AI Generated</strong> - Approximately 41,000 lines of code entirely generated by Claude Code, true Vibe Coding practice</li>
-<li class="">✅ <strong>Full Lifecycle Coverage</strong> - Complete software engineering lifecycle from requirements analysis to production deployment</li>
-<li class="">✅ <strong>Concrete and Actionable</strong> - Provides actual configuration files, slash commands, skills code examples</li>
-<li class="">✅ <strong>Theory Meets Practice</strong> - References Martin Fowler interviews and Shrivu Shankar's in-depth experience</li>
-<li class="">✅ <strong>Data-driven</strong> - Net development time approximately 20 hours, all data verifiable</li>
-</ul>
-<p><strong>Finance Project Overview</strong>:</p>
-<ul>
-<li class=""><strong>Tech Stack</strong>: Spring Boot 3.2 + Java 17 + Vue 3 + MySQL 8.0 + Docker</li>
-<li class=""><strong>Feature Scope</strong>: Asset management, liability tracking, expense analysis, investment management, multi-currency support, data visualization</li>
-<li class=""><strong>Code Scale</strong>: 127 Java files, 33 Vue components, 25 database tables, approximately 41,000 lines of code</li>
-<li class=""><strong>Development Mode</strong>: Completely using Claude Code, building efficient workflows through Skills, Hooks, CLAUDE.md</li>
-</ul>
-<p><strong>Target Audience</strong>:</p>
-<ul>
-<li class="">Individual developers wanting to try Vibe Coding</li>
-<li class="">Technical managers considering introducing AI tools to teams</li>
-<li class="">Practitioners interested in software engineering methodology evolution</li>
-<li class="">Full-stack engineers looking to improve development efficiency</li>
-</ul>]]></content:encoded>
-            <author>austin.xyz@gmail.com (Austin Xu)</author>
-            <category>ai</category>
-            <category>claude-code</category>
-            <category>development-tools</category>
-        </item>
-        <item>
-            <title><![CDATA[[0/6] Claude Code in Practice: A Complete Guide to AI-Assisted Development]]></title>
-            <link>https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview</link>
-            <guid>https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview</guid>
-            <pubDate>Sun, 14 Dec 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[A comprehensive 6-part series exploring AI-assisted programming through the development of a family finance system. Learn Vibe Coding best practices with real-world examples.]]></description>
-            <content:encoded><![CDATA[<blockquote>
-<p>Exploring best practices for AI-assisted programming (Vibe Coding) through the real development journey of the Finance project</p>
-</blockquote>
-<ul>
-<li class=""><strong>Author</strong>: Austin Xu</li>
-<li class=""><strong>Project</strong>: Family Finance Management System (Spring Boot + Vue 3 Full-Stack Application)</li>
-<li class=""><strong>Development Period</strong>: November 2025 - Present</li>
-<li class=""><strong>Code Scale</strong>: ~41,000 lines of code, 127 Java files, 33 Vue components, 25 database tables</li>
-<li class=""><strong>Net Development Time</strong>: ~20 hours (weekend and evening spare time)</li>
-<li class=""><strong>GitHub</strong>: <a href="https://github.com/austinxyz/finance" target="_blank" rel="noopener noreferrer" class="">https://github.com/austinxyz/finance</a></li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="series-overview">Series Overview<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#series-overview" class="hash-link" aria-label="Direct link to Series Overview" title="Direct link to Series Overview" translate="no">​</a></h2>
-<p>This is a complete guide to Claude Code based on real-world experience building a production application. Through developing a family finance management system entirely with Claude Code, I've documented practical insights, best practices, and lessons learned that go beyond typical AI tool tutorials.</p>
-<p><strong>What makes this series unique:</strong></p>
-<ul>
-<li class="">✅ <strong>Real Project Validation</strong> - All practices come from the Finance project</li>
-<li class="">✅ <strong>100% AI Generated</strong> - Approximately 41,000 lines of code entirely generated by Claude Code</li>
-<li class="">✅ <strong>Full Lifecycle Coverage</strong> - Complete software engineering lifecycle from requirements to deployment</li>
-<li class="">✅ <strong>Concrete and Actionable</strong> - Actual configuration files, commands, and code examples</li>
-<li class="">✅ <strong>Theory Meets Practice</strong> - References Martin Fowler interviews and industry best practices</li>
-<li class="">✅ <strong>Data-driven</strong> - Quantified productivity metrics and verifiable results</li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="table-of-contents">Table of Contents<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#table-of-contents" class="hash-link" aria-label="Direct link to Table of Contents" title="Direct link to Table of Contents" translate="no">​</a></h2>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="part-1-introduction---a-new-programming-paradigm"><strong><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/15/claude-code-introduction">Part 1: Introduction - A New Programming Paradigm</a></strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#part-1-introduction---a-new-programming-paradigm" class="hash-link" aria-label="Direct link to part-1-introduction---a-new-programming-paradigm" title="Direct link to part-1-introduction---a-new-programming-paradigm" translate="no">​</a></h3>
-<p>Discover how AI-assisted programming evolved from code completion to "Vibe Coding"</p>
-<p><strong>Topics Covered:</strong></p>
-<ul>
-<li class="">From Copilot to Vibe Coding</li>
-<li class="">What is Vibe Coding and why it matters</li>
-<li class="">The Value of Vibe Coding (with real productivity data)</li>
-<li class="">Understanding this new programming paradigm</li>
-</ul>
-<p><strong>Key Takeaway:</strong> Learn how to shift from writing code line-by-line to describing what you want and letting AI handle implementation.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="part-2-claude-code-overview"><strong><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/16/claude-code-overview">Part 2: Claude Code Overview</a></strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#part-2-claude-code-overview" class="hash-link" aria-label="Direct link to part-2-claude-code-overview" title="Direct link to part-2-claude-code-overview" translate="no">​</a></h3>
-<p>Comprehensive introduction to Claude Code's capabilities and ecosystem</p>
-<p><strong>Topics Covered:</strong></p>
-<ul>
-<li class="">Background and evolution of Claude Code</li>
-<li class="">Core concepts: Skills, Hooks, MCP, CLAUDE.md</li>
-<li class="">Tool Comparison: Claude Code vs. Cursor, Copilot, Gemini CLI</li>
-<li class="">Why Choose Claude Code</li>
-<li class="">Quick Start guide</li>
-</ul>
-<p><strong>Key Takeaway:</strong> Understand Claude Code's unique strengths and when to use it versus other AI coding tools.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="part-3-full-development-cycle-walkthrough"><strong><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough">Part 3: Full Development Cycle Walkthrough</a></strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#part-3-full-development-cycle-walkthrough" class="hash-link" aria-label="Direct link to part-3-full-development-cycle-walkthrough" title="Direct link to part-3-full-development-cycle-walkthrough" translate="no">​</a></h3>
-<p>Step-by-step walkthrough of building a real application with Claude Code</p>
-<p><strong>Topics Covered:</strong></p>
-<ul>
-<li class=""><strong>Initialization Phase</strong>: Setting up project skeleton</li>
-<li class=""><strong>Requirements Phase</strong>: From vague ideas to precise specifications</li>
-<li class=""><strong>Design Phase</strong>: Architectural decisions and AI's boundaries</li>
-<li class=""><strong>Implementation Phase</strong>: Efficient collaboration and automation</li>
-<li class=""><strong>Testing Phase</strong>: AI-driven quality assurance</li>
-<li class=""><strong>Deployment Phase</strong>: From testing to production</li>
-</ul>
-<p><strong>Key Takeaway:</strong> See exactly how Claude Code handles each stage of development with concrete examples and screenshots.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="part-4-evolution-of-software-development-methodologies"><strong><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution">Part 4: Evolution of Software Development Methodologies</a></strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#part-4-evolution-of-software-development-methodologies" class="hash-link" aria-label="Direct link to part-4-evolution-of-software-development-methodologies" title="Direct link to part-4-evolution-of-software-development-methodologies" translate="no">​</a></h3>
-<p>How AI is transforming established software engineering practices</p>
-<p><strong>Topics Covered:</strong></p>
-<ul>
-<li class=""><strong>Agile Development</strong>: From Sprints to Prompts</li>
-<li class=""><strong>Test-Driven Development (TDD)</strong>: New forms in the AI era</li>
-<li class=""><strong>Object-Oriented Design</strong>: Can AI understand design patterns?</li>
-<li class=""><strong>Code Review</strong>: New balance in human-AI collaboration</li>
-</ul>
-<p><strong>Key Takeaway:</strong> Adapt traditional methodologies for the AI era while maintaining engineering rigor.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="part-5-use-cases-and-limitations"><strong><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/19/claude-code-use-cases-and-limitations">Part 5: Use Cases and Limitations</a></strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#part-5-use-cases-and-limitations" class="hash-link" aria-label="Direct link to part-5-use-cases-and-limitations" title="Direct link to part-5-use-cases-and-limitations" translate="no">​</a></h3>
-<p>Honest assessment of when Claude Code excels and when it struggles</p>
-<p><strong>Topics Covered:</strong></p>
-<ul>
-<li class=""><strong>Most Suitable Scenarios</strong>
-<ul>
-<li class="">Full-stack web applications</li>
-<li class="">CRUD-heavy business logic</li>
-<li class="">Infrastructure automation</li>
-<li class="">Prototyping and MVPs</li>
-</ul>
-</li>
-<li class=""><strong>Unsuitable or Scenarios Requiring Caution</strong>
-<ul>
-<li class="">High-performance computing</li>
-<li class="">Complex algorithms</li>
-<li class="">Novel research problems</li>
-</ul>
-</li>
-<li class=""><strong>Applicability in Team Collaboration</strong>
-<ul>
-<li class="">Individual vs. team usage</li>
-<li class="">Integration with existing workflows</li>
-</ul>
-</li>
-</ul>
-<p><strong>Key Takeaway:</strong> Make informed decisions about when and how to adopt Claude Code in your projects.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="part-6-conclusion-and-outlook"><strong><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/20/claude-code-conclusion">Part 6: Conclusion and Outlook</a></strong><a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#part-6-conclusion-and-outlook" class="hash-link" aria-label="Direct link to part-6-conclusion-and-outlook" title="Direct link to part-6-conclusion-and-outlook" translate="no">​</a></h3>
-<p>Synthesis of lessons learned and future outlook</p>
-<p><strong>Topics Covered:</strong></p>
-<ul>
-<li class=""><strong>Development Data Summary</strong> of the Finance Project</li>
-<li class=""><strong>Core Advantages</strong> of Claude Code</li>
-<li class=""><strong>Current Limitations</strong> and workarounds</li>
-<li class=""><strong>Recommendations for Readers</strong>
-<ul>
-<li class="">For individual developers</li>
-<li class="">For technical managers</li>
-<li class="">For teams considering adoption</li>
-</ul>
-</li>
-</ul>
-<p><strong>Key Takeaway:</strong> Practical roadmap for integrating Claude Code into your development workflow.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="reading-recommendations">Reading Recommendations<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#reading-recommendations" class="hash-link" aria-label="Direct link to Reading Recommendations" title="Direct link to Reading Recommendations" translate="no">​</a></h2>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="for-different-audiences">For Different Audiences<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#for-different-audiences" class="hash-link" aria-label="Direct link to For Different Audiences" title="Direct link to For Different Audiences" translate="no">​</a></h3>
-<p><strong>Individual Developers:</strong>
-Start with Part 1 to understand the paradigm shift, then jump to Part 3 for hands-on walkthrough. Circle back to Parts 2, 4, and 5 as you encounter specific challenges.</p>
-<p><strong>Technical Managers:</strong>
-Read Parts 1, 5, and 6 to understand business value, limitations, and team adoption strategies. Skim Part 3 for technical depth.</p>
-<p><strong>Students/Beginners:</strong>
-Read in order from Part 1 through Part 6. Try building small projects with Claude Code as you progress through each part.</p>
-<p><strong>Experienced Engineers:</strong>
-Start with Part 4 (methodology evolution) to see how AI changes established practices, then read Part 5 (limitations) to understand boundaries. Parts 3 and 6 provide concrete implementation details.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="reading-tips">Reading Tips<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#reading-tips" class="hash-link" aria-label="Direct link to Reading Tips" title="Direct link to Reading Tips" translate="no">​</a></h3>
-<ol>
-<li class=""><strong>Read in Order (Recommended)</strong>: Chapters build on each other and are best understood sequentially</li>
-<li class=""><strong>Practice-Oriented</strong>: Each chapter includes real-world cases - try implementing them in your projects</li>
-<li class=""><strong>Critical Thinking</strong>: Opinions are based on personal experience; adapt to your context</li>
-<li class=""><strong>Hands-On Practice</strong>: Install Claude Code and experiment with small projects while reading</li>
-</ol>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="project-context-finance-system">Project Context: Finance System<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#project-context-finance-system" class="hash-link" aria-label="Direct link to Project Context: Finance System" title="Direct link to Project Context: Finance System" translate="no">​</a></h2>
-<p>To make this guide concrete, all examples come from developing a family finance management system:</p>
-<p><strong>Tech Stack:</strong></p>
-<ul>
-<li class="">Backend: Spring Boot 3.2 + Java 17</li>
-<li class="">Frontend: Vue 3 + Vite</li>
-<li class="">Database: MySQL 8.0</li>
-<li class="">Deployment: Docker + AWS</li>
-</ul>
-<p><strong>Features Implemented:</strong></p>
-<ul>
-<li class="">Asset management (bank accounts, investments, real estate)</li>
-<li class="">Liability tracking (loans, mortgages, credit cards)</li>
-<li class="">Expense analysis with categories</li>
-<li class="">Investment portfolio tracking</li>
-<li class="">Multi-currency support</li>
-<li class="">Data visualization dashboards</li>
-<li class="">Budget planning tools</li>
-</ul>
-<p><strong>Development Metrics:</strong></p>
-<ul>
-<li class=""><strong>Code Volume</strong>: ~41,000 lines</li>
-<li class=""><strong>File Count</strong>: 127 Java files, 33 Vue components</li>
-<li class=""><strong>Database</strong>: 25 tables with complex relationships</li>
-<li class=""><strong>Time Investment</strong>: ~20 hours net development time</li>
-<li class=""><strong>AI Contribution</strong>: 100% of code generated by Claude Code</li>
-<li class=""><strong>Human Contribution</strong>: Requirements, architecture decisions, testing, refinement</li>
-</ul>
-<p>This real project provides concrete examples throughout the series rather than theoretical scenarios.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="related-resources">Related Resources<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#related-resources" class="hash-link" aria-label="Direct link to Related Resources" title="Direct link to Related Resources" translate="no">​</a></h2>
-<p><strong>Project Repository:</strong></p>
-<ul>
-<li class=""><a href="https://github.com/austinxyz/finance" target="_blank" rel="noopener noreferrer" class="">Finance System GitHub</a> - Full source code and documentation</li>
-</ul>
-<p><strong>Industry Insights:</strong></p>
-<ul>
-<li class=""><a href="https://youtu.be/CQmI4XKTa0U" target="_blank" rel="noopener noreferrer" class="">Martin Fowler Interview: AI's Impact on Software Engineering</a></li>
-<li class=""><a href="https://blog.sshh.io/p/how-i-use-every-claude-code-feature" target="_blank" rel="noopener noreferrer" class="">Shrivu Shankar's Claude Code Practical Experience</a></li>
-</ul>
-<p><strong>Official Documentation:</strong></p>
-<ul>
-<li class=""><a href="https://docs.claude.ai/docs/claude-code" target="_blank" rel="noopener noreferrer" class="">Claude Code Documentation</a></li>
-<li class=""><a href="https://github.com/austinxyz/finance/tree/master/requirement/%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E.md" target="_blank" rel="noopener noreferrer" class="">Finance Project Requirements</a></li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-youll-learn">What You'll Learn<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#what-youll-learn" class="hash-link" aria-label="Direct link to What You'll Learn" title="Direct link to What You'll Learn" translate="no">​</a></h2>
-<p>By the end of this series, you'll be able to:</p>
-<ul>
-<li class="">✅ <strong>Understand Vibe Coding</strong> - The new programming paradigm enabled by AI</li>
-<li class="">✅ <strong>Use Claude Code Effectively</strong> - Master Skills, Hooks, MCP, and CLAUDE.md</li>
-<li class="">✅ <strong>Build Full Applications</strong> - Complete development cycles from idea to deployment</li>
-<li class="">✅ <strong>Adapt Methodologies</strong> - Apply Agile, TDD, and OOP in the AI era</li>
-<li class="">✅ <strong>Make Informed Decisions</strong> - Know when to use (or not use) AI assistance</li>
-<li class="">✅ <strong>Measure Productivity</strong> - Quantify the impact of AI on development speed</li>
-<li class="">✅ <strong>Avoid Common Pitfalls</strong> - Learn from real-world challenges and solutions</li>
-</ul>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="getting-started">Getting Started<a href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview#getting-started" class="hash-link" aria-label="Direct link to Getting Started" title="Direct link to Getting Started" translate="no">​</a></h2>
-<p>Ready to explore AI-assisted development? Start with <strong><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/15/claude-code-introduction">Part 1: Introduction to AI-Assisted Development →</a></strong></p>
-<p>Or jump to any part that interests you:</p>
-<ul>
-<li class=""><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/16/claude-code-overview">Part 2: Claude Code Overview →</a></li>
-<li class=""><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough">Part 3: Development Walkthrough →</a></li>
-<li class=""><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution">Part 4: Methodology Evolution →</a></li>
-<li class=""><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/19/claude-code-use-cases-and-limitations">Part 5: Use Cases and Limitations →</a></li>
-<li class=""><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/20/claude-code-conclusion">Part 6: Conclusion and Outlook →</a></li>
-</ul>
-<hr>
-<p><strong>Version History</strong>:</p>
-<ul>
-<li class="">v1.0 (2025-12-14): Series overview and table of contents</li>
-<li class="">v1.1 (2025-12-18): Initial series completed</li>
-<li class="">v1.2 (2025-12-19): Refined with unified project statistics</li>
-</ul>
-<hr>
-<p><em>This guide represents real-world experience with Claude Code over multiple months of development. Your mileage may vary based on project type, programming languages, and individual workflow preferences.</em></p>]]></content:encoded>
-            <author>austin.xyz@gmail.com (Austin Xu)</author>
-            <category>ai</category>
-            <category>claude-code</category>
-            <category>development-tools</category>
-            <category>guide</category>
         </item>
     </channel>
 </rss>
