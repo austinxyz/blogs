@@ -94,6 +94,8 @@ Post 1 (入门) → Post 2 (实战复盘) → Post 3 (完整框架)
 ### Key References
 - DevOps at Scale: https://austinxyz.github.io/blogs/blog/2026/04/26/devops-at-scale
 - AI Native App Platform: https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-app-platform
+- GitHub repo: https://github.com/austinxyz/rwh-overlay
+https://github.com/kgajjala/rwh
 
 ### Output Files
 - `blog/2026-XX-XX-rwh-overlay/index.md` (English)
