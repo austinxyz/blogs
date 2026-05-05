@@ -196,7 +196,7 @@ The Superpowers TDD workflow already enforces clean testing of script logic. But
 
 **Development methodology shifts fundamentally.** Building Claude Code commands is largely prompt-driven — the Superpowers brainstorm/plan/TDD workflow handles the complexity well, and you can iterate in the terminal without writing much code. A standalone agent is a software product: it requires spec-driven development, proper software architecture, and the full code-level engineering that comes with building a real service. The gap between "I can describe what I want in a prompt" and "I can build and maintain a production codebase that does it reliably" is real, and it's often the most underestimated part of the transition.
 
-These are the challenges covered in the [DevOps at Scale](https://austinxyz.github.io/blogs/blog/2026/04/26/devops-at-scale) post — and the reason the [AI Native App Platform](https://austinxyz.github.io/blogs/blog/2026/04/09/cloud-native-to-ai-native-app-platform) post argues that standard DevOps patterns need to adapt for AI-native systems, where observability, governance, and the agent itself need to be first-class infrastructure concepts.
+These are the challenges covered in the [DevOps at Scale](https://austinxyz.github.io/blogs/blog/2026/04/26/devops-at-scale) post — and the reason the [AI Native App Platform](https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-app-platform) post argues that standard DevOps patterns need to adapt for AI-native systems, where observability, governance, and the agent itself need to be first-class infrastructure concepts.
 
 For rwh-overlay specifically: the productization path is visible, but the real blocker isn't engineering. Investment advice is a regulated activity. The path from personal tool to product for others involves compliance work that has nothing to do with the codebase. That's worth being clear-eyed about before investing in the operational layer.
 
@@ -211,5 +211,5 @@ For now: the value is real and immediate for personal use. That's a reasonable p
 - [rwh on GitHub](https://github.com/kgajjala/rwh)
 - [rwh-overlay on GitHub](https://github.com/austinxyz/rwh-overlay)
 - [finance-skills on GitHub](https://github.com/himself65/finance-skills)
-- [AI Native App Platform](https://austinxyz.github.io/blogs/blog/2026/04/09/cloud-native-to-ai-native-app-platform)
+- [AI Native App Platform](https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-app-platform)
 - [DevOps at Scale for AI Systems](https://austinxyz.github.io/blogs/blog/2026/04/26/devops-at-scale)
