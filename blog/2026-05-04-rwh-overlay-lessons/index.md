@@ -1,5 +1,5 @@
 ---
-title: "Building rwh-overlay: From Complex Commands to Production-Grade AI Agents"
+title: "Building AI Agent: From Complex Claude Skills to Production-Grade AI Agents"
 date: 2026-05-04T15:00
 authors: [austin]
 tags: [wealth-management, ai, claude-code]
@@ -16,9 +16,9 @@ The domain is stock investing, but the patterns apply broadly. This post stands 
 
 ---
 
-## Starting Point: What rwh Provides
+## Starting Point: What RWH Provides
 
-[rwh](https://github.com/kgajjala/rwh) by kgajjala is an open-source LLM wiki for blue-chip stock analysis. The name stands for Richer, Wiser, Happier — a fitting aspiration for an investment knowledge base. It aggregates earnings summaries, analyst ratings, and sector context into a Markdown-based knowledge base that an LLM can reason over directly. Each ticker gets a structured file with fundamentals, recent analyst calls, and thesis notes. The whole thing is designed around Karpathy's LLM Wiki pattern: raw material is distilled into evergreen wiki entries, and you query the wiki to get grounded analysis instead of hallucinated recall.
+[RWH](https://github.com/kgajjala/rwh) by kgajjala is an open-source LLM wiki for blue-chip stock analysis. The name stands for Richer, Wiser, Happier — a fitting aspiration for an investment knowledge base. It aggregates earnings summaries, analyst ratings, and sector context into a Markdown-based knowledge base that an LLM can reason over directly. Each ticker gets a structured file with fundamentals, recent analyst calls, and thesis notes. The whole thing is designed around Karpathy's LLM Wiki pattern: raw material is distilled into evergreen wiki entries, and you query the wiki to get grounded analysis instead of hallucinated recall.
 
 The benefits are real:
 - Well-maintained and actively updated by kgajjala
@@ -28,9 +28,9 @@ The benefits are real:
 
 Three gaps for my use case:
 
-**Coverage.** rwh covers blue chips. I'm also tracking thematic positions — power grid infrastructure, battery storage, optical interconnects, LEO satellite broadband. These require sector-level synthesis that per-ticker summaries don't provide.
+**Coverage.** RWH covers blue chips. I'm also tracking thematic positions — power grid infrastructure, battery storage, optical interconnects, LEO satellite broadband. These require sector-level synthesis that per-ticker summaries don't provide.
 
-**Personalization.** Generic analysis tells you what's happening. Analysis that accounts for my cost basis, account concentration, and tax situation tells me what to do about it. rwh isn't designed to know your portfolio.
+**Personalization.** Generic analysis tells you what's happening. Analysis that accounts for my cost basis, account concentration, and tax situation tells me what to do about it. RWH isn't designed to know your portfolio.
 
 **Workflow.** I needed Claude to produce actionable decisions on a schedule — not just surface information when I ask. That requires composing commands into workflows with defined inputs, defined outputs, and consistent logic.
 
@@ -38,13 +38,13 @@ Three gaps for my use case:
 
 ## What I Built
 
-[rwh-overlay](https://github.com/austinxyz/rwh-overlay) is a separate repo that sits alongside rwh and adds four layers on top. A nightly merge pipeline pulls rwh's wiki content and combines it with my overlay's analysis — the two repos stay independent.
+[RWH-overlay](https://github.com/austinxyz/rwh-overlay) is a separate repo that sits alongside RWH and adds four layers on top. A nightly merge pipeline pulls RWH's wiki content and combines it with my overlay's analysis — the two repos stay independent.
 
-**Sector and individual stock analysis.** Beyond rwh's per-ticker coverage, I added sector-level synthesis for the themes I track. Claude pulls recent news, earnings signals, and analyst changes across the sector and produces structured summaries. The key insight: rwh gives the LLM grounding in individual businesses; the sector layer provides the "so what does this mean for the theme" reasoning that connects company-level events to multi-year capital deployment stories.
+**Sector and individual stock analysis.** Beyond RWH's per-ticker coverage, I added sector-level synthesis for the themes I track. Claude pulls recent news, earnings signals, and analyst changes across the sector and produces structured summaries. The key insight: RWH gives the LLM grounding in individual businesses; the sector layer provides the "so what does this mean for the theme" reasoning that connects company-level events to multi-year capital deployment stories.
 
 **[finance-skills](https://github.com/himself65/finance-skills) integration.** finance-skills is an open-source collection of Claude Code skills for financial data retrieval and analysis. It covers a wide range — earnings calendars, options flow, technical indicator calculation, and more. Claude Code skills have two modes: self-use (stored in your project's `.claude/commands/`) and plugin mode (installed globally, shared across projects). I use finance-skills as a plugin, so I get their updates without managing the code. Notable: `finance-market-analysis:sepa-strategy` provides full SEPA technical analysis, which I use as an input to my `/morning-check` command.
 
-**Custom integration commands.** The overlay adds commands that wire rwh's wiki content and finance-skills' data retrieval together with my private data. The actual command inventory:
+**Custom integration commands.** The overlay adds commands that wire RWH's wiki content and finance-skills' data retrieval together with my private data. The actual command inventory:
 
 | Command | Purpose |
 |---------|---------|
@@ -63,9 +63,9 @@ Three gaps for my use case:
 | `/market-monthly` | Monthly portfolio and thesis review |
 | `/market-quarterly` | Quarterly portfolio and strategy review |
 
-Each command reads from three sources: rwh's wiki (public, upstream), my overlay's sector analysis (public, mine), and `data/positions.md` + `data/profile.md` (private, git-ignored). The combination is what makes the output specific rather than generic.
+Each command reads from three sources: RWH's wiki (public, upstream), my overlay's sector analysis (public, mine), and `data/positions.md` + `data/profile.md` (private, git-ignored). The combination is what makes the output specific rather than generic.
 
-**Auto-merge pipeline.** Nightly, a script merges rwh's wiki content with my overlay analysis into a `stock-kb` directory, rendered via [Quartz](https://quartz.jzhao.xyz) as a browsable site. The wiki is shareable. So is the output directory — it holds date-tagged market reports with no personal position data. Only the data directory is private — that's where position-specific files live, and it's git-ignored.
+**Auto-merge pipeline.** Nightly, a script merges RWH's wiki content with my overlay analysis into a `stock-kb` directory, rendered via [Quartz](https://quartz.jzhao.xyz) as a browsable site. The wiki is shareable. So is the output directory — it holds date-tagged market reports with no personal position data. Only the data directory is private — that's where position-specific files live, and it's git-ignored.
 
 ---
 
@@ -83,7 +83,7 @@ Here's the actual decision flow for a new position in the Roth IRA, showing how 
     ↓
 [/stock-analyze <TICKER>]
     │
-    ├─ Reads rwh wiki entry (if blue chip) + sector analysis
+    ├─ Reads RWH wiki entry (if blue chip) + sector analysis
     ├─ Applies BAIT framework: identifies mispricing type
     ├─ Runs Moneyball PW EV: Bull/Base/Bear scenarios → weighted EV
     ├─ Applies Asset Type framework: confirms correct valuation lens
@@ -104,11 +104,11 @@ Here's the actual decision flow for a new position in the Roth IRA, showing how 
 
 The `/morning-check ALL` variant runs this logic across all current positions each morning, surfacing stops that need attention, approaching targets, and thesis-breaking signals.
 
-The taxable account has a parallel workflow driven by `/market-weekly`: every Sunday, it generates a structured action plan covering tax loss harvesting opportunities (checking wash sale compliance), blue chip candidates from rwh's latest Initiate/Add recommendations, and DCA execution for VTI/QQQ. That plan writes to a private file that never gets committed.
+The taxable account has a parallel workflow driven by `/market-weekly`: every Sunday, it generates a structured action plan covering tax loss harvesting opportunities (checking wash sale compliance), blue chip candidates from RWH's latest Initiate/Add recommendations, and DCA execution for VTI/QQQ. That plan writes to a private file that never gets committed.
 
 This workflow — not any individual command — is what makes the system useful. The commands are reusable components; the workflow is the product.
 
-In total: 4 primary workflows (stock entry, daily monitoring, ETF sector DCA, and Chen Yun integration), 14 commands spanning research, position management, and periodic reporting, and a build script that merges the upstream rwh wiki with overlay analysis nightly.
+In total: 4 primary workflows (stock entry, daily monitoring, ETF sector DCA, and Chen Yun integration), 14 commands spanning research, position management, and periodic reporting, and a build script that merges the upstream RWH wiki with overlay analysis nightly.
 
 These four workflows, taken together, form a six-stage investment process — from idea generation through position management. That full picture is documented separately in [Part 3: The Investment Operating System](https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os), which covers how all the stages connect without going into implementation detail.
 
@@ -118,13 +118,13 @@ These four workflows, taken together, form a six-stage investment process — fr
 
 ### 1. Decouple from Upstream Ruthlessly
 
-First rule: never modify rwh's content files directly. The only exception is the root index, which auto-regenerates from the wiki structure.
+First rule: never modify RWH's content files directly. The only exception is the root index, which auto-regenerates from the wiki structure.
 
 The temptation to "just add a note here" is constant. The cost: upstream merges become painful — you're reconciling diffs against files you've touched, and eventually you fork instead of overlay. That means losing free improvements from kgajjala.
 
-The payoff: pulling rwh updates is a clean `git merge`. My work compounds on top of a maintained foundation.
+The payoff: pulling RWH updates is a clean `git merge`. My work compounds on top of a maintained foundation.
 
-Implementation: rwh and rwh-overlay are separate repos. The nightly merge pipeline pulls from rwh's repo, reads its wiki content, combines it with my overlay's analysis, and writes to the `stock-kb` directory. Scripts never write back to rwh's files. The boundary is enforced by convention in the pipeline, not by repo structure — which means it requires discipline to maintain.
+Implementation: RWH and RWH-overlay are separate repos. The nightly merge pipeline pulls from RWH's repo, reads its wiki content, combines it with my overlay's analysis, and writes to the `stock-kb` directory. Scripts never write back to RWH's files. The boundary is enforced by convention in the pipeline, not by repo structure — which means it requires discipline to maintain.
 
 ### 2. Build Workflow from Pain, Not from Features
 
@@ -132,7 +132,7 @@ Every command I built started with a specific frustration. `/morning-check` star
 
 The alternative — designing a comprehensive AI investment advisor and working backward — produces a system that's feature-complete but doesn't fit how you actually think about a portfolio. The scope expands indefinitely because there's always more you could surface.
 
-Needs-driven design also reveals what rwh and finance-skills actually give you. I didn't plan to use `finance-market-analysis:sepa-strategy` — I discovered it while looking for a way to automate the SEPA Stage Analysis that was the most time-consuming part of my morning routine. The pain pointed to the tool.
+Needs-driven design also reveals what RWH and finance-skills actually give you. I didn't plan to use `finance-market-analysis:sepa-strategy` — I discovered it while looking for a way to automate the SEPA Stage Analysis that was the most time-consuming part of my morning routine. The pain pointed to the tool.
 
 ### 3. Scripts for Data, LLMs for Interpretation
 
@@ -198,7 +198,7 @@ The Superpowers TDD workflow already enforces clean testing of script logic. But
 
 These are the challenges covered in the [DevOps at Scale](https://austinxyz.github.io/blogs/blog/2026/04/26/devops-at-scale) post — and the reason the [AI Native App Platform](https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-app-platform) post argues that standard DevOps patterns need to adapt for AI-native systems, where observability, governance, and the agent itself need to be first-class infrastructure concepts.
 
-For rwh-overlay specifically: the productization path is visible, but the real blocker isn't engineering. Investment advice is a regulated activity. The path from personal tool to product for others involves compliance work that has nothing to do with the codebase. That's worth being clear-eyed about before investing in the operational layer.
+For RWH-overlay specifically: the productization path is visible, but the real blocker isn't engineering. Investment advice is a regulated activity. The path from personal tool to product for others involves compliance work that has nothing to do with the codebase. That's worth being clear-eyed about before investing in the operational layer.
 
 For now: the value is real and immediate for personal use. That's a reasonable place to be.
 
@@ -208,8 +208,8 @@ For now: the value is real and immediate for personal use. That's a reasonable p
 
 - [Part 1: Building Your Personal Finance Knowledge Base with Claude Code](https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki)
 - [Part 3: The Investment Operating System — Full Workflow Walkthrough](https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os)
-- [rwh on GitHub](https://github.com/kgajjala/rwh)
-- [rwh-overlay on GitHub](https://github.com/austinxyz/rwh-overlay)
+- [RWH on GitHub](https://github.com/kgajjala/rwh)
+- [RWH-overlay on GitHub](https://github.com/austinxyz/rwh-overlay)
 - [finance-skills on GitHub](https://github.com/himself65/finance-skills)
 - [AI Native App Platform](https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-app-platform)
 - [DevOps at Scale for AI Systems](https://austinxyz.github.io/blogs/blog/2026/04/26/devops-at-scale)
