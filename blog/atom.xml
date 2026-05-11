@@ -2,11 +2,86 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://austinxyz.github.io/blogs/blog</id>
     <title>Austin Xu Blog</title>
-    <updated>2026-05-04T21:00:00.000Z</updated>
+    <updated>2026-05-10T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://austinxyz.github.io/blogs/blog"/>
     <subtitle>Austin Xu Blog</subtitle>
     <icon>https://austinxyz.github.io/blogs/img/favicon.svg</icon>
+    <entry>
+        <title type="html"><![CDATA[My AI Writing Roadmap: Four Tracks From Infra to Agents]]></title>
+        <id>https://austinxyz.github.io/blogs/blog/ai-writing-roadmap</id>
+        <link href="https://austinxyz.github.io/blogs/blog/ai-writing-roadmap"/>
+        <updated>2026-05-10T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Why I split my AI writing into four tracks — Infrastructure, Methodology, Roles, Agents — what's published in each, what's coming next, and how I pick topics.]]></summary>
+        <content type="html"><![CDATA[<p>I write about AI on this blog. Not "AI in general" — that's too big to write coherently about as a single topic. You end up writing platitudes. Instead, I write across four tracks, each anchored to a place where I've actually paid the cost of learning.</p>
+<p>Since the start of the year, I've accumulated enough AI-related posts that it's time to step back and lay out the structure they fit into. This post is the map: what the four tracks are, why they hang together, what's already published in each, and what's coming next. If you've ever landed on the blog from one post and wondered whether the rest is worth your time, this is the index.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-four-tracks">Why Four Tracks<a href="https://austinxyz.github.io/blogs/blog/ai-writing-roadmap#why-four-tracks" class="hash-link" aria-label="Direct link to Why Four Tracks" title="Direct link to Why Four Tracks" translate="no">​</a></h2>
+<p>Most AI blogs I read pick one lane and stay in it. Researchers write about model architecture. Tutorial writers write about prompts. Pundits write about jobs. Each is useful, and each is partial.</p>
+<p>The thing I keep wanting to read — and don't find enough of — is the perspective of someone who has to make all of it work at once. The platform engineer who has to land GPU clusters and also manage the team that uses them. The senior dev whose IDE now writes 70% of the typing and who also has to decide what to even type. The architect who has to design systems that include non-deterministic agents and also evaluate whether the junior pipeline still feeds them.</p>
+<p>That's the seat I write from. Four tracks fall out naturally:</p>
+<ol>
+<li class=""><strong>AI Native Infrastructure and DevOps</strong> — what changes underneath when GPUs and agents become first-class workloads, and how the operating practices that keep them alive have to evolve.</li>
+<li class=""><strong>Dev Methodology in the AI Era</strong> — how the discipline of writing software evolves when AI does most of the keystroke work.</li>
+<li class=""><strong>Engineering Roles in the AI Era</strong> — how every seat at the engineering table is being rewritten, asymmetrically.</li>
+<li class=""><strong>Agent Engineering</strong> — three-layer coverage of building agents: platform, patterns, hands-on code.</li>
+</ol>
+<p>Each track maps to a place where I've actually done the work. I ran one of the larger Kubernetes deployments I know of — 200+ clusters, 5,000+ applications, 50,000 nodes, 2 million instances — so I have something to say about what does and doesn't transfer to AI Native infra. I've shipped real features using Vibe Coding, OpenSpec, and Superpowers, so the methodology track is reported, not theorized. I've sat in IC, senior dev, architect, and engineering manager chairs at different points, which is why the roles track tries to cover the whole table rather than one seat. And the agents I write about are the ones running my own finance knowledge base and stock analysis pipeline — not hypothetical demos.</p>
+<p>The tracks don't try to be exhaustive. They try to be honest about where I have a perspective worth reading.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="track-1--ai-native-infrastructure-and-devops">Track 1 — AI Native Infrastructure and DevOps<a href="https://austinxyz.github.io/blogs/blog/ai-writing-roadmap#track-1--ai-native-infrastructure-and-devops" class="hash-link" aria-label="Direct link to Track 1 — AI Native Infrastructure and DevOps" title="Direct link to Track 1 — AI Native Infrastructure and DevOps" translate="no">​</a></h2>
+<p><strong>The angle:</strong> Cloud Native taught us how to run stateless, elastic, predictable workloads. AI Native breaks several of those assumptions — GPUs can't be overcommitted the way CPUs can, models have minute-scale cold starts instead of second-scale, and the failure modes are stochastic rather than crash-or-not. About 70% of what we built for Cloud Native — at the infrastructure, platform, and DevOps layers — transfers. The other 30% has to be rebuilt. This track is the practitioner's account of what's in each bucket, including how operating practices themselves have to evolve.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="published">Published<a href="https://austinxyz.github.io/blogs/blog/ai-writing-roadmap#published" class="hash-link" aria-label="Direct link to Published" title="Direct link to Published" translate="no">​</a></h3>
+<table><thead><tr><th>Post</th><th>What it covers</th></tr></thead><tbody><tr><td><a class="" href="https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-infra">Cloud Native → AI Native Infrastructure</a></td><td>GPU clusters, schedulers, hardware platform management</td></tr><tr><td><a class="" href="https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-app-platform">Cloud Native → AI Native App Platform</a></td><td>Application platform layer for model and agent workloads</td></tr><tr><td><a class="" href="https://austinxyz.github.io/blogs/blog/iac-k8s-ai-native">IaC and Kubernetes as a Two-Layer Control Plane</a></td><td>Why the IaC + K8s split survives the transition</td></tr><tr><td><a class="" href="https://austinxyz.github.io/blogs/blog/2026/04/26/devops-at-scale">DevOps at Scale</a></td><td>How DevOps practices hold up at hundreds of clusters and tens of thousands of nodes</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="coming-next">Coming next<a href="https://austinxyz.github.io/blogs/blog/ai-writing-roadmap#coming-next" class="hash-link" aria-label="Direct link to Coming next" title="Direct link to Coming next" translate="no">​</a></h3>
+<table><thead><tr><th>Post</th><th>Why it matters</th></tr></thead><tbody><tr><td>Agent Runtime on AI Native Platform</td><td>Bridges this track and the Agent Engineering track. Agents need a different runtime profile from both stateless web apps and batch ML training, and the platform implications are real.</td></tr><tr><td>Agent DevOps</td><td>When the workload is an agent that calls tools, spawns subagents, and produces non-deterministic output, the DevOps playbook — observability, rollouts, runbooks, incident response — has to be redesigned.</td></tr></tbody></table>
+<p>The reason this track exists at all is that I find most AI infrastructure writing either too high level ("GPU compute is different!") or too narrow (a single inference optimization technique). The interesting writing happens at the platform level — where a few dozen architectural choices end up determining what tens of thousands of users can actually do.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="track-2--dev-methodology-in-the-ai-era">Track 2 — Dev Methodology in the AI Era<a href="https://austinxyz.github.io/blogs/blog/ai-writing-roadmap#track-2--dev-methodology-in-the-ai-era" class="hash-link" aria-label="Direct link to Track 2 — Dev Methodology in the AI Era" title="Direct link to Track 2 — Dev Methodology in the AI Era" translate="no">​</a></h2>
+<p><strong>The angle:</strong> The biggest change isn't <em>what</em> we build with AI — it's <em>how the work gets done</em>. Vibe Coding is real, and it's neither hype nor a productivity miracle. Spec-Driven Development is what comes after Vibe Coding burns the people who try to scale it. There's a methodology arc here, and most of the noise online conflates the stages.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="published-1">Published<a href="https://austinxyz.github.io/blogs/blog/ai-writing-roadmap#published-1" class="hash-link" aria-label="Direct link to Published" title="Direct link to Published" translate="no">​</a></h3>
+<table><thead><tr><th>Post</th><th>What it covers</th></tr></thead><tbody><tr><td><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/14/claude-code-series-overview">Claude Code Series (Overview)</a></td><td>Entry point to a seven-part series — introduction, walkthrough, methodology evolution, use cases, and conclusions</td></tr><tr><td><a class="" href="https://austinxyz.github.io/blogs/blog/2026/03/01/ai-vibe-coding-10x-productivity">10x Productivity — An Honest Take</a></td><td>Where the 10x claim is real, where it's marketing, and what actually changes</td></tr><tr><td><a class="" href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development">From Vibe Coding to Spec-Driven Development</a></td><td>The arc most teams have to traverse — and why Vibe Coding alone breaks at the team boundary</td></tr><tr><td><a class="" href="https://austinxyz.github.io/blogs/blog/2026/03/09/agile-development-in-ai-coding">Agile Development in AI Coding</a></td><td>How sprint, story, and review practices have to bend</td></tr><tr><td><a class="" href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-combined">Stacking OpenSpec and Superpowers</a></td><td>A combined SDD workflow that shipped a real refactor in 3 hours with 86 new tests</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="coming-next-1">Coming next<a href="https://austinxyz.github.io/blogs/blog/ai-writing-roadmap#coming-next-1" class="hash-link" aria-label="Direct link to Coming next" title="Direct link to Coming next" translate="no">​</a></h3>
+<table><thead><tr><th>Post</th><th>Why it matters</th></tr></thead><tbody><tr><td>SDD at Team Scale</td><td>Everything published so far covers an individual contributor's workflow. The team-scale version — shared specs, review handoffs, drift across people — is where SDD either works or doesn't.</td></tr><tr><td>OpenSpec + Superpowers, Second Pass</td><td>A follow-up to the "Stacking" post — pushing the combined workflow further on a Python agent project, including the gaps the first pass left open and the patterns that only show up after the second project.</td></tr></tbody></table>
+<p>This track is reported, not researched. Every post in it describes work I actually shipped using the tool described, with the rework rate, defect rate, and time-to-merge attached. That's the reading promise: no methodology I haven't run myself.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="track-3--engineering-roles-in-the-ai-era">Track 3 — Engineering Roles in the AI Era<a href="https://austinxyz.github.io/blogs/blog/ai-writing-roadmap#track-3--engineering-roles-in-the-ai-era" class="hash-link" aria-label="Direct link to Track 3 — Engineering Roles in the AI Era" title="Direct link to Track 3 — Engineering Roles in the AI Era" translate="no">​</a></h2>
+<p><strong>The angle:</strong> AI doesn't change every engineering role by the same amount. Some seats compress hard (the junior IC pipeline). Some seats get more important (the senior who can decompose ambiguous problems for AI). Some seats become harder to fill (the architect who has to design around non-deterministic components). I want the full map, not the one-role takes.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="published-2">Published<a href="https://austinxyz.github.io/blogs/blog/ai-writing-roadmap#published-2" class="hash-link" aria-label="Direct link to Published" title="Direct link to Published" translate="no">​</a></h3>
+<table><thead><tr><th>Post</th><th>What it covers</th></tr></thead><tbody><tr><td><a class="" href="https://austinxyz.github.io/blogs/blog/2026/03/04/no-junior-engineers">No More Junior Engineers?</a></td><td>The most controversial seat — what happens to the entry-level IC role when AI does the work a junior used to do</td></tr><tr><td><a class="" href="https://austinxyz.github.io/blogs/blog/2026/03/16/platform-engineer-vs-ops-engineer">Platform Engineer vs Ops Engineer</a></td><td>Ops thinking is fixing problems; platform thinking is making classes of problems impossible. AI accelerates that shift.</td></tr><tr><td><a class="" href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai">The AI-Augmented Engineering Manager</a></td><td>What the EM role looks like when your team's output is 3x but your team size stays the same</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="coming-next-2">Coming next<a href="https://austinxyz.github.io/blogs/blog/ai-writing-roadmap#coming-next-2" class="hash-link" aria-label="Direct link to Coming next" title="Direct link to Coming next" translate="no">​</a></h3>
+<table><thead><tr><th>Post</th><th>Why it matters</th></tr></thead><tbody><tr><td>Senior Dev in the AI Era</td><td>The most visible gap in the current series. The senior IC is the role whose ceiling rose the most, and the floor rose with it — both deserve treatment.</td></tr><tr><td>Architect in the AI Era</td><td>Designing systems that include agents as first-class components is a different discipline.</td></tr><tr><td>PM in the AI Era</td><td>What product management looks like when the build cost of a prototype collapsed by an order of magnitude.</td></tr></tbody></table>
+<p>The seats compress asymmetrically. That's the thesis the track exists to defend.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="track-4--agent-engineering">Track 4 — Agent Engineering<a href="https://austinxyz.github.io/blogs/blog/ai-writing-roadmap#track-4--agent-engineering" class="hash-link" aria-label="Direct link to Track 4 — Agent Engineering" title="Direct link to Track 4 — Agent Engineering" translate="no">​</a></h2>
+<p><strong>The angle:</strong> Three-layer coverage. Bottom: the platform infrastructure that hosts agents. Middle: the design patterns that recur across agent systems. Top: hands-on code, the actual building of an agent end-to-end. Most agent writing online sits at one layer. I want to write at all three because the layers inform each other.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="published-3">Published<a href="https://austinxyz.github.io/blogs/blog/ai-writing-roadmap#published-3" class="hash-link" aria-label="Direct link to Published" title="Direct link to Published" translate="no">​</a></h3>
+<table><thead><tr><th>Post</th><th>What it covers</th></tr></thead><tbody><tr><td><a class="" href="https://austinxyz.github.io/blogs/blog/2025/12/25/taming-ai-agent-uncertainty">Taming AI Agent Uncertainty</a></td><td>The design pattern problem at the heart of agent engineering — how to engineer around stochastic behavior</td></tr><tr><td><a class="" href="https://austinxyz.github.io/blogs/blog/2026/05/04/wealth-llm-wiki">Building a Personal Finance Knowledge Base with LLM Wiki</a></td><td>A complete walkthrough of building an investment knowledge base that an LLM can reason over — the data layer for a real agent</td></tr><tr><td><a class="" href="https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons">Building an AI Agent: From Claude Skills to Production</a></td><td>A retrospective on extending an open-source LLM wiki into a production-grade personal agent — the engineering reality of turning a working tool into a real agent</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="coming-next-3">Coming next<a href="https://austinxyz.github.io/blogs/blog/ai-writing-roadmap#coming-next-3" class="hash-link" aria-label="Direct link to Coming next" title="Direct link to Coming next" translate="no">​</a></h3>
+<table><thead><tr><th>Post</th><th>Why it matters</th></tr></thead><tbody><tr><td>Building an Agent from Scratch</td><td>The A-layer. End-to-end code grounded in my python-agent project, failures intact. This is the one closest to ready.</td></tr><tr><td>Comparing Mainstream Agent Frameworks</td><td>A practitioner's read on the frameworks I've actually used to build agents — what each is good at, where it leaks, and which I'd pick again.</td></tr><tr><td>Agent Platform — Infrastructure Layer</td><td>The C-layer view. Bridges Track 1. Where do agent runtimes actually live, and what does the platform have to provide? Still in research mode — I want a thicker case-study base before writing.</td></tr><tr><td>Agent Design Patterns</td><td>The B-layer. The methodology backbone for the series — the recurring patterns I keep seeing across agent systems. Also still in research mode; the goal is enough patterns from real systems before generalizing.</td></tr></tbody></table>
+<p>This track is also where I learn the most, and where I'm most cautious about writing ahead of my evidence. The agent I built for my own portfolio is the one I trust most, and it's also the one I've written about most carefully — that's not a coincidence. The same standard applies to the unwritten posts above: the hands-on and framework-comparison pieces are close, the platform and patterns pieces will land when the case-study base is thick enough to generalize from.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-i-pick-topics-and-write">How I Pick Topics and Write<a href="https://austinxyz.github.io/blogs/blog/ai-writing-roadmap#how-i-pick-topics-and-write" class="hash-link" aria-label="Direct link to How I Pick Topics and Write" title="Direct link to How I Pick Topics and Write" translate="no">​</a></h2>
+<p>The short version: topics come from real work friction. If something cost me a weekend to figure out and isn't well-written about elsewhere, that's a candidate. I keep a case-study library of every project I've shipped, with the failure modes, numbers, and decisions logged — so when a topic surfaces, the raw material is already there. The actual writing is a collaboration with AI: I draft an outline, AI helps me find weak structure and dead sentences, and I rewrite the parts that matter. AI is a faster editor than I am alone, but it can't tell you what's worth writing about. That part is still entirely on me.</p>
+<p>What I deliberately don't write about: things I haven't done. There's no shortage of speculation on AI online. The contribution I can make is to write only what's reported.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-to-read-this-blog">How to Read This Blog<a href="https://austinxyz.github.io/blogs/blog/ai-writing-roadmap#how-to-read-this-blog" class="hash-link" aria-label="Direct link to How to Read This Blog" title="Direct link to How to Read This Blog" translate="no">​</a></h2>
+<p>Pick a track and start. The dates are roughly chronological within each track, so the earliest post in any track is usually a fine entry point. If you want only one piece per track:</p>
+<ul>
+<li class="">Infrastructure: <a class="" href="https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-app-platform">Cloud Native → AI Native App Platform</a></li>
+<li class="">Methodology: <a class="" href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-combined">Stacking OpenSpec and Superpowers</a></li>
+<li class="">Roles: <a class="" href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai">The AI-Augmented Engineering Manager</a></li>
+<li class="">Agents: <a class="" href="https://austinxyz.github.io/blogs/blog/2026/05/04/rwh-overlay-lessons">Building an AI Agent: From Claude Skills to Production</a></li>
+</ul>
+<p>This roadmap will get updated as the "coming next" entries become "published." If you want to be notified when the next batch lands, the RSS feed is the most reliable channel — I post inconsistently across other platforms but every post lands in the feed.</p>
+<p>The map exists because the writing is going somewhere. Four tracks, one practitioner trying to make sense of a moving target. Thanks for reading along.</p>]]></content>
+        <author>
+            <name>Austin Xu</name>
+            <email>austin.xyz@gmail.com</email>
+            <uri>https://github.com/austinxyz</uri>
+        </author>
+        <category label="ai" term="ai"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[The Investment Operating System: How I Use AI to Manage My Portfolio Systematically]]></title>
         <id>https://austinxyz.github.io/blogs/blog/2026/05/04/investment-os</id>
@@ -2540,410 +2615,5 @@ This one is underrated. When I provide a concrete reference — an existing comp
         <category label="claude-code" term="claude-code"/>
         <category label="methodology" term="methodology"/>
         <category label="software-engineering" term="software-engineering"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[3/6] Claude Code: Development Walkthrough]]></title>
-        <id>https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough</id>
-        <link href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough"/>
-        <updated>2025-12-17T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[A step-by-step walkthrough of using Claude Code for real-world development tasks.]]></summary>
-        <content type="html"><![CDATA[<p>This is part 3 of a 6-part series on Claude Code.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-complete-development-walkthrough">3. Complete Development Walkthrough<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#3-complete-development-walkthrough" class="hash-link" aria-label="Direct link to 3. Complete Development Walkthrough" title="Direct link to 3. Complete Development Walkthrough" translate="no">​</a></h2>
-<p>Using the Finance project as an example, demonstrating Claude Code's practical application in all software development stages.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="finance-project-introduction">Finance Project Introduction<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#finance-project-introduction" class="hash-link" aria-label="Direct link to Finance Project Introduction" title="Direct link to Finance Project Introduction" translate="no">​</a></h3>
-<p><strong>Project Positioning</strong>: Family financial management system for tracking assets, liabilities, expenses, and investments with multi-currency and multi-member support.</p>
-<p><strong>Core Features</strong>:</p>
-<ol>
-<li class="">
-<p><strong>Asset &amp; Liability Management</strong>:</p>
-<ul>
-<li class="">Multiple asset and liability types</li>
-<li class="">Time-series data model: Preserves historical changes for each asset/liability</li>
-<li class="">Basic CRUD operations and list displays</li>
-</ul>
-</li>
-<li class="">
-<p><strong>Expense Management</strong>:</p>
-<ul>
-<li class="">Hierarchical expense categories (major + subcategories)</li>
-<li class="">Monthly batch entry with historical data reference</li>
-<li class="">Three-level drill-down analysis (major category → subcategory → monthly trends)</li>
-</ul>
-</li>
-<li class="">
-<p><strong>Multi-Currency Support</strong>:</p>
-<ul>
-<li class="">Multiple mainstream currencies supported</li>
-<li class="">Real-time exchange rate retrieval (integrated external API)</li>
-<li class="">All amounts stored in original currency + USD equivalent</li>
-</ul>
-</li>
-<li class="">
-<p><strong>Data Visualization</strong>:</p>
-<ul>
-<li class="">Asset &amp; liability trend charts</li>
-<li class="">Expense analysis with three-level drill-down</li>
-<li class="">Net worth change curves</li>
-</ul>
-</li>
-</ol>
-<p><strong>Technical Complexity</strong>:</p>
-<ul>
-<li class="">
-<p><strong>Backend Complexity</strong>:</p>
-<ul>
-<li class="">Time-series data modeling (asset/liability historical record management)</li>
-<li class="">Multi-currency conversion logic (stored procedures + Java Service layer division)</li>
-<li class="">Cross-table relational queries (assets, liabilities, expenses, exchange rates)</li>
-<li class="">RESTful API design (30+ endpoints)</li>
-</ul>
-</li>
-<li class="">
-<p><strong>Frontend Complexity</strong>:</p>
-<ul>
-<li class="">33 Vue components, complex form interactions</li>
-<li class="">Various data visualizations (Chart.js integration)</li>
-<li class="">Responsive design (mobile adaptation)</li>
-</ul>
-</li>
-<li class="">
-<p><strong>Database Complexity</strong>:</p>
-<ul>
-<li class="">25 tables, including time-series data, multi-currency, soft delete</li>
-<li class="">Stored procedures for complex aggregation calculations</li>
-<li class="">Data migration script management</li>
-</ul>
-</li>
-</ul>
-<p><strong>Development Journey</strong>:</p>
-<ul>
-<li class=""><strong>Phase 1</strong>: Asset &amp; liability management (core features)</li>
-<li class=""><strong>Phase 2</strong>: Asset &amp; liability analysis (trend charts, net worth calculation)</li>
-<li class=""><strong>Phase 3</strong>: Expense management (categorization, entry, queries)</li>
-<li class=""><strong>Phase 4</strong>: Expense analysis (three-level drill-down, budget features)</li>
-<li class=""><strong>Phase 5</strong>: Investment management and analysis (completed)</li>
-</ul>
-<p>This <strong>progressive feature expansion</strong> is a best practice when using Claude Code: Complete the core features first, validate architecture feasibility, then gradually add new features.</p>
-<p><strong>Application Interface</strong>:</p>
-<p><img decoding="async" loading="lazy" alt="Finance Dashboard" src="https://austinxyz.github.io/blogs/assets/images/dashboard-screenshot-281f14c1cc89e48358173f6ef697e4cb.png" width="3456" height="1708" class="img_ev3q"></p>
-<p><em>Dashboard interface showing asset &amp; liability overview, trend analysis, and multi-dimensional data visualization</em></p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="31-initialization-phase-building-project-skeleton">3.1 Initialization Phase: Building Project Skeleton<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#31-initialization-phase-building-project-skeleton" class="hash-link" aria-label="Direct link to 3.1 Initialization Phase: Building Project Skeleton" title="Direct link to 3.1 Initialization Phase: Building Project Skeleton" translate="no">​</a></h3>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="traditional-approach-vs-claude-code">Traditional Approach vs. Claude Code<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#traditional-approach-vs-claude-code" class="hash-link" aria-label="Direct link to Traditional Approach vs. Claude Code" title="Direct link to Traditional Approach vs. Claude Code" translate="no">​</a></h4>
-<p><strong>Traditional Approach</strong> (~2-4 hours):</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">1. Create Spring Boot project (Spring Initializr)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">2. Configure Maven/Gradle</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">3. Create package structure (controller/service/repository)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">4. Configure database connection (application.yml)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">5. Create Vue project (vue create)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">6. Configure routing, state management, API client</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">7. Setup Dockerfile and k8s configs</span><br></span></code></pre></div></div>
-<p><strong>Claude Code Approach (Recommended)</strong> (20 minutes):</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">$ claude</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">You: Create a full-stack financial management system, referencing my previous match project (tennis match management) tech stack and directory structure.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">**First core feature**: Asset &amp; liability management</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Asset and liability type management</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Time-series data model: Record historical changes for each asset/liability</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Basic CRUD operations and list displays</span><br></span></code></pre></div></div>
-<p><strong>Why This Approach</strong>:</p>
-<ol>
-<li class=""><strong>Reference Existing Project</strong>: Fix tech stack, avoid AI choosing inconsistent frameworks</li>
-<li class=""><strong>Clear Directory Architecture</strong>: Ensure clean project structure, easy to expand</li>
-<li class=""><strong>Focus on Core Features</strong>: Complete most important asset &amp; liability management first, validate architecture</li>
-<li class=""><strong>Progressive Expansion</strong>: Clear feature iteration sequence (management → analysis → extension)</li>
-</ol>
-<p><strong>Real Results</strong>:</p>
-<ul>
-<li class="">✅ Generated complete directory structure</li>
-<li class="">✅ Configured Spring Security, JPA, CORS</li>
-<li class="">✅ Created basic entities (User, Family) and corresponding CRUD</li>
-<li class="">✅ Frontend routing, Axios configuration, Tailwind theme</li>
-<li class="">❌ Needed manual adjustment of database connection string (AI used defaults)</li>
-</ul>
-<p><strong>Key Learnings</strong>:</p>
-<ol>
-<li class=""><strong>Let AI generate 80%, manually refine 20%</strong> - Initialization phase, AI can quickly build standard architecture</li>
-<li class=""><strong>Provide clear tech stack</strong> - Vague requirements lead AI to choose outdated or mismatched technologies</li>
-<li class=""><strong>Generate first, adjust later</strong> - Don't expect perfection first time, rapid iteration is more efficient</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="optimization-practice-the-inception-of-claudemd">Optimization Practice: The Inception of CLAUDE.md<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#optimization-practice-the-inception-of-claudemd" class="hash-link" aria-label="Direct link to Optimization Practice: The Inception of CLAUDE.md" title="Direct link to Optimization Practice: The Inception of CLAUDE.md" translate="no">​</a></h4>
-<p>After initialization, I created the first version of CLAUDE.md:</p>
-<div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token title important punctuation" style="color:#393A34">#</span><span class="token title important"> Finance App - Claude Code Guide</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> Stack</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Java 17 + Spring Boot 3.2 + Vue 3 + MySQL 8.0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> Critical Rules</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> </span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token bold content">ALWAYS use Maven wrapper</span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token plain"> - </span><span class="token code-snippet code keyword" style="color:#00009f">`./mvnw`</span><span class="token plain"> instead of </span><span class="token code-snippet code keyword" style="color:#00009f">`mvn`</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> </span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token bold content">NEVER commit backend/.env</span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token plain"> - Contains DB credentials</span><br></span></code></pre></div></div>
-<p><strong>Why Write CLAUDE.md So Early?</strong></p>
-<ul>
-<li class="">✅ Prevent AI from "forgetting" tech stack in subsequent sessions</li>
-<li class="">✅ Record problems encountered on day one (e.g., mvn vs ./mvnw)</li>
-<li class="">✅ Lay foundation for future <code>/clear + /catchup</code> workflow</li>
-</ul>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="32-requirements-phase-from-vague-ideas-to-precise-specs">3.2 Requirements Phase: From Vague Ideas to Precise Specs<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#32-requirements-phase-from-vague-ideas-to-precise-specs" class="hash-link" aria-label="Direct link to 3.2 Requirements Phase: From Vague Ideas to Precise Specs" title="Direct link to 3.2 Requirements Phase: From Vague Ideas to Precise Specs" translate="no">​</a></h3>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="my-requirements-workflow-prevent-ai-over-design">My Requirements Workflow (Prevent AI Over-Design)<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#my-requirements-workflow-prevent-ai-over-design" class="hash-link" aria-label="Direct link to My Requirements Workflow (Prevent AI Over-Design)" title="Direct link to My Requirements Workflow (Prevent AI Over-Design)" translate="no">​</a></h4>
-<p><strong>Step 1: High-Level Requirements</strong></p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">You: I want to implement expense management functionality, don't implement yet, help me break down requirements.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">**Core requirements**:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Expense category management (major + subcategories)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Monthly batch entry</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Multi-currency support</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">**I particularly care about**:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Data entry efficiency (complete all subcategories in one form)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Historical data reference (show last 3 months)</span><br></span></code></pre></div></div>
-<p><strong>Step 2: Review AI's Requirements Breakdown</strong></p>
-<p>Claude returns detailed requirement list, usually has <strong>over-design</strong> tendencies:</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Claude: Here's the requirements breakdown:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">1. Expense category management</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - Major category CRUD</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - Subcategory CRUD</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - Category hierarchy management (major → subcategory)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">2. Monthly entry</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - Batch entry form</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - Historical data display (last 3 months)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - Auto-save draft ❌ (over-design)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - Template function (copy last month) ❌ (not needed yet)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">3. Multi-currency</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - 7 currency support</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - Real-time exchange rate retrieval</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - Exchange rate history ❌ (phase 2)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">4. Data validation</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - Uniqueness constraints</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">   - Amount range validation ❌ (unnecessary)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">...</span><br></span></code></pre></div></div>
-<p><strong>My Response</strong>:</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">You: Requirements 3.3 (exchange rate history), 2.2 (auto-save draft), 2.3 (template function), 4.2 (amount range validation) - don't do these yet.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Keep core features: category management, batch entry, multi-currency, basic validation.</span><br></span></code></pre></div></div>
-<p><strong>Why This Approach</strong>:</p>
-<ul>
-<li class="">✅ <strong>Prevent Scope Creep</strong>: AI tends to add "useful but non-essential" features</li>
-<li class="">✅ <strong>Rapid Iteration</strong>: Do minimum viable version (MVP) first, expand based on actual needs</li>
-<li class="">✅ <strong>Reduce Complexity</strong>: Avoid first version introducing too many features leading to prolonged implementation</li>
-</ul>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="33-design-phase-architecture-decisions--ai-boundaries">3.3 Design Phase: Architecture Decisions &amp; AI Boundaries<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#33-design-phase-architecture-decisions--ai-boundaries" class="hash-link" aria-label="Direct link to 3.3 Design Phase: Architecture Decisions &amp; AI Boundaries" title="Direct link to 3.3 Design Phase: Architecture Decisions &amp; AI Boundaries" translate="no">​</a></h3>
-<p>After requirements are clear, enter design phase. This is a <strong>human-led, AI-assisted</strong> phase.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="planning-mode-systematic-design-process">Planning Mode: Systematic Design Process<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#planning-mode-systematic-design-process" class="hash-link" aria-label="Direct link to Planning Mode: Systematic Design Process" title="Direct link to Planning Mode: Systematic Design Process" translate="no">​</a></h4>
-<p>For complex features (like expense management's three-level drill-down analysis), I use Planning Mode for systematic design:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">$ claude --plan</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">You: Implement three-level drill-down for expense analysis, provide detailed design including:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">1. **Data Model Design**</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">2. **Backend API Design**</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">3. **Frontend UI Mock**</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">4. **Test Case Design**</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">**Feature requirements**:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Pie chart showing major category proportions</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Click major category → subcategory pie chart for that category</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Click subcategory → monthly bar chart for that subcategory</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">**UI Reference**:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- First feature: Start simple, pure white background + basic charts</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Subsequent features: Reference implemented AssetAnalysisView.vue style</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  (ensure consistent user experience)</span><br></span></code></pre></div></div>
-<p><strong>Claude's Generated Plan</strong> (plan.md):</p>
-<div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token title important punctuation" style="color:#393A34">#</span><span class="token title important"> Expense Analysis Three-Level Drill-Down - Design Plan</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> 1. Data Model Design</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Use existing tables, no new fields needed</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Key field review (amount_usd, period, is_deleted)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> 2. Backend API Design</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> GET /api/expenses/analysis/category-summary</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> GET /api/expenses/analysis/subcategory/{categoryId}</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> GET /api/expenses/analysis/monthly/{subcategoryId}</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> 3. Frontend UI Mock</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Reference AssetAnalysisView.vue card layout</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Pie chart showing major category proportions</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Click to drill down to subcategory and monthly trends</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> 4. Test Cases</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Data accuracy validation</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Cross-currency aggregation tests</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Drill-down state management tests</span><br></span></code></pre></div></div>
-<p><strong>My Review Focus</strong>:</p>
-<ol>
-<li class=""><strong>Data Model</strong>: Carefully review each field, confirm necessity<!-- -->
-<ul>
-<li class="">✅ No new tables or fields needed</li>
-<li class="">✅ Use existing amount_usd for aggregation</li>
-</ul>
-</li>
-<li class=""><strong>UI Mock</strong>: Ensure consistency with existing interfaces<!-- -->
-<ul>
-<li class="">✅ Reference AssetAnalysisView.vue card style</li>
-<li class="">✅ Use same color scheme and layout</li>
-</ul>
-</li>
-<li class=""><strong>API Design</strong>: Check naming and parameters are reasonable<!-- -->
-<ul>
-<li class="">✅ RESTful style consistent</li>
-<li class="">✅ Parameters concise and clear</li>
-</ul>
-</li>
-</ol>
-<p><strong>After Approval</strong>:</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">You: Data model and API design are OK, start implementation.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Reference AssetAnalysisView.vue styles, maintain UI consistency.</span><br></span></code></pre></div></div>
-<p><strong>Value of Planning Mode</strong>:</p>
-<ul>
-<li class="">✅ <strong>Data Model Review</strong>: Avoid later database migration costs</li>
-<li class="">✅ <strong>UI Consistency</strong>: Reference existing components, ensure experience</li>
-<li class="">✅ <strong>Align Expectations</strong> - Confirm approach before writing code</li>
-<li class="">✅ <strong>Discover Gaps</strong> - AI might think of edge cases you didn't</li>
-<li class="">⚠️ <strong>Don't Over-Plan</strong> - Simple features (less than 3 files) just do it</li>
-</ul>
-<hr>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="architecture-trade-offs-human-decisions--ai-provides-options">Architecture Trade-offs: Human Decisions + AI Provides Options<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#architecture-trade-offs-human-decisions--ai-provides-options" class="hash-link" aria-label="Direct link to Architecture Trade-offs: Human Decisions + AI Provides Options" title="Direct link to Architecture Trade-offs: Human Decisions + AI Provides Options" translate="no">​</a></h4>
-<p>AI struggles to make good architecture trade-offs independently. My two practical methods:</p>
-<p><strong>Method 1: Distill Architecture Principles from Existing System</strong></p>
-<p>After the first feature stabilizes, I summarize architecture design principles and write them into CLAUDE.md:</p>
-<div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> Architecture Principles</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token bold content">Time-Series Data</span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token plain">:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Asset/Liability: NEVER update existing records, always INSERT new ones</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Reason: Historical tracking requirement</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token bold content">Multi-Currency</span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token plain">:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Store original currency + converted USD amount</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Use ExchangeRateService for all conversions</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Reason: Audit trail + performance</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">...</span><br></span></code></pre></div></div>
-<p><strong>Why Important</strong>:</p>
-<ul>
-<li class="">New features automatically follow established principles</li>
-<li class="">Prevent AI from using different architectures for similar features</li>
-<li class="">Reduce long-term refactoring costs</li>
-</ul>
-<p><strong>Method 2: Small Feature Experiments + Multi-Option Comparison</strong></p>
-<p>For uncertain architecture decisions (like which layer for complex logic), I ask Claude for multiple options:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">You: Annual financial summary logic is complex (cross-table joins, currency conversion, time range filtering), give me 3 implementation approaches:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">1. MySQL stored procedure</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">2. Java Service layer calculation</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">3. Frontend real-time calculation</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">For each approach, analyze performance, maintainability, testing difficulty.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Don't implement yet, just compare approaches.</span><br></span></code></pre></div></div>
-<p>Claude's response:</p>
-<table><thead><tr><th>Approach</th><th>Performance</th><th>Maintainability</th><th>Testing Difficulty</th><th>Use Case</th></tr></thead><tbody><tr><td>Stored Procedure</td><td>⭐⭐⭐⭐⭐</td><td>⭐⭐</td><td>⭐⭐</td><td>Large data, frequent queries</td></tr><tr><td>Java Service</td><td>⭐⭐⭐</td><td>⭐⭐⭐⭐</td><td>⭐⭐⭐⭐</td><td>Complex logic, need unit tests</td></tr><tr><td>Frontend Calculation</td><td>⭐</td><td>⭐⭐⭐</td><td>⭐⭐⭐</td><td>Small data, real-time interaction</td></tr></tbody></table>
-<p><strong>My Decision Process</strong>:</p>
-<ol>
-<li class="">Choose approach 1 (stored procedure) + approach 2 (Java Service) to implement one small feature each</li>
-<li class="">Compare actual results:<!-- -->
-<ul>
-<li class="">Stored procedure: Query time from 3s down to 0.5s</li>
-<li class="">Java Service: High unit test coverage, but slow</li>
-</ul>
-</li>
-<li class=""><strong>Final Approach</strong>: Hybrid<!-- -->
-<ul>
-<li class="">Cross-table aggregation → Stored procedure</li>
-<li class="">Currency conversion + business logic → Java Service</li>
-<li class="">Frontend only for display</li>
-</ul>
-</li>
-</ol>
-<p><strong>Codify Decision in CLAUDE.md</strong>:</p>
-<div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token bold punctuation" style="color:#393A34">**</span><span class="token bold content">Complex Aggregation</span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token plain">:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Use MySQL stored procedures for cross-table aggregation</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Java Service layer handles business logic + currency conversion</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token list punctuation" style="color:#393A34">-</span><span class="token plain"> Frontend: presentation only</span><br></span></code></pre></div></div>
-<p><strong>Why This Approach</strong>:</p>
-<ul>
-<li class="">✅ Small feature experiment low cost (1-2 hours)</li>
-<li class="">✅ Actual comparison more reliable than theoretical analysis</li>
-<li class="">✅ Once established, subsequent features stay consistent</li>
-</ul>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="34-implementation-phase-efficient-collaboration--automation">3.4 Implementation Phase: Efficient Collaboration &amp; Automation<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#34-implementation-phase-efficient-collaboration--automation" class="hash-link" aria-label="Direct link to 3.4 Implementation Phase: Efficient Collaboration &amp; Automation" title="Direct link to 3.4 Implementation Phase: Efficient Collaboration &amp; Automation" translate="no">​</a></h3>
-<p>This is where Claude Code delivers the most value.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="plan-based-cross-layer-implementation">Plan-based Cross-Layer Implementation<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#plan-based-cross-layer-implementation" class="hash-link" aria-label="Direct link to Plan-based Cross-Layer Implementation" title="Direct link to Plan-based Cross-Layer Implementation" translate="no">​</a></h4>
-<p>Since I've already made a Plan in the design phase (including data model, API, UI Mock), implementation necessarily involves cross-layer changes. Claude Code's advantages:</p>
-<ul>
-<li class="">✅ <strong>Code Standards</strong>: Generated code follows project conventions</li>
-<li class="">✅ <strong>Cross-Layer Consistency</strong>: API return format matches frontend expectations</li>
-<li class="">✅ <strong>Automatic Integration</strong>: Most cases run without manual adjustments</li>
-</ul>
-<p><strong>Task</strong>: Add "expense budget" feature (Plan design already complete)</p>
-<p><strong>Plan Output</strong> (determined in design phase):</p>
-<ul>
-<li class="">Database: <code>expense_budgets</code> table</li>
-<li class="">Backend: BudgetService, BudgetController</li>
-<li class="">Frontend: BudgetManagementView.vue</li>
-<li class="">API: GET/POST/PUT/DELETE /api/budgets</li>
-</ul>
-<p><strong>Implementation Order</strong> (my standard process):</p>
-<ol>
-<li class=""><strong>Database First</strong>: Create table and migration script</li>
-<li class=""><strong>Backend Implementation</strong>: Service → Controller → Unit tests</li>
-<li class=""><strong>Frontend Implementation</strong>: Component → API calls → Integration tests</li>
-</ol>
-<p><strong>Traditional Approach</strong>:</p>
-<ol>
-<li class="">Write backend (1-2 hours)</li>
-<li class="">Test API (30 minutes)</li>
-<li class="">Write frontend (1-2 hours)</li>
-<li class="">Integration (30 minutes)</li>
-<li class="">Write database script (30 minutes)</li>
-</ol>
-<p><strong>Claude Code Implementation Process</strong> (following my standard order):</p>
-<p><strong>Step 1: Database</strong></p>
-<ul>
-<li class="">Create migration script, execute <code>/mysql-exec</code> to create table</li>
-<li class="">✅ Database ready</li>
-</ul>
-<p><strong>Step 2: Backend Implementation + Tests</strong></p>
-<ul>
-<li class="">Generate Entity, Repository, Service, Controller</li>
-<li class="">Write unit tests and run <code>./mvnw test</code></li>
-<li class="">Auto-fix issues found in tests</li>
-<li class="">✅ Tests passing</li>
-</ul>
-<p><strong>Step 3: Frontend Implementation</strong></p>
-<ul>
-<li class="">Create Vue component, reference existing style</li>
-<li class="">API calls automatically match backend format</li>
-<li class="">✅ Frontend-backend integration successful</li>
-</ul>
-<p><strong>Why This Order Is Efficient</strong>:</p>
-<ol>
-<li class=""><strong>Database First</strong>: Avoid backend multiple table structure changes</li>
-<li class=""><strong>Backend Fully Tested</strong>: Ensure logic correct before frontend</li>
-<li class=""><strong>Frontend Direct Integration</strong>: API already validated, frontend implementation fast</li>
-</ol>
-<p><strong>Key Observation</strong>:</p>
-<ul>
-<li class="">Claude will <strong>autonomously run tests</strong> and fix errors (prerequisite: project has tests)</li>
-<li class="">Good cross-layer consistency: API return format automatically matches frontend expectations</li>
-<li class="">Follows existing code style: Frontend references ExpenseManagementView.vue, style consistent</li>
-</ul>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-power-of-skills---automated-workflows">The Power of Skills - Automated Workflows<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#the-power-of-skills---automated-workflows" class="hash-link" aria-label="Direct link to The Power of Skills - Automated Workflows" title="Direct link to The Power of Skills - Automated Workflows" translate="no">​</a></h4>
-<p><strong>Problem</strong>: Every database change requires manual operations (write script, copy password, execute, check)</p>
-<p><strong>Solution</strong>: Create <code>/mysql-exec</code> Skill, automatically load credentials and execute SQL</p>
-<p><strong>Effect</strong>:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Before: 5 manual steps</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Now: 1 command</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">$ /mysql-exec database/add_budget_table.sql</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">✓ Executed successfully</span><br></span></code></pre></div></div>
-<p><strong>Skills vs. Manual Commands Comparison</strong>:</p>
-<table><thead><tr><th>Scenario</th><th>Manual Commands</th><th>Skill</th></tr></thead><tbody><tr><td>Time Cost</td><td>2-3 minutes</td><td>10 seconds</td></tr><tr><td>Password Leak Risk</td><td>High (history)</td><td>Low (encapsulated)</td></tr><tr><td>Repeatability</td><td>Need to remember commands</td><td>Consistency guaranteed</td></tr><tr><td>AI Usability</td><td>Need guidance</td><td>Auto-invoked</td></tr></tbody></table>
-<p><strong>My Other Skills</strong>:</p>
-<ul>
-<li class=""><code>/setup-java</code> - Configure Java 17 + load env variables (must use every session)</li>
-<li class=""><code>/git-commit-push</code> - Atomic stage, commit, push (follows Conventional Commits)</li>
-<li class=""><code>/docker-build-push</code> - Multi-architecture image build (amd64/arm64)</li>
-</ul>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="claudemd-evolution-in-implementation-phase">CLAUDE.md Evolution in Implementation Phase<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#claudemd-evolution-in-implementation-phase" class="hash-link" aria-label="Direct link to CLAUDE.md Evolution in Implementation Phase" title="Direct link to CLAUDE.md Evolution in Implementation Phase" translate="no">​</a></h4>
-<p>As development deepens, CLAUDE.md added implementation-level constraints:</p>
-<div class="language-markdown codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-markdown codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> Backend Development</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token bold content">NEVER modify JPA entities without checking existing records</span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token bold content">ALWAYS use TimeService.getCurrentTimestamp()</span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token title important punctuation" style="color:#393A34">##</span><span class="token title important"> Frontend Development</span><span class="token plain"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token bold content">ALWAYS use Composition API</span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token plain"> - No Options API</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"></span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token bold content">NEVER hardcode colors</span><span class="token bold punctuation" style="color:#393A34">**</span><span class="token plain"> - Use CSS variables</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">...</span><br></span></code></pre></div></div>
-<p><strong>Why These Rules Matter?</strong></p>
-<ul>
-<li class=""><code>TimeService</code> rule: Prevented a serious bug (timezone inconsistency caused data chaos)</li>
-<li class="">JPA rule: Prevent AI from directly modifying entities causing data loss</li>
-<li class="">Composition API: Maintain code style consistency</li>
-</ul>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="35-testing-phase-iterative-quality-assurance">3.5 Testing Phase: Iterative Quality Assurance<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#35-testing-phase-iterative-quality-assurance" class="hash-link" aria-label="Direct link to 3.5 Testing Phase: Iterative Quality Assurance" title="Direct link to 3.5 Testing Phase: Iterative Quality Assurance" translate="no">​</a></h3>
-<p><strong>My Testing Workflow</strong>:</p>
-<ol>
-<li class="">
-<p><strong>Unit Tests</strong>: Part of implementation phase</p>
-<ul>
-<li class="">After backend Service layer code generated, immediately generate unit tests</li>
-<li class="">Run <code>./mvnw test</code> to verify logic correctness</li>
-</ul>
-</li>
-<li class="">
-<p><strong>Manual Usage Testing</strong>: Discover issues and improve experience</p>
-<ul>
-<li class="">After completing multi-layer implementation (database + backend + frontend), use it yourself first</li>
-<li class="">Find bugs → Fix → Test again</li>
-<li class="">No bugs → Try improving user experience → Back to design and implementation</li>
-</ul>
-</li>
-<li class="">
-<p><strong>Multiple Iterations</strong>: Until feature solidifies</p>
-<ul>
-<li class="">Repeat "use → find issues → improve" cycle</li>
-<li class="">Until feature is stable, experience satisfactory</li>
-</ul>
-</li>
-<li class="">
-<p><strong>Integration Testing</strong>: Final check before commit</p>
-<ul>
-<li class="">After feature solidifies, generate integration test cases</li>
-<li class="">Ensure end-to-end workflow correct</li>
-<li class=""><strong>Only commit code when all integration tests pass</strong></li>
-</ul>
-</li>
-</ol>
-<p>This approach differs from traditional TDD (write tests first then code), better suited for rapid iteration mode in AI-assisted development.</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="auto-generated-unit-tests">Auto-Generated Unit Tests<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#auto-generated-unit-tests" class="hash-link" aria-label="Direct link to Auto-Generated Unit Tests" title="Direct link to Auto-Generated Unit Tests" translate="no">​</a></h4>
-<p><strong>Task</strong>: Write unit tests for <code>ExchangeRateService</code></p>
-<p>Claude automatically generates test code, covering main scenarios (caching, conversion, batch operations, exception handling)</p>
-<p><strong>Results</strong>:</p>
-<ul>
-<li class="">✅ Coverage 85%+</li>
-<li class="">✅ Found a bug: Negative amount not validated</li>
-<li class="">❌ External API mock too complex, needed manual simplification</li>
-</ul>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="integration-testing--hook-validation">Integration Testing &amp; Hook Validation<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#integration-testing--hook-validation" class="hash-link" aria-label="Direct link to Integration Testing &amp; Hook Validation" title="Direct link to Integration Testing &amp; Hook Validation" translate="no">​</a></h4>
-<p><strong>Challenge</strong>: Prevent AI from committing code when tests fail</p>
-<p><strong>Solution</strong>: Create Pre-Commit Hook (<code>.claude/hooks/pre-tool-use.sh</code>), force test validation before commit</p>
-<p><strong>Value of Hooks</strong>:</p>
-<ul>
-<li class="">✅ <strong>Forced Validation</strong> - AI cannot skip tests</li>
-<li class="">✅ <strong>Self-Correction</strong> - AI reads hook output and fixes issues</li>
-<li class="">⚠️ <strong>Don't Overuse</strong> - Too many hooks confuse AI</li>
-</ul>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="36-deployment-phase-docker-containerization">3.6 Deployment Phase: Docker Containerization<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#36-deployment-phase-docker-containerization" class="hash-link" aria-label="Direct link to 3.6 Deployment Phase: Docker Containerization" title="Direct link to 3.6 Deployment Phase: Docker Containerization" translate="no">​</a></h3>
-<p>My current deployment strategy:</p>
-<ul>
-<li class="">Docker image build (backend + frontend)</li>
-<li class="">Docker Compose local orchestration</li>
-<li class="">GitHub Actions auto-build and push to Docker Hub</li>
-</ul>
-<p>(Kubernetes deployment not yet implemented, planned for future)</p>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="docker-containerization">Docker Containerization<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#docker-containerization" class="hash-link" aria-label="Direct link to Docker Containerization" title="Direct link to Docker Containerization" translate="no">​</a></h4>
-<p>Claude generated complete Docker configuration:</p>
-<ul>
-<li class=""><strong>Backend Dockerfile</strong>: Multi-stage build (Maven build + JRE runtime)</li>
-<li class=""><strong>Frontend Dockerfile</strong>: Vue build + Nginx serving</li>
-<li class=""><strong>docker-compose.yml</strong>: Complete orchestration of MySQL + backend + frontend</li>
-</ul>
-<p><strong>Evaluation</strong>:</p>
-<ul>
-<li class="">✅ Multi-stage build reduces image size</li>
-<li class="">✅ Convenient for local development</li>
-<li class="">✅ Clear environment variable management</li>
-</ul>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="github-actions-auto-build">GitHub Actions Auto-Build<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#github-actions-auto-build" class="hash-link" aria-label="Direct link to GitHub Actions Auto-Build" title="Direct link to GitHub Actions Auto-Build" translate="no">​</a></h4>
-<p>Claude generated complete GitHub Actions workflow, implementing:</p>
-<ul>
-<li class="">Push to master: Test → Build → Push to Docker Hub</li>
-<li class="">Pull Request: Run tests only</li>
-</ul>
-<p><strong>Real Usage Effect</strong>:</p>
-<ul>
-<li class="">✅ Complete automated CI/CD workflow</li>
-<li class="">✅ Push both latest and commit SHA tags simultaneously</li>
-</ul>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="docker-build-push-skill">/docker-build-push Skill<a href="https://austinxyz.github.io/blogs/blog/2025/12/17/claude-code-development-walkthrough#docker-build-push-skill" class="hash-link" aria-label="Direct link to /docker-build-push Skill" title="Direct link to /docker-build-push Skill" translate="no">​</a></h4>
-<p>To simplify local builds, created <code>/docker-build-push</code> Skill supporting multi-architecture image build (amd64/arm64)</p>
-<p><strong>Effect</strong>:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># Before: Multiple complex commands</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># Now: One command completes</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">$ /docker-build-push</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">✓ Building backend (amd64, arm64)...</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">✓ Building frontend (amd64, arm64)...</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">✓ Pushed to Docker Hub</span><br></span></code></pre></div></div>]]></content>
-        <author>
-            <name>Austin Xu</name>
-            <email>austin.xyz@gmail.com</email>
-            <uri>https://github.com/austinxyz</uri>
-        </author>
-        <category label="ai" term="ai"/>
-        <category label="claude-code" term="claude-code"/>
-        <category label="development-tools" term="development-tools"/>
-        <category label="tutorial" term="tutorial"/>
     </entry>
 </feed>
