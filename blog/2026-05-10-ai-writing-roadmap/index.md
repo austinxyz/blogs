@@ -7,6 +7,8 @@ description: "Why I split my AI writing into four tracks — Infrastructure, Met
 slug: ai-writing-roadmap
 ---
 
+![Four luminous nodes arranged in a continuous loop on a topographic dark map — the visual thesis: four AI writing tracks, one cube.](./images/ai-writing-roadmap-cover.png)
+
 I write about AI on this blog. Not "AI in general" — that's too big to write coherently about as a single topic. You end up writing platitudes. Instead, I write across four tracks, each anchored to a place where I've actually paid the cost of learning.
 
 Since the start of the year, I've accumulated enough AI-related posts that it's time to step back and lay out the structure they fit into. This post is the map: what the four tracks are, why they hang together, what's already published in each, and what's coming next. If you've ever landed on the blog from one post and wondered whether the rest is worth your time, this is the index.
