@@ -32,6 +32,8 @@ Each track maps to a place where I've actually done the work. I ran one of the l
 
 The tracks don't try to be exhaustive. They try to be honest about where I have a perspective worth reading.
 
+Looked at together, the four tracks close a loop. **Track 4** is the thing you're building — an agent. **Track 3** is the people who build it. **Track 2** is the discipline they use. **Track 1** is the platform that has to host the result. Each one feeds the next: a harder agent forces methodology to bend, which forces roles to absorb new work, which forces infra to host a different shape of workload. I write across all four because they only make sense as a system.
+
 ---
 
 ## Track 1 — AI Native Infrastructure and DevOps
