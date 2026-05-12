@@ -4,10 +4,148 @@
         <title>Austin Xu Blog</title>
         <link>https://austinxyz.github.io/blogs/blog</link>
         <description>Austin Xu Blog</description>
-        <lastBuildDate>Sun, 10 May 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 11 May 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Stacking OpenSpec and Superpowers, Three Weeks Later: Five Frictions and a Plugin]]></title>
+            <link>https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later</link>
+            <guid>https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later</guid>
+            <pubDate>Mon, 11 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Three weeks after my first OpenSpec + Superpowers post, a couple more projects in, five friction points emerged — and the methodology evolved into a Claude plugin you can run end-to-end.]]></description>
+            <content:encoded><![CDATA[<p>I published <a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-combined" target="_blank" rel="noopener noreferrer" class=""><em>Stacking OpenSpec and Superpowers</em></a> on April 19th — three weeks ago. The headline number was concrete: a refactor shipped in three hours, eighty-six new tests, zero regressions. I meant every word of it. At that time, that stack — OpenSpec's <code>propose/apply/archive</code> triplet (the framework also offers <code>explore</code>, but I'd been skipping it) over the three Superpowers skills I lean on most (<code>brainstorming</code>, <code>test-driven-development</code>, <code>requesting-code-review</code>) — was the best discipline I'd found for spec-driven development with AI in the loop.</p>
+<p>What I didn't say — because I didn't know yet — is that the stack had five hidden cracks. They didn't show on a single refactor. They showed up the third, fourth, fifth time I ran it on a new project, when the workflow had to carry weight rather than win a sprint.</p>
+<p>This post is the evolution. It's what I'd add to that earlier post if I had to write it again today, after running the stack across a couple more projects — most cleanly on <a href="https://github.com/austinxyz/python-agent" target="_blank" rel="noopener noreferrer" class=""><em>python-agent</em></a>, where I deliberately let each friction point speak for itself before designing the fix.</p>
+<p>I'll spend the first half listing the <strong>five</strong> friction points (where the earlier stack hurt) and the second half on what I did about them (a three-step methodology abstraction plus four command-level fixes). Then I'll show the four-command, four-phase shape I ended up with, why this is still agile in the form you'd recognize, and the plugin I packaged so you can run the whole thing without re-reading either post.</p>
+<p>If you haven't read the earlier post, the <a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-combined" target="_blank" rel="noopener noreferrer" class="">original entry point</a> is there. This post assumes OpenSpec's four-command base (<code>explore/propose/apply/archive</code>) and the three Superpowers skills I just mentioned (<code>brainstorming</code>, <code>test-driven-development</code>, <code>requesting-code-review</code>).</p>
+<p>One thing I want to flag up front: nothing in the evolution is a clever invention. Each fix was a response to a <em>specific</em> moment where the earlier stack produced output I didn't trust. The pattern that emerged is <code>practice → friction → fix → harden</code>. Methodology evolves by being run, not by being designed. The plugin at the end is the byproduct, not the goal.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-five-friction-points">The Five Friction Points<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#the-five-friction-points" class="hash-link" aria-label="Direct link to The Five Friction Points" title="Direct link to The Five Friction Points" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="friction-1--the-brainstorm-ui-vanishes-at-propose-time">Friction 1 — The brainstorm UI vanishes at propose time<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#friction-1--the-brainstorm-ui-vanishes-at-propose-time" class="hash-link" aria-label="Direct link to Friction 1 — The brainstorm UI vanishes at propose time" title="Direct link to Friction 1 — The brainstorm UI vanishes at propose time" translate="no">​</a></h3>
+<p>Superpowers' <code>brainstorming</code> skill has a <code>visual-companion</code> flow that opens a browser preview and lets you iterate on mockups. It's one of the best parts of the skill — for a UI-heavy feature, you actually <em>see</em> the design before you write any code.</p>
+<p>The problem is what happens next. You finish <code>brainstorming</code> with a perfectly good UI design. You hand off to OpenSpec's <code>propose</code>. And <code>propose</code> produces a plan that does not reference the mockup at all.</p>
+<p>Why? Because the link between brainstorming output and propose input is whatever you remember to put in the prompt. The UI design lives in the brainstorming session's conversational memory. By the time you're typing <code>propose</code>, you're starting a new context. Unless you explicitly re-paste the mock — and most people don't, because the mock isn't a file — the design is gone.</p>
+<p>I noticed this on the third feature in python-agent. I'd spent twenty minutes in <code>visual-companion</code> settling on a particular dashboard layout. Then I ran <code>propose</code>. The resulting <code>spec.md</code> described a generic table view that had nothing to do with the layout I'd just designed. Two minutes of "wait, this isn't what we agreed on" later, I was manually re-stating constraints that should have been carried over.</p>
+<p>The pattern is: <strong>conversational design is volatile; the next session won't see it unless it's a file.</strong></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="friction-2--brainstorm-doesnt-understand-the-codebase">Friction 2 — Brainstorm doesn't understand the codebase<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#friction-2--brainstorm-doesnt-understand-the-codebase" class="hash-link" aria-label="Direct link to Friction 2 — Brainstorm doesn't understand the codebase" title="Direct link to Friction 2 — Brainstorm doesn't understand the codebase" translate="no">​</a></h3>
+<p>Superpowers' <code>brainstorming</code> is grounded in text — your description, the conversation, and whatever documents you've explicitly attached. It does not read your code.</p>
+<p>That means: brainstorm can produce a design that's technically reasonable but operationally wrong. It can propose a new <code>BaseAgent</code> class while your project already has one. It can suggest a database schema that ignores the migration constraints you've been carrying for two months. It can recommend a third-party library that conflicts with your existing dependency tree.</p>
+<p>You catch some of this at <code>propose</code> time, because OpenSpec's <code>propose</code> does read the codebase. But by then, you're rewriting more of the design than you should be. The earlier this constraint enters, the better.</p>
+<p>The fix turned out to be obvious in retrospect: OpenSpec has an <code>explore</code> step that does read code. The right order isn't <code>brainstorm → propose</code>. It's <code>explore → brainstorm → propose</code>. Explore first, ground the brainstorm in actual codebase facts, then design. I'll come back to this.</p>
+<p>The pattern is: <strong>a design grounded in text alone will drift from a codebase grounded in code.</strong></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="friction-3--skill-triage-depends-on-remembering-not-on-mechanism">Friction 3 — Skill triage depends on remembering, not on mechanism<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#friction-3--skill-triage-depends-on-remembering-not-on-mechanism" class="hash-link" aria-label="Direct link to Friction 3 — Skill triage depends on remembering, not on mechanism" title="Direct link to Friction 3 — Skill triage depends on remembering, not on mechanism" translate="no">​</a></h3>
+<p>This was the most expensive friction because it hid behind a working command. When I ran <code>/opsx:apply</code>, the intent was: use Superpowers' <code>test-driven-development</code> skill to execute each task, then invoke <code>requesting-code-review</code> on the result. That sequence is what makes <code>apply</code> close the loop properly — TDD for behavior, paired review for spec drift.</p>
+<p>The problem: nothing forced that sequence. <code>apply</code> is a command; the Superpowers skills are skills. They get triaged into the session only if my prompt names them. If I forgot to write <em>"use the tdd skill"</em> and <em>"then run code review"</em> — and I forgot often, because the sequence felt obvious in my head — <code>apply</code> ran without TDD discipline, without paired review, and produced code that looked fine but skipped both safety nets.</p>
+<p>The deeper pattern shows up everywhere artifacts cross tools: between <code>brainstorm</code> and <code>propose</code>, between <code>propose</code> and <code>apply</code>, between <code>apply</code> and <code>archive</code>. Natural language is the linking medium. You say <em>"use the design from earlier"</em> and the AI does its best. If your prompt mentions the spec without specifying which sections matter, the AI picks its own sections to honor. If a constraint emerged in <code>brainstorm</code> and didn't make it into the prompt for <code>propose</code>, the constraint is gone.</p>
+<p>In a one-off project, you absorb the cost as edit cycles. In a methodology you're trying to apply repeatedly, the lossiness compounds. Each step degrades the signal a little, and by the time <code>apply</code> runs, you're three lossy links away from the original intent.</p>
+<p>The pattern is: <strong>prompt-based linking is fine for one project. It's a tax for ten — and the tax hides as 'code that looked fine.'</strong></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="friction-4--apply-has-no-ui-validation">Friction 4 — Apply has no UI validation<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#friction-4--apply-has-no-ui-validation" class="hash-link" aria-label="Direct link to Friction 4 — Apply has no UI validation" title="Direct link to Friction 4 — Apply has no UI validation" translate="no">​</a></h3>
+<p>TDD is well-handled in this stack. Superpowers has a <code>test-driven-development</code> skill, and OpenSpec's <code>apply</code> runs against your test suite. For backend behavior, this closes the loop nicely — red, green, refactor, commit.</p>
+<p>What it doesn't close is visual correctness. If the brainstorm produced a UI design, and the spec described layout constraints, and <code>apply</code> writes the frontend code, there's no automated check that what shipped looks like what was designed. You read the test output, see green, and assume it's done. Then you actually open the page, and the spacing is wrong, the button is in the wrong corner, or the table has the wrong columns.</p>
+<p>The frustrating thing is that this is solvable — visual diff tools exist, headless screenshots exist — but it's not in the base stack. It's the kind of thing you have to graft on yourself, and most people don't, because they don't realize they need to until they ship something that passes its tests and still doesn't look right.</p>
+<p>The pattern is: <strong>the loop that closes is the one with mechanism. Behavioral correctness has TDD; visual correctness has nothing — and 'nothing' compounds.</strong></p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="friction-5--archive-without-retrospection-means-repeating-yourself">Friction 5 — Archive without retrospection means repeating yourself<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#friction-5--archive-without-retrospection-means-repeating-yourself" class="hash-link" aria-label="Direct link to Friction 5 — Archive without retrospection means repeating yourself" title="Direct link to Friction 5 — Archive without retrospection means repeating yourself" translate="no">​</a></h3>
+<p>In the earlier stack, <code>archive</code> was the last command. It summarized what got done, marked the feature as closed, and that was it. On paper it was the retrospection step. In practice it was a closing ceremony.</p>
+<p>Three things didn't happen automatically and so didn't happen at all:</p>
+<ul>
+<li class=""><strong>Pitfalls never reached CLAUDE.md.</strong> When I hit a constraint during <code>apply</code> — say, "this database adapter doesn't support batch upserts the way I assumed" — the constraint went into a commit message and conversation memory, then vanished. The next project on a similar adapter would re-discover the same thing.</li>
+<li class=""><strong>The spec never migrated to the README.</strong> A spec is a working document; a README is a durable one. New readers landing on the project a year later shouldn't have to spelunk through <code>./openspec/</code> archives to learn what the project does. The migration step existed nowhere.</li>
+<li class=""><strong>Lessons stayed in conversation memory.</strong> What worked, what didn't, what I'd do differently next time — these are the highest-value artifacts a project produces. Without a file to land in, they evaporated.</li>
+</ul>
+<p>The pattern is: <strong>a retrospective that lives in conversation is a retrospective that ran exactly once. Lessons compound only when they leave the session.</strong></p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-evolution--three-abstractions-and-four-command-level-fixes">The Evolution — Three Abstractions and Four Command-Level Fixes<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#the-evolution--three-abstractions-and-four-command-level-fixes" class="hash-link" aria-label="Direct link to The Evolution — Three Abstractions and Four Command-Level Fixes" title="Direct link to The Evolution — Three Abstractions and Four Command-Level Fixes" translate="no">​</a></h2>
+<p>Before listing the per-command improvements, there's a layer above them that matters more: the methodology itself went through three abstractions. Each abstraction was forced by the friction at the previous level.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="abstraction-1--prompt--llm-as-the-workflow-medium">Abstraction 1 — Prompt + LLM as the workflow medium<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#abstraction-1--prompt--llm-as-the-workflow-medium" class="hash-link" aria-label="Direct link to Abstraction 1 — Prompt + LLM as the workflow medium" title="Direct link to Abstraction 1 — Prompt + LLM as the workflow medium" translate="no">​</a></h3>
+<p>The earliest version of this stack lived entirely in prompts. I described what I wanted to OpenSpec and Superpowers using natural language, paste-by-paste. The goal at this stage was simply to <em>prove the integration worked</em> — that <code>explore</code> could feed <code>brainstorm</code>, that brainstorm could feed <code>propose</code>, that the cross-tool handoff produced something coherent end-to-end. Soft integration was the right call for the proof: it kept me focused on whether the combination was viable, not on how to make it durable.</p>
+<p>It worked for one project. It worked less well for the second. It started producing inconsistent artifacts by the third. The friction was the linking problem (Friction 3): NL is a soft medium, and softness compounds. The proof was done; the production version needed bones.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="abstraction-2--openspec-custom-schemas-and-commands">Abstraction 2 — OpenSpec custom schemas and commands<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#abstraction-2--openspec-custom-schemas-and-commands" class="hash-link" aria-label="Direct link to Abstraction 2 — OpenSpec custom schemas and commands" title="Direct link to Abstraction 2 — OpenSpec custom schemas and commands" translate="no">​</a></h3>
+<p>The next level traded soft integration for <em>schema</em>. Custom OpenSpec schemas defined what <code>brainstorm</code>, <code>propose</code>, and <code>archive</code> were <em>supposed</em> to produce — specific file shapes, specific section names, specific cross-references. Custom commands made the sequences enforceable inside Claude Code rather than living in my head. The workflow stopped being a story I told and started being a contract the tooling could check. Same idea as the first abstraction; the medium got harder.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="abstraction-3--a-claude-plugin-decoupled-from-any-one-project">Abstraction 3 — A Claude plugin, decoupled from any one project<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#abstraction-3--a-claude-plugin-decoupled-from-any-one-project" class="hash-link" aria-label="Direct link to Abstraction 3 — A Claude plugin, decoupled from any one project" title="Direct link to Abstraction 3 — A Claude plugin, decoupled from any one project" translate="no">​</a></h3>
+<p>The third abstraction earned itself when the flow felt solid enough to recommend. Once the workflow was a contract, the contract could travel. I packaged the schemas, the commands, and the cross-tool wiring into a <a href="https://github.com/austinxyz/opsx-superpowers" target="_blank" rel="noopener noreferrer" class="">Claude plugin</a>. A Claude plugin is a discoverable, installable bundle of skills and commands that Claude Code loads at session start — so the workflow shows up in any project I work in (and, more importantly, in any project someone else clones it into). The plugin is the methodology made portable. That's the bar I waited for — not personal convenience, but something I'd hand to a colleague without a long explanation.</p>
+<p>Each level of abstraction was forced, not chosen. The friction at level 1 drove level 2. The cost of re-creating level 2 in every project drove level 3. None of it was designed up front; each layer earned its existence by being needed.</p>
+<p>Below those three meta-abstractions sit four concrete command-level fixes that close the five frictions above. The mapping isn't one-to-one: Fix 1 closes Frictions 1 and 2 together (mocks-as-files + explore-first), Fix 2 closes Friction 3's lossy-linking half, Fix 3 closes Friction 3's skill-triage half and Friction 4 together (TDD + visual diff + code review baked into the command), Fix 4 closes Friction 5. These are the parts you actually run.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="fix-1--explore-first-then-brainstorm-with-mocks-as-files">Fix 1 — Explore first, then brainstorm with mocks as files<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#fix-1--explore-first-then-brainstorm-with-mocks-as-files" class="hash-link" aria-label="Direct link to Fix 1 — Explore first, then brainstorm with mocks as files" title="Direct link to Fix 1 — Explore first, then brainstorm with mocks as files" translate="no">​</a></h3>
+<p>The new order: <code>/opsx:explore</code> runs <em>before</em> the rest of the workflow, and inside it, the agent reads the codebase first and then invokes <code>superpowers:brainstorming</code> for the design pass — not the other way around. By the time you're designing, the AI already knows the codebase shape.</p>
+<p>Inside that brainstorming pass, two changes matter. First, when the feature is UI-heavy, the mock isn't generated as a markdown sketch — it's generated as an HTML file. There's a recent note from Anthropic engineers that HTML is a better medium than markdown for describing UI requirements, and that matches my experience. HTML carries layout, spacing, visual hierarchy, and interaction hints in one artifact. Markdown carries vibes.</p>
+<p>Second, <code>visual-companion</code> is told explicitly to <em>save the mock to a file path</em> and the brainstorm output is told to <em>reference that path</em>. The requirement document <code>/opsx:explore</code> produces now has a line like <code>UI mock: ./mocks/dashboard.html</code>. The mock is a file. It persists across sessions. The next step can read it.</p>
+<p>The cost: a few more minutes per feature to save HTML mocks. The benefit: every downstream step now has a stable visual reference. Friction 1 stops happening because the conversation isn't the only place the design lives.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="fix-2--propose-enforces-linked-requirements-and-linked-mocks">Fix 2 — <code>propose</code> enforces linked requirements and linked mocks<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#fix-2--propose-enforces-linked-requirements-and-linked-mocks" class="hash-link" aria-label="Direct link to fix-2--propose-enforces-linked-requirements-and-linked-mocks" title="Direct link to fix-2--propose-enforces-linked-requirements-and-linked-mocks" translate="no">​</a></h3>
+<p><code>propose</code> produces three artifacts: <code>spec.md</code>, <code>design.md</code>, <code>task.md</code>. In the earlier stack, these were generated based on whatever the prompt mentioned. Now, <code>propose</code> asks an upstream question before generating anything: <em>is the requirement reviewed? is the mock attached?</em></p>
+<p>If the answer is "no requirement file" or "no mock referenced," <code>propose</code> either refuses or prompts you to make the linkage explicit. This sounds heavy-handed. In practice it's a five-second check at the start of <code>propose</code> that prevents twenty minutes of misaligned spec.</p>
+<p>The mechanism that makes this enforceable is that <code>propose</code> now reads structured input. The requirement is a file. The mock is a file. The spec references both by path. The <code>task.md</code> it produces says "task 3: implement dashboard per <code>./mocks/dashboard.html</code> and <code>./spec/requirements.md</code> section 2." This is what friction 3 — prompt-based linking is soft — becomes when you give it bones.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="fix-3--apply-runs-tdd-plus-visual-diff">Fix 3 — <code>apply</code> runs TDD plus visual diff<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#fix-3--apply-runs-tdd-plus-visual-diff" class="hash-link" aria-label="Direct link to fix-3--apply-runs-tdd-plus-visual-diff" title="Direct link to fix-3--apply-runs-tdd-plus-visual-diff" translate="no">​</a></h3>
+<p><code>apply</code> now invokes Superpowers' <code>test-driven-development</code> skill faithfully — write the failing test, watch it fail, implement, watch it pass, commit. That's the closing loop for behavior, and it runs by default rather than by prompt reminder.</p>
+<p>For UI features, <code>apply</code> also runs a visual diff against the saved mock. The mechanism is straightforward: headless browser screenshots the rendered UI, compares to the mock at a tolerance threshold, flags differences. This isn't a hard gate — visual diffs have legitimate false positives — but it's a <em>signal</em> that the implementation deviates from the design, and the signal arrives during <code>apply</code> rather than after I open the page myself.</p>
+<p>The other addition inside <code>/opsx:apply</code> is that <code>superpowers:requesting-code-review</code> runs as a paired step at the end of every task group, not as a separate command I have to remember. The reviewer subagent reads the spec, reads the code, and flags drift. This catches the failure mode where the test passes but the implementation isn't what the spec actually said — the same failure mode that human pair programming catches. And because it's part of the task template that <code>/opsx:propose</code> injected, it fires whether or not I think to ask for it.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="fix-4--archive-becomes-retrospection-not-summary">Fix 4 — <code>archive</code> becomes retrospection, not summary<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#fix-4--archive-becomes-retrospection-not-summary" class="hash-link" aria-label="Direct link to fix-4--archive-becomes-retrospection-not-summary" title="Direct link to fix-4--archive-becomes-retrospection-not-summary" translate="no">​</a></h3>
+<p><code>archive</code> now does three things, each with a mechanism:</p>
+<ol>
+<li class="">
+<p><strong>Retro log.</strong> A short prompt at the end of <code>archive</code>: what did you learn that you didn't know going in? What constraint emerged that the spec missed? What would you do differently next time? The output goes to <code>./retros/YYYY-MM-DD-&lt;feature&gt;.md</code>. Three or four lines is enough. The point is that the lessons leave conversation memory and enter the file system.</p>
+</li>
+<li class="">
+<p><strong>CLAUDE.md update.</strong> New pitfalls or constraints discovered during apply get appended to <code>CLAUDE.md</code> under a "constraints" or "pitfalls" section. This means the next session — whether yours or someone else's — sees the constraint at session start. The pattern of repeating the same mistake across projects is what this fixes.</p>
+</li>
+<li class="">
+<p><strong>README migration.</strong> When <code>archive</code> runs, the spec's "what this does" section is migrated to the README's user-facing summary. Specs are working documents; READMEs are durable. The migration step ensures that anyone landing on the project a year later gets the spec's essence without spelunking through <code>./openspec/</code>.</p>
+</li>
+</ol>
+<p>The pattern across all three is that <code>archive</code> makes future you (and future readers) inherit the lessons of present you. The earlier <code>archive</code> was a checklist. The new <code>archive</code> is the mechanism Agile retrospectives were always supposed to be.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="four-commands-four-phases">Four Commands, Four Phases<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#four-commands-four-phases" class="hash-link" aria-label="Direct link to Four Commands, Four Phases" title="Direct link to Four Commands, Four Phases" translate="no">​</a></h2>
+<p>Here's what the evolved stack looks like end-to-end. The shape is OpenSpec's: <strong>four <code>/opsx:</code> commands, one per phase</strong> — that's everything you type. The Superpowers skills in the right-hand column run <em>inside</em> those commands, triaged automatically.</p>
+<table><thead><tr><th>Phase</th><th>Command</th><th>What it does</th><th>Embedded Superpowers skills</th><th>Closes</th></tr></thead><tbody><tr><td><strong>1. Ground</strong></td><td><code>/opsx:explore</code></td><td>Reads codebase, drafts <code>&lt;topic&gt;-requirements.md</code> (<code>Status: DRAFT → REVIEWED</code>), generates HTML mocks for UI work</td><td><code>superpowers:brainstorming</code> (self-review pass + <code>visual-companion</code> for UI mocks)</td><td>Frictions 1 + 2</td></tr><tr><td><strong>2. Plan</strong></td><td><code>/opsx:propose</code></td><td>Generates <code>proposal.md</code> + capability specs + <code>design.md</code> + <code>tasks.md</code>. Rejects DRAFT requirements at the gate; injects RED/GREEN pairs, MOCK + VISUAL DIFF sandwich, and code-review checkpoints directly into tasks</td><td>Task templates encode <code>superpowers:test-driven-development</code> and <code>superpowers:requesting-code-review</code> patterns</td><td>Friction 3 (lossy linking)</td></tr><tr><td><strong>3. Build</strong></td><td><code>/opsx:apply</code></td><td>Executes <code>tasks.md</code>: RED → GREEN → (MOCK → VISUAL DIFF if UI) → code review per group, with manual-ops pauses where needed</td><td><code>superpowers:test-driven-development</code> (session-start), <code>superpowers:requesting-code-review</code> (per group), <code>superpowers:verification-before-completion</code> (final group)</td><td>Frictions 3 (skill triage) + 4</td></tr><tr><td><strong>4. Close</strong></td><td><code>/opsx:archive</code></td><td>Archives the change, fills capability spec <code>Purpose</code>, updates specs README + CLAUDE.md pitfalls + (conditional) project README, prompts dev log</td><td>— (cleanups are built into the command itself)</td><td>Friction 5</td></tr></tbody></table>
+<p>Four commands, four phases. The phases match what you'd expect from any spec-driven workflow — ground in reality, plan, build, close. The difference from the earlier stack: each command has <em>mechanism</em> attached, and that mechanism includes invoking the right Superpowers skills automatically. The friction points stopped happening when skill triage moved from "things I have to remember to write in the prompt" to "things the command does by default."</p>
+<p>The flow as a single picture:</p>
+<p><img decoding="async" loading="lazy" alt="OpenSpec + Superpowers four-phase flow — explore → propose → apply → archive, with embedded Superpowers skills shown per phase" src="https://austinxyz.github.io/blogs/assets/images/flow-diagram-b0c0871384d3ede882b2c4e172a8259b.png" width="1141" height="1378" class="img_ev3q"></p>
+<p>Reading the diagram alongside the table makes one thing clear: the loops aren't optional. <code>/opsx:apply</code> returns to <code>/opsx:propose</code> when the spec is wrong. <code>/opsx:archive</code> returns to <code>/opsx:explore</code> when the retrospection surfaces a constraint that should have been a requirement. The methodology isn't linear because the failures aren't linear.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="agile-made-operational">Agile, Made Operational<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#agile-made-operational" class="hash-link" aria-label="Direct link to Agile, Made Operational" title="Direct link to Agile, Made Operational" translate="no">​</a></h2>
+<p>I wrote at length earlier this year about <a href="https://austinxyz.github.io/blogs/blog/2026/03/09/agile-development-in-ai-coding" target="_blank" rel="noopener noreferrer" class="">why Agile principles survive the AI coding transition</a>. That post argued the principles still hold — TDD becomes the closing loop, small iterations get smaller, pair programming becomes pairing with an AI, retrospection gets formalized in tools like SpecKit and OpenSpec.</p>
+<p>This post is what those principles look like when they become commands.</p>
+<ul>
+<li class=""><code>/opsx:explore</code> is <strong>small iterations</strong> + <strong>plan before execute</strong> + <strong>pair programming</strong> — calibrate the unit of work against the codebase, brainstorm the design with <code>superpowers:brainstorming</code> inside, save the mock to a file before handing off</li>
+<li class=""><code>/opsx:propose</code> is <strong>working software as the measure of progress</strong> — the spec exists to produce code that runs, complete with RED/GREEN/VISUAL-DIFF/code-review tasks baked into the plan before any code is written</li>
+<li class=""><code>/opsx:apply</code> is <strong>TDD as the closing loop</strong> + <strong>pair programming, formalized</strong> — <code>superpowers:test-driven-development</code> and <code>superpowers:requesting-code-review</code> aren't optional add-ons here; they're invoked at session start and run on every task group</li>
+<li class=""><code>/opsx:archive</code> is <strong>retrospection</strong> — capability spec <code>Purpose</code> filled, specs README updated, CLAUDE.md pitfalls captured, dev log prompted</li>
+</ul>
+<p>The earlier post said: <em>file provides memory, you provide discipline</em>. This post is the discipline.</p>
+<p>There's a smaller observation worth surfacing. I didn't design the four command-level fixes to embody Agile principles. I designed them to fix four specific things that hurt — the four fixes that close the five frictions above. Agile fell out of the shape because Agile was the underlying response to similar friction in a pre-AI world. Methodology converges when the constraints converge.</p>
+<p>What this evolution did, in one sentence: it took the Agile ideas I grew up reading and <em>baked them into the skills and the workflow itself</em>, so the discipline runs whether or not I remember to invoke it.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="ship--opsx-superpowers">Ship — opsx-superpowers<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#ship--opsx-superpowers" class="hash-link" aria-label="Direct link to Ship — opsx-superpowers" title="Direct link to Ship — opsx-superpowers" translate="no">​</a></h2>
+<p>The plugin is at <a href="https://github.com/austinxyz/opsx-superpowers" target="_blank" rel="noopener noreferrer" class="">github.com/austinxyz/opsx-superpowers</a>. The full workflow doc is at <a href="https://github.com/austinxyz/opsx-superpowers/blob/main/docs/workflow.md" target="_blank" rel="noopener noreferrer" class="">docs/workflow.md</a>, including the diagram of how the four commands chain together and the maintenance routine for keeping the fork in sync with OpenSpec upstream.</p>
+<p>Three-step start:</p>
+<ol>
+<li class="">
+<p><strong>Clone and install.</strong> <code>git clone https://github.com/austinxyz/opsx-superpowers ~/.claude/plugins/opsx-superpowers</code>. The plugin registers the four <code>/opsx:</code> commands as Claude Code slash commands; the Superpowers skills they invoke come bundled.</p>
+</li>
+<li class="">
+<p><strong>Configure your project.</strong> Drop a <code>CLAUDE.md</code> at the project root if you don't have one. The plugin reads it for constraints, conventions, and pitfalls. It will populate the file with template sections on first run.</p>
+</li>
+<li class="">
+<p><strong>Run your first explore.</strong> From inside the project: invoke <code>/opsx:explore &lt;topic&gt;</code> on a small feature. The command reads the codebase, runs <code>superpowers:brainstorming</code> for the design pass, and (for UI work) opens <code>visual-companion</code> to mock things up — all in one phase. When the requirements file flips to <code>Status: REVIEWED</code>, chain <code>/opsx:propose &lt;topic&gt;</code>. The first full four-phase cycle takes thirty to sixty minutes on a small feature. After that, the muscle memory kicks in and you stop noticing the structure.</p>
+</li>
+</ol>
+<p>What the plugin gives you that the workflow doc alone doesn't: the commands enforce the linkage and the retros automatically. You don't have to remember to save the mock to a file — <code>/opsx:explore</code> saves it. You don't have to remember to migrate the spec to the README — <code>/opsx:archive</code> does it. The mechanism is built in, so the discipline becomes the default rather than an act of will.</p>
+<p>A note on adoption: don't try to retrofit the full evolved stack onto a project that's deep into the earlier flow. Start the next feature with the new stack. After two or three features, the muscle is built and you can decide whether to fold it back across older work. Methodology is sticky; transitions work better when they're forward-looking.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="closing">Closing<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later#closing" class="hash-link" aria-label="Direct link to Closing" title="Direct link to Closing" translate="no">​</a></h2>
+<p>There have been three evolutions so far. The first proved the integration worked. The second pinned it into schemas. The third made it portable as a plugin. Each one was built by running the previous one until the cracks showed, then designing the fix from what the cracks said. Nothing was planned ahead; everything was earned.</p>
+<p>That cadence is what makes this an Agile project, not the Agile principles I mapped onto the commands. Each evolution produced a flow that ran end-to-end. Each next one ran <em>better</em> than the last. Every version was shippable; every next version was the previous one's spec. The methodology improved the same way the software it produces is supposed to improve — iteratively, by being used.</p>
+<p>Your next evolution will be earned the same way. Run the stack. Notice what hurts. Fix the next thing. Package it when the fix is solid enough that you'd hand it to a colleague without a long explanation. That's how methodology compounds — not across one person's versions, but across practitioners.</p>
+<p>If you've read this far, the next click is probably starting your own first evolution. The plugin's right there. The workflow doc's right there. The friction is yours to discover.</p>
+<p>The methodology isn't done. It won't be. That's the point.</p>
+<p>Thanks for reading along.</p>]]></content:encoded>
+            <author>austin.xyz@gmail.com (Austin Xu)</author>
+            <category>ai</category>
+            <category>spec-driven-development</category>
+            <category>claude-code</category>
+            <category>agile</category>
+            <category>methodology</category>
+        </item>
         <item>
             <title><![CDATA[My AI Writing Roadmap: Four Tracks From Infra to Agents]]></title>
             <link>https://austinxyz.github.io/blogs/blog/ai-writing-roadmap</link>
@@ -2371,173 +2509,6 @@ This one is underrated. When I provide a concrete reference — an existing comp
             <category>ai</category>
             <category>claude-code</category>
             <category>best-practices</category>
-        </item>
-        <item>
-            <title><![CDATA[[4/6] Claude Code: Evolution of Development Methodology]]></title>
-            <link>https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution</link>
-            <guid>https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution</guid>
-            <pubDate>Thu, 18 Dec 2025 00:00:00 GMT</pubDate>
-            <description><![CDATA[How Claude Code is evolving software development methodologies and practices.]]></description>
-            <content:encoded><![CDATA[<p>This is part 4 of a 6-part series on Claude Code.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-evolution-of-software-development-methodologies-in-the-ai-era">4. Evolution of Software Development Methodologies in the AI Era<a href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution#4-evolution-of-software-development-methodologies-in-the-ai-era" class="hash-link" aria-label="Direct link to 4. Evolution of Software Development Methodologies in the AI Era" title="Direct link to 4. Evolution of Software Development Methodologies in the AI Era" translate="no">​</a></h2>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="41-agile-development-from-sprints-to-prompts">4.1 Agile Development: From Sprints to Prompts<a href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution#41-agile-development-from-sprints-to-prompts" class="hash-link" aria-label="Direct link to 4.1 Agile Development: From Sprints to Prompts" title="Direct link to 4.1 Agile Development: From Sprints to Prompts" translate="no">​</a></h3>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="challenges-of-traditional-agile">Challenges of Traditional Agile<a href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution#challenges-of-traditional-agile" class="hash-link" aria-label="Direct link to Challenges of Traditional Agile" title="Direct link to Challenges of Traditional Agile" translate="no">​</a></h4>
-<p><strong>Typical Scrum Process</strong>: Sprint Planning → Daily Standup → Development (2 weeks) → Sprint Review → Retrospective</p>
-<p><strong>Problems for Personal Projects</strong>:</p>
-<ul>
-<li class="">Formal meeting processes too heavy for individual developers</li>
-<li class="">2-week Sprint too long, unsuitable for fragmented personal time</li>
-<li class="">Difficult to maintain strict process discipline</li>
-</ul>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="ai-driven-micro-iteration-mode">AI-Driven "Micro-Iteration" Mode<a href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution#ai-driven-micro-iteration-mode" class="hash-link" aria-label="Direct link to AI-Driven &quot;Micro-Iteration&quot; Mode" title="Direct link to AI-Driven &quot;Micro-Iteration&quot; Mode" translate="no">​</a></h4>
-<p><strong>Finance Project's Actual Rhythm</strong>:</p>
-<ul>
-<li class=""><strong>Iteration Cycle</strong>: 1-3 days (not traditional 2 weeks)</li>
-<li class=""><strong>Iteration Granularity</strong>: Single feature module</li>
-</ul>
-<p><strong>Typical Workflow</strong> (total 5.5 hours):</p>
-<ol>
-<li class=""><strong>Requirements Refinement</strong> - Define feature boundaries and user experience (30 minutes)</li>
-<li class=""><strong>Architecture Design</strong> - Planning Mode design database and interfaces (30 minutes)</li>
-<li class=""><strong>Rapid Iteration Loop</strong> (3.5 hours, multiple iterations):<!-- -->
-<ul>
-<li class="">Single development: Implement one small feature (15-20 minutes)</li>
-<li class="">Immediate optimization: Testing + UI adjustment + Code Review (15-20 minutes)</li>
-<li class="">Repeat cycle: Complete next small feature, optimize again</li>
-<li class="">Continuous refactoring: Adjust architecture when issues found</li>
-</ul>
-</li>
-<li class=""><strong>Integration &amp; Release</strong> - PR submission + Deployment + Regression testing + Documentation update (1 hour)</li>
-</ol>
-<p><strong>Key Differences</strong>:</p>
-<ul>
-<li class=""><strong>No Formal Meetings</strong> - Planning Mode and Git history replace traditional processes</li>
-<li class=""><strong>Fast Feedback Loop</strong> - Develop today, test tonight</li>
-<li class=""><strong>More Time Iterating</strong> - 60% time spent refining experience and code quality</li>
-</ul>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="shrivus-insight-shoot-and-forget">Shrivu's Insight: "Shoot and Forget"<a href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution#shrivus-insight-shoot-and-forget" class="hash-link" aria-label="Direct link to Shrivu's Insight: &quot;Shoot and Forget&quot;" title="Direct link to Shrivu's Insight: &quot;Shoot and Forget&quot;" translate="no">​</a></h4>
-<p>Quoting Shrivu Shankar's experience:</p>
-<blockquote>
-<p>"My goal is 'shoot and forget'—set the goal and context, let AI work autonomously, only validate the final PR."</p>
-</blockquote>
-<p><strong>Application in Finance Project</strong>:</p>
-<p><strong>Inefficient Approach</strong> (step-by-step guidance):</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">You: Create ExpenseBudget entity</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Claude: [Generates code]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">You: Now add Repository</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Claude: [Generates code]</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">...</span><br></span></code></pre></div></div>
-<p>→ Every step requires human confirmation, inefficient</p>
-<p><strong>Efficient Approach</strong> ("Shoot and Forget"):</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">You: Implement monthly budget settings feature for expense budget (reference expense-requirements.md section 3.1), including:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Backend: BudgetSettings related Entity, Repository, Service, Controller</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Frontend: BudgetSettingsForm.vue component</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Database: Budget settings table migration script</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Tests: Service layer unit tests</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Run tests after completion, fix automatically if tests fail.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Don't ask me every step, make technical decisions yourself.</span><br></span></code></pre></div></div>
-<blockquote>
-<p>Note: expense-requirements.md contains multiple feature modules, only implement one small feature each time, not all at once</p>
-</blockquote>
-<p><strong>Key Learnings</strong>:</p>
-<ul>
-<li class="">✅ <strong>Authorize AI to Make Decisions</strong> - Under architecture design guidance, let AI autonomously implement details</li>
-<li class="">✅ <strong>Provide Sufficient Context</strong> - Reference docs + constraints</li>
-<li class="">✅ <strong>Small Feature Iterations</strong> - Not delivering all features at once, but completing module by module</li>
-<li class="">⚠️ <strong>Set Acceptance Criteria</strong> - "Tests pass" + business logic correct</li>
-</ul>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="42-test-driven-development-tdd-new-form">4.2 Test-Driven Development (TDD) New Form<a href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution#42-test-driven-development-tdd-new-form" class="hash-link" aria-label="Direct link to 4.2 Test-Driven Development (TDD) New Form" title="Direct link to 4.2 Test-Driven Development (TDD) New Form" translate="no">​</a></h3>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="traditional-tdd-red-green-refactor">Traditional TDD: Red-Green-Refactor<a href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution#traditional-tdd-red-green-refactor" class="hash-link" aria-label="Direct link to Traditional TDD: Red-Green-Refactor" title="Direct link to Traditional TDD: Red-Green-Refactor" translate="no">​</a></h4>
-<p><strong>Classic Process</strong>: Write test (Red) → Write implementation (Green) → Refactor</p>
-<p><strong>Challenges</strong>:</p>
-<ul>
-<li class="">Writing tests is tedious (especially lots of mocks)</li>
-<li class="">Tests also need changes during refactoring (double work)</li>
-</ul>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="ai-assisted-contract-driven-development">AI-Assisted "Contract-Driven Development"<a href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution#ai-assisted-contract-driven-development" class="hash-link" aria-label="Direct link to AI-Assisted &quot;Contract-Driven Development&quot;" title="Direct link to AI-Assisted &quot;Contract-Driven Development&quot;" translate="no">​</a></h4>
-<p><strong>New Mode Process</strong>:</p>
-<ol>
-<li class=""><strong>Define Contract</strong> (API interface design) - Manual</li>
-<li class=""><strong>Generate Tests</strong> - AI auto-generates test cases from interface</li>
-<li class=""><strong>Implement Code</strong> - AI implements code that passes tests</li>
-<li class=""><strong>Human Review</strong> - Check coverage and edge cases</li>
-</ol>
-<p><strong>Advantages</strong>:</p>
-<ul>
-<li class="">✅ Tests first, but humans don't write tests</li>
-<li class="">✅ AI maintains both tests and implementation (updates synchronously during refactoring, more efficient)</li>
-<li class="">✅ Clear contracts, reduced communication costs</li>
-</ul>
-<p><strong>Reality</strong>: Refactoring still requires test changes, but AI can do it quickly:</p>
-<ul>
-<li class="">Traditional: Manual modify implementation (30 minutes) + Manual adjust tests (30 minutes) = 1 hour</li>
-<li class="">AI-assisted: AI refactor implementation + Sync update tests = 10 minutes</li>
-</ul>
-<p><strong>Real Case</strong>: When implementing <code>ExchangeRateService.batchConvert()</code>, Claude auto-generated 8 test cases (normal conversion, empty input, edge cases, exception handling, etc.), found and fixed null handling issue, all tests passed. Total time 20 minutes (traditional TDD needs 1-2 hours).</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="43-object-oriented-design-can-ai-understand-design-patterns">4.3 Object-Oriented Design: Can AI Understand Design Patterns?<a href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution#43-object-oriented-design-can-ai-understand-design-patterns" class="hash-link" aria-label="Direct link to 4.3 Object-Oriented Design: Can AI Understand Design Patterns?" title="Direct link to 4.3 Object-Oriented Design: Can AI Understand Design Patterns?" translate="no">​</a></h3>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="application-of-design-patterns">Application of Design Patterns<a href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution#application-of-design-patterns" class="hash-link" aria-label="Direct link to Application of Design Patterns" title="Direct link to Application of Design Patterns" translate="no">​</a></h4>
-<p><strong>Practice Proves</strong>:</p>
-<ul>
-<li class="">✅ AI can correctly apply common design patterns (Strategy, Factory, Observer, etc.)</li>
-<li class="">✅ AI can identify obvious anti-patterns (like God Class, over-coupling)</li>
-<li class="">✅ When explicitly specifying use of certain pattern in architecture design, AI can implement well</li>
-</ul>
-<p><strong>Recommended Practice</strong>:</p>
-<ul>
-<li class="">In Planning Mode architecture design, clearly state design patterns to use</li>
-<li class="">Provide clear interface definitions and responsibility division</li>
-<li class="">AI will correctly apply design patterns and follow SOLID principles</li>
-</ul>
-<p><strong>Case</strong>: Exchange rate conversion strategy pattern - In architecture design specified use of strategy pattern to support multiple exchange rate sources (fixed rate, API retrieval, manual input), Claude correctly implemented strategy interface, multiple strategy implementation classes, and priority-based strategy selection logic, also proactively used <code>Optional</code> and Spring dependency injection, conforming to Java best practices.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="44-code-review-new-balance-of-human-ai-collaboration">4.4 Code Review: New Balance of Human-AI Collaboration<a href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution#44-code-review-new-balance-of-human-ai-collaboration" class="hash-link" aria-label="Direct link to 4.4 Code Review: New Balance of Human-AI Collaboration" title="Direct link to 4.4 Code Review: New Balance of Human-AI Collaboration" translate="no">​</a></h3>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="pain-points-of-traditional-code-review">Pain Points of Traditional Code Review<a href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution#pain-points-of-traditional-code-review" class="hash-link" aria-label="Direct link to Pain Points of Traditional Code Review" title="Direct link to Pain Points of Traditional Code Review" translate="no">​</a></h4>
-<p><strong>Typical Scenario</strong>: Submit PR → Wait for Reviewer (1-2 days) → Receive feedback → Modify → Wait again...</p>
-<p><strong>Personal Project Dilemma</strong>:</p>
-<ul>
-<li class="">No Reviewer (self-reviewing hard to find issues)</li>
-<li class="">Easy to introduce bugs and technical debt</li>
-</ul>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="ai-as-first-round-reviewer">AI as First-Round Reviewer<a href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution#ai-as-first-round-reviewer" class="hash-link" aria-label="Direct link to AI as First-Round Reviewer" title="Direct link to AI as First-Round Reviewer" translate="no">​</a></h4>
-<p><strong>Workflow</strong>:</p>
-<ol>
-<li class=""><strong>Claude generates code + self-review</strong> - Check code standards, performance, security, test coverage</li>
-<li class=""><strong>Claude submits improvement suggestions</strong> - Auto-fix found issues</li>
-<li class=""><strong>Human final review</strong> - Quick scan business logic, check if AI fixes reasonable</li>
-</ol>
-<p><strong>Effect Comparison</strong>:</p>
-<table><thead><tr><th>Phase</th><th>Traditional</th><th>AI-Assisted</th></tr></thead><tbody><tr><td>First-round review</td><td>Human (1-2 days)</td><td>AI (5 minutes)</td></tr><tr><td>Common issue detection rate</td><td>70%</td><td>90%</td></tr><tr><td>Fix time</td><td>Human (1-2 hours)</td><td>AI (10 minutes)</td></tr><tr><td>Final quality</td><td>Good</td><td>Good</td></tr></tbody></table>
-<p><strong>Key Insight</strong>:</p>
-<blockquote>
-<p><strong>AI excels at finding technical issues (performance, security, testing), humans excel at finding design issues (maintainability, extensibility, business understanding)</strong></p>
-</blockquote>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="45-build--deploy-simplified-automation-processes">4.5 Build &amp; Deploy: Simplified Automation Processes<a href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution#45-build--deploy-simplified-automation-processes" class="hash-link" aria-label="Direct link to 4.5 Build &amp; Deploy: Simplified Automation Processes" title="Direct link to 4.5 Build &amp; Deploy: Simplified Automation Processes" translate="no">​</a></h3>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="complexity-of-traditional-cicd">Complexity of Traditional CI/CD<a href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution#complexity-of-traditional-cicd" class="hash-link" aria-label="Direct link to Complexity of Traditional CI/CD" title="Direct link to Complexity of Traditional CI/CD" translate="no">​</a></h4>
-<p><strong>Personal Project Pain Points</strong>:</p>
-<ul>
-<li class="">Need to remember multiple commands and parameters (Docker build, Git commit, database migration, etc.)</li>
-<li class="">Too many config files, high maintenance cost</li>
-<li class="">Easy to forget a step (like forgetting to update deployment after pushing image)</li>
-</ul>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="finance-project-automation-practices">Finance Project Automation Practices<a href="https://austinxyz.github.io/blogs/blog/2025/12/18/claude-code-methodology-evolution#finance-project-automation-practices" class="hash-link" aria-label="Direct link to Finance Project Automation Practices" title="Direct link to Finance Project Automation Practices" translate="no">​</a></h4>
-<p><strong>Core Philosophy</strong>: Encapsulate complex processes as simple Skills</p>
-<p><strong>Common Skills</strong>:</p>
-<ul>
-<li class=""><code>/docker-build-push</code> - Auto-build multi-arch images (amd64/arm64) and push to Docker Hub</li>
-<li class=""><code>/git-commit-push</code> - Auto stage, commit (AI generates message), push</li>
-<li class=""><code>/mysql-exec</code> - Auto-load database credentials and execute SQL</li>
-<li class=""><code>/setup-java</code> - Configure Java environment and load database credentials</li>
-</ul>
-<p><strong>Efficiency Comparison</strong>:</p>
-<table><thead><tr><th>Task</th><th>Traditional</th><th>Using Skills</th></tr></thead><tbody><tr><td>Build+push image</td><td>5 minutes (multiple commands)</td><td>30 seconds (<code>/docker-build-push</code>)</td></tr><tr><td>Commit code</td><td>2 minutes (3-4 commands)</td><td>10 seconds (<code>/git-commit-push</code>)</td></tr><tr><td>Database migration</td><td>1 minute (look up credentials+execute)</td><td>5 seconds (<code>/mysql-exec</code>)</td></tr></tbody></table>
-<p><strong>Core Value</strong>:</p>
-<ul>
-<li class="">✅ <strong>Reduce Cognitive Load</strong> - Don't need to remember complex commands</li>
-<li class="">✅ <strong>Reduce Errors</strong> - Auto-handle credentials and environment config</li>
-<li class="">✅ <strong>Improve Efficiency</strong> - Multi-step operations become one-click execution</li>
-</ul>
-<p><strong>Key Insight</strong>:</p>
-<blockquote>
-<p><strong>Good automation isn't writing more scripts, but making common operations so simple they're "thoughtless"</strong></p>
-</blockquote>]]></content:encoded>
-            <author>austin.xyz@gmail.com (Austin Xu)</author>
-            <category>ai</category>
-            <category>claude-code</category>
-            <category>methodology</category>
-            <category>software-engineering</category>
         </item>
     </channel>
 </rss>
