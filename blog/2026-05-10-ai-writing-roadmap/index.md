@@ -75,13 +75,13 @@ The reason this track exists at all is that I find most AI infrastructure writin
 | [From Vibe Coding to Spec-Driven Development](/blog/2026/03/06/claude-code-spec-driven-development) | The arc most teams have to traverse — and why Vibe Coding alone breaks at the team boundary |
 | [Agile Development in AI Coding](/blog/2026/03/09/agile-development-in-ai-coding) | How sprint, story, and review practices have to bend |
 | [Stacking OpenSpec and Superpowers](/blog/openspec-superpowers-combined) | A combined SDD workflow that shipped a real refactor in 3 hours with 86 new tests |
+| [Stacking OpenSpec and Superpowers, Three Weeks Later](/blog/openspec-superpowers-three-weeks-later) | Five friction points from running the stack across multiple projects, and the plugin that packages the evolved workflow |
 
 ### Coming next
 
 | Post | Why it matters |
 |------|----------------|
 | SDD at Team Scale | Everything published so far covers an individual contributor's workflow. The team-scale version — shared specs, review handoffs, drift across people — is where SDD either works or doesn't. |
-| OpenSpec + Superpowers, Second Pass | A follow-up to the "Stacking" post — pushing the combined workflow further on a Python agent project, including the gaps the first pass left open and the patterns that only show up after the second project. |
 
 This track is reported, not researched. Every post in it describes work I actually shipped using the tool described, with the rework rate, defect rate, and time-to-merge attached. That's the reading promise: no methodology I haven't run myself.
 
