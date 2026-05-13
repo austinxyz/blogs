@@ -145,4 +145,4 @@ The engineers who've made the shift can describe specifically what they can do n
 
 ---
 
-*This is the fourth piece in a series on what AI means across engineering roles. Earlier: [What AI Means for Early-Career Engineers](https://austinxyz.github.io/blogs/blog/2026/03/04/no-junior-engineers), [The AI-Augmented Engineering Manager](https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai), and [How Ops Engineers Can Stay Relevant in the Age of AI](https://austinxyz.github.io/blogs/blog/2026/03/16/platform-engineer-vs-ops-engineer).*
+*This is the fourth piece in a series on what AI means across engineering roles. Earlier: [No Junior Engineers? What AI Really Means for Early-Career Developers](https://austinxyz.github.io/blogs/blog/2026/03/04/no-junior-engineers), [The AI-Augmented Engineering Manager: How I Run a Team in 2026](https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai), and [How Ops Engineers Can Stay Relevant in the Age of AI: Becoming a Platform Engineer](https://austinxyz.github.io/blogs/blog/2026/03/16/platform-engineer-vs-ops-engineer).*
