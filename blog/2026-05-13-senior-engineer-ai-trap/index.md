@@ -1,5 +1,5 @@
 ---
-title: "The Senior Engineer's AI Trap"
+title: "The Senior Engineer's AI Trap: Why Experience Works Against You"
 date: 2026-05-13
 authors: [austin]
 tags: [ai, career-development, engineering, leadership]

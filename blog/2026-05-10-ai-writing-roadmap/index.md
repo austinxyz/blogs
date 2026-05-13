@@ -95,15 +95,15 @@ This track is reported, not researched. Every post in it describes work I actual
 
 | Post | What it covers |
 |------|----------------|
-| [No More Junior Engineers?](/blog/2026/03/04/no-junior-engineers) | The most controversial seat — what happens to the entry-level IC role when AI does the work a junior used to do |
-| [Platform Engineer vs Ops Engineer](/blog/2026/03/16/platform-engineer-vs-ops-engineer) | Ops thinking is fixing problems; platform thinking is making classes of problems impossible. AI accelerates that shift. |
-| [The AI-Augmented Engineering Manager](/blog/2026/03/23/engineering-manager-in-ai) | What the EM role looks like when your team's output is 3x but your team size stays the same |
+| [No More Junior Engineers? What AI Really Means for Early-Career Developers](/blog/2026/03/04/no-junior-engineers) | The most controversial seat — what happens to the entry-level IC role when AI does the work a junior used to do |
+| [How Ops Engineers Can Stay Relevant in the Age of AI: Becoming a Platform Engineer](/blog/2026/03/16/platform-engineer-vs-ops-engineer) | Ops thinking is fixing problems; platform thinking is making classes of problems impossible. AI accelerates that shift. |
+| [The AI-Augmented Engineering Manager: How I Run a Team in 2026](/blog/2026/03/23/engineering-manager-in-ai) | What the EM role looks like when your team's output is 3x but your team size stays the same |
+| [The Senior Engineer's AI Trap: Why Experience Works Against You](/blog/2026/05/13/senior-engineer-ai-trap) | Why technically strong engineers fall into specific AI adoption traps — and what the third career transition actually looks like |
 
 ### Coming next
 
 | Post | Why it matters |
 |------|----------------|
-| Senior Dev in the AI Era | The most visible gap in the current series. The senior IC is the role whose ceiling rose the most, and the floor rose with it — both deserve treatment. |
 | Architect in the AI Era | Designing systems that include agents as first-class components is a different discipline. |
 | PM in the AI Era | What product management looks like when the build cost of a prototype collapsed by an order of magnitude. |
 
@@ -150,7 +150,7 @@ Pick a track and start. The dates are roughly chronological within each track, s
 
 - Infrastructure: [Cloud Native → AI Native App Platform](/blog/cloud-native-to-ai-native-app-platform)
 - Methodology: [Stacking OpenSpec and Superpowers](/blog/openspec-superpowers-combined)
-- Roles: [The AI-Augmented Engineering Manager](/blog/2026/03/23/engineering-manager-in-ai)
+- Roles: [The Senior Engineer's AI Trap: Why Experience Works Against You](/blog/2026/05/13/senior-engineer-ai-trap)
 - Agents: [Building an AI Agent: From Claude Skills to Production](/blog/2026/05/04/rwh-overlay-lessons)
 
 This roadmap will get updated as the "coming next" entries become "published." If you want to be notified when the next batch lands, the RSS feed is the most reliable channel — I post inconsistently across other platforms but every post lands in the feed.
