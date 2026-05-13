@@ -66,6 +66,7 @@ const config: Config = {
       },
       items: [
         {to: '/blog', label: 'Blog', position: 'left'},
+        {to: '/blog/ai-writing-roadmap', label: 'AI Roadmap', position: 'left'},
         {
           label: 'Collections',
           position: 'left',
