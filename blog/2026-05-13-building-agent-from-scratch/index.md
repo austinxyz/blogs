@@ -141,6 +141,8 @@ graph.add_edge("tools", "agent")
 
 **Private data isolation.** This is non-negotiable: every call to `search_private` must include a `user_id` filter. Not as a convention — as an invariant. If you forget it once, you expose one user's private data to another. I enforced this by making `search_private` take `user_id` as a required parameter with no default, so it's a type error to omit it.
 
+![QA UI — the finished web interface showing a question input, streamed answer, and sidebar knowledge tree](./images/qa-ui.png)
+
 ---
 
 ## 4. The Data Layer
