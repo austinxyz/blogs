@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 480" font-family="ui-monospace, 'Cascadia Code', monospace">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arr-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#8b5cf6"/>
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <rect width="560" height="480" fill="#f8fafc"/>
+
+  <!-- title -->
+  <text x="280" y="28" text-anchor="middle" font-size="14" font-weight="700" fill="#1e293b">QA Agent — ReAct Loop</text>
+
+  <!-- User Question -->
+  <rect x="180" y="44" width="200" height="44" rx="7" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="280" y="62" text-anchor="middle" font-size="12" font-weight="600" fill="#78350f">User Question</text>
+  <text x="280" y="79" text-anchor="middle" font-size="10" fill="#92400e">with user_id context</text>
+
+  <!-- arrow down to Agent -->
+  <line x1="280" y1="88" x2="280" y2="112" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Agent node (Claude) -->
+  <rect x="140" y="112" width="280" height="60" rx="7" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+  <text x="280" y="136" text-anchor="middle" font-size="13" font-weight="700" fill="#4c1d95">Agent  (Claude)</text>
+  <text x="280" y="157" text-anchor="middle" font-size="10" fill="#6d28d9">Reason over messages · decide next tool call</text>
+
+  <!-- decision: tool calls? -->
+  <!-- diamond shape -->
+  <polygon points="280,192 340,222 280,252 220,222" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="280" y="218" text-anchor="middle" font-size="10" fill="#334155">tool</text>
+  <text x="280" y="232" text-anchor="middle" font-size="10" fill="#334155">calls?</text>
+
+  <!-- arrow from agent to diamond -->
+  <line x1="280" y1="172" x2="280" y2="192" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- YES path → Tool Node -->
+  <text x="210" y="240" text-anchor="middle" font-size="10" fill="#7c3aed">yes</text>
+  <line x1="220" y1="222" x2="140" y2="222" stroke="#8b5cf6" stroke-width="1.5"/>
+  <line x1="140" y1="222" x2="140" y2="300" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+
+  <!-- Tool Node -->
+  <rect x="24" y="300" width="232" height="112" rx="7" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="140" y="322" text-anchor="middle" font-size="12" font-weight="600" fill="#5b21b6">Tool Node</text>
+
+  <!-- three tools -->
+  <rect x="40" y="332" width="200" height="24" rx="4" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1"/>
+  <text x="140" y="349" text-anchor="middle" font-size="10" fill="#4c1d95">search_knowledge(query)</text>
+
+  <rect x="40" y="360" width="200" height="24" rx="4" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1"/>
+  <text x="140" y="377" text-anchor="middle" font-size="10" fill="#4c1d95">search_private(query, user_id)</text>
+
+  <rect x="40" y="388" width="200" height="24" rx="4" fill="#ede9fe" stroke="#c4b5fd" stroke-width="1"/>
+  <text x="140" y="405" text-anchor="middle" font-size="10" fill="#4c1d95">get_entry(file_id)</text>
+
+  <!-- loop back arrow: tool results → agent -->
+  <text x="56" y="436" text-anchor="middle" font-size="10" fill="#7c3aed">tool results appended</text>
+  <line x1="140" y1="412" x2="140" y2="448" stroke="#8b5cf6" stroke-width="1.5"/>
+  <line x1="140" y1="448" x2="280" y2="448" stroke="#8b5cf6" stroke-width="1.5"/>
+  <line x1="280" y1="448" x2="280" y2="172" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arr-purple)"/>
+  <text x="430" y="316" text-anchor="middle" font-size="10" fill="#7c3aed">loop until</text>
+  <text x="430" y="330" text-anchor="middle" font-size="10" fill="#7c3aed">no tool calls</text>
+
+  <!-- NO path → Answer -->
+  <text x="360" y="212" text-anchor="middle" font-size="10" fill="#059669">no</text>
+  <line x1="340" y1="222" x2="420" y2="222" stroke="#059669" stroke-width="1.5"/>
+  <line x1="420" y1="222" x2="420" y2="300" stroke="#059669" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Answer node -->
+  <rect x="340" y="300" width="196" height="60" rx="7" fill="#d1fae5" stroke="#059669" stroke-width="1.5"/>
+  <text x="438" y="325" text-anchor="middle" font-size="12" font-weight="600" fill="#064e3b">Streamed Answer</text>
+  <text x="438" y="344" text-anchor="middle" font-size="10" fill="#047857">SSE → frontend</text>
+  <text x="438" y="358" text-anchor="middle" font-size="10" fill="#047857">token by token</text>
+</svg>

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 560" font-family="ui-monospace, 'Cascadia Code', monospace">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <rect width="420" height="560" fill="#f8fafc"/>
+
+  <!-- title -->
+  <text x="210" y="28" text-anchor="middle" font-size="14" font-weight="700" fill="#1e293b">Ingest Pipeline</text>
+
+  <!-- node positions: x=60, width=300, heights evenly spaced -->
+  <!-- Node 1: Input -->
+  <rect x="60" y="44" width="300" height="52" rx="7" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="210" y="65" text-anchor="middle" font-size="12" font-weight="600" fill="#78350f">Input</text>
+  <text x="210" y="84" text-anchor="middle" font-size="10" fill="#92400e">file upload · URL · raw text</text>
+
+  <line x1="210" y1="96" x2="210" y2="116" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Node 2: Source Router -->
+  <rect x="60" y="116" width="300" height="52" rx="7" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="210" y="137" text-anchor="middle" font-size="12" font-weight="600" fill="#1e40af">Source Router</text>
+  <text x="210" y="156" text-anchor="middle" font-size="10" fill="#1d4ed8">classifies source_type · only branch point</text>
+
+  <line x1="210" y1="168" x2="210" y2="188" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Node 3: Fetch -->
+  <rect x="60" y="188" width="300" height="52" rx="7" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="210" y="209" text-anchor="middle" font-size="12" font-weight="600" fill="#1e40af">Fetch</text>
+  <text x="210" y="228" text-anchor="middle" font-size="10" fill="#1d4ed8">reads file · fetches URL · passes text through</text>
+
+  <line x1="210" y1="240" x2="210" y2="260" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Node 4: Clean -->
+  <rect x="60" y="260" width="300" height="52" rx="7" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="210" y="281" text-anchor="middle" font-size="12" font-weight="600" fill="#1e40af">Clean</text>
+  <text x="210" y="300" text-anchor="middle" font-size="10" fill="#1d4ed8">strips HTML · collapses whitespace · normalizes</text>
+
+  <line x1="210" y1="312" x2="210" y2="332" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Node 5: Chunk -->
+  <rect x="60" y="332" width="300" height="52" rx="7" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="210" y="353" text-anchor="middle" font-size="12" font-weight="600" fill="#1e40af">Chunk</text>
+  <text x="210" y="372" text-anchor="middle" font-size="10" fill="#1d4ed8">800 tokens · 100-token overlap · fixed-size</text>
+
+  <line x1="210" y1="384" x2="210" y2="404" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Node 6: Embed -->
+  <rect x="60" y="404" width="300" height="52" rx="7" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="210" y="425" text-anchor="middle" font-size="12" font-weight="600" fill="#1e40af">Embed</text>
+  <text x="210" y="444" text-anchor="middle" font-size="10" fill="#1d4ed8">OpenAI text-embedding-3-small → float vectors</text>
+
+  <line x1="210" y1="456" x2="210" y2="476" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Node 7: Store -->
+  <rect x="60" y="476" width="300" height="60" rx="7" fill="#d1fae5" stroke="#059669" stroke-width="1.5"/>
+  <text x="210" y="499" text-anchor="middle" font-size="12" font-weight="600" fill="#064e3b">Store</text>
+  <text x="210" y="516" text-anchor="middle" font-size="10" fill="#047857">① SQLite commit (metadata + file path)</text>
+  <text x="210" y="531" text-anchor="middle" font-size="10" fill="#047857">② Qdrant upsert (vectors + payload)</text>
+</svg>
