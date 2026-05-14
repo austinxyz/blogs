@@ -7,7 +7,7 @@ description: "An end-to-end walkthrough of building a real multi-user knowledge 
 slug: building-agent-from-scratch
 ---
 
-> This is part of the Agent Engineering track. [Part 1](/blog/2026/05/04/wealth-llm-wiki) built the knowledge base. [Part 2](/blog/2026/05/04/rwh-overlay-lessons) extended it into a production personal tool. This post is the next step: building an actual agent application — one that runs independently, serves multiple users, and doesn't require you to be sitting at a terminal.
+> This is part of the Agent Engineering track. [Building a Personal Finance Knowledge Base with LLM Wiki](/blog/2026/05/04/wealth-llm-wiki) built the knowledge base. [Building an AI Agent: From Claude Skills to Production](/blog/2026/05/04/rwh-overlay-lessons) extended it into a production personal tool. This post is the next step: building an actual agent application — one that runs independently, serves multiple users, and doesn't require you to be sitting at a terminal.
 
 I already had a working LLM Wiki setup. Structured Markdown files, Claude Code reading them at query time, a set of slash commands that composed into useful workflows. It worked well — for me, running it myself, from my own machine.
 
