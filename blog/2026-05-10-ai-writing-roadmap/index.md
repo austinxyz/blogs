@@ -122,17 +122,17 @@ The seats compress asymmetrically. That's the thesis the track exists to defend.
 | [Taming AI Agent Uncertainty](/blog/2025/12/25/taming-ai-agent-uncertainty) | The design pattern problem at the heart of agent engineering — how to engineer around stochastic behavior |
 | [Building a Personal Finance Knowledge Base with LLM Wiki](/blog/2026/05/04/wealth-llm-wiki) | A complete walkthrough of building an investment knowledge base that an LLM can reason over — the data layer for a real agent |
 | [Building an AI Agent: From Claude Skills to Production](/blog/2026/05/04/rwh-overlay-lessons) | A retrospective on extending an open-source LLM wiki into a production-grade personal agent — the engineering reality of turning a working tool into a real agent |
+| [Building an Agent from Scratch: LangGraph, Qdrant, and the Gaps Between the Docs](/blog/building-agent-from-scratch) | The A-layer. End-to-end walkthrough of python-agent — architecture decisions, LangGraph ingest pipeline and ReAct QA agent, SQLite-first data layer, and four specific failures the tutorials don't cover |
 
 ### Coming next
 
 | Post | Why it matters |
 |------|----------------|
-| Building an Agent from Scratch | The A-layer. End-to-end code grounded in my python-agent project, failures intact. This is the one closest to ready. |
 | Comparing Mainstream Agent Frameworks | A practitioner's read on the frameworks I've actually used to build agents — what each is good at, where it leaks, and which I'd pick again. |
 | Agent Platform — Infrastructure Layer | The C-layer view. Bridges Track 1. Where do agent runtimes actually live, and what does the platform have to provide? Still in research mode — I want a thicker case-study base before writing. |
 | Agent Design Patterns | The B-layer. The methodology backbone for the series — the recurring patterns I keep seeing across agent systems. Also still in research mode; the goal is enough patterns from real systems before generalizing. |
 
-This track is also where I learn the most, and where I'm most cautious about writing ahead of my evidence. The agent I built for my own portfolio is the one I trust most, and it's also the one I've written about most carefully — that's not a coincidence. The same standard applies to the unwritten posts above: the hands-on and framework-comparison pieces are close, the platform and patterns pieces will land when the case-study base is thick enough to generalize from.
+This track is also where I learn the most, and where I'm most cautious about writing ahead of my evidence. The hands-on piece is now done. The framework-comparison piece is close. The platform and patterns pieces will land when the case-study base is thick enough to generalize from.
 
 ---
 
