@@ -24,3 +24,6 @@ raw_docs/
 
 # Claude local settings
 .claude/settings.local.json
+
+# Brainstorming session files
+.superpowers/
