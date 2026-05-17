@@ -11,6 +11,6 @@ Claude Code 是 Anthropic 推出的命令行 AI 工具。核心能力：
 - 搭建和维护个人知识库
 - 自动化重复性文件操作
 
-定价：需要 Claude Pro 订阅（$20/月），按 token 使用量计费。
+定价：需要 Claude Pro 订阅（$20/月），订阅后即可使用，无额外按量计费。
 
 安装：`npm install -g @anthropic-ai/claude-code`（需要 Node.js）
