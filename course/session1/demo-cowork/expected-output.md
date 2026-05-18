@@ -1,41 +1,63 @@
-# Cowork 演示预期输出
+# Cowork JD 流水线演示预期输出
 
-> 如果直播时网络或工具出问题，可用此备份展示"应该看到的结果"
-
----
-
-## 调研摘要（Agent 1 输出）
-
-科技初创公司在项目管理工具采购上，核心关注点通常包括：团队协作效率、
-与现有工具的集成能力（飞书/钉钉在中国市场占主导）、以及明确的 ROI。
-30 人规模团队年预算通常在 3–8 万元区间。
-
-竞品参考：
-- Jira：功能强但学习曲线陡，适合技术团队；年费约 ¥800/人
-- 飞书项目：国内集成生态好，¥0–600/人/年
-- Notion：灵活度高，但项目管理功能较弱
-
-**差异化机会：** AI 自动化功能是主要卖点，本土集成支持是关键门槛。
+> 如果直播时网络或工具出问题，用此备份展示"应该看到的结果"。
+> 基于 NovaDeploy Staff Platform Engineer JD 生成的示例输出。
 
 ---
 
-## 回复邮件草稿（Agent 2 输出）
+## Agent 1 输出：JD 分析（C1 Clarity 校验）
 
-李明您好，
+**岗位匹配度：9/10**
 
-感谢您的询盘！很高兴 TechStart 对我们的 AI 自动化功能感兴趣，以下是您关心
-的三个问题的回答：
+**值得投入度：值得全力投入**
 
-**1. 30 人团队价格：** 我们的团队版年度授权区间为 4–7 万元，具体取决于功能
-模块选择。演示后我们可以根据贵司需求给出精确报价。
+理由：NovaDeploy 的规模（B 轮，500+ 工程师使用平台）和技术栈（Kubernetes 大规模、Go、IDP）与你的背景高度吻合。GPU cluster provisioning 这个 nice-to-have 正是你的差异化优势，值得在 outreach 和面试中主动提及。
 
-**2. 飞书/钉钉集成：** 支持。我们提供开箱即用的飞书双向同步和钉钉通知集成，
-无需额外开发。
+**关键要求（必须满足）：**
+1. 8+ 年工程经验，4+ 年 K8s 生产环境经验 ✅
+2. Go 或 Python 平台工具开发能力 ✅
+3. IDP 或开发者体验产品经验 ✅
+4. 跨团队驱动平台能力采用的经历 ✅
+5. 领导技术方向、培养工程师的经历 ✅
 
-**3. 行业案例：** 我们服务过多家金融科技客户，其中一家 50 人规模的 FinTech
-公司使用后，项目交付周期缩短了 30%。我可以在演示时分享详细案例。
+**潜在缺口：**
+- Backstage 经验（nice-to-have，非硬性要求）：准备好说"没有直接使用，但熟悉其架构，并有类似内部工具的建设经验"
 
-**演示时间：** 建议本周四下午 3 点或周五上午 10 点，请问哪个时间方便？
+---
 
-期待与您的交流！
-[你的名字]
+## Agent 2 输出：公司调研（C3 Connection 准备）
+
+**公司概况：**
+NovaDeploy 是一家 B 轮云基础设施 SaaS 公司，约 300 人，服务 40+ 企业客户。产品聚焦 IDP（内部开发者平台）和 CI/CD 编排。增速 80% YoY，已盈利，估值未公开但对标 Cortex/Port 等同类产品。
+
+**工程文化信号：**
+JD 语言显示工程师文化：强调"reduce time-to-production from days to hours"（实用导向），"work with product teams"（非孤岛），"SLOs for platform services"（SRE 成熟度）。Kubernetes + Go 组合是典型 cloud-native 优先文化。
+
+**人脉切入点：**
+平台工程领域活跃社区：PlatformCon（年度大会）、CNCF Slack #platform-engineering 频道、Backstage 开源社区。可以先找 LinkedIn 上在 NovaDeploy 的 Principal/Staff 工程师，看是否有共同的会议发言或开源贡献经历。
+
+**一句话定位：**
+"帮工程团队把基础设施变成产品，让每个开发者都能自助上线。"
+
+---
+
+## Agent 3 输出：Outreach 草稿（LinkedIn 附言）
+
+Hi [Name],
+
+I came across your work at NovaDeploy while researching the IDP space — your post about golden paths adoption at scale resonated with something I've been thinking about in my own platform work.
+
+I've been building and scaling developer platforms for 12 years, most recently running Kubernetes infrastructure for a 600-engineer org. I'm particularly interested in how NovaDeploy approaches the "platform as product" model and the challenge of driving adoption without mandates.
+
+Would you be open to a brief chat? I'd love to hear how the team is thinking about the IDP roadmap for the next year — no agenda, just genuinely curious.
+
+Thanks,
+Austin
+
+---
+
+## Agent 4 输出：Pipeline 追踪记录
+
+| 公司 | 职位 | 来源 | 状态 | 下次行动 | 截止日期 | 匹配度 | 备注 |
+|------|------|------|------|---------|---------|-------|------|
+| NovaDeploy | Staff Platform Engineer | LinkedIn | outreach 已发 | 7 天无回复则 follow up | 2026-05-24 | 9/10 | GPU infra 差异化优势；Backstage 缺口可解释 |
