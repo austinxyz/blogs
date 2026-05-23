@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>财富知识库使用教程 · 零基础傻瓜式</title>
+  <style>
+    :root {
+      --primary: #1a6b4a;
+      --primary-light: #e8f5ee;
+      --accent: #f0a500;
+      --accent-light: #fff8e6;
+      --text: #1e2a22;
+      --text-muted: #5a6b60;
+      --border: #d1e0d7;
+      --bg: #f7faf8;
+      --white: #ffffff;
+      --code-bg: #f0f4f2;
+      --step-size: 44px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.8; font-size: 16px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, #0f4a31 100%);
+      color: white; padding: 56px 24px 48px; text-align: center;
+    }
+    .hero h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: 0.02em; margin-bottom: 12px; }
+    .hero .subtitle { font-size: 1.1rem; opacity: 0.85; max-width: 560px; margin: 0 auto 24px; }
+    .badge { display: inline-block; background: var(--accent); color: #1e2a22; font-size: 0.8rem; font-weight: 700; padding: 4px 14px; border-radius: 20px; letter-spacing: 0.05em; }
+
+    .container { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+
+    .toc { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px; margin: 36px auto; max-width: 820px; }
+    .toc h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+    .toc ol { padding-left: 20px; }
+    .toc li { margin: 6px 0; }
+    .toc a { color: var(--primary); text-decoration: none; font-weight: 500; }
+    .toc a:hover { text-decoration: underline; }
+
+    .section { background: var(--white); border-radius: 16px; padding: 36px 40px; margin: 24px auto; max-width: 820px; border: 1px solid var(--border); }
+
+    .step-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .step-num { width: var(--step-size); height: var(--step-size); min-width: var(--step-size); background: var(--primary); color: white; border-radius: 50%; font-size: 1.3rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .step-title { font-size: 1.4rem; font-weight: 700; color: var(--text); }
+
+    h2.section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; color: var(--primary); }
+    h3 { font-size: 1.05rem; font-weight: 700; margin: 22px 0 10px; color: var(--text); }
+    p { margin-bottom: 12px; }
+    ol, ul { padding-left: 22px; margin-bottom: 14px; }
+    li { margin: 6px 0; }
+
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.95rem; }
+    th { background: var(--primary-light); color: var(--primary); padding: 10px 14px; text-align: left; font-weight: 700; border-bottom: 2px solid var(--border); }
+    td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+
+    code.inline { background: var(--code-bg); padding: 2px 7px; border-radius: 4px; font-family: "SF Mono", Consolas, monospace; font-size: 0.88em; color: var(--primary); }
+
+    /* UI element labels — mimics the actual button look */
+    .ui { display: inline-block; background: #2a2a2a; color: #e0e0e0; padding: 2px 10px; border-radius: 5px; font-size: 0.85em; font-family: "SF Mono", Consolas, monospace; border: 1px solid #444; }
+
+    .callout { border-radius: 10px; padding: 14px 18px; margin: 16px 0; font-size: 0.95rem; }
+    .callout-tip { background: var(--accent-light); border-left: 4px solid var(--accent); }
+    .callout-warning { background: #fff3f3; border-left: 4px solid #e05555; }
+    .callout-info { background: var(--primary-light); border-left: 4px solid var(--primary); }
+
+    .btn-download { display: inline-flex; align-items: center; gap: 10px; background: var(--primary); color: white; text-decoration: none; padding: 14px 28px; border-radius: 10px; font-size: 1.05rem; font-weight: 700; margin: 16px 0; transition: background 0.2s, transform 0.1s; }
+    .btn-download:hover { background: #0f4a31; transform: translateY(-1px); }
+
+    .os-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+    .os-tab { padding: 6px 16px; border-radius: 6px; border: 1px solid var(--border); cursor: pointer; font-size: 0.9rem; font-weight: 600; background: white; color: var(--text-muted); font-family: inherit; transition: all 0.15s; }
+    .os-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .os-content { display: none; }
+    .os-content.active { display: block; }
+
+    /* Screenshot annotation box */
+    .screen-note { background: #1a1a1a; border-radius: 10px; padding: 16px 20px; margin: 16px 0; color: #ccc; font-size: 0.9rem; line-height: 1.7; }
+    .screen-note .loc { color: var(--accent); font-weight: 700; }
+    .screen-note .arrow { color: #888; margin: 0 4px; }
+
+    .prompt-card { border: 1px solid var(--border); border-radius: 12px; margin: 20px 0; overflow: hidden; }
+    .prompt-card-header { background: var(--primary-light); padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+    .prompt-card-title { font-weight: 700; color: var(--primary); font-size: 1rem; }
+    .copy-btn { background: var(--primary); color: white; border: none; border-radius: 6px; padding: 6px 14px; font-size: 0.83rem; font-weight: 600; cursor: pointer; transition: background 0.2s; font-family: inherit; }
+    .copy-btn:hover { background: #0f4a31; }
+    .copy-btn.copied { background: #27ae60; }
+    .prompt-body { background: var(--code-bg); padding: 18px 20px; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; font-size: 0.93rem; line-height: 1.9; white-space: pre-wrap; color: var(--text); }
+
+    .fill-card { border: 2px solid var(--accent); border-radius: 12px; margin: 20px 0; overflow: hidden; }
+    .fill-card-header { background: var(--accent-light); padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #f0d080; }
+    .fill-card-title { font-weight: 700; color: #8a5f00; font-size: 1rem; }
+
+    .faq-item { border-bottom: 1px solid var(--border); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { font-weight: 700; color: var(--primary); margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start; }
+    .faq-q::before { content: "Q"; background: var(--primary); color: white; border-radius: 4px; padding: 1px 7px; font-size: 0.8rem; flex-shrink: 0; margin-top: 2px; }
+    .faq-a { color: var(--text); padding-left: 30px; }
+
+    .checklist { list-style: none; padding: 0; }
+    .checklist li { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 1rem; cursor: pointer; }
+    .checklist li:last-child { border-bottom: none; }
+    .check-box { width: 22px; height: 22px; min-width: 22px; border: 2px solid var(--border); border-radius: 5px; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .checklist li:hover .check-box { border-color: var(--primary); }
+    .check-box.done { background: var(--primary); border-color: var(--primary); }
+    .check-box.done::after { content: "✓"; color: white; font-size: 0.85rem; font-weight: 700; }
+    .check-label { flex: 1; }
+    .checklist li.done-item .check-label { text-decoration: line-through; color: var(--text-muted); }
+
+    footer { text-align: center; padding: 36px 20px; color: var(--text-muted); font-size: 0.87rem; }
+    footer a { color: var(--primary); }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.6rem; }
+      .section { padding: 24px 20px; }
+      .step-title { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>财富知识库使用教程</h1>
+  <p class="subtitle">用 Claude Cowork 打造你的专属华人财务顾问，全程不需要任何编程知识</p>
+  <span class="badge">零基础 · 傻瓜式 · 中文全程</span>
+</div>
+
+<div class="container">
+
+  <div class="toc">
+    <h2>目录</h2>
+    <ol>
+      <li><a href="#step1">下载知识库</a></li>
+      <li><a href="#step2">解压文件</a></li>
+      <li><a href="#step3">安装 Claude 桌面 App</a></li>
+      <li><a href="#step4">在 Cowork 中创建项目</a></li>
+      <li><a href="#step5">填写你的个人信息</a></li>
+      <li><a href="#step6">开始提问（附现成 Prompt）</a></li>
+      <li><a href="#faq">常见问题</a></li>
+      <li><a href="#checklist">快速开始清单</a></li>
+    </ol>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="section" id="step1">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div class="step-title">下载知识库</div>
+    </div>
+    <p>点击下方按钮直接下载，<strong>不需要注册任何账号</strong>。</p>
+    <a class="btn-download" href="https://drive.google.com/uc?export=download&id=1YW_E34tfhR5Y5RrDZCVOUzNHMchauU7G">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      点击下载知识库 ZIP 文件
+    </a>
+    <p>浏览器会自动保存一个叫 <code class="inline">wealth-llm-wiki.zip</code> 的文件到你的「下载」文件夹。</p>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="section" id="step2">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div class="step-title">解压文件</div>
+    </div>
+    <div class="os-tabs">
+      <button class="os-tab active" onclick="switchOS(this,'win')">Windows</button>
+      <button class="os-tab" onclick="switchOS(this,'mac')">Mac</button>
+    </div>
+    <div class="os-content active" id="os-win">
+      <ol>
+        <li>打开「下载」文件夹</li>
+        <li>右键点击 <code class="inline">wealth-llm-wiki.zip</code></li>
+        <li>选择「<strong>解压到当前文件夹</strong>」或「全部解压缩」</li>
+        <li>解压后出现 <code class="inline">wealth-llm-wiki</code> 文件夹</li>
+      </ol>
+    </div>
+    <div class="os-content" id="os-mac">
+      <ol>
+        <li>打开「下载」文件夹</li>
+        <li>双击 <code class="inline">wealth-llm-wiki.zip</code>，Mac 会自动解压</li>
+        <li>出现 <code class="inline">wealth-llm-wiki</code> 文件夹</li>
+      </ol>
+    </div>
+    <div class="callout callout-tip">
+      💡 建议把 <code class="inline">wealth-llm-wiki</code> 文件夹移动到<strong>桌面</strong>，后续操作更方便。
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="section" id="step3">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div class="step-title">安装 Claude 桌面 App</div>
+    </div>
+    <p>Claude Cowork 是 Claude 桌面 App 的核心功能，需要先安装桌面版才能使用。</p>
+    <div class="os-tabs">
+      <button class="os-tab active" onclick="switchOS(this,'install-win')">Windows</button>
+      <button class="os-tab" onclick="switchOS(this,'install-mac')">Mac</button>
+    </div>
+    <div class="os-content active" id="os-install-win">
+      <ol>
+        <li>打开浏览器，访问 <a href="https://claude.ai/download" target="_blank" style="color:var(--primary);font-weight:700;">claude.ai/download</a></li>
+        <li>下载 Windows 版安装包（<code class="inline">.exe</code> 文件）</li>
+        <li>双击安装包，按提示完成安装</li>
+        <li>启动 App，用你的 claude.ai 账号登录</li>
+      </ol>
+    </div>
+    <div class="os-content" id="os-install-mac">
+      <ol>
+        <li>打开浏览器，访问 <a href="https://claude.ai/download" target="_blank" style="color:var(--primary);font-weight:700;">claude.ai/download</a></li>
+        <li>下载 Mac 版（<code class="inline">.dmg</code> 文件）</li>
+        <li>双击 <code class="inline">.dmg</code>，把 Claude 拖入「应用程序」文件夹</li>
+        <li>启动 App，用你的 claude.ai 账号登录</li>
+      </ol>
+    </div>
+    <div class="callout callout-info">
+      💡 没有 claude.ai 账号？访问 <strong>claude.ai</strong> 免费注册，只需要邮箱即可。
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="section" id="step4">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div class="step-title">在 Cowork 中创建项目</div>
+    </div>
+    <p>打开 Claude 桌面 App 后，按以下步骤切换到 Cowork 并创建你的财务顾问项目。</p>
+
+    <h3>① 切换到 Cowork 标签</h3>
+    <div class="screen-note">
+      在 App 顶部找到三个标签：<span class="loc">Chat</span> <span class="arrow">|</span> <span class="loc">Cowork</span> <span class="arrow">|</span> <span class="loc">Code</span><br>
+      点击中间的 <span class="loc">Cowork</span>
+    </div>
+
+    <h3>② 选「Use an existing folder」</h3>
+    <div class="screen-note">
+      在左侧栏点击 <span class="loc">Projects</span> → 点击「<span class="loc">+ New project</span>」<br><br>
+      弹出窗口有三个选项，<strong style="color:var(--accent)">选最下面的「Use an existing folder」</strong>
+    </div>
+
+    <h3>③ 填写三项信息，点 Create</h3>
+    <div class="screen-note">
+      <strong>① Choose folder</strong>：点文件夹图标 → 选桌面上的 <span class="loc">wealth-llm-wiki</span> 文件夹<br><br>
+      <strong>② Name</strong>：填入 <span class="loc">我的财务顾问</span><br><br>
+      <strong>③ Instructions</strong>：把下面这段话复制粘贴进去 ↓
+    </div>
+
+    <div class="fill-card" style="margin:0 0 16px;">
+      <div class="fill-card-header">
+        <span class="fill-card-title">📌 Instructions 内容（复制粘贴到表单）</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+      </div>
+      <div class="prompt-body">你是一位专业的华人理财顾问。
+这个项目包含一个财务知识库（wiki/ 文件夹）和我的个人财务信息（output/ 文件夹）。
+请始终用中文回答，语言通俗易懂。
+回答问题时，请结合 wiki/ 中的知识库内容和 output/ 中我的个人信息，给出个性化的建议。
+所有建议仅供参考，重大决策请咨询持牌财务顾问（CFP）。</div>
+    </div>
+
+    <div class="screen-note">
+      填好后点右下角 <span class="loc">Create</span> 按钮
+    </div>
+
+    <h3>④ 项目创建成功 — 直接开始输入！</h3>
+    <div class="screen-note">
+      Create 完成后，界面变成项目工作区：<br><br>
+      &nbsp;&nbsp;• 右侧面板显示 <span class="loc">Instructions</span>（你填的内容）和 <span class="loc">Context → wealth-llm-wiki</span> 文件夹<br>
+      &nbsp;&nbsp;• 中间输入框提示「What would you like to work on in this project?」<br>
+      &nbsp;&nbsp;• 底部已显示 <span class="loc">我的财务...</span>，说明项目已关联 ✓<br><br>
+      <strong style="color:var(--accent)">不需要任何额外操作，直接把下面的 Prompt 粘贴进去发送就行！</strong>
+    </div>
+
+    <div class="callout callout-tip">
+      💡 以后每次使用：点顶部 <span class="ui">Cowork</span> → 左侧 <span class="ui">Projects</span> → 选「<span class="ui">我的财务顾问</span>」→ 直接开始提问，不需要重复设置。
+    </div>
+  </div>
+
+  <!-- Step 5 -->
+  <div class="section" id="step5">
+    <div class="step-header">
+      <div class="step-num">5</div>
+      <div class="step-title">填写你的个人信息</div>
+    </div>
+    <p>不需要手动编辑任何文件！把下面的 Prompt 复制粘贴到 Cowork 对话框，Claude 会<strong>逐一问你问题</strong>，然后自动把你的回答保存到 <code class="inline">output/</code> 文件夹。</p>
+    <p>按顺序完成下面 4 个 Prompt，每个大约需要 5 分钟。</p>
+
+    <div class="callout callout-info">
+      📁 你的个人信息保存在 <code class="inline">wealth-llm-wiki/output/</code> 文件夹里，<strong>只存在你自己的电脑上</strong>，不会上传或分享给任何人。
+    </div>
+
+    <div class="fill-card">
+      <div class="fill-card-header">
+        <span class="fill-card-title">📋 第一步：填写基本信息</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+      </div>
+      <div class="prompt-body">请帮我填写个人基本信息，步骤如下：
+1. 读取 templates/基本信息.md 文件，了解需要收集哪些信息
+2. 用中文逐一问我每个问题，一次只问一个，等我回答后再问下一个
+3. 所有问题回答完毕后，将我的信息整理好，保存到 output/基本信息.md
+4. 如果 output 文件夹不存在，请先创建它
+5. 保存完成后告诉我"基本信息已保存 ✓"</div>
+    </div>
+
+    <div class="fill-card">
+      <div class="fill-card-header">
+        <span class="fill-card-title">💰 第二步：填写收入与税务</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+      </div>
+      <div class="prompt-body">请帮我填写收入与税务信息，步骤如下：
+1. 读取 templates/收入与税务.md 文件，了解需要收集哪些信息
+2. 用中文逐一问我每个问题，一次只问一个，等我回答后再问下一个
+3. 不确定的数字可以填大概范围，我会说"大约"或"不清楚"
+4. 所有问题回答完毕后，将我的信息整理好，保存到 output/收入与税务.md
+5. 保存完成后告诉我"收入与税务信息已保存 ✓"</div>
+    </div>
+
+    <div class="fill-card">
+      <div class="fill-card-header">
+        <span class="fill-card-title">🏦 第三步：填写账户与资产</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+      </div>
+      <div class="prompt-body">请帮我填写账户与资产信息，步骤如下：
+1. 读取 templates/账户与资产.md 文件，了解需要收集哪些信息
+2. 用中文逐一问我每个问题，一次只问一个，等我回答后再问下一个
+3. 金额不需要精确，填大概范围就行（比如"约50万美元"）
+4. 所有问题回答完毕后，将我的信息整理好，保存到 output/账户与资产.md
+5. 保存完成后告诉我"账户与资产信息已保存 ✓"</div>
+    </div>
+
+    <div class="fill-card">
+      <div class="fill-card-header">
+        <span class="fill-card-title">🎯 第四步：填写财务目标</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+      </div>
+      <div class="prompt-body">请帮我填写财务目标，步骤如下：
+1. 读取 templates/财务目标.md 文件，了解需要收集哪些信息
+2. 用中文逐一问我每个问题，一次只问一个，等我回答后再问下一个
+3. 没想好的目标可以跳过，直接说"跳过"即可
+4. 所有问题回答完毕后，将我的信息整理好，保存到 output/财务目标.md
+5. 保存完成后告诉我"财务目标已保存 ✓"，并给我一个简短的信息摘要</div>
+    </div>
+
+    <div class="callout callout-tip">
+      ✅ 四个文件都保存好后，你就可以开始向 Claude 提问财务建议了！
+    </div>
+  </div>
+
+  <!-- Step 6 -->
+  <div class="section" id="step6">
+    <div class="step-header">
+      <div class="step-num">6</div>
+      <div class="step-title">开始提问</div>
+    </div>
+    <p>进入「我的财务顾问」项目后，把下面的 Prompt <strong>直接复制粘贴</strong>到输入框发送。Claude 会自动读取 <code class="inline">output/</code> 里你的信息和 <code class="inline">wiki/</code> 知识库，给出个性化建议。</p>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-title">🏥 全面财务体检报告（推荐第一次用这个）</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+      </div>
+      <div class="prompt-body">请读取 output/ 文件夹中我的所有个人信息文件，
+结合 wiki/ 知识库，扮演一位经验丰富的华人理财顾问，
+给我做一份完整的财务体检报告：
+
+1. 💰 资产状况评估（现在的情况怎么样）
+2. 📈 退休储蓄进度（距离目标还差多远）
+3. ⚠️ 需要立即解决的风险（最紧迫的 2-3 件事）
+4. 🎯 未来 12 个月最重要的 3 件财务大事
+5. 🔮 如果保持现状，10 年后的财务展望
+
+请用中文，通俗易懂，像朋友聊天一样。
+完成后将完整报告保存到 output/报告-财务体检.md。</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-title">💡 基础退休规划诊断</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+      </div>
+      <div class="prompt-body">请读取 output/ 中我的个人信息，结合 wiki/ 知识库，给我做退休规划评估。
+
+重点告诉我：
+1. 按我目前的储蓄速度，我能在目标年龄退休吗？
+2. 我的退休账户（401k、IRA）用得够充分吗？
+3. 有哪些我可能忽视的税务优化机会？
+4. 最重要的一个行动建议是什么？
+
+请用中文，语言通俗易懂。
+完成后将完整报告保存到 output/报告-退休规划诊断.md。</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-title">⏰ 我能提前退休吗？（FIRE 分析）</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+      </div>
+      <div class="prompt-body">请读取 output/ 中我的个人信息，结合 wiki/ 中关于 FIRE 和退休规划的内容，分析：
+
+1. 我现在的财务状况离"财务独立"还差多远？
+2. 如果我想提前 5 年退休，需要做哪些调整？
+3. 4% 提款规则对我适用吗？我的资产需要达到多少？
+
+请给出具体数字和可执行的步骤，用中文回答。
+完成后将完整报告保存到 output/报告-FIRE提前退休分析.md。</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-title">🏦 退休账户优化（401k / IRA / HSA）</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+      </div>
+      <div class="prompt-body">请读取 output/ 中我的个人信息，结合 wiki/ 知识库，告诉我：
+
+1. 我的 401k 应该选传统型还是 Roth 型？
+2. 我是否应该开 IRA？Backdoor Roth IRA 适合我吗？
+3. HSA 账户对我有用吗？
+4. 这些账户 2025 年的存款上限分别是多少？
+
+用中文，列点说明。
+完成后将完整报告保存到 output/报告-退休账户优化.md。</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-title">📊 退休后的税务规划</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+      </div>
+      <div class="prompt-body">请读取 output/ 中我的个人信息，结合 wiki/ 知识库，分析退休税务策略：
+
+1. 退休后我的有效税率大概是多少？
+2. Social Security 什么时候领最合算（62岁 vs 67岁 vs 70岁）？
+3. Required Minimum Distribution（RMD）会对我有什么影响？
+4. 如何在退休前合理做 Roth 转换，减少未来税务负担？
+
+请用中文，给出清晰的策略建议。
+完成后将完整报告保存到 output/报告-退休税务规划.md。</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-title">🌏 中美跨境退休规划</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+      </div>
+      <div class="prompt-body">请读取 output/ 中我的个人信息，结合 wiki/ 中关于中美税务和跨境资产的内容，分析：
+
+1. 如果我退休后想在中美两地生活，有什么财务注意事项？
+2. 我在国内的资产（如有）如何处理最合理？
+3. 双重征税的风险如何规避？
+4. 美国退休账户（401k/IRA）的钱汇回中国要交哪些税？
+
+请用中文回答。
+完成后将完整报告保存到 output/报告-中美跨境退休规划.md。</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-title">🎓 子女教育 + 退休双目标平衡</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+      </div>
+      <div class="prompt-body">请读取 output/ 中我的个人信息，结合 wiki/ 知识库，告诉我如何平衡教育和退休储蓄：
+
+1. 529 教育账户我应该每月存多少？
+2. 退休储蓄和教育储蓄的优先级怎么排？
+3. 有没有两全其美的账户策略？
+
+请给出具体建议，用中文。
+完成后将完整报告保存到 output/报告-教育与退休储蓄平衡.md。</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-title">🛡️ 保险需求评估</span>
+        <button class="copy-btn" onclick="copyPrompt(this)">复制</button>
+      </div>
+      <div class="prompt-body">请读取 output/ 中我的个人信息，结合 wiki/ 知识库，评估我的保险需求：
+
+1. 我的人寿保险是否足够？需要多少保额？
+2. 残疾保险（Disability Insurance）我需要吗？
+3. 长期护理保险（Long-term Care Insurance）什么时候买最合适？
+4. 这些保险每月大概要花多少钱？
+
+请用中文，给出适合我情况的具体建议。
+完成后将完整报告保存到 output/报告-保险需求评估.md。</div>
+    </div>
+
+  </div>
+
+  <!-- FAQ -->
+  <div class="section" id="faq">
+    <h2 class="section-title">❓ 常见问题</h2>
+    <div class="faq-item">
+      <div class="faq-q">我的财务信息安全吗？</div>
+      <div class="faq-a">非常安全。你的个人信息保存在本地电脑的 <code class="inline">output/</code> 文件夹，不会同步或上传到任何服务器。建议填金额范围（如「约 50 万美元」），不要填账号密码。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">某些问题不知道答案怎么办？</div>
+      <div class="faq-a">直接说「不清楚」或「跳过」，Claude 会跳到下一个问题。填大概范围也完全没问题。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">以后信息变了怎么更新？</div>
+      <div class="faq-a">直接告诉 Claude「请更新 output/基本信息.md 中的 XX 字段为 XX」，或者重新运行对应的填写 Prompt，它会覆盖旧文件。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">知识库内容会更新吗？</div>
+      <div class="faq-a">会。重新下载新版 zip，解压后把 <code class="inline">wiki/</code> 文件夹替换掉即可，<code class="inline">output/</code> 里你的个人信息不受影响。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Claude 给的建议可以直接执行吗？</div>
+      <div class="faq-a">Claude 提供的是教育性参考信息，日常学习和了解很有帮助。涉及大额资金操作、退休时间等重大决策，建议咨询持牌财务顾问（CFP）后再行动。</div>
+    </div>
+  </div>
+
+  <!-- Checklist -->
+  <div class="section" id="checklist">
+    <h2 class="section-title">✅ 快速开始清单</h2>
+    <p style="margin-bottom:16px;">全程大约 <strong>20-30 分钟</strong>，跟着勾选就行。</p>
+    <ul class="checklist">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">下载 ZIP 文件并解压到桌面</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">安装 Claude 桌面 App 并登录账号</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">点击顶部 <span class="ui">Cowork</span> → 左侧 <span class="ui">Projects</span> → <span class="ui">New project</span> → 选「Use an existing folder」</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">选 <code class="inline">wealth-llm-wiki</code> 文件夹，Name 填「我的财务顾问」，粘贴 Instructions，点 Create</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">在项目输入框中依次粘贴 4 个填写 Prompt，完成个人信息收集</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">进入「我的财务顾问」，复制「全面财务体检报告」Prompt，直接发送，开始财务分析！🎉</span></li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  知识库来源：<a href="https://github.com/austinxyz/wealth-llm-wiki" target="_blank">wealth-llm-wiki</a> &nbsp;|&nbsp;
+  仅供教育参考，不构成投资建议 &nbsp;|&nbsp;
+  重大财务决策请咨询持牌财务顾问（CFP）
+</footer>
+
+<script>
+  function switchOS(btn, id) {
+    const section = btn.closest('.section') || document;
+    section.querySelectorAll('.os-tab').forEach(t => t.classList.remove('active'));
+    section.querySelectorAll('.os-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    const el = document.getElementById('os-' + id);
+    if (el) el.classList.add('active');
+  }
+  function copyPrompt(btn) {
+    const card = btn.closest('.prompt-card') || btn.closest('.fill-card');
+    const text = card.querySelector('.prompt-body').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '已复制 ✓';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = '复制'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  function toggleCheck(li) {
+    li.querySelector('.check-box').classList.toggle('done');
+    li.classList.toggle('done-item');
+  }
+</script>
+</body>
+</html>
