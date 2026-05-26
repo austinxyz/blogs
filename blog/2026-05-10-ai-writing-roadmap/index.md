@@ -76,6 +76,7 @@ The reason this track exists at all is that I find most AI infrastructure writin
 | [Agile Development in AI Coding](/blog/2026/03/09/agile-development-in-ai-coding) | How sprint, story, and review practices have to bend |
 | [Stacking OpenSpec and Superpowers](/blog/openspec-superpowers-combined) | A combined SDD workflow that shipped a real refactor in 3 hours with 86 new tests |
 | [Stacking OpenSpec and Superpowers, Three Weeks Later](/blog/openspec-superpowers-three-weeks-later) | Five friction points from running the stack across multiple projects, and the plugin that packages the evolved workflow |
+| [Stacking OpenSpec and Superpowers, Then I Added a Harness](/blog/openspec-superpowers-harness) | An independent evaluator subagent spawns per group — fresh context, explicit contract, structured scoring. The workflow now knows what "done" means without asking me. |
 
 ### Coming next
 
