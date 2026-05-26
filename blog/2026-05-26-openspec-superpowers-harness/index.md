@@ -128,6 +128,22 @@ Human-in-the-loop became: define what done means up front, verify it happened at
 
 ---
 
+## Agile, One Level Deeper
+
+The [previous post](https://austinxyz.github.io/blogs/blog/openspec-superpowers-three-weeks-later) mapped the four commands to Agile principles — explore is planning, propose is working software as the measure of progress, apply is TDD, archive is retrospection. Those mappings still hold. The harness evolution didn't change the commands. It changed what happens *inside* apply.
+
+Three Agile principles got sharper.
+
+**Definition of Done.** Agile teams write acceptance criteria before a sprint starts. In practice, acceptance criteria live in tickets, tickets live in Jira, Jira is not what Claude reads. The contract file that `N.0 CONTRACT` writes before implementation starts is the acceptance criteria in a form the evaluator can actually use. Done is no longer "the tests are green" — it's "the evaluator scored above threshold against this specific contract." That's a materially different bar.
+
+**Small iterations.** The original apply flow ran TDD per task, but the feedback loop closed at the end: one code review for the whole group, one human decision. The harness loop closes per group, automatically. Each group is a mini sprint: define, implement, evaluate, retry if needed, advance. The iteration is small not because I planned it that way, but because the evaluator fires at the group boundary and won't let the group advance until the score passes. The discipline is structural.
+
+**Retrospective.** The eval-log is the retrospective record. After eight groups, I can read exactly which groups needed retries, what the evaluator found, what FIX tasks it generated, and what score finally passed. The `archive` phase reads eval-log to surface CLAUDE.md pitfall candidates — groups with more than one attempt are automatic candidates. That's the Agile retrospective pattern: what went wrong, what do we carry forward. The difference is that the eval-log writes itself as the work happens, not from memory after the sprint ends.
+
+The pattern in the previous post was: *baked into the workflow itself, so the discipline runs whether or not I remember to invoke it.* The harness takes that one step further: the discipline runs, and the evidence that it ran is preserved. Not in conversation memory. In a file.
+
+---
+
 ## Status and Next
 
 The harness validation changes live on the `feat/harness-validation` branch of [opsx-superpowers](https://github.com/austinxyz/opsx-superpowers/tree/feat/harness-validation). The branch is active — I'm running apply on it now, not reporting from a finished result.
