@@ -5,6 +5,7 @@ authors: [austin]
 tags: [ai, spec-driven-development, claude-code, harness, team, methodology]
 description: "OpenSpec + Harness works for one engineer. Adding teammates breaks it differently. Here's what changed and how we restructured around it."
 slug: openspec-harness-team-workflow
+image: ./images/cover.jpg
 ---
 
 In [*From Cloud Native Apps to AI Native Agent Platforms: The Belts Are the Problem*](https://austinxyz.github.io/blogs/blog/cloud-native-to-ai-native-app-platform), I used the factory electrification story to make an argument about AI platform adoption: factory owners in the 1890s replaced steam engines with electric motors and kept the same belts, shafts, and building layouts. For thirty years, productivity barely moved. The breakthrough came when they reorganized the factory around the new technology — workflow-first, not power-transmission-first.
