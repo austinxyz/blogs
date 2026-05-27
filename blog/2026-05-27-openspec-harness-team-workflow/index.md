@@ -43,29 +43,7 @@ Each of these is manageable. None of them is solved by the individual workflow a
 
 The design I landed on uses two tracks based on feature scope.
 
-```mermaid
-flowchart TD
-    Start([🚀 New Topic]) --> Size{Small or Large?}
-
-    Size -->|"≤2 days · single module\nno arch impact"| Small[📝 feat/topic branch]
-    Size -->|"≥3 days OR arch\nOR cross-module"| Large[📋 spec/topic branch]
-
-    Small --> SmallPR[🔄 Open draft PR]
-    SmallPR --> Apply1[⚙️ Apply — TDD + Eval]
-    Apply1 --> Arch1[📦 Archive on branch]
-    Arch1 --> Ready[✅ PR ready for review]
-    Ready --> Merge1([🎯 Merge → Achieve])
-
-    Large --> PR1[👥 PR1 Spec Review]
-    PR1 --> Spec{Spec approved?}
-    Spec -->|No| Revise[✏️ Revise spec]
-    Revise --> PR1
-    Spec -->|Yes| FeatBranch[📝 feat/topic from main]
-    FeatBranch --> Apply2[⚙️ Apply — TDD + Eval]
-    Apply2 --> Arch2[📦 Archive on branch]
-    Arch2 --> PR2[👥 PR2 Impl Review]
-    PR2 --> Merge2([🎯 Merge → Achieve])
-```
+![Two-track branch model — small feature uses feat/ branch with single PR; large feature uses spec/ branch for spec review then feat/ branch for implementation](./images/branch-model.png)
 
 The split exists because spec review and code review are different activities at different stakes. Spec review is high-stakes: if the requirements are wrong, apply produces the wrong thing correctly. Code review after a harness-validated apply is different: CI is green, all evals passed, no unresolved CRITICAL or HIGH findings. The job at PR2 is to verify that Claude implemented the spec's intent — not to re-run quality checks the harness already ran.
 
@@ -121,34 +99,7 @@ If B depends on A's interface: A's spec PR must merge before B enters apply. Not
 
 Apply finishing is not achievement. The harness tells you the code is right. Achieve tells you the feature is shippable.
 
-```mermaid
-flowchart TD
-    Start([⚙️ Apply complete]) --> L1{🧑‍💻 Layer 1\nLocal Gate}
-
-    L1 -->|"tasks ☑ · evals ≥ threshold\nno CRITICAL/HIGH · archive done"| L2{🤖 Layer 2\nCI Gate}
-    L1 -->|Fail| Fix1[🔧 Fix & re-eval]
-    Fix1 --> L1
-
-    L2 -->|"unit ✅ · integration ✅\nE2E ✅"| L3{👥 Layer 3\nPR Gate}
-    L2 -->|Fail| Fix2[🔧 Paste log → Claude fixes\nengineer reviews diff → push]
-    Fix2 --> L2
-
-    L3 -->|"≥1 approval\nCI green · no open comments"| L4{📦 Layer 4\nArchive Gate}
-    L3 -->|Fail| Fix3[📝 Address review comments]
-    Fix3 --> L3
-
-    L4 -->|"spec.md updated · pitfalls.md written\nREADME updated if new capability"| Achieve([🎯 Achieve])
-    L4 -->|Incomplete| Fix4[📦 Complete archive steps]
-    Fix4 --> L4
-
-    classDef startEnd fill:#E6E6FA,stroke:#333,stroke-width:2px,color:darkblue
-    classDef decision fill:#FFD700,stroke:#333,stroke-width:2px,color:black
-    classDef fix fill:#FFB6C1,stroke:#DC143C,stroke-width:2px,color:black
-
-    class Start,Achieve startEnd
-    class L1,L2,L3,L4 decision
-    class Fix1,Fix2,Fix3,Fix4 fix
-```
+![Four-layer achieve gate — Local, CI, PR, and Archive gates in sequence; red fix loops on failure at each layer](./images/achieve-gate.png)
 
 The integration tests live in CI by design. Local dev environments typically lack the full service stack — external APIs, multi-container orchestration, seeded database state. Running integration tests locally requires environment parity that isn't worth maintaining. CI has the full environment. That's the explicit trade-off.
 
@@ -173,25 +124,7 @@ This keeps the integration testable locally, consistent across dev and CI, and r
 
 ### JIRA Status Mapping
 
-```mermaid
-flowchart LR
-    E([🔍 Exploring]) -->|opsx propose| P([📋 Proposing])
-    P -->|PR1 opened\nlarge track only| SR([👥 Spec Review])
-    SR -->|spec merged| AP
-    P -->|opsx apply\nsmall track| AP([⚙️ Applying])
-    AP -->|PR opened| IR([🔄 In Review])
-    IR -->|DoD pass\nopsx archive| Done([✅ Done])
-    IR -->|DoD fail| Blocked([🚫 Blocked])
-    Blocked -->|fix & re-archive| IR
-
-    classDef phase fill:#90EE90,stroke:#333,stroke-width:2px,color:darkgreen
-    classDef done fill:#E6E6FA,stroke:#333,stroke-width:2px,color:darkblue
-    classDef blocked fill:#FFB6C1,stroke:#DC143C,stroke-width:2px,color:black
-
-    class E,P,SR,AP,IR phase
-    class Done done
-    class Blocked blocked
-```
+![JIRA status flow — Exploring through Proposing, Spec Review, Applying, In Review to Done; Blocked on DoD failure with re-archive loop](./images/jira-flow.png)
 
 `jira_key` is optional in `.meta.yaml`. If absent, all hooks skip silently. This supports both directions: PM creates a ticket first, or engineer starts an explore and links a ticket later.
 
