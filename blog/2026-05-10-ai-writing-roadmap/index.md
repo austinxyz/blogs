@@ -77,12 +77,7 @@ The reason this track exists at all is that I find most AI infrastructure writin
 | [Stacking OpenSpec and Superpowers](/blog/openspec-superpowers-combined) | A combined SDD workflow that shipped a real refactor in 3 hours with 86 new tests |
 | [Stacking OpenSpec and Superpowers, Three Weeks Later](/blog/openspec-superpowers-three-weeks-later) | Five friction points from running the stack across multiple projects, and the plugin that packages the evolved workflow |
 | [Stacking OpenSpec and Superpowers, Then I Added a Harness](/blog/openspec-superpowers-harness) | An independent evaluator subagent spawns per group — fresh context, explicit contract, structured scoring. The workflow now knows what "done" means without asking me. |
-
-### Coming next
-
-| Post | Why it matters |
-|------|----------------|
-| SDD at Team Scale | Everything published so far covers an individual contributor's workflow. The team-scale version — shared specs, review handoffs, drift across people — is where SDD either works or doesn't. |
+| [OpenSpec + Harness, Then We Added Engineers](/blog/openspec-harness-team-workflow) | What breaks when individual AI acceleration hits the team — branch model, parallel conflict detection, four-layer achieve gate, and JIRA integration that enforces DoD automatically. |
 
 This track is reported, not researched. Every post in it describes work I actually shipped using the tool described, with the rework rate, defect rate, and time-to-merge attached. That's the reading promise: no methodology I haven't run myself.
 
