@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session 2 课前准备 · 零基础傻瓜式</title>
+  <style>
+    :root {
+      --primary: #1a6b4a;
+      --primary-light: #e8f5ee;
+      --accent: #f0a500;
+      --accent-light: #fff8e6;
+      --text: #1e2a22;
+      --text-muted: #5a6b60;
+      --border: #d1e0d7;
+      --bg: #f7faf8;
+      --white: #ffffff;
+      --code-bg: #f0f4f2;
+      --step-size: 44px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.8; font-size: 16px;
+    }
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, #0f4a31 100%);
+      color: white; padding: 56px 24px 48px; text-align: center;
+    }
+    .hero h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: 0.02em; margin-bottom: 12px; }
+    .hero .subtitle { font-size: 1.1rem; opacity: 0.85; max-width: 580px; margin: 0 auto 24px; }
+    .badge { display: inline-block; background: var(--accent); color: #1e2a22; font-size: 0.8rem; font-weight: 700; padding: 4px 14px; border-radius: 20px; letter-spacing: 0.05em; }
+    .container { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+    .toc { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px; margin: 36px auto; max-width: 820px; }
+    .toc h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+    .toc ol { padding-left: 20px; }
+    .toc li { margin: 6px 0; }
+    .toc a { color: var(--primary); text-decoration: none; font-weight: 500; }
+    .toc a:hover { text-decoration: underline; }
+    .section { background: var(--white); border-radius: 16px; padding: 36px 40px; margin: 24px auto; max-width: 820px; border: 1px solid var(--border); }
+    .step-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .step-num { width: var(--step-size); height: var(--step-size); min-width: var(--step-size); background: var(--primary); color: white; border-radius: 50%; font-size: 1.3rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .step-title { font-size: 1.4rem; font-weight: 700; color: var(--text); }
+    h2.section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; color: var(--primary); }
+    h3 { font-size: 1.05rem; font-weight: 700; margin: 22px 0 10px; color: var(--text); }
+    p { margin-bottom: 12px; }
+    ol, ul { padding-left: 22px; margin-bottom: 14px; }
+    li { margin: 6px 0; }
+    code.inline { background: var(--code-bg); padding: 2px 7px; border-radius: 4px; font-family: "SF Mono", Consolas, monospace; font-size: 0.88em; color: var(--primary); }
+    .ui { display: inline-block; background: #2a2a2a; color: #e0e0e0; padding: 2px 10px; border-radius: 5px; font-size: 0.85em; font-family: "SF Mono", Consolas, monospace; border: 1px solid #444; }
+    .callout { border-radius: 10px; padding: 14px 18px; margin: 16px 0; font-size: 0.95rem; }
+    .callout-tip { background: var(--accent-light); border-left: 4px solid var(--accent); }
+    .callout-warning { background: #fff3f3; border-left: 4px solid #e05555; }
+    .callout-info { background: var(--primary-light); border-left: 4px solid var(--primary); }
+    .btn-download { display: inline-flex; align-items: center; gap: 10px; background: var(--primary); color: white; text-decoration: none; padding: 14px 28px; border-radius: 10px; font-size: 1.05rem; font-weight: 700; margin: 16px 0; transition: background 0.2s, transform 0.1s; }
+    .btn-download:hover { background: #0f4a31; transform: translateY(-1px); }
+    .os-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+    .os-tab { padding: 6px 16px; border-radius: 6px; border: 1px solid var(--border); cursor: pointer; font-size: 0.9rem; font-weight: 600; background: white; color: var(--text-muted); font-family: inherit; transition: all 0.15s; }
+    .os-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .os-content { display: none; }
+    .os-content.active { display: block; }
+    .screen-note { background: #1a1a1a; border-radius: 10px; padding: 16px 20px; margin: 16px 0; color: #ccc; font-size: 0.9rem; line-height: 1.7; }
+    .screen-note .loc { color: var(--accent); font-weight: 700; }
+    .screen-note .arrow { color: #888; margin: 0 4px; }
+    .cmd-card { border: 1px solid var(--border); border-radius: 12px; margin: 14px 0; overflow: hidden; }
+    .cmd-card-header { background: #1a1a1a; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .cmd-card-title { font-weight: 700; color: #e0e0e0; font-size: 0.9rem; }
+    .copy-btn { background: var(--primary); color: white; border: none; border-radius: 6px; padding: 6px 14px; font-size: 0.83rem; font-weight: 600; cursor: pointer; transition: background 0.2s; font-family: inherit; }
+    .copy-btn:hover { background: #0f4a31; }
+    .copy-btn.copied { background: #27ae60; }
+    .cmd-body { background: #0d0d0d; padding: 16px 20px; font-family: "SF Mono", Consolas, monospace; font-size: 0.95rem; line-height: 1.7; white-space: pre-wrap; color: #6ee7a8; }
+    .checklist { list-style: none; padding: 0; }
+    .checklist li { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 1rem; cursor: pointer; }
+    .checklist li:last-child { border-bottom: none; }
+    .check-box { width: 22px; height: 22px; min-width: 22px; border: 2px solid var(--border); border-radius: 5px; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .checklist li:hover .check-box { border-color: var(--primary); }
+    .check-box.done { background: var(--primary); border-color: var(--primary); }
+    .check-box.done::after { content: "✓"; color: white; font-size: 0.85rem; font-weight: 700; }
+    .check-label { flex: 1; }
+    .checklist li.done-item .check-label { text-decoration: line-through; color: var(--text-muted); }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { font-weight: 700; color: var(--primary); margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start; }
+    .faq-q::before { content: "Q"; background: var(--primary); color: white; border-radius: 4px; padding: 1px 7px; font-size: 0.8rem; flex-shrink: 0; margin-top: 2px; }
+    .faq-a { color: var(--text); padding-left: 30px; }
+    .opt-tag { display:inline-block; background: var(--accent-light); color:#8a5f00; font-size:0.75rem; font-weight:700; padding:2px 10px; border-radius:12px; margin-left:8px; }
+    footer { text-align: center; padding: 36px 20px; color: var(--text-muted); font-size: 0.87rem; }
+    footer a { color: var(--primary); }
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.6rem; }
+      .section { padding: 24px 20px; }
+      .step-title { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Session 2 课前准备</h1>
+  <p class="subtitle">装好两个软件，课上就能跟着一起做。全程不用写代码、不用懂技术，照着复制粘贴即可。</p>
+  <span class="badge">零基础 · 傻瓜式 · 中文全程</span>
+</div>
+
+<div class="container">
+
+  <div class="toc">
+    <h2>目录</h2>
+    <ol>
+      <li><a href="#step1">必做① 安装 Claude Code</a></li>
+      <li><a href="#step2">必做② 安装 Obsidian</a></li>
+      <li><a href="#step3">用 Obsidian 打开我的财富知识库（预习重点）</a></li>
+      <li><a href="#step4">选做 VS Code / GitHub</a></li>
+      <li><a href="#faq">常见问题</a></li>
+      <li><a href="#checklist">课前自检清单</a></li>
+    </ol>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="section" id="step1">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div class="step-title">安装 Claude Code</div>
+    </div>
+    <p>Claude Code 是在“终端”里用的 AI 助手，能直接帮你读写电脑上的文件。选你的系统，把命令<strong>复制</strong>到终端里运行即可——<strong>不需要先装 Node.js</strong>，这条命令会自动搞定一切。</p>
+
+    <div class="os-tabs">
+      <button class="os-tab active" onclick="switchOS(this,'cc-win')">Windows</button>
+      <button class="os-tab" onclick="switchOS(this,'cc-mac')">Mac</button>
+    </div>
+
+    <div class="os-content active" id="os-cc-win">
+      <p>开始菜单搜索 <span class="ui">PowerShell</span> 并打开，粘贴这行回车：</p>
+      <div class="cmd-card">
+        <div class="cmd-card-header"><span class="cmd-card-title">Windows · PowerShell</span><button class="copy-btn" onclick="copyCmd(this)">复制</button></div>
+        <div class="cmd-body">irm https://claude.ai/install.ps1 | iex</div>
+      </div>
+    </div>
+
+    <div class="os-content" id="os-cc-mac">
+      <p>按 <code class="inline">Command + 空格</code>，输入 <span class="ui">终端</span> 或 <span class="ui">Terminal</span> 打开，粘贴这行回车：</p>
+      <div class="cmd-card">
+        <div class="cmd-card-header"><span class="cmd-card-title">Mac · 终端</span><button class="copy-btn" onclick="copyCmd(this)">复制</button></div>
+        <div class="cmd-body">curl -fsSL https://claude.ai/install.sh | bash</div>
+      </div>
+    </div>
+
+    <h3>装完后（两个系统通用）</h3>
+    <ol>
+      <li>在同一个窗口输入 <code class="inline">claude</code> 回车 → 启动</li>
+      <li>第一次会让你登录，按提示用浏览器登录你的 Claude 账号</li>
+    </ol>
+    <div class="callout callout-warning">
+      ⚠️ 需要 <strong>Claude Pro（每月 $20）</strong>；已经是 Pro 就不用再付费。订阅：<a href="https://claude.ai/settings/billing" target="_blank" style="color:#c0392b;font-weight:700;">claude.ai/settings/billing</a>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="section" id="step2">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div class="step-title">安装 Obsidian</div>
+    </div>
+    <p>Obsidian 是一个<strong>免费</strong>的笔记软件，能把一堆文件变成“知识图谱”，看清条目之间的关联。课上我们用它来看知识库；现在先装好。</p>
+    <a class="btn-download" href="https://obsidian.md" target="_blank">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      打开 obsidian.md 下载
+    </a>
+    <p>点 <span class="ui">Download</span>，选你的系统（Windows / Mac）安装。免费版就够用，<strong>不用注册、不用付费</strong>。</p>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="section" id="step3">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div class="step-title">用 Obsidian 打开我的财富知识库</div>
+    </div>
+    <p>这是最关键的一招：<strong>用一个已经存在的文件夹建 vault</strong>。课上和现在预习，都是打开现成的文件夹，不是从空白开始。先拿我的财富知识库练一遍。</p>
+
+    <div class="callout callout-info">
+      💡 <strong>Vault（保险库）= 一个普通文件夹。</strong>Obsidian 只是换种方式打开文件夹来看里面的笔记，<strong>不会改动你的文件</strong>。
+    </div>
+
+    <h3>① 下载我的财富知识库</h3>
+    <a class="btn-download" href="https://drive.google.com/uc?export=download&id=1YW_E34tfhR5Y5RrDZCVOUzNHMchauU7G">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      点击下载财富知识库 ZIP
+    </a>
+    <p>下载后<strong>解压</strong>，得到一个文件夹（里面有 <code class="inline">wiki/</code>、<code class="inline">raw_material/</code> 等）。建议解压到<strong>桌面</strong>，方便找。</p>
+
+    <h3>② 用 Obsidian 打开这个文件夹</h3>
+    <div class="screen-note">
+      打开 Obsidian → 启动页点 <span class="loc">Open folder as vault</span><br>
+      （如果已经在某个 vault 里：点左下角 <span class="loc">vault 名字</span> <span class="arrow">→</span> <span class="loc">Manage vaults</span> <span class="arrow">→</span> <span class="loc">Open folder as vault</span>）<br><br>
+      选中刚解压出来的<strong style="color:var(--accent)">财富知识库文件夹</strong> → 打开
+    </div>
+    <p>左侧就会出现一篇篇 wiki 条目，点开任意一篇就能看。</p>
+
+    <h3>③ 打开 Graph View 看知识关联图（课上重点）</h3>
+    <div class="screen-note">
+      左侧工具栏点那个<span class="loc">“圆点连线”图标</span>（Open graph view）<br>
+      会看到所有笔记和它们之间的连线——这就是“跑了 20 篇之后”的完整知识库
+    </div>
+
+    <div class="callout callout-tip">
+      💡 课上你自己建的库，也是同样用 <strong>Open folder as vault</strong> 打开。会这一招就够了。
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="section" id="step4">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div class="step-title">VS Code / GitHub<span class="opt-tag">选做</span></div>
+    </div>
+    <p>这两个<strong>不是必须</strong>的——课上演示不依赖它们。对技术感兴趣、想把知识库管理得更专业，可以装。</p>
+
+    <h3>VS Code — 看 / 改 AI 生成的文件</h3>
+    <ol>
+      <li>下载安装：<a href="https://code.visualstudio.com" target="_blank" style="color:var(--primary);font-weight:700;">code.visualstudio.com</a></li>
+      <li>用法：菜单 <span class="ui">File → Open Folder</span> → 选你的知识库文件夹；左边文件树点开就能看/改，<code class="inline">Ctrl+S</code>（Mac <code class="inline">Cmd+S</code>）保存</li>
+      <li>入门教程：<a href="https://code.visualstudio.com/docs/introvideos/basics" target="_blank" style="color:var(--primary);font-weight:700;">官方 10 分钟视频</a></li>
+    </ol>
+
+    <h3>GitHub — 备份 + 分享你的知识库</h3>
+    <ol>
+      <li>注册账号：<a href="https://github.com" target="_blank" style="color:var(--primary);font-weight:700;">github.com</a></li>
+      <li>最简单：装 <strong>GitHub Desktop</strong>（图形界面，不用敲命令）：<a href="https://desktop.github.com" target="_blank" style="color:var(--primary);font-weight:700;">desktop.github.com</a> → <span class="ui">Add Local Repository</span> 选你的文件夹 → 写说明 → <span class="ui">Commit</span> → <span class="ui">Push</span> 上云</li>
+      <li>入门教程：<a href="https://docs.github.com/en/desktop/overview/getting-started-with-github-desktop" target="_blank" style="color:var(--primary);font-weight:700;">GitHub Desktop 官方图文</a></li>
+    </ol>
+    <div class="callout callout-warning">
+      ⚠️ 知识库里如果有<strong>客户/隐私数据</strong>，建私有仓库（Private），或把这些文件放进 <code class="inline">.gitignore</code> 不上传。
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section" id="faq">
+    <h2 class="section-title">常见问题</h2>
+    <div class="faq-item">
+      <div class="faq-q">命令装不上 / 报错怎么办？</div>
+      <div class="faq-a">别急。在学员群里发一下报错截图，或课上提前 10 分钟来，我帮你看。课上也会再带一遍。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">一定要付费吗？</div>
+      <div class="faq-a">Claude Code 需要 Claude Pro（$20/月）才能跑课上演示；Obsidian 完全免费。先装好，没订阅的课前订一下即可。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">我完全是电脑小白，跟得上吗？</div>
+      <div class="faq-a">跟得上。课为零基础设计，全程复制粘贴、不写代码。这页只要你会“开终端粘一行命令”“在 Obsidian 里 Open folder as vault”，就够了。</div>
+    </div>
+  </div>
+
+  <!-- Checklist -->
+  <div class="section" id="checklist">
+    <h2 class="section-title">✅ 课前自检清单</h2>
+    <p style="margin-bottom:16px;">必做约 <strong>15 分钟</strong>，跟着勾选就行。</p>
+    <ul class="checklist">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Claude Code 装好，输入 <code class="inline">claude</code> 能启动、能登录</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Obsidian 装好</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">下载并解压我的财富知识库，用 <span class="ui">Open folder as vault</span> 打开它</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">在 Obsidian 里打开过一次 Graph View，看到知识关联图</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">（选做）VS Code / GitHub 装好</span></li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  Session 2 · 从零上手 Claude &nbsp;|&nbsp;
+  财富知识库示例：<a href="https://github.com/austinxyz/wealth-llm-wiki" target="_blank">wealth-llm-wiki</a> &nbsp;|&nbsp;
+  装不上课上提前 10 分钟来，我帮你弄
+</footer>
+
+<script>
+  function switchOS(btn, id) {
+    const section = btn.closest('.section') || document;
+    section.querySelectorAll('.os-tab').forEach(t => t.classList.remove('active'));
+    section.querySelectorAll('.os-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    const el = document.getElementById('os-' + id);
+    if (el) el.classList.add('active');
+  }
+  function copyCmd(btn) {
+    const card = btn.closest('.cmd-card');
+    const text = card.querySelector('.cmd-body').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '已复制 ✓';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = '复制'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+  function toggleCheck(li) {
+    li.querySelector('.check-box').classList.toggle('done');
+    li.classList.toggle('done-item');
+  }
+</script>
+</body>
+</html>
