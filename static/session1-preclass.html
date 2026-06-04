@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Session 1 课前准备 · 装好 Claude + 开通 Cowork（零基础傻瓜式）</title>
+  <style>
+    :root {
+      --primary: #1a6b4a;
+      --primary-light: #e8f5ee;
+      --accent: #f0a500;
+      --accent-light: #fff8e6;
+      --text: #1e2a22;
+      --text-muted: #5a6b60;
+      --border: #d1e0d7;
+      --bg: #f7faf8;
+      --white: #ffffff;
+      --code-bg: #f0f4f2;
+      --step-size: 44px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.8; font-size: 16px;
+    }
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, #0f4a31 100%);
+      color: white; padding: 56px 24px 48px; text-align: center;
+    }
+    .hero h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: 0.02em; margin-bottom: 12px; }
+    .hero .subtitle { font-size: 1.1rem; opacity: 0.85; max-width: 580px; margin: 0 auto 24px; }
+    .badge { display: inline-block; background: var(--accent); color: #1e2a22; font-size: 0.8rem; font-weight: 700; padding: 4px 14px; border-radius: 20px; letter-spacing: 0.05em; }
+    .container { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+    .toc { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px; margin: 36px auto; max-width: 820px; }
+    .toc h2 { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; }
+    .toc ol { padding-left: 20px; }
+    .toc li { margin: 6px 0; }
+    .toc a { color: var(--primary); text-decoration: none; font-weight: 500; }
+    .toc a:hover { text-decoration: underline; }
+    .section { background: var(--white); border-radius: 16px; padding: 36px 40px; margin: 24px auto; max-width: 820px; border: 1px solid var(--border); }
+    .step-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .step-num { width: var(--step-size); height: var(--step-size); min-width: var(--step-size); background: var(--primary); color: white; border-radius: 50%; font-size: 1.3rem; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+    .step-title { font-size: 1.4rem; font-weight: 700; color: var(--text); }
+    h2.section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; color: var(--primary); }
+    h3 { font-size: 1.05rem; font-weight: 700; margin: 22px 0 10px; color: var(--text); }
+    p { margin-bottom: 12px; }
+    ol, ul { padding-left: 22px; margin-bottom: 14px; }
+    li { margin: 6px 0; }
+    code.inline { background: var(--code-bg); padding: 2px 7px; border-radius: 4px; font-family: "SF Mono", Consolas, monospace; font-size: 0.88em; color: var(--primary); }
+    .ui { display: inline-block; background: #2a2a2a; color: #e0e0e0; padding: 2px 10px; border-radius: 5px; font-size: 0.85em; font-family: "SF Mono", Consolas, monospace; border: 1px solid #444; }
+    .callout { border-radius: 10px; padding: 14px 18px; margin: 16px 0; font-size: 0.95rem; }
+    .callout-tip { background: var(--accent-light); border-left: 4px solid var(--accent); }
+    .callout-warning { background: #fff3f3; border-left: 4px solid #e05555; }
+    .callout-info { background: var(--primary-light); border-left: 4px solid var(--primary); }
+    .btn-download { display: inline-flex; align-items: center; gap: 10px; background: var(--primary); color: white; text-decoration: none; padding: 14px 28px; border-radius: 10px; font-size: 1.05rem; font-weight: 700; margin: 16px 0; transition: background 0.2s, transform 0.1s; }
+    .btn-download:hover { background: #0f4a31; transform: translateY(-1px); }
+    .os-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+    .os-tab { padding: 6px 16px; border-radius: 6px; border: 1px solid var(--border); cursor: pointer; font-size: 0.9rem; font-weight: 600; background: white; color: var(--text-muted); font-family: inherit; transition: all 0.15s; }
+    .os-tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+    .os-content { display: none; }
+    .os-content.active { display: block; }
+    .screen-note { background: #1a1a1a; border-radius: 10px; padding: 16px 20px; margin: 16px 0; color: #ccc; font-size: 0.9rem; line-height: 1.7; }
+    .screen-note .loc { color: var(--accent); font-weight: 700; }
+    .screen-note .arrow { color: #888; margin: 0 4px; }
+    .checklist { list-style: none; padding: 0; }
+    .checklist li { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 1rem; cursor: pointer; }
+    .checklist li:last-child { border-bottom: none; }
+    .check-box { width: 22px; height: 22px; min-width: 22px; border: 2px solid var(--border); border-radius: 5px; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .checklist li:hover .check-box { border-color: var(--primary); }
+    .check-box.done { background: var(--primary); border-color: var(--primary); }
+    .check-box.done::after { content: "✓"; color: white; font-size: 0.85rem; font-weight: 700; }
+    .check-label { flex: 1; }
+    .checklist li.done-item .check-label { text-decoration: line-through; color: var(--text-muted); }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 18px 0; }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-q { font-weight: 700; color: var(--primary); margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start; }
+    .faq-q::before { content: "Q"; background: var(--primary); color: white; border-radius: 4px; padding: 1px 7px; font-size: 0.8rem; flex-shrink: 0; margin-top: 2px; }
+    .faq-a { color: var(--text); padding-left: 30px; }
+    footer { text-align: center; padding: 36px 20px; color: var(--text-muted); font-size: 0.87rem; }
+    footer a { color: var(--primary); }
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 1.6rem; }
+      .section { padding: 24px 20px; }
+      .step-title { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>Session 1 课前准备</h1>
+  <p class="subtitle">装好 Claude、开通 Cowork，第一节课就能跟着一起做。全程不用懂技术，照着点就行。</p>
+  <span class="badge">零基础 · 傻瓜式 · 中文全程</span>
+</div>
+
+<div class="container">
+
+  <div class="toc">
+    <h2>目录</h2>
+    <ol>
+      <li><a href="#step1">注册 Claude 账号</a></li>
+      <li><a href="#step2">安装 Claude 桌面 App</a></li>
+      <li><a href="#step3">订阅 Claude Pro（Cowork 必需）</a></li>
+      <li><a href="#step4">打开 Cowork，确认能用</a></li>
+      <li><a href="#faq">常见问题</a></li>
+      <li><a href="#checklist">课前自检清单</a></li>
+    </ol>
+  </div>
+
+  <div class="callout callout-info" style="max-width:820px;margin:0 auto 8px;">
+    💡 全部只需约 <strong>10 分钟</strong>。第一节课用的是 <strong>Claude Cowork</strong>（让 AI 帮你跑流水线），<strong>不用写任何代码</strong>。课前把下面四步做完，开课就能直接跟着动手。
+  </div>
+
+  <!-- Step 1 -->
+  <div class="section" id="step1">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div class="step-title">注册 Claude 账号</div>
+    </div>
+    <ol>
+      <li>打开浏览器，访问 <a href="https://claude.ai" target="_blank" style="color:var(--primary);font-weight:700;">claude.ai</a></li>
+      <li>点 <span class="ui">Sign up</span>，用<strong>邮箱</strong>注册（或用 Google 账号一键登录）</li>
+      <li>按邮件里的验证链接激活，账号就建好了</li>
+    </ol>
+    <div class="callout callout-tip">
+      💡 已经有 claude.ai 账号？跳过这步，直接到第 2 步。
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="section" id="step2">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div class="step-title">安装 Claude 桌面 App</div>
+    </div>
+    <p>Cowork 在 <strong>Claude 桌面 App</strong> 里用最顺手（连接 Gmail、建项目都靠它）。先装桌面版。</p>
+    <a class="btn-download" href="https://claude.ai/download" target="_blank">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      打开 claude.ai/download 下载
+    </a>
+    <div class="os-tabs">
+      <button class="os-tab active" onclick="switchOS(this,'win')">Windows</button>
+      <button class="os-tab" onclick="switchOS(this,'mac')">Mac</button>
+    </div>
+    <div class="os-content active" id="os-win">
+      <ol>
+        <li>下载 Windows 版安装包（<code class="inline">.exe</code>）</li>
+        <li>双击安装包，一路「下一步」装完</li>
+        <li>打开 Claude App，用第 1 步的账号登录</li>
+      </ol>
+    </div>
+    <div class="os-content" id="os-mac">
+      <ol>
+        <li>下载 Mac 版（<code class="inline">.dmg</code>）</li>
+        <li>双击 <code class="inline">.dmg</code>，把 Claude 图标拖进「应用程序」文件夹</li>
+        <li>打开 Claude App，用第 1 步的账号登录</li>
+      </ol>
+    </div>
+    <div class="callout callout-tip">
+      💡 不想装也行：浏览器直接用 <a href="https://claude.ai" target="_blank" style="color:var(--primary);font-weight:700;">claude.ai</a> 网页版也有 Cowork。但<strong>建议装桌面 App</strong>，课上连 Gmail / 看文件更顺。
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="section" id="step3">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div class="step-title">订阅 Claude Pro（Cowork 必需）</div>
+    </div>
+    <p>Cowork 是付费功能，<strong>免费账号用不了</strong>，需要订阅 Pro。</p>
+    <a class="btn-download" href="https://claude.ai/settings/billing" target="_blank">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      去订阅 Claude Pro
+    </a>
+    <ol>
+      <li>打开 <a href="https://claude.ai/settings/billing" target="_blank" style="color:var(--primary);font-weight:700;">claude.ai/settings/billing</a>（或 App 里：头像 → Settings → Billing）</li>
+      <li>选 <strong>Pro（每月 $20 美元）</strong>，按提示填卡付款</li>
+      <li>开通后立即生效</li>
+    </ol>
+    <div class="callout callout-warning">
+      ⚠️ <strong>一定要先订阅 Pro，Cowork 才会出现。</strong>没订阅的话第 4 步会找不到 Cowork。
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="section" id="step4">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div class="step-title">打开 Cowork，确认能用</div>
+    </div>
+    <p>这是最关键的一步——确认你能进 Cowork，课上才能跟着做。</p>
+    <div class="screen-note">
+      打开 Claude App（或 claude.ai），在顶部找到几个标签：<span class="loc">Chat</span> <span class="arrow">|</span> <span class="loc">Cowork</span> <span class="arrow">|</span> <span class="loc">Code</span><br>
+      点中间的 <span class="loc">Cowork</span> → 能看到 Cowork 界面、能点 <span class="loc">+ New project</span> = <strong style="color:var(--accent)">成功！</strong>
+    </div>
+    <p>看到 Cowork 能打开、能新建项目，就说明你准备好了。<strong>不用真的建项目</strong>，课上我会带大家一步步建。</p>
+    <div class="callout callout-info">
+      💡 找不到 Cowork？多半是还没订阅 Pro（回第 3 步），或 App 需要退出重开 / 更新到最新版。
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section" id="faq">
+    <h2 class="section-title">常见问题</h2>
+    <div class="faq-item">
+      <div class="faq-q">一定要付费吗？免费版不行？</div>
+      <div class="faq-a">第一节课的核心 <strong>Cowork 需要 Pro（$20/月）</strong>，免费版用不了。先订上，课后觉得不合适随时可取消。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">一定要装桌面 App 吗？</div>
+      <div class="faq-a">不强制——网页版 claude.ai 也有 Cowork。但<strong>建议装桌面 App</strong>，课上连 Gmail、看生成的文件更顺手。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">需要会编程 / 懂技术吗？</div>
+      <div class="faq-a">完全不需要。第一节课全程是「用中文跟 AI 说话」，不写一行代码。会上网、会打字就够了。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">装不上 / 找不到 Cowork 怎么办？</div>
+      <div class="faq-a">在学员群里发一下截图，或课上提前 10 分钟来，我帮你弄。</div>
+    </div>
+  </div>
+
+  <!-- Checklist -->
+  <div class="section" id="checklist">
+    <h2 class="section-title">✅ 课前自检清单</h2>
+    <p style="margin-bottom:16px;">全程约 <strong>10 分钟</strong>，跟着勾选就行。</p>
+    <ul class="checklist">
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">在 claude.ai 注册好账号，能登录</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">装好 Claude 桌面 App（或确认能用网页版）</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">订阅了 Claude Pro</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">点顶部 <span class="ui">Cowork</span> 能打开、能看到 <span class="ui">+ New project</span></span></li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  Session 1 · 从零上手 Claude &nbsp;|&nbsp;
+  课上用 Cowork 搭 4-Agent 求职流水线，全程不写代码 &nbsp;|&nbsp;
+  装不上课上提前 10 分钟来，我帮你弄
+</footer>
+
+<script>
+  function switchOS(btn, id) {
+    const section = btn.closest('.section') || document;
+    section.querySelectorAll('.os-tab').forEach(t => t.classList.remove('active'));
+    section.querySelectorAll('.os-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    const el = document.getElementById('os-' + id);
+    if (el) el.classList.add('active');
+  }
+  function toggleCheck(li) {
+    li.querySelector('.check-box').classList.toggle('done');
+    li.classList.toggle('done-item');
+  }
+</script>
+</body>
+</html>
