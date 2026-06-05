@@ -97,7 +97,7 @@
 
 <div class="hero">
   <h1>Session 2 课前准备</h1>
-  <p class="subtitle">装好两个软件，课上就能跟着一起做。全程不用写代码、不用懂技术，照着复制粘贴即可。</p>
+  <p class="subtitle">装好两个软件 + 两个 Skills，课上就能跟着一起做。全程不用写代码、不用懂技术，照着复制粘贴即可。</p>
   <span class="badge">零基础 · 傻瓜式 · 中文全程</span>
 </div>
 
@@ -107,8 +107,9 @@
     <h2>目录</h2>
     <ol>
       <li><a href="#step1">必做① 安装 Claude Code</a></li>
-      <li><a href="#step2">必做② 安装 Obsidian</a></li>
-      <li><a href="#step3">用 Obsidian 打开我的财富知识库（预习重点）</a></li>
+      <li><a href="#step-skills">必做② 装 superpowers + ppt-master</a></li>
+      <li><a href="#step2">必做③ 安装 Obsidian</a></li>
+      <li><a href="#step3">必做④ 用 Obsidian 打开我的财富知识库（预习重点）</a></li>
       <li><a href="#step4">选做 VS Code / GitHub</a></li>
       <li><a href="#faq">常见问题</a></li>
       <li><a href="#checklist">课前自检清单</a></li>
@@ -154,10 +155,29 @@
     </div>
   </div>
 
+  <!-- Step: Skills -->
+  <div class="section" id="step-skills">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div class="step-title">装 superpowers + ppt-master</div>
+    </div>
+    <p>这两个是课上现场要用的“超能力插件”——<strong>superpowers</strong> 帮你做头脑风暴和规划，<strong>ppt-master</strong> 一键把内容变成 PPT。课前装好，上课直接用。</p>
+    <p>先按上一步装好 Claude Code，在窗口输入 <code class="inline">claude</code> 回车启动；进去后<strong>逐行</strong>粘贴下面两条、各回车一次：</p>
+    <div class="cmd-card">
+      <div class="cmd-card-header"><span class="cmd-card-title">在 Claude Code 里运行</span><button class="copy-btn" onclick="copyCmd(this)">复制</button></div>
+      <div class="cmd-body">/plugin install superpowers@superpowers
+/plugin install ppt-master@ppt-master</div>
+    </div>
+    <p>装完输入 <code class="inline">/brainstorm</code> 或 <code class="inline">/ppt-master</code>，能弹出提示就算成功。</p>
+    <div class="callout callout-tip">
+      💡 装不上别急——课上会带一遍；卡住了在学员群发报错截图，我帮你看。
+    </div>
+  </div>
+
   <!-- Step 2 -->
   <div class="section" id="step2">
     <div class="step-header">
-      <div class="step-num">2</div>
+      <div class="step-num">3</div>
       <div class="step-title">安装 Obsidian</div>
     </div>
     <p>Obsidian 是一个<strong>免费</strong>的笔记软件，能把一堆文件变成“知识图谱”，看清条目之间的关联。课上我们用它来看知识库；现在先装好。</p>
@@ -171,7 +191,7 @@
   <!-- Step 3 -->
   <div class="section" id="step3">
     <div class="step-header">
-      <div class="step-num">3</div>
+      <div class="step-num">4</div>
       <div class="step-title">用 Obsidian 打开我的财富知识库</div>
     </div>
     <p>这是最关键的一招：<strong>用一个已经存在的文件夹建 vault</strong>。课上和现在预习，都是打开现成的文件夹，不是从空白开始。先拿我的财富知识库练一遍。</p>
@@ -209,7 +229,7 @@
   <!-- Step 4 -->
   <div class="section" id="step4">
     <div class="step-header">
-      <div class="step-num">4</div>
+      <div class="step-num">5</div>
       <div class="step-title">VS Code / GitHub<span class="opt-tag">选做</span></div>
     </div>
     <p>这两个<strong>不是必须</strong>的——课上演示不依赖它们。对技术感兴趣、想把知识库管理得更专业，可以装。</p>
@@ -255,6 +275,7 @@
     <p style="margin-bottom:16px;">必做约 <strong>15 分钟</strong>，跟着勾选就行。</p>
     <ul class="checklist">
       <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Claude Code 装好，输入 <code class="inline">claude</code> 能启动、能登录</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">superpowers + ppt-master 装好，<code class="inline">/brainstorm</code>、<code class="inline">/ppt-master</code> 能弹出提示</span></li>
       <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">Obsidian 装好</span></li>
       <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">下载并解压我的财富知识库，用 <span class="ui">Open folder as vault</span> 打开它</span></li>
       <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">在 Obsidian 里打开过一次 Graph View，看到知识关联图</span></li>
