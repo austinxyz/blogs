@@ -162,10 +162,12 @@
       <div class="step-title">装 superpowers + ppt-master</div>
     </div>
     <p>这两个是课上现场要用的“超能力插件”——<strong>superpowers</strong> 帮你做头脑风暴和规划，<strong>ppt-master</strong> 一键把内容变成 PPT。课前装好，上课直接用。</p>
-    <p>先按上一步装好 Claude Code，在窗口输入 <code class="inline">claude</code> 回车启动；进去后<strong>逐行</strong>粘贴下面两条、各回车一次：</p>
+    <p>先按上一步装好 Claude Code，在窗口输入 <code class="inline">claude</code> 回车启动；进去后<strong>逐行</strong>粘贴下面四条、各回车一次（先加插件市场，再安装）：</p>
     <div class="cmd-card">
       <div class="cmd-card-header"><span class="cmd-card-title">在 Claude Code 里运行</span><button class="copy-btn" onclick="copyCmd(this)">复制</button></div>
-      <div class="cmd-body">/plugin install superpowers@superpowers
+      <div class="cmd-body">/plugin marketplace add obra/superpowers
+/plugin install superpowers@superpowers
+/plugin marketplace add hugohe3/ppt-master
 /plugin install ppt-master@ppt-master</div>
     </div>
     <p>装完输入 <code class="inline">/brainstorming</code> 或 <code class="inline">/ppt-master</code>，能弹出提示就算成功。</p>
