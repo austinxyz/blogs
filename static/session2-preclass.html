@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -161,19 +161,40 @@
       <div class="step-num">2</div>
       <div class="step-title">装 superpowers + ppt-master</div>
     </div>
-    <p>这两个是课上现场要用的“超能力插件”——<strong>superpowers</strong> 帮你做头脑风暴和规划，<strong>ppt-master</strong> 一键把内容变成 PPT。课前装好，上课直接用。</p>
-    <p>先按上一步装好 Claude Code，在窗口输入 <code class="inline">claude</code> 回车启动；进去后<strong>逐行</strong>粘贴下面四条、各回车一次（先加插件市场，再安装）：</p>
+    <p>这两个是课上现场要用的"超能力插件"——<strong>superpowers</strong> 帮你做头脑风暴和规划，<strong>ppt-master</strong> 一键把内容变成 PPT。课前装好，上课直接用。</p>
+    <div class="callout callout-info">
+      📌 <strong>这两个插件对整个账号有效（user 级别）——不需要先建项目文件夹，随时都能装。</strong>
+    </div>
+
+    <h3>① 装 superpowers（官方 marketplace，一步搞定）</h3>
+    <p>在 Claude Code 桌面应用对话框或终端 <code class="inline">claude</code> 里粘贴：</p>
     <div class="cmd-card">
       <div class="cmd-card-header"><span class="cmd-card-title">在 Claude Code 里运行</span><button class="copy-btn" onclick="copyCmd(this)">复制</button></div>
-      <div class="cmd-body">/plugin marketplace add obra/superpowers
-/plugin install superpowers@superpowers
-/plugin marketplace add hugohe3/ppt-master
+      <div class="cmd-body">/plugin install superpowers@claude-plugins-official</div>
+    </div>
+
+    <h3>② 装 ppt-master（两步，顺序不能反）</h3>
+    <p><strong>前提：电脑需要 Python 3.10+。</strong>没装过？去 <a href="https://www.python.org/downloads/" target="_blank">python.org</a> 下载，<strong>Windows 安装时勾选 "Add python.exe to PATH"</strong>。</p>
+    <p><strong>第一步——</strong>在终端（PowerShell / Terminal）里装 Python 依赖：</p>
+    <div class="cmd-card">
+      <div class="cmd-card-header"><span class="cmd-card-title">终端里运行（不是 Claude Code）</span><button class="copy-btn" onclick="copyCmd(this)">复制</button></div>
+      <div class="cmd-body">pip install python-pptx pymupdf pillow cairosvg</div>
+    </div>
+    <p><strong>第二步——</strong>装 skill 文件（三选一，哪个成功用哪个）：</p>
+    <div class="cmd-card">
+      <div class="cmd-card-header"><span class="cmd-card-title">方法①：终端里运行（推荐）</span><button class="copy-btn" onclick="copyCmd(this)">复制</button></div>
+      <div class="cmd-body">npx skills add hugohe3/ppt-master</div>
+    </div>
+    <div class="cmd-card">
+      <div class="cmd-card-header"><span class="cmd-card-title">方法②：Claude Code 对话框（偶发失败）</span><button class="copy-btn" onclick="copyCmd(this)">复制</button></div>
+      <div class="cmd-body">/plugin marketplace add hugohe3/ppt-master
 /plugin install ppt-master@ppt-master</div>
     </div>
-    <p>装完输入 <code class="inline">/brainstorming</code> 或 <code class="inline">/ppt-master</code>，能弹出提示就算成功。</p>
     <div class="callout callout-tip">
-      ⚠️ <strong>ppt-master 装不上？</strong>（<code class="inline">/plugin</code> 方式偶尔失败）改在<strong>终端</strong>（不是 Claude Code 里）跑 <code class="inline">npx skills add hugohe3/ppt-master</code>，再重启 <code class="inline">claude</code> 即可。
+      方法③（最可靠）：<a href="https://github.com/hugohe3/ppt-master" target="_blank">GitHub</a> → 绿色 Code → Download ZIP → 解压 → 把 <code class="inline">skills/ppt-master/</code> 复制到 <code class="inline">~/.claude/skills/ppt-master/</code>（Mac）或 <code class="inline">C:\Users\你的用户名\.claude\skills\ppt-master\</code>（Windows）。
     </div>
+    <p>弹出"安装范围"选项时，<strong>选 User（全局）</strong>，不要选 Project。</p>
+    <p>装完重启 Claude Code，输入 <code class="inline">/brainstorming</code>，能弹出提示就算成功。</p>
     <div class="callout callout-tip">
       💡 装不上别急——课上会带一遍；卡住了在学员群发报错截图，我帮你看。
     </div>
