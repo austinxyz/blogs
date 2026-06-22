@@ -4,10 +4,70 @@
         <title>Austin Xu Blog</title>
         <link>https://austinxyz.github.io/blogs/blog</link>
         <description>Austin Xu Blog</description>
-        <lastBuildDate>Thu, 11 Jun 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 22 Jun 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Why Does the AI Field Keep Reinventing Things We Already Knew? A Case for Treating AI Like a Person]]></title>
+            <link>https://austinxyz.github.io/blogs/blog/treat-ai-like-person</link>
+            <guid>https://austinxyz.github.io/blogs/blog/treat-ai-like-person</guid>
+            <pubDate>Mon, 22 Jun 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[A new AI term lands every week. A friend cut through all of it in one sentence — and it turned out to explain almost everything.]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Businessman shaking hands with glowing AI holographic figure at office desk" src="https://austinxyz.github.io/blogs/assets/images/cover-d74ae7bccdea4eeb51ad9471f8cbb0aa.jpg" width="1024" height="576" class="img_ev3q"></p>
+<p>Prompt engineer. Context engineer. Spec-driven development. Harness. Loop engineer. Context minimalism. Tokenmaxxing.</p>
+<p>A new term lands every week. The smartest people in tech are pouring into AI, and ideas collide fast — CTOs taking IC roles at Anthropic, researchers shipping frameworks before the last one has been absorbed. The vocabulary is exciting. It's also exhausting. And some of it turns out to be wrong.</p>
+<p>Tokenmaxxing already showed cracks. Process-heavy agent frameworks are losing ground. Every few months something that felt foundational quietly gets replaced.</p>
+<p>I kept looking for the underlying logic. What actually persists? Then a friend said something that stopped me mid-scroll.</p>
+<p><em>"Treat AI as labor. Instead of inventing new concepts for something entirely unprecedented and making it increasingly complex, design your verification and management methods according to how you'd manage people."</em></p>
+<p>That one sentence turned out to explain almost everything.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-vocabulary-is-software-engineering-rewritten-for-a-new-engineer">The Vocabulary Is Software Engineering, Rewritten for a New Engineer<a href="https://austinxyz.github.io/blogs/blog/treat-ai-like-person#the-vocabulary-is-software-engineering-rewritten-for-a-new-engineer" class="hash-link" aria-label="Direct link to The Vocabulary Is Software Engineering, Rewritten for a New Engineer" title="Direct link to The Vocabulary Is Software Engineering, Rewritten for a New Engineer" translate="no">​</a></h2>
+<p>Software engineering exists because humans build software. Humans make mistakes, forget context, misread requirements. So we built practices around them: specifications to align on what to build, code review to catch what one person missed, automated tests to verify what got built, CI/CD to ship it reliably. Decades of accumulated process, all designed around the properties of human engineers.</p>
+<p>Now AI builds software. And the AI field is discovering, term by term, that it needs the same practices.</p>
+<p>Look at the progression: prompt engineering → context engineering → spec-driven development → harness → loop engineering. Translate each into its software engineering equivalent.</p>
+<p><strong>Prompt engineering</strong> is the period of ad hoc verbal direction — telling the engineer what you want, one task at a time, hoping they interpret it the way you meant. This is how software teams operated before specs. It works for simple tasks. It doesn't scale.</p>
+<p><strong>Context engineering</strong> is the recognition that what an engineer knows shapes what they produce. Loading the right context before a task — relevant files, past decisions, current constraints — is the equivalent of onboarding: making sure the engineer has what they need before they start.</p>
+<p><strong>Spec-driven development</strong> is exactly what it sounds like. Give the engineer a written specification and let them execute to it. The spec is the source of truth. Deviations from spec are bugs, not features. We knew this. We had entire methodologies built around it. We're rediscovering that it works at least as well for AI engineers.</p>
+<p><strong>Harness</strong> is CI/CD. Automated scaffolding that runs the work, checks the output, and closes the loop without a human in the middle.</p>
+<p><strong>Loop engineer</strong> is the person responsible for keeping the autonomous loop running — monitoring, tuning when it drifts, handling exceptions. This role existed in operations long before AI arrived. Different title, same job.</p>
+<p>Each term is a rediscovery. The practice precedes the vocabulary.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="tokenmaxxing-failed-for-the-same-reason-brooks-law-is-true">Tokenmaxxing Failed for the Same Reason Brooks' Law Is True<a href="https://austinxyz.github.io/blogs/blog/treat-ai-like-person#tokenmaxxing-failed-for-the-same-reason-brooks-law-is-true" class="hash-link" aria-label="Direct link to Tokenmaxxing Failed for the Same Reason Brooks' Law Is True" title="Direct link to Tokenmaxxing Failed for the Same Reason Brooks' Law Is True" translate="no">​</a></h2>
+<p>The strongest evidence for this reading isn't where the field got things right. It's where it got things wrong.</p>
+<p>Tokenmaxxing — cramming as much context as possible into the window — was a natural early instinct. If more engineers means more output, more context should mean better output.</p>
+<p>It didn't work. Quality degraded. Noise drowned signal. Cost scaled faster than benefit.</p>
+<p>Brooks' Law: adding engineers to a late project makes it later. The coordination overhead exceeds the added capacity. Tokenmaxxing hit the same ceiling for the same reason. The model's attention is a finite resource. Overloading it with undifferentiated context is the equivalent of putting twenty engineers in a room and hoping they self-organize.</p>
+<p>The mental model that follows from "treat AI as a person" produces the correct instinct immediately: brief a capable engineer with what they need for this task, not with everything you know.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="context-minimalism-is-just-good-management">Context Minimalism Is Just Good Management<a href="https://austinxyz.github.io/blogs/blog/treat-ai-like-person#context-minimalism-is-just-good-management" class="hash-link" aria-label="Direct link to Context Minimalism Is Just Good Management" title="Direct link to Context Minimalism Is Just Good Management" translate="no">​</a></h2>
+<p>The principle that emerged from the tokenmaxxing failure — use less context, more deliberately — has a cleaner name in people management: trust your people.</p>
+<p>You don't brief a senior engineer by handing them the entire codebase and saying "read this." You give them the spec, point them to the relevant systems, tell them who to ask if something is unclear. Then you let them work. You review the output, not the process.</p>
+<p>Micromanaging context, like micromanaging engineers, produces worse outcomes and burns more of your time.</p>
+<p>I know because I made the opposite mistake. For a while I tracked my daily token usage like a scoreboard — proud of the numbers, telling myself I was operating at the frontier of the field. The products I was shipping were underwhelming. I kept sending AI back to redo work. I was measuring the wrong thing. Optimizing token consumption is not the same as managing a capable engineer toward a good outcome. A manager who counts hours instead of results isn't managing — they're watching.</p>
+<p>The AI equivalent of managing well: a tight spec, the relevant files, and an evaluation loop. Let the model figure out the rest. Pull it back in when it drifts.</p>
+<p>Context minimalism isn't a special AI insight. It's just good management.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="process-heavy-agents-lose-because-high-performers-dont-follow-scripts">Process-Heavy Agents Lose Because High Performers Don't Follow Scripts<a href="https://austinxyz.github.io/blogs/blog/treat-ai-like-person#process-heavy-agents-lose-because-high-performers-dont-follow-scripts" class="hash-link" aria-label="Direct link to Process-Heavy Agents Lose Because High Performers Don't Follow Scripts" title="Direct link to Process-Heavy Agents Lose Because High Performers Don't Follow Scripts" translate="no">​</a></h2>
+<p>Process-heavy agent frameworks are losing ground. The direction is toward AI that operates from principles rather than flowcharts — that handles novel situations without a predefined step for each one.</p>
+<p>This too is not new.</p>
+<p>The best engineers don't follow scripts. They've internalized enough principles that their judgment is reliable across situations the script didn't anticipate. Getting there required passing through the scripted phase — junior engineers need explicit process; experts transcend it. The process was scaffolding for building judgment, not the goal itself.</p>
+<p>The same arc applies to AI. Start with explicit step-by-step instructions. Then give the model richer context about goals and constraints. Eventually you're instilling something closer to a worldview — the values and tradeoffs the model reasons from when no rule applies.</p>
+<p>This is what meta-rules are. Not "do step three after step two" but "here's how to think about tradeoffs, here's what matters most, here's what we're building toward." People have worldviews. A senior engineer doesn't need to be told that tests matter — it's part of how they think. That's the level we're increasingly designing AI at. Not procedures, but principles.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="humans-move-to-the-edge--thats-where-management-lives">Humans Move to the Edge — That's Where Management Lives<a href="https://austinxyz.github.io/blogs/blog/treat-ai-like-person#humans-move-to-the-edge--thats-where-management-lives" class="hash-link" aria-label="Direct link to Humans Move to the Edge — That's Where Management Lives" title="Direct link to Humans Move to the Edge — That's Where Management Lives" translate="no">​</a></h2>
+<p>There's a convergent conclusion across every version of this argument: humans move to the edge of the process. Decide what to build. Verify that it got built. Handle the exceptions the system couldn't resolve.</p>
+<p>Everything in the middle increasingly belongs to AI.</p>
+<p>This is precisely how good managers have always worked. You don't do the work yourself; you set direction, define success, and remove blockers. You stay close enough to catch when things go wrong and far enough away to let the team operate.</p>
+<p>My own practice moved this way across the last year. Vibe coding required constant presence. Spec-driven development needed me at key checkpoints. OpenSpec plus harness plus evaluation loops now runs long stretches without me. What I contribute is increasingly design — the spec, the principles, the definition of done — and verification. The loop runs.</p>
+<p>A general doesn't fire the rifles. Being at the edge is where the leverage is.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-frame-that-survives-the-vocabulary-cycle">The Frame That Survives the Vocabulary Cycle<a href="https://austinxyz.github.io/blogs/blog/treat-ai-like-person#the-frame-that-survives-the-vocabulary-cycle" class="hash-link" aria-label="Direct link to The Frame That Survives the Vocabulary Cycle" title="Direct link to The Frame That Survives the Vocabulary Cycle" translate="no">​</a></h2>
+<p>New AI terms will keep landing. Some will stick; most will get superseded. The ones that stick will turn out to be rediscoveries of things that work when you're managing capable workers at scale — because that's what this is.</p>
+<p>We spent decades figuring this out for human organizations. AI compressed the timeline, changed the specifics, and handed us the same underlying problem.</p>
+<p>Treat AI like a person. The confusion mostly goes away.</p>]]></content:encoded>
+            <author>austin.xyz@gmail.com (Austin Xu)</author>
+            <category>ai</category>
+            <category>mental-model</category>
+            <category>software-engineering</category>
+            <category>spec-driven-development</category>
+            <category>tokenmaxxing</category>
+            <category>context-minimalism</category>
+        </item>
         <item>
             <title><![CDATA[Who's Driving the AI-Native Organization? A Field Report from Actually Building One]]></title>
             <link>https://austinxyz.github.io/blogs/blog/ai-native-organization</link>
@@ -2010,90 +2070,6 @@ Output: Delta spec merged back into <code>openspec/specs/</code>, change directo
             <category>ai</category>
             <category>claude-code</category>
             <category>future-of-development</category>
-        </item>
-        <item>
-            <title><![CDATA[No Junior Engineers? What AI Really Means for Early-Career Developers]]></title>
-            <link>https://austinxyz.github.io/blogs/blog/2026/03/04/no-junior-engineers</link>
-            <guid>https://austinxyz.github.io/blogs/blog/2026/03/04/no-junior-engineers</guid>
-            <pubDate>Wed, 04 Mar 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Junior engineering roles are shrinking — but the story is more nuanced than the headlines suggest. A hiring manager's honest take on what AI changes, what it doesn't, and how early-career engineers can still win.]]></description>
-            <content:encoded><![CDATA[<p>There's a narrative spreading through the industry right now: AI is eliminating junior engineering roles, and early-career developers are the first casualties of the automation wave.</p>
-<p>After years of interviewing candidates and leading engineering teams, I think this narrative is half right — and dangerously incomplete.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-shrinking-junior-market-is-real">The Shrinking Junior Market Is Real<a href="https://austinxyz.github.io/blogs/blog/2026/03/04/no-junior-engineers#the-shrinking-junior-market-is-real" class="hash-link" aria-label="Direct link to The Shrinking Junior Market Is Real" title="Direct link to The Shrinking Junior Market Is Real" translate="no">​</a></h2>
-<p>Let's not soften the reality. The job market for new graduates in software engineering has gotten harder, in both the US and China. Hiring freezes, smaller cohorts, longer job searches — the data backs this up.</p>
-<p>The underlying logic is straightforward: a senior engineer with good AI tooling can produce what used to require a senior plus two or three juniors. And from a business perspective, junior engineers are expensive to onboard — they require code reviews, mentorship, and ramp-up time. Many will leave once they've grown. The ROI calculation has shifted.</p>
-<p>So yes, the market is contracting at the junior level. Anyone telling you otherwise isn't paying attention.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="but-the-reason-matters">But the Reason Matters<a href="https://austinxyz.github.io/blogs/blog/2026/03/04/no-junior-engineers#but-the-reason-matters" class="hash-link" aria-label="Direct link to But the Reason Matters" title="Direct link to But the Reason Matters" translate="no">​</a></h2>
-<p>The reason junior roles are disappearing isn't that junior <em>work</em> has no value — it's that AI has gotten very good at the <em>execution layer</em> of software development.</p>
-<p>Here's how I think about it:</p>
-<p><strong>What AI handles well (the "Know-How" layer):</strong></p>
-<ul>
-<li class="">Boilerplate and scaffolding</li>
-<li class="">Unit tests and documentation</li>
-<li class="">Debugging and error explanation</li>
-<li class="">Code translation and refactoring</li>
-</ul>
-<p>These are exactly the tasks that used to serve as the training ground for junior engineers. That's the uncomfortable truth.</p>
-<p><strong>What AI still can't do (the "Know-What" and "Know-Why" layers):</strong></p>
-<ul>
-<li class="">Deciding what to build and why it matters</li>
-<li class="">Understanding business context and stakeholder constraints</li>
-<li class="">Making architectural trade-offs under uncertainty</li>
-<li class="">Taking accountability when production systems fail</li>
-</ul>
-<p>The execution layer is compressing. The judgment layer is expanding. This is the core shift.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-ive-actually-seen-in-junior-candidates">What I've Actually Seen in Junior Candidates<a href="https://austinxyz.github.io/blogs/blog/2026/03/04/no-junior-engineers#what-ive-actually-seen-in-junior-candidates" class="hash-link" aria-label="Direct link to What I've Actually Seen in Junior Candidates" title="Direct link to What I've Actually Seen in Junior Candidates" translate="no">​</a></h2>
-<p>I've interviewed a lot of junior engineers over the past few years. My honest assessment: this generation is stronger than any cohort I've seen before, in several important ways.</p>
-<p><strong>What genuinely impresses me:</strong></p>
-<ul>
-<li class=""><strong>Technical curiosity.</strong> They adopt new tools fast — AI assistants, new frameworks, emerging practices. They're not waiting for permission to experiment.</li>
-<li class=""><strong>Coding fundamentals.</strong> Algorithms, data structures, design patterns — most candidates have solid foundations. The baseline has risen significantly.</li>
-<li class=""><strong>Communication.</strong> They can articulate their thinking clearly and hold their own in technical discussions with senior engineers. This used to be a major gap; it's much less so now.</li>
-<li class=""><strong>Real-world exposure.</strong> Many have done open source work, side projects, or even early-stage startup experience before they walk into the interview.</li>
-</ul>
-<p><strong>Where I still see gaps:</strong></p>
-<ul>
-<li class=""><strong>Depth vs. breadth.</strong> Broad awareness of many technologies, but thin on fundamentals when you dig. They know <em>of</em> distributed systems; they haven't debugged one at 2am.</li>
-<li class=""><strong>Large-scale system intuition.</strong> This isn't a criticism — it takes time. But the gap between knowing how a system <em>should</em> work and knowing how it <em>actually</em> behaves under load is enormous, and most junior engineers haven't crossed it yet.</li>
-<li class=""><strong>Handling ambiguity.</strong> When requirements are unclear or there's no right answer, many junior engineers get stuck. The reflex to ask "what should I build?" rather than "what problem are we solving?" shows up consistently.</li>
-</ul>
-<p>The good news: the first two items are learnable. The third is developable. None of them are fatal.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-competency-map-has-shifted">The Competency Map Has Shifted<a href="https://austinxyz.github.io/blogs/blog/2026/03/04/no-junior-engineers#the-competency-map-has-shifted" class="hash-link" aria-label="Direct link to The Competency Map Has Shifted" title="Direct link to The Competency Map Has Shifted" translate="no">​</a></h2>
-<p>Here's how I think about the core engineering competencies in the AI era:</p>
-<table><thead><tr><th>Competency</th><th>Pre-AI Weight</th><th>AI Era Weight</th></tr></thead><tbody><tr><td>Writing code</td><td>High</td><td>Lower — AI handles much of execution</td></tr><tr><td>System design</td><td>High</td><td>Higher — judgment can't be automated</td></tr><tr><td>Collaboration &amp; influence</td><td>Medium</td><td>Much higher</td></tr><tr><td>Large-scale system experience</td><td>High</td><td>Still the Junior→Senior dividing line</td></tr><tr><td>Engineering methodology</td><td>Medium</td><td>Critical — AI-native workflows are a force multiplier</td></tr></tbody></table>
-<p>The last row is where I see the most opportunity for early-career engineers. Everyone is starting from roughly the same place on AI-native development practices — Spec Driven Development, structured prompting, AI-assisted code review. A junior engineer who masters these workflows early isn't just keeping up; they're potentially ahead of senior engineers who haven't adapted.</p>
-<p>Paul Graham <a href="https://x.com/paulg/status/1746626025964875965" target="_blank" rel="noopener noreferrer" class="">captured this dynamic well on X</a>, relaying an observation from a tech CEO:</p>
-<blockquote>
-<p>"Usually 28 year olds are more productive programmers than 22 year olds, because they have more experience. But apparently 22 year olds are now as good as 28 year olds because they're more at ease using AI."</p>
-</blockquote>
-<p>The experience premium is compressing. The engineers who've spent years building up a productivity advantage through accumulated context are seeing that advantage erode — not because experience stopped mattering, but because AI is leveling the execution baseline faster than experience can differentiate it.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-concrete-roadmap-for-early-career-engineers">A Concrete Roadmap for Early-Career Engineers<a href="https://austinxyz.github.io/blogs/blog/2026/03/04/no-junior-engineers#a-concrete-roadmap-for-early-career-engineers" class="hash-link" aria-label="Direct link to A Concrete Roadmap for Early-Career Engineers" title="Direct link to A Concrete Roadmap for Early-Career Engineers" translate="no">​</a></h2>
-<p>Given all this, here's how I'd advise a junior engineer to allocate their development energy:</p>
-<p><strong>Code faster, think bigger.</strong> Your coding fundamentals are probably fine. Stop optimizing for "writing code faster" and start optimizing for "forming correct technical opinions faster." The ability to quickly learn a new domain and form a defensible point of view is worth more than raw implementation speed.</p>
-<p><strong>Invest heavily in system design.</strong> This is the clearest gap between junior and senior engineers, and the one AI is least equipped to bridge. Read real architecture case studies — not textbooks, actual post-mortems and engineering blogs from companies operating at scale. Practice turning vague requirements into concrete architectural proposals.</p>
-<p><strong>Take collaboration seriously.</strong> Influence without formal authority, navigating ambiguity, resolving technical disagreements — these skills are underrated by most junior engineers and overvalued by the market. The engineers who advance fastest are rarely the ones who write the best code in isolation.</p>
-<p><strong>Use AI to accelerate your experience curve.</strong> This is the real unlock. The traditional path to large-scale system experience takes years of being in the right place at the right time. AI can compress this by letting you simulate design decisions, explore failure modes, and understand system behavior before you've lived it. Use it that way, not as a code autocomplete.</p>
-<p><strong>Go deep on AI-native development practices.</strong> Vibe Coding, Spec Driven Development, structured context management, agentic workflows — these aren't hype. They're a genuine productivity multiplier, and the playing field is relatively level right now. Junior engineers who master them early will have a real advantage.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-profiles-that-actually-worry-me">The Profiles That Actually Worry Me<a href="https://austinxyz.github.io/blogs/blog/2026/03/04/no-junior-engineers#the-profiles-that-actually-worry-me" class="hash-link" aria-label="Direct link to The Profiles That Actually Worry Me" title="Direct link to The Profiles That Actually Worry Me" translate="no">​</a></h2>
-<p>Here's what I find more concerning than the junior engineer who's struggling to find their first job: the mid-level engineer who spent five years in a narrow lane, knows just enough to be confident, and hasn't developed genuine depth in anything.</p>
-<p>The engineers most at risk from AI aren't the ones just starting out. They're the ones who:</p>
-<ul>
-<li class="">Stayed comfortable in a specific technology stack without developing transferable judgment</li>
-<li class="">Are either afraid of AI tools or entirely dependent on them — neither extreme works</li>
-<li class="">Let their computer science fundamentals atrophy without replacing them with something more durable</li>
-</ul>
-<p>Junior engineers have something these people don't: they haven't formed the habits yet. That's actually an advantage.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-this-moment-actually-is">What This Moment Actually Is<a href="https://austinxyz.github.io/blogs/blog/2026/03/04/no-junior-engineers#what-this-moment-actually-is" class="hash-link" aria-label="Direct link to What This Moment Actually Is" title="Direct link to What This Moment Actually Is" translate="no">​</a></h2>
-<p>I don't think this is the end of junior engineering. I think it's a recalibration.</p>
-<p>The execution layer of software development is being commoditized. The judgment layer — understanding what to build, why it matters, how to architect it at scale, and how to align a team around it — is becoming more valuable, not less.</p>
-<p>Early-career engineers who understand this distinction and invest accordingly will find that the AI era is full of opportunity. You have better tools than any previous generation. The bar for what a single engineer can produce is higher than it's ever been.</p>
-<p>The question isn't whether there's room for you. There is. The question is whether you're building the capabilities that will matter, or optimizing for the ones that are being automated away.</p>
-<hr>
-<p><em>Working through similar questions about AI and career development? Happy to discuss in the comments.</em></p>]]></content:encoded>
-            <author>austin.xyz@gmail.com (Austin Xu)</author>
-            <category>ai</category>
-            <category>career-development</category>
-            <category>leadership</category>
         </item>
     </channel>
 </rss>
