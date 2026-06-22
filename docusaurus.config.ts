@@ -82,6 +82,7 @@ const config: Config = {
             {label: 'Hobbies', to: '/blog/tags/hobbies'},
           ],
         },
+        {href: 'https://austinxyz.github.io/course-portal/', label: 'Course', position: 'left'},
         {to: '/about', label: 'About', position: 'left'},
         {to: '/resume', label: 'Resume', position: 'left'},
         {
