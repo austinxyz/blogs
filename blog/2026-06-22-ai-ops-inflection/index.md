@@ -8,6 +8,8 @@ slug: ai-ops-inflection
 image: ./images/cover.jpg
 ---
 
+![AI control room with incident dashboard, human monitoring at the edge](./images/cover.jpg)
+
 Two posts set up predictions that are now testable against field data.
 
 [*DevOps at Scale*](https://austinxyz.github.io/blogs/blog/devops-at-scale) predicted that organizations with mature DevOps — real SLO discipline, health-gated CI/CD, systematic observability — would be far better positioned for AI-native infrastructure than organizations that treated DevOps as theater. [*Who's Driving the AI-Native Organization?*](https://austinxyz.github.io/blogs/blog/ai-native-organization) identified the TOIL wall: the empirical finding that Ops automation is dramatically harder than Dev automation, explained through the open/closed problem lens. The first 60% of operational toil is closed — known failure modes, documented runbooks. The stubborn residue behaves like open problems — novel situations, ambiguous signals, judgment calls about what the problem even *is*.
