@@ -21,6 +21,17 @@ Before leading the Cloud Platform team, I:
 - Architected eBay's internal cloud platforms across three generations (VMware, OpenStack, Kubernetes)
 - Led China Center of Excellence teams delivering platform tools and developer experience
 
+## Teaching
+
+I run a hands-on course series helping professionals build real AI tools with Claude — no coding experience required.
+
+- **Session 1 — Claude & Cowork from Zero**: Build a job-search Agent pipeline that analyzes job descriptions, researches companies, drafts outreach, and tracks applications.
+- **Session 2 — Build Your Own AI Tools with Claude Code**: Transition from tool usage to tool creation. Master Claude Code locally, leverage Skills and MCP ecosystems, and structure your professional expertise into AI-usable knowledge bases.
+
+Both sessions are taught in Chinese, targeting North American professionals who want to integrate AI into their real workflows — not just experiment with prompts.
+
+→ [Course portal](https://austinxyz.github.io/course-portal/?lang=en)
+
 ## Beyond Engineering
 
 When I'm not building platforms, you'll find me:
