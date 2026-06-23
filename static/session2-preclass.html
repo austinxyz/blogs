@@ -155,6 +155,21 @@
     </div>
   </div>
 
+  <!-- Mac Homebrew -->
+  <div class="section" id="step-homebrew">
+    <div class="step-header">
+      <div class="step-num" style="background: #e8f5ee; color: #1a6b4a; font-size:1.5rem;">🍺</div>
+      <div class="step-title">Mac 用户额外一步：装 Homebrew</div>
+    </div>
+    <div class="callout callout-info">Windows 用户跳过这步。</div>
+    <p>Homebrew 是 Mac 的软件包管理器，后面装 Python 要用到它。打开 Terminal，粘贴，回车，按提示输电脑<strong>开机密码</strong>（输入时光标不动是正常的，输完直接回车）：</p>
+    <div class="cmd-card">
+      <div class="cmd-card-header"><span class="cmd-card-title">Mac · Terminal</span><button class="copy-btn" onclick="copyCmd(this)">复制</button></div>
+      <div class="cmd-body">/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</div>
+    </div>
+    <p>装完后终端会提示你运行两行 <code class="inline">eval "..."</code> 命令——把那两行完整复制出来、粘回终端、回车，让 brew 在当前窗口生效。然后继续下一步。</p>
+  </div>
+
   <!-- Step: Skills -->
   <div class="section" id="step-skills">
     <div class="step-header">
@@ -174,10 +189,19 @@
     </div>
 
     <h3>② 装 ppt-master（两步，顺序不能反）</h3>
-    <p><strong>前提：电脑需要 Python 3.10+。</strong>没装过？去 <a href="https://www.python.org/downloads/" target="_blank">python.org</a> 下载，<strong>Windows 安装时勾选 "Add python.exe to PATH"</strong>。</p>
-    <p><strong>第一步——</strong>在终端（PowerShell / Terminal）里装 Python 依赖：</p>
+    <p><strong>前提：需要 Python 3.10+。</strong>不确定有没有装过？把下面这段粘进 Claude Code 对话框，让它自动检查并安装：</p>
     <div class="cmd-card">
-      <div class="cmd-card-header"><span class="cmd-card-title">终端里运行（不是 Claude Code）</span><button class="copy-btn" onclick="copyCmd(this)">复制</button></div>
+      <div class="cmd-card-header"><span class="cmd-card-title">在 Claude Code 里运行（一键搞定）</span><button class="copy-btn" onclick="copyCmd(this)">复制</button></div>
+      <div class="cmd-body">帮我检查并安装 ppt-master 需要的前置软件：
+1. 检查 Python 版本（python --version 或 python3 --version）
+2. 如果低于 3.10 或没装：Windows 运行 winget install Python.Python.3.12，Mac 运行 brew install python@3.12
+3. 运行 pip install python-pptx pymupdf pillow cairosvg（Mac 用 pip3）
+4. 检查 git（git --version），没有则 Windows 运行 winget install Git.Git，Mac 运行 brew install git
+5. 报告每步结果，失败的告诉我下一步怎么做</div>
+    </div>
+    <p>遇到权限弹窗选"允许"即可。或者手动在终端（PowerShell / Terminal）里装：</p>
+    <div class="cmd-card">
+      <div class="cmd-card-header"><span class="cmd-card-title">终端里运行（手动方式）</span><button class="copy-btn" onclick="copyCmd(this)">复制</button></div>
       <div class="cmd-body">pip install python-pptx pymupdf pillow cairosvg</div>
     </div>
     <p><strong>第二步——</strong>装 skill 文件（三选一，哪个成功用哪个）：</p>
