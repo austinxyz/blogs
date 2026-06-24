@@ -10,7 +10,7 @@ image: ./images/cover.jpg
 
 ![Businessman shaking hands with glowing AI holographic figure at office desk](./images/cover.jpg)
 
-Prompt engineer. Context engineer. Spec-driven development. Harness. Loop engineer. Context minimalism. Tokenmaxxing.
+Prompt engineering. Context engineering. Spec-driven development. Harness. Loop engineering. Context minimalism. Tokenmaxxing.
 
 A new term lands every week. The smartest people in tech are pouring into AI, and ideas collide fast — CTOs taking IC roles at Anthropic, researchers shipping frameworks before the last one has been absorbed. The vocabulary is exciting. It's also exhausting. And some of it turns out to be wrong.
 
