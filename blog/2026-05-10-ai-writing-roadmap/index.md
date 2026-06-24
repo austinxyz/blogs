@@ -50,6 +50,7 @@ Looked at together, the four tracks close a loop. **Track 4** is the thing you'r
 | [Cloud Native → AI Native App Platform](/blog/cloud-native-to-ai-native-app-platform) | Application platform layer for model and agent workloads |
 | [IaC and Kubernetes as a Two-Layer Control Plane](/blog/iac-k8s-ai-native) | Why the IaC + K8s split survives the transition |
 | [DevOps at Scale](/blog/2026/04/26/devops-at-scale) | How DevOps practices hold up at hundreds of clusters and tens of thousands of nodes |
+| [The Ops Inflection: How AI Is Converting Open Problems Into Closed Ones](/blog/ai-ops-inflection) | Progress report on two predictions — the TOIL wall is real but moves; three architectural patterns that are shifting the open/closed boundary in ops |
 
 ### Coming next
 
@@ -78,6 +79,7 @@ The reason this track exists at all is that I find most AI infrastructure writin
 | [Stacking OpenSpec and Superpowers, Three Weeks Later](/blog/openspec-superpowers-three-weeks-later) | Five friction points from running the stack across multiple projects, and the plugin that packages the evolved workflow |
 | [Stacking OpenSpec and Superpowers, Then I Added a Harness](/blog/openspec-superpowers-harness) | An independent evaluator subagent spawns per group — fresh context, explicit contract, structured scoring. The workflow now knows what "done" means without asking me. |
 | [OpenSpec + Harness, Then We Added Engineers](/blog/openspec-harness-team-workflow) | What breaks when individual AI acceleration hits the team — branch model, parallel conflict detection, four-layer achieve gate, and JIRA integration that enforces DoD automatically. |
+| [Why Does the AI Field Keep Reinventing Things We Already Knew?](/blog/treat-ai-like-person) | The mental model that cuts through all the new terminology: treat AI like a person, and 90% of concepts resolve to engineering practices you already know. |
 
 This track is reported, not researched. Every post in it describes work I actually shipped using the tool described, with the rework rate, defect rate, and time-to-merge attached. That's the reading promise: no methodology I haven't run myself.
 
