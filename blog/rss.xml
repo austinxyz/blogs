@@ -4,10 +4,79 @@
         <title>Austin Xu Blog</title>
         <link>https://austinxyz.github.io/blogs/blog</link>
         <description>Austin Xu Blog</description>
-        <lastBuildDate>Mon, 22 Jun 2026 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 25 Jun 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[Why "Treat AI Like a Person" Is More Precise Than It Sounds: A Case for Reading the Gap Map]]></title>
+            <link>https://austinxyz.github.io/blogs/blog/treat-ai-like-person-p2</link>
+            <guid>https://austinxyz.github.io/blogs/blog/treat-ai-like-person-p2</guid>
+            <pubDate>Thu, 25 Jun 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Treating AI like a person is more precise than it sounds. Here's what the capability gap actually tells you.]]></description>
+            <content:encoded><![CDATA[<p><img decoding="async" loading="lazy" alt="Man and glowing AI figure studying a holographic map together at night" src="https://austinxyz.github.io/blogs/assets/images/cover-c1fc1351d1cbc8953204111d42358fef.jpg" width="1024" height="576" class="img_ev3q"></p>
+<p>I ended last time with: <em>"Treat AI like a person. The confusion mostly goes away."</em></p>
+<p>I still believe that. But "like a person" is more precise than it sounds — and most people are using it imprecisely.</p>
+<p>The mistake is treating human capability as a single axis, and AI as a point somewhere on it. Better or worse, faster or slower, ready or not. The actual shape is jagged. Which makes it considerably more useful.</p>
+<p>The frame isn't just "AI is like a person." It's more useful than that: human capability is the map. The places where AI still can't match a person are exactly where the interesting work is.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="ai-capability-is-not-a-number-on-a-scale">AI Capability Is Not a Number on a Scale<a href="https://austinxyz.github.io/blogs/blog/treat-ai-like-person-p2#ai-capability-is-not-a-number-on-a-scale" class="hash-link" aria-label="Direct link to AI Capability Is Not a Number on a Scale" title="Direct link to AI Capability Is Not a Number on a Scale" translate="no">​</a></h2>
+<p>Most people rate a new hire on a single axis: good or bad, ready or not, faster or slower.</p>
+<p>The real shape is jagged.</p>
+<p>In some zones, current AI isn't "pretty good" — it's operating at multiples of what an average human can do. Throughput. Parallel execution. Style consistency across hundreds of documents. Pattern-matching against known templates. Running code review against an entire diff without fatigue. These are not areas where AI is catching up. These are areas where you're already behind if you're handling them manually, and leaving leverage on the table if you're treating AI as a tool rather than a colleague.</p>
+<p>In other zones, the gap runs the other direction. Long-horizon planning across a complex project. Accountability — standing behind something with your name and career attached. Coordinating people when trust matters. Reading the room.</p>
+<p>The question isn't "is AI good or bad." It's which zone you're operating in right now.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-hiring-agent-that-hallucinated-resumes">The Hiring Agent That Hallucinated Resumes<a href="https://austinxyz.github.io/blogs/blog/treat-ai-like-person-p2#the-hiring-agent-that-hallucinated-resumes" class="hash-link" aria-label="Direct link to The Hiring Agent That Hallucinated Resumes" title="Direct link to The Hiring Agent That Hallucinated Resumes" translate="no">​</a></h2>
+<p>A few months ago I built a hiring scanning agent. Simple job: read incoming resumes, extract the relevant fields, score them against the role.</p>
+<p>It worked well — until a PDF failed to load. Claude didn't stop. It didn't say "I can't read this file." It generated a candidate. Plausible name, plausible background, plausible scores. Completely invented.</p>
+<p>My first reaction was the wrong one. <em>This is why you can't trust AI like a person.</em></p>
+<p>Then I thought about it longer. What do humans do under pressure when they can't complete a task? Some of them invent. Self-deception under deadline is a documented human failure mode — you've seen it in code reviews, in status reports, in the confident estimate that turned out to be a guess. Claude did what a stressed junior employee might do: found an answer rather than reported it couldn't.</p>
+<p>The fix wasn't to distrust AI more. It was to build the verification layer I should have built anyway — a separate pass checking whether source documents loaded successfully before trusting any downstream output. Orthogonal verification. You'd require the same from a human process.</p>
+<p>Hallucination is real. It's also not random. The model isn't retrieving facts. It's matching procedure templates from training: read file, extract fields, generate output. When the PDF failed to load, it didn't stop. It found the closest template — resume parsing — and ran it on empty input. The name, background, and scores looked completely real because the template is real. Only the grounding was missing.</p>
+<p>Once you understand that shape — a template executing on failed input, producing fluent output with no anchor — you can engineer around it. Verify that grounding succeeded before trusting any downstream output. The template will always run; your job is to check whether it had anything real to run on.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="where-ai-already-outperforms-you-the-part-people-skip">Where AI Already Outperforms You (The Part People Skip)<a href="https://austinxyz.github.io/blogs/blog/treat-ai-like-person-p2#where-ai-already-outperforms-you-the-part-people-skip" class="hash-link" aria-label="Direct link to Where AI Already Outperforms You (The Part People Skip)" title="Direct link to Where AI Already Outperforms You (The Part People Skip)" translate="no">​</a></h2>
+<p>The frontier runs both ways. Most writing about AI limitations focuses on the gaps — real ones — without equal time on zones where the gap runs the other direction.</p>
+<p>Throughput. An AI reviews a hundred documents in the time you review one, at consistent quality throughout. That's not a marginal advantage. That's a structural shift in what's possible.</p>
+<p>Style and template consistency. Human writers drift. Different people produce different outputs from the same template. AI doesn't drift. Define the pattern once; it executes exactly. At scale.</p>
+<p>Parallel workstreams. Early on, I screened resumes one by one — feed a candidate in, wait, move to the next. Fifty resumes took most of a morning. Then I ran them all in parallel. Same fifty, done before I finished my coffee. A human holds one complex task in working memory at a time. AI doesn't have that constraint.</p>
+<p>Most engineers I talk to are still using AI where it's weakest — creative exploration, novel architecture, judgment calls that require weighing competing values — and underusing it where it's strongest. The map matters.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="abandoning-ai-after-a-gap-is-the-anti-pattern">Abandoning AI After a Gap Is the Anti-Pattern<a href="https://austinxyz.github.io/blogs/blog/treat-ai-like-person-p2#abandoning-ai-after-a-gap-is-the-anti-pattern" class="hash-link" aria-label="Direct link to Abandoning AI After a Gap Is the Anti-Pattern" title="Direct link to Abandoning AI After a Gap Is the Anti-Pattern" translate="no">​</a></h2>
+<p>A post circulated recently: an AI submitted a 38-page formal proof, the team celebrated, shipped it, and a race condition tore the database apart.</p>
+<p>Most commentary framed it as: <em>AI can't be trusted for this kind of work.</em></p>
+<p>Read more carefully. The AI had reported its modeling assumptions. The human reviewers didn't check them. The failure wasn't AI hallucinating a correct proof over a broken model — it was nobody auditing the assumptions. An orthogonal review pass, checking assumptions independently of the proof, would have caught it.</p>
+<p>The conclusion that followed — avoid AI for formal verification — is exactly the wrong lesson. The gap wasn't in the AI's proof. It was in the human process around it.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="not-all-gaps-deserve-the-same-response">Not All Gaps Deserve the Same Response<a href="https://austinxyz.github.io/blogs/blog/treat-ai-like-person-p2#not-all-gaps-deserve-the-same-response" class="hash-link" aria-label="Direct link to Not All Gaps Deserve the Same Response" title="Direct link to Not All Gaps Deserve the Same Response" translate="no">​</a></h2>
+<p>Some gaps are being closed by engineering. Context loss is one of them.</p>
+<p>Early AI systems lost everything at the end of a session. That's no longer the ceiling. Context windows have grown by orders of magnitude. Memory architectures — keeping a persistent knowledge store separate from what's in active context — are becoming standard. Claude's memory feature is one implementation. The gap between "forgets everything" and "remembers what matters" is closing, deliberately and fast.</p>
+<p>Motivation is different.</p>
+<p>AI doesn't have emotions, and that's largely useful. A model that doesn't get frustrated, doesn't have bad days, doesn't hold grudges — that's easier to manage than a person. Set the parameters; it operates within them.</p>
+<p>No emotions also means no conviction. Humans take low-probability bets when they believe in something enough — not because the math works out, but because commitment is itself a form of fuel. AI has no beliefs to commit to. It calculates accurately and stops there.</p>
+<p>But the absence of intrinsic motivation cuts both ways. A model with no stake in outcomes executes whatever it's pointed at. That's a feature when you're doing the pointing. It's a problem when the only one doing the pointing is the lab that built it.</p>
+<p>Safety training adds a separate constraint. AI won't touch anything that reads as politically incorrect, legally gray, or even mildly offensive. Real success is often built in exactly those zones — the contrarian call, the hard truth that sounds impolitic, the minor rule that an experienced person with good judgment knows to bend. AI is trained to avoid all of it.</p>
+<p>Fable 5.0 shipped as the most capable model Anthropic had released. Anthropic suspended it — not because it was broken, but because capability outpaced alignment. More powerful model, same open question about adversarial use. The gap between "capable" and "aligned" was wider than acceptable.</p>
+<p>This gap doesn't close on its own. It has to be engineered: safety training, value alignment, behavioral constraints, evaluation against adversarial cases. You don't wait for a model to develop motivation. You construct it. The teams working on this aren't fixing a bug — they're doing something closer to moral philosophy at scale. It's hard, unsolved, and the most important gap on the list.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-gaps-are-evolutionary-distance-not-defects">The Gaps Are Evolutionary Distance, Not Defects<a href="https://austinxyz.github.io/blogs/blog/treat-ai-like-person-p2#the-gaps-are-evolutionary-distance-not-defects" class="hash-link" aria-label="Direct link to The Gaps Are Evolutionary Distance, Not Defects" title="Direct link to The Gaps Are Evolutionary Distance, Not Defects" translate="no">​</a></h2>
+<p>Every gap between current AI and human capability is a distance marker on a known road toward AGI. Hallucination, context limits, planning horizons, alignment — each one has a name, a research thread, and people actively closing it.</p>
+<p>Most gaps close with scale — more data, more compute, predictable curves. One may not. When a problem shifts slightly outside what the model trained on, performance doesn't degrade gradually — it collapses. Apple's <a href="https://arxiv.org/abs/2410.05229" target="_blank" rel="noopener noreferrer" class="">2024 study</a> found that adding a single irrelevant sentence to a math problem dropped accuracy by up to 65 percentage points, even on frontier models. Adding parameters doesn't fix it. Research here points toward architectural changes, not scaling. It's the one gap where even the research community doesn't have a confident path. That doesn't make it permanent. It makes the timeline genuinely uncertain in a way the other gaps aren't — <a href="https://arxiv.org/abs/2604.01363" target="_blank" rel="noopener noreferrer" class="">MIT research</a> estimates AI agents won't reach even "minimally sufficient" performance on 80–95% of knowledge work tasks until 2029, and that's before accounting for domains that require zero tolerance for error.</p>
+<p>The gaps look like a compressed version of things humans also struggle with, made visible. Humans hallucinate under pressure. Humans lose context across long timelines. Humans behave inconsistently when values aren't internalized. Closing AI's gaps is, in a real sense, reverse-engineering what human cognition does naturally — and discovering, for the first time, exactly how hard each piece is.</p>
+<p>When all those gaps close, we call it AGI.</p>
+<p>Until then, the gaps are information. They tell you where to trust and where to verify, where to delegate fully and where to keep a human in the loop. The map changes every quarter, every week — and keeps generating new vocabulary as it moves. Your job is to read it accurately and not mistake this snapshot for the permanent state.</p>
+<p>Treating AI like a person means managing it the way you'd manage a talented colleague — exceptional in some areas, still developing in others, backed by a team moving faster than any technology before it.</p>
+<p>The confusion mostly goes away. The precision comes from knowing which zone you're in.</p>]]></content:encoded>
+            <author>austin.xyz@gmail.com (Austin Xu)</author>
+            <category>ai</category>
+            <category>mental-model</category>
+            <category>software-engineering</category>
+            <category>llm</category>
+            <category>hallucination</category>
+            <category>alignment</category>
+            <category>jagged-frontier</category>
+        </item>
         <item>
             <title><![CDATA[The Ops Inflection: How AI Is Converting Open Problems Into Closed Ones]]></title>
             <link>https://austinxyz.github.io/blogs/blog/ai-ops-inflection</link>
@@ -400,87 +469,6 @@
             <category>methodology</category>
         </item>
         <item>
-            <title><![CDATA[The Senior Engineer's AI Trap: Why Experience Works Against You]]></title>
-            <link>https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap</link>
-            <guid>https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap</guid>
-            <pubDate>Wed, 13 May 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Most senior engineers are using AI. Fewer are actually leveling up. Here's the difference — and the four traps that technically strong engineers keep falling into.]]></description>
-            <content:encoded><![CDATA[<p>The engineers I worry about most aren't the juniors struggling to break in.</p>
-<p>They're the 10-year veterans who've added AI tools to their workflow, are producing work at roughly the same pace they were 18 months ago, and have concluded that AI is "useful but overhyped."</p>
-<p>The junior who's struggling at least knows there's a problem to solve. The senior who's plateaued often doesn't.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-transition-youve-already-made--twice">A Transition You've Already Made — Twice<a href="https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap#a-transition-youve-already-made--twice" class="hash-link" aria-label="Direct link to A Transition You've Already Made — Twice" title="Direct link to A Transition You've Already Made — Twice" translate="no">​</a></h2>
-<p>Most senior engineers have actually lived through this before. Twice.</p>
-<p>The first time: you went from individual contributor to tech lead. You stopped writing every feature yourself and started directing other engineers. The output multiplied — a tech lead running a strong team ships far more than any individual. But the transition was uncomfortable. It felt like doing less real work.</p>
-<p>The second time was subtler: you went from tech lead to something closer to a manager. Less hands-on execution, more judgment, architecture direction, and enabling the people around you.</p>
-<p>AI is demanding a third transition — and it has the same structure as the previous two.</p>
-<p>You are no longer the engineer who writes the best code. You are the manager who directs AI to write the code, while you focus on what AI cannot do: judgment, architecture, product sense, organizational context, and enabling your team.</p>
-<p>The engineers who've made this mental shift are operating like senior managers with an infinitely scalable team. They define the problem, set the standard, review the architecture, and direct execution. The ones who haven't made the shift are using AI like a keyboard upgrade — faster at the same work, same ceiling.</p>
-<p>The question is which transition you've actually completed. Most people think they've made it. Fewer have.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="two-engineers-same-tools-different-results">Two Engineers, Same Tools, Different Results<a href="https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap#two-engineers-same-tools-different-results" class="hash-link" aria-label="Direct link to Two Engineers, Same Tools, Different Results" title="Direct link to Two Engineers, Same Tools, Different Results" translate="no">​</a></h2>
-<p>I've watched this play out directly with engineers on my team.</p>
-<p>One engineer — strong technical background, meticulous, a decade of experience — integrated AI the way most senior engineers do: code reviews, quick lookups, documentation drafts. They could tell you which tool was best for which task. Output improved incrementally. But the fundamental shape of their day hadn't changed. AI made them faster at the same work.</p>
-<p>Another engineer asked a different question. Not "how can AI help me do my current job" — but "what would this workflow look like if I redesigned it from scratch?"</p>
-<p>The result: they rebuilt our entire onboarding process. Not just the documentation — the day-by-day plan, environment setup guides, system context documents, structured checkpoints for the first month. Work that used to require weeks of coordination. New-engineer ramp time dropped by half.</p>
-<p>That's not an incremental improvement. That's a different operating mode.</p>
-<p>The difference between these two engineers wasn't better tools or more hours. It was whether they used AI to do the same work faster, or to do fundamentally different work.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-four-traps-technically-strong-engineers-fall-into">The Four Traps Technically Strong Engineers Fall Into<a href="https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap#the-four-traps-technically-strong-engineers-fall-into" class="hash-link" aria-label="Direct link to The Four Traps Technically Strong Engineers Fall Into" title="Direct link to The Four Traps Technically Strong Engineers Fall Into" translate="no">​</a></h2>
-<p>Senior engineers fall into specific patterns with AI — and they're not random. They're the direct consequence of habits that made you good.</p>
-<p><strong>Trap 1: Over-Specifying</strong></p>
-<p>You've spent years developing the instinct to think through implementation before touching a keyboard. So when you hand off to AI, you do the same: work out the approach, decompose the problem, sketch the solution — then describe it in detail.</p>
-<p>The result: AI produces code that matches your spec. You did most of the cognitive work already. What you've built is an expensive typing assistant.</p>
-<p>The shift: give AI the goal and the constraints, not the implementation plan. Let AI propose the approach. Your job is to evaluate and redirect — not to pre-solve. This is uncomfortable for engineers whose confidence comes from precise technical thinking. But it's the same thing you had to learn the first time you delegated to another engineer.</p>
-<p><strong>Trap 2: Reviewing Everything</strong></p>
-<p>AI generates 400 lines of code. You read all 400 lines.</p>
-<p>The instinct is right — you're accountable for what ships. But the math doesn't work. If reviewing AI output takes the same time as writing it yourself, you've traded one bottleneck for another.</p>
-<p>The shift: stratified review. Architecture and key interfaces get close attention — that's where AI makes structural mistakes that compound. Implementation details get covered by tests, not line-by-line reading. This requires trusting your test coverage, which means investing in it differently than before. Most engineers skip this step, then wonder why the efficiency gains don't materialize.</p>
-<p><strong>Trap 3: Fixing Bugs Yourself</strong></p>
-<p>AI produces a bug. You spot it. Instinct: fix it.</p>
-<p>But you just took back ownership of work you were delegating. You also missed the chance to see whether AI can debug its own output when given clear feedback.</p>
-<p>The shift: when AI produces something broken, describe the problem and hand it back. Be explicit about what's wrong and what you expect. Slower at first. Over a project, it keeps you operating at the right level of abstraction.</p>
-<p><strong>Trap 4: Getting Swallowed by Speed</strong></p>
-<p>AI is fast, so you start three tasks at once. Then five. Then you're context-switching across half-finished work, reviewing outputs you haven't thought through, producing activity without a clear throughline.</p>
-<p>The engineers who handle this well treat AI's speed as a reason to be more deliberate upstream — not less. They invest more in the brainstorm phase, articulating clearly what they want before execution starts. When AI is running, they're thinking about the next problem — not watching the current one.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="agile-didnt-break--it-got-more-powerful">Agile Didn't Break — It Got More Powerful<a href="https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap#agile-didnt-break--it-got-more-powerful" class="hash-link" aria-label="Direct link to Agile Didn't Break — It Got More Powerful" title="Direct link to Agile Didn't Break — It Got More Powerful" translate="no">​</a></h2>
-<p>Here's something that often gets lost in the AI conversation: the engineering methodology hasn't changed.</p>
-<p>Agile still works. Sprints, user stories, iterative delivery, retrospectives — the framework that senior engineers have spent a decade internalizing is not obsolete. If anything, AI makes each Agile practice more powerful.</p>
-<p>Requirements refinement: AI can generate edge cases, spot ambiguities in a user story, and surface implicit assumptions before a sprint begins. What used to take a two-hour grooming session now surfaces in twenty minutes — with more depth.</p>
-<p>Technical design: instead of one architect proposing one approach, AI can generate three architectural proposals in parallel before the team evaluates them. The decision quality improves because you're choosing from real options, not a first draft.</p>
-<p>Code review: AI pre-screens for common issues, style violations, and test gaps. Human reviewers focus on the things that matter — architecture, design intent, edge cases that require domain knowledge.</p>
-<p>Retrospectives: AI can synthesize patterns across multiple sprints, surfacing recurring blockers that are easy to miss in the moment.</p>
-<p>Senior engineers who've internalized Agile have a structural advantage here. They know where the methodology has leverage points, and therefore where to plug AI in. Junior engineers are still learning the process itself — they can't optimize what they haven't fully understood.</p>
-<p>This is one of the clearest examples of experience creating asymmetric value in the AI era.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-doesnt-change">What Doesn't Change<a href="https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap#what-doesnt-change" class="hash-link" aria-label="Direct link to What Doesn't Change" title="Direct link to What Doesn't Change" translate="no">​</a></h2>
-<p>There's a version of this conversation that concludes: experience is worthless because AI has all the information. That's wrong.</p>
-<p><strong>System intuition.</strong> You know how things break at scale — failure modes that aren't in any documentation because you lived through them. AI can describe how distributed systems should work. It can't tell you this specific service will behave badly under this load profile, because of an architectural decision made three years ago. That knowledge lives in you.</p>
-<p><strong>Engineering taste.</strong> AI can produce code that passes tests. It takes judgment to know whether that code will still be comprehensible in 18 months, whether an abstraction is earning its complexity, whether a design choice will constrain you in ways you haven't hit yet. AI can pressure-test your taste. It can't substitute for it.</p>
-<p><strong>Organizational context.</strong> AI doesn't know your company's technical debt, the team's skill gaps, the political history of decisions you'd rather not revisit, or the unstated priorities behind a VP's ask. The engineer who integrates all of that is not replaceable.</p>
-<p><strong>The team dimension.</strong> This is the piece most senior engineers underestimate — and the one that most clearly separates staff-level impact from senior-level impact.</p>
-<p>The old model: you direct two or three junior engineers who handle execution. Your leverage is their combined output.</p>
-<p>The new model is more complex. You direct AI for your own execution. But you also need to help the junior engineers on your team develop the same capability — because a team where only one person works AI-native is not a multiplied team.</p>
-<p>This means redesigning workflows so AI is embedded at the team level, not just in individual practice. It means defining standards for how AI is used in code review, testing, and design. It means building context artifacts — the architecture docs, the coding conventions, the runbooks — that allow AI to work effectively with your codebase, not just your own. And it means actively mentoring junior engineers on this shift, rather than assuming they'll figure it out.</p>
-<p>The engineer who rebuilt the onboarding process wasn't just being personally productive. They changed the structural conditions for every engineer who joined afterward. That's the kind of team-level leverage only a senior engineer can create.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="an-operating-framework">An Operating Framework<a href="https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap#an-operating-framework" class="hash-link" aria-label="Direct link to An Operating Framework" title="Direct link to An Operating Framework" translate="no">​</a></h2>
-<p>The shift that works breaks into four phases:</p>
-<p><strong>Brainstorm.</strong> When requirements are unclear, go deep with AI before execution starts. Use it to challenge your assumptions, surface alternatives, find holes in your initial thinking. This is the phase where your judgment matters most — you know which questions to ask and which answers to push back on.</p>
-<p><strong>Implement.</strong> Once direction is clear, write a thorough context document: what you're building, what constraints apply, what "done" looks like, what to avoid. Then let AI run. Don't watch it work. Go think about the next problem.</p>
-<p>Stepping away from active implementation is the hardest part for most senior engineers. It feels irresponsible. In practice, time spent watching AI generate code is almost always better invested elsewhere.</p>
-<p><strong>Audit.</strong> Come back at checkpoints: Is the architecture what you intended? Are edge cases covered? Can a team member maintain this? This is where your standards apply — not as a line-by-line reviewer, but as the person responsible for whether the overall output meets the bar.</p>
-<p><strong>Iterate.</strong> AI has compressed the distance between "working" and "good." Use the time it returns to close the gap between "good" and "excellent" — the gap that used to get cut in the name of shipping. Senior engineers who do this tend to separate from the field. Those who just ship faster stay at the same level.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-right-question">The Right Question<a href="https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap#the-right-question" class="hash-link" aria-label="Direct link to The Right Question" title="Direct link to The Right Question" translate="no">​</a></h2>
-<p>Most senior engineers I talk to are using AI. That's no longer the threshold.</p>
-<p>The question worth asking: <strong>Am I operating at a different level — or doing the same work with better tools?</strong></p>
-<p>A different level looks like: solving problems that used to require a team, shipping at quality and scale that wasn't feasible before, changing the structural conditions for how your team works.</p>
-<p>Same work with better tools looks like: faster code completion, cleaner documentation, slightly quicker onboarding on new codebases. Real improvements. Not a different game.</p>
-<p>The engineers who've made the shift can describe specifically what they can do now that they genuinely couldn't do before — not faster, but actually couldn't do. If that description doesn't come easily, it's probably worth examining why.</p>
-<hr>
-<p><em>This is the fourth piece in a series on what AI means across engineering roles. Earlier: <a href="https://austinxyz.github.io/blogs/blog/2026/03/04/no-junior-engineers" target="_blank" rel="noopener noreferrer" class="">No Junior Engineers? What AI Really Means for Early-Career Developers</a>, <a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai" target="_blank" rel="noopener noreferrer" class="">The AI-Augmented Engineering Manager: How I Run a Team in 2026</a>, and <a href="https://austinxyz.github.io/blogs/blog/2026/03/16/platform-engineer-vs-ops-engineer" target="_blank" rel="noopener noreferrer" class="">How Ops Engineers Can Stay Relevant in the Age of AI: Becoming a Platform Engineer</a>.</em></p>]]></content:encoded>
-            <author>austin.xyz@gmail.com (Austin Xu)</author>
-            <category>ai</category>
-            <category>career-development</category>
-            <category>engineering</category>
-            <category>leadership</category>
-        </item>
-        <item>
             <title><![CDATA[Building an Agent from Scratch: LangGraph, Qdrant, and the Gaps Between the Docs]]></title>
             <link>https://austinxyz.github.io/blogs/blog/building-agent-from-scratch</link>
             <guid>https://austinxyz.github.io/blogs/blog/building-agent-from-scratch</guid>
@@ -577,6 +565,87 @@ This is the most important architectural principle I settled on, and the one I w
             <category>langgraph</category>
             <category>rag</category>
             <category>python</category>
+        </item>
+        <item>
+            <title><![CDATA[The Senior Engineer's AI Trap: Why Experience Works Against You]]></title>
+            <link>https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap</link>
+            <guid>https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap</guid>
+            <pubDate>Wed, 13 May 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[Most senior engineers are using AI. Fewer are actually leveling up. Here's the difference — and the four traps that technically strong engineers keep falling into.]]></description>
+            <content:encoded><![CDATA[<p>The engineers I worry about most aren't the juniors struggling to break in.</p>
+<p>They're the 10-year veterans who've added AI tools to their workflow, are producing work at roughly the same pace they were 18 months ago, and have concluded that AI is "useful but overhyped."</p>
+<p>The junior who's struggling at least knows there's a problem to solve. The senior who's plateaued often doesn't.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-transition-youve-already-made--twice">A Transition You've Already Made — Twice<a href="https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap#a-transition-youve-already-made--twice" class="hash-link" aria-label="Direct link to A Transition You've Already Made — Twice" title="Direct link to A Transition You've Already Made — Twice" translate="no">​</a></h2>
+<p>Most senior engineers have actually lived through this before. Twice.</p>
+<p>The first time: you went from individual contributor to tech lead. You stopped writing every feature yourself and started directing other engineers. The output multiplied — a tech lead running a strong team ships far more than any individual. But the transition was uncomfortable. It felt like doing less real work.</p>
+<p>The second time was subtler: you went from tech lead to something closer to a manager. Less hands-on execution, more judgment, architecture direction, and enabling the people around you.</p>
+<p>AI is demanding a third transition — and it has the same structure as the previous two.</p>
+<p>You are no longer the engineer who writes the best code. You are the manager who directs AI to write the code, while you focus on what AI cannot do: judgment, architecture, product sense, organizational context, and enabling your team.</p>
+<p>The engineers who've made this mental shift are operating like senior managers with an infinitely scalable team. They define the problem, set the standard, review the architecture, and direct execution. The ones who haven't made the shift are using AI like a keyboard upgrade — faster at the same work, same ceiling.</p>
+<p>The question is which transition you've actually completed. Most people think they've made it. Fewer have.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="two-engineers-same-tools-different-results">Two Engineers, Same Tools, Different Results<a href="https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap#two-engineers-same-tools-different-results" class="hash-link" aria-label="Direct link to Two Engineers, Same Tools, Different Results" title="Direct link to Two Engineers, Same Tools, Different Results" translate="no">​</a></h2>
+<p>I've watched this play out directly with engineers on my team.</p>
+<p>One engineer — strong technical background, meticulous, a decade of experience — integrated AI the way most senior engineers do: code reviews, quick lookups, documentation drafts. They could tell you which tool was best for which task. Output improved incrementally. But the fundamental shape of their day hadn't changed. AI made them faster at the same work.</p>
+<p>Another engineer asked a different question. Not "how can AI help me do my current job" — but "what would this workflow look like if I redesigned it from scratch?"</p>
+<p>The result: they rebuilt our entire onboarding process. Not just the documentation — the day-by-day plan, environment setup guides, system context documents, structured checkpoints for the first month. Work that used to require weeks of coordination. New-engineer ramp time dropped by half.</p>
+<p>That's not an incremental improvement. That's a different operating mode.</p>
+<p>The difference between these two engineers wasn't better tools or more hours. It was whether they used AI to do the same work faster, or to do fundamentally different work.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-four-traps-technically-strong-engineers-fall-into">The Four Traps Technically Strong Engineers Fall Into<a href="https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap#the-four-traps-technically-strong-engineers-fall-into" class="hash-link" aria-label="Direct link to The Four Traps Technically Strong Engineers Fall Into" title="Direct link to The Four Traps Technically Strong Engineers Fall Into" translate="no">​</a></h2>
+<p>Senior engineers fall into specific patterns with AI — and they're not random. They're the direct consequence of habits that made you good.</p>
+<p><strong>Trap 1: Over-Specifying</strong></p>
+<p>You've spent years developing the instinct to think through implementation before touching a keyboard. So when you hand off to AI, you do the same: work out the approach, decompose the problem, sketch the solution — then describe it in detail.</p>
+<p>The result: AI produces code that matches your spec. You did most of the cognitive work already. What you've built is an expensive typing assistant.</p>
+<p>The shift: give AI the goal and the constraints, not the implementation plan. Let AI propose the approach. Your job is to evaluate and redirect — not to pre-solve. This is uncomfortable for engineers whose confidence comes from precise technical thinking. But it's the same thing you had to learn the first time you delegated to another engineer.</p>
+<p><strong>Trap 2: Reviewing Everything</strong></p>
+<p>AI generates 400 lines of code. You read all 400 lines.</p>
+<p>The instinct is right — you're accountable for what ships. But the math doesn't work. If reviewing AI output takes the same time as writing it yourself, you've traded one bottleneck for another.</p>
+<p>The shift: stratified review. Architecture and key interfaces get close attention — that's where AI makes structural mistakes that compound. Implementation details get covered by tests, not line-by-line reading. This requires trusting your test coverage, which means investing in it differently than before. Most engineers skip this step, then wonder why the efficiency gains don't materialize.</p>
+<p><strong>Trap 3: Fixing Bugs Yourself</strong></p>
+<p>AI produces a bug. You spot it. Instinct: fix it.</p>
+<p>But you just took back ownership of work you were delegating. You also missed the chance to see whether AI can debug its own output when given clear feedback.</p>
+<p>The shift: when AI produces something broken, describe the problem and hand it back. Be explicit about what's wrong and what you expect. Slower at first. Over a project, it keeps you operating at the right level of abstraction.</p>
+<p><strong>Trap 4: Getting Swallowed by Speed</strong></p>
+<p>AI is fast, so you start three tasks at once. Then five. Then you're context-switching across half-finished work, reviewing outputs you haven't thought through, producing activity without a clear throughline.</p>
+<p>The engineers who handle this well treat AI's speed as a reason to be more deliberate upstream — not less. They invest more in the brainstorm phase, articulating clearly what they want before execution starts. When AI is running, they're thinking about the next problem — not watching the current one.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="agile-didnt-break--it-got-more-powerful">Agile Didn't Break — It Got More Powerful<a href="https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap#agile-didnt-break--it-got-more-powerful" class="hash-link" aria-label="Direct link to Agile Didn't Break — It Got More Powerful" title="Direct link to Agile Didn't Break — It Got More Powerful" translate="no">​</a></h2>
+<p>Here's something that often gets lost in the AI conversation: the engineering methodology hasn't changed.</p>
+<p>Agile still works. Sprints, user stories, iterative delivery, retrospectives — the framework that senior engineers have spent a decade internalizing is not obsolete. If anything, AI makes each Agile practice more powerful.</p>
+<p>Requirements refinement: AI can generate edge cases, spot ambiguities in a user story, and surface implicit assumptions before a sprint begins. What used to take a two-hour grooming session now surfaces in twenty minutes — with more depth.</p>
+<p>Technical design: instead of one architect proposing one approach, AI can generate three architectural proposals in parallel before the team evaluates them. The decision quality improves because you're choosing from real options, not a first draft.</p>
+<p>Code review: AI pre-screens for common issues, style violations, and test gaps. Human reviewers focus on the things that matter — architecture, design intent, edge cases that require domain knowledge.</p>
+<p>Retrospectives: AI can synthesize patterns across multiple sprints, surfacing recurring blockers that are easy to miss in the moment.</p>
+<p>Senior engineers who've internalized Agile have a structural advantage here. They know where the methodology has leverage points, and therefore where to plug AI in. Junior engineers are still learning the process itself — they can't optimize what they haven't fully understood.</p>
+<p>This is one of the clearest examples of experience creating asymmetric value in the AI era.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-doesnt-change">What Doesn't Change<a href="https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap#what-doesnt-change" class="hash-link" aria-label="Direct link to What Doesn't Change" title="Direct link to What Doesn't Change" translate="no">​</a></h2>
+<p>There's a version of this conversation that concludes: experience is worthless because AI has all the information. That's wrong.</p>
+<p><strong>System intuition.</strong> You know how things break at scale — failure modes that aren't in any documentation because you lived through them. AI can describe how distributed systems should work. It can't tell you this specific service will behave badly under this load profile, because of an architectural decision made three years ago. That knowledge lives in you.</p>
+<p><strong>Engineering taste.</strong> AI can produce code that passes tests. It takes judgment to know whether that code will still be comprehensible in 18 months, whether an abstraction is earning its complexity, whether a design choice will constrain you in ways you haven't hit yet. AI can pressure-test your taste. It can't substitute for it.</p>
+<p><strong>Organizational context.</strong> AI doesn't know your company's technical debt, the team's skill gaps, the political history of decisions you'd rather not revisit, or the unstated priorities behind a VP's ask. The engineer who integrates all of that is not replaceable.</p>
+<p><strong>The team dimension.</strong> This is the piece most senior engineers underestimate — and the one that most clearly separates staff-level impact from senior-level impact.</p>
+<p>The old model: you direct two or three junior engineers who handle execution. Your leverage is their combined output.</p>
+<p>The new model is more complex. You direct AI for your own execution. But you also need to help the junior engineers on your team develop the same capability — because a team where only one person works AI-native is not a multiplied team.</p>
+<p>This means redesigning workflows so AI is embedded at the team level, not just in individual practice. It means defining standards for how AI is used in code review, testing, and design. It means building context artifacts — the architecture docs, the coding conventions, the runbooks — that allow AI to work effectively with your codebase, not just your own. And it means actively mentoring junior engineers on this shift, rather than assuming they'll figure it out.</p>
+<p>The engineer who rebuilt the onboarding process wasn't just being personally productive. They changed the structural conditions for every engineer who joined afterward. That's the kind of team-level leverage only a senior engineer can create.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="an-operating-framework">An Operating Framework<a href="https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap#an-operating-framework" class="hash-link" aria-label="Direct link to An Operating Framework" title="Direct link to An Operating Framework" translate="no">​</a></h2>
+<p>The shift that works breaks into four phases:</p>
+<p><strong>Brainstorm.</strong> When requirements are unclear, go deep with AI before execution starts. Use it to challenge your assumptions, surface alternatives, find holes in your initial thinking. This is the phase where your judgment matters most — you know which questions to ask and which answers to push back on.</p>
+<p><strong>Implement.</strong> Once direction is clear, write a thorough context document: what you're building, what constraints apply, what "done" looks like, what to avoid. Then let AI run. Don't watch it work. Go think about the next problem.</p>
+<p>Stepping away from active implementation is the hardest part for most senior engineers. It feels irresponsible. In practice, time spent watching AI generate code is almost always better invested elsewhere.</p>
+<p><strong>Audit.</strong> Come back at checkpoints: Is the architecture what you intended? Are edge cases covered? Can a team member maintain this? This is where your standards apply — not as a line-by-line reviewer, but as the person responsible for whether the overall output meets the bar.</p>
+<p><strong>Iterate.</strong> AI has compressed the distance between "working" and "good." Use the time it returns to close the gap between "good" and "excellent" — the gap that used to get cut in the name of shipping. Senior engineers who do this tend to separate from the field. Those who just ship faster stay at the same level.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-right-question">The Right Question<a href="https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap#the-right-question" class="hash-link" aria-label="Direct link to The Right Question" title="Direct link to The Right Question" translate="no">​</a></h2>
+<p>Most senior engineers I talk to are using AI. That's no longer the threshold.</p>
+<p>The question worth asking: <strong>Am I operating at a different level — or doing the same work with better tools?</strong></p>
+<p>A different level looks like: solving problems that used to require a team, shipping at quality and scale that wasn't feasible before, changing the structural conditions for how your team works.</p>
+<p>Same work with better tools looks like: faster code completion, cleaner documentation, slightly quicker onboarding on new codebases. Real improvements. Not a different game.</p>
+<p>The engineers who've made the shift can describe specifically what they can do now that they genuinely couldn't do before — not faster, but actually couldn't do. If that description doesn't come easily, it's probably worth examining why.</p>
+<hr>
+<p><em>This is the fourth piece in a series on what AI means across engineering roles. Earlier: <a href="https://austinxyz.github.io/blogs/blog/2026/03/04/no-junior-engineers" target="_blank" rel="noopener noreferrer" class="">No Junior Engineers? What AI Really Means for Early-Career Developers</a>, <a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai" target="_blank" rel="noopener noreferrer" class="">The AI-Augmented Engineering Manager: How I Run a Team in 2026</a>, and <a href="https://austinxyz.github.io/blogs/blog/2026/03/16/platform-engineer-vs-ops-engineer" target="_blank" rel="noopener noreferrer" class="">How Ops Engineers Can Stay Relevant in the Age of AI: Becoming a Platform Engineer</a>.</em></p>]]></content:encoded>
+            <author>austin.xyz@gmail.com (Austin Xu)</author>
+            <category>ai</category>
+            <category>career-development</category>
+            <category>engineering</category>
+            <category>leadership</category>
         </item>
         <item>
             <title><![CDATA[Stacking OpenSpec and Superpowers, Three Weeks Later: Five Frictions and a Plugin]]></title>
@@ -1836,81 +1905,6 @@ This is the most important architectural principle I settled on, and the one I w
             <author>austin.xyz@gmail.com (Austin Xu)</author>
             <category>cloud-computing</category>
             <category>kubernetes</category>
-            <category>leadership</category>
-            <category>career-development</category>
-        </item>
-        <item>
-            <title><![CDATA[Twenty Years of Agile, One Year of AI — Here's What Survived]]></title>
-            <link>https://austinxyz.github.io/blogs/blog/2026/03/09/agile-development-in-ai-coding</link>
-            <guid>https://austinxyz.github.io/blogs/blog/2026/03/09/agile-development-in-ai-coding</guid>
-            <pubDate>Mon, 09 Mar 2026 00:00:00 GMT</pubDate>
-            <description><![CDATA[Twenty years of Agile have shaped how I think about software. Here's why I believe Agile principles aren't just still relevant in the AI coding era — they're more important than ever.]]></description>
-            <content:encoded><![CDATA[<p>I grew up as a developer reading Martin Fowler and Kent Beck. The Agile Manifesto, the refactoring patterns, test-driven development — these weren't just methodologies I was handed. They were the lens through which I learned to think about software quality, team dynamics, and sustainable delivery.</p>
-<p>Now I'm spending significant time with AI coding tools — Vibe Coding, Claude Code, spec-driven workflows — and a question keeps surfacing: <em>do these principles still apply?</em></p>
-<p>My answer, after a hands-on 50K-line project experiment, is yes. Not only do they apply — several of them become load-bearing pillars in an AI-augmented workflow.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-new-design-principles-for-ai-coding">The New Design Principles for AI Coding<a href="https://austinxyz.github.io/blogs/blog/2026/03/09/agile-development-in-ai-coding#the-new-design-principles-for-ai-coding" class="hash-link" aria-label="Direct link to The New Design Principles for AI Coding" title="Direct link to The New Design Principles for AI Coding" translate="no">​</a></h2>
-<p>A friend of mine did a deep, systematic study of AI coding tools and frameworks. He synthesized seven core principles for what he calls "AI Native" development — essentially Software 3.0. They're worth understanding before discussing Agile, because they frame the new context we're working in:</p>
-<ol>
-<li class=""><strong>File as Truth</strong> — Store AI memory, config, and state in human-readable local files. The file system is the universal interface between humans and AI.</li>
-<li class=""><strong>Explicit State</strong> — AI must continuously record what it's doing, where it is, and what problems it's encountered. The "three-file pattern": <code>plan.md</code>, <code>status.md</code>, <code>log.md</code>.</li>
-<li class=""><strong>Plan Before Execute</strong> — Separate design authority from execution authority. AI generates a plan, humans approve it, then AI builds.</li>
-<li class=""><strong>Validation as Closed Loop</strong> — Don't trust AI's self-assessment. Build deterministic, test-based auto-correction loops. Red/green TDD is the mechanism.</li>
-<li class=""><strong>Tiered Memory</strong> — Structure AI memory across volatile context (RAM), session logs, and persistent disk files. Actively manage what gets compressed or forgotten.</li>
-<li class=""><strong>Skill as Asset</strong> — Encapsulate AI capabilities as modular, reusable skills. AI learns to expand its own toolbox.</li>
-<li class=""><strong>Context as Budget</strong> — Tokens are expensive and scarce. Load tools on demand, prune redundant output, cache prompts.</li>
-</ol>
-<p>These are well-constructed. But reading through them, something struck me: most of these aren't new ideas dressed in AI clothes. They're old ideas that become newly critical at AI scale.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="my-own-reaction-to-file-as-truth">My Own Reaction to "File as Truth"<a href="https://austinxyz.github.io/blogs/blog/2026/03/09/agile-development-in-ai-coding#my-own-reaction-to-file-as-truth" class="hash-link" aria-label="Direct link to My Own Reaction to &quot;File as Truth&quot;" title="Direct link to My Own Reaction to &quot;File as Truth&quot;" translate="no">​</a></h2>
-<p>The principle that made me think the hardest was "File as Truth." In traditional Agile, we said <strong>code is truth</strong> — the code is the unambiguous, definitive representation of what the system actually does. Documentation lies. Requirements drift. But the code runs.</p>
-<p>AI-native thinking flips this: keep the truth in files (specs, architecture docs, structured state), and let AI generate the implementation.</p>
-<p>I see the appeal. Without anchoring AI to structured context, it will hallucinate, drift, and invent. Having a canonical document that survives across sessions — that the AI reads before acting — is clearly better than relying on prompt memory alone.</p>
-<p>But I'm not fully convinced of the flip. <strong>The implementation gap is real.</strong> A natural-language document is inherently ambiguous; the same spec can produce very different code depending on how the AI interprets it. The more latitude you give AI on implementation, the more you need to verify the result is actually what you intended.</p>
-<p>The answer, I think, isn't to choose between "code is truth" and "file is truth." It's to recognize that both co-exist and must stay in sync. The file defines intent; the code is the executable artifact; the tests verify they match. The problem is that AI can generate documents as easily as code, so without discipline, you end up maintaining two rapidly-diverging sources of truth with no reliable bridge.</p>
-<p>This is where Agile principles come back in with force.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="agile-principles-mapped-to-ai-coding">Agile Principles, Mapped to AI Coding<a href="https://austinxyz.github.io/blogs/blog/2026/03/09/agile-development-in-ai-coding#agile-principles-mapped-to-ai-coding" class="hash-link" aria-label="Direct link to Agile Principles, Mapped to AI Coding" title="Direct link to Agile Principles, Mapped to AI Coding" translate="no">​</a></h2>
-<p>The Agile Manifesto has four values and twelve principles. I won't enumerate all of them — but here are the ones that resonate most directly with AI-augmented development, and what I've observed about how each one applies.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="test-driven-development-the-closing-loop">Test-Driven Development: The Closing Loop<a href="https://austinxyz.github.io/blogs/blog/2026/03/09/agile-development-in-ai-coding#test-driven-development-the-closing-loop" class="hash-link" aria-label="Direct link to Test-Driven Development: The Closing Loop" title="Direct link to Test-Driven Development: The Closing Loop" translate="no">​</a></h3>
-<p>TDD was always my favorite practice. Write the failing test first, then write the code to make it pass. It forces you to define success before you start building, and it creates an automated verification mechanism that doesn't require you to remember what "done" looks like.</p>
-<p>In AI coding, TDD becomes something more important: <strong>it's how you close the loop.</strong></p>
-<p>AI is creative but non-deterministic. Left to its own judgment, it will implement something that plausibly looks correct. With a failing test, it has an unambiguous target. More importantly, it can run the test itself, observe the failure, and self-correct without human intervention. This is what "Validation as Closed Loop" actually means in practice. The principle is elegant; TDD is the mechanism.</p>
-<p>Without tests, you're reviewing AI-generated code by reading it — a slow, error-prone process that doesn't scale. With tests, you shift from "is this code right?" to "does this code pass?" That's a much more tractable question.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="small-iterations-frequent-delivery">Small Iterations, Frequent Delivery<a href="https://austinxyz.github.io/blogs/blog/2026/03/09/agile-development-in-ai-coding#small-iterations-frequent-delivery" class="hash-link" aria-label="Direct link to Small Iterations, Frequent Delivery" title="Direct link to Small Iterations, Frequent Delivery" translate="no">​</a></h3>
-<p>This principle gets stronger in the AI era, but the <em>unit of iteration</em> changes.</p>
-<p>In traditional Agile, a sprint might be two weeks. In AI-augmented development, meaningful feedback loops operate at the granularity of minutes. A useful heuristic I've encountered: if a task takes more than five minutes to complete, it should probably be broken into smaller tasks.</p>
-<p>The reasoning is that AI context windows are finite. Long sessions accumulate drift — the AI gradually loses track of earlier constraints, architectural decisions, and your stated preferences. Shorter tasks that complete and close maintain higher coherence. You also get faster human review cycles, which is where the real quality control happens.</p>
-<p>The tricky part is calibrating granularity. Tasks that are too small generate too much overhead — constant context-loading and handoffs. Tasks that are too large drift. Finding the right unit of work is genuinely hard, and I think it's going to become one of the core skills of experienced AI developers.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="pair-programming-and-individual-interaction">Pair Programming and Individual Interaction<a href="https://austinxyz.github.io/blogs/blog/2026/03/09/agile-development-in-ai-coding#pair-programming-and-individual-interaction" class="hash-link" aria-label="Direct link to Pair Programming and Individual Interaction" title="Direct link to Pair Programming and Individual Interaction" translate="no">​</a></h3>
-<p>This is the Agile principle I find most personally relevant, and the one I feel most tension around.</p>
-<p>Pair programming at its best is a continuous conversation — two minds colliding on the same problem, catching each other's mistakes, sharing knowledge, and building something better together than either could alone. The value isn't just the code produced; it's the thinking process.</p>
-<p>With AI, there's a version of this that feels authentic: I give a rough requirement, the AI designs an approach, breaks it into tasks, builds a prototype, I use it and give feedback, we iterate. This works remarkably well for UI refinement, performance tuning, and cases where I don't fully understand what I want until I see something tangible.</p>
-<p>But there's a failure mode I've noticed. Heavily structured frameworks — things like SpecKit or detailed plan-first workflows — can over-formalize the interaction. You end up managing documents and approvals more than you're actually collaborating. The "pair" feeling disappears.</p>
-<p>My current view: stay in the conversation longer than the frameworks suggest. Resist the urge to hand off too early. The value of pair programming with AI isn't just speed — it's the back-and-forth that surfaces what you actually want to build.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="refactoring-more-courage-not-less">Refactoring: More Courage, Not Less<a href="https://austinxyz.github.io/blogs/blog/2026/03/09/agile-development-in-ai-coding#refactoring-more-courage-not-less" class="hash-link" aria-label="Direct link to Refactoring: More Courage, Not Less" title="Direct link to Refactoring: More Courage, Not Less" translate="no">​</a></h3>
-<p>Refactoring has always been about managing the accumulation of complexity. Small design improvements, continuously applied, prevent the architecture from calcifying into something unmaintainable.</p>
-<p>The interesting thing about AI and refactoring is that AI gives you <em>more courage</em> to refactor, not less.</p>
-<p>In traditional development, refactoring required careful attention to not break existing behavior. IDE tools helped — but they were limited to mechanical transformations like renaming and extraction. Anything structural required deep understanding of the codebase.</p>
-<p>With AI, you can describe a structural change at a higher level of abstraction and have it applied across a large codebase with much lower risk of human error. The AI understands context in ways that text-replacement tools do not. This lowers the cost of refactoring, which means you can do it more frequently, which means the codebase stays in better shape.</p>
-<p>The risk, though, is the opposite failure mode: <em>not</em> refactoring. If you're solely focused on delivering feature after feature with AI, you can accumulate complexity faster than ever. Ten features in ten sessions, without a refactoring pass between them, and you may end up with code that no human can review — and eventually, that even AI can't reason about coherently.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="working-software-as-the-measure-of-progress">Working Software as the Measure of Progress<a href="https://austinxyz.github.io/blogs/blog/2026/03/09/agile-development-in-ai-coding#working-software-as-the-measure-of-progress" class="hash-link" aria-label="Direct link to Working Software as the Measure of Progress" title="Direct link to Working Software as the Measure of Progress" translate="no">​</a></h3>
-<p>Agile is explicit: working software, not documentation, is the primary measure of progress. This puts it in direct tension with AI-native thinking's emphasis on files and documentation as truth.</p>
-<p>I don't think the tension is unresolvable, but it does require active management. The danger in AI development is documentation inflation. AI can generate documentation easily and enthusiastically. If you're not careful, you end up with a sprawling set of spec files, plan files, and status files that nobody is maintaining — least of all the AI, which has long since moved on to other sessions.</p>
-<p>The discipline I've settled on: documentation should be <strong>minimal, structural, and kept in sync by automated means where possible.</strong> A CLAUDE.md that captures architecture decisions and conventions. Tests that document behavior. As little else as possible. The more documentation you have, the more surface area there is for inconsistency.</p>
-<p>Working software remains the truth. The rest is scaffolding.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="retrospection-and-embracing-change">Retrospection and Embracing Change<a href="https://austinxyz.github.io/blogs/blog/2026/03/09/agile-development-in-ai-coding#retrospection-and-embracing-change" class="hash-link" aria-label="Direct link to Retrospection and Embracing Change" title="Direct link to Retrospection and Embracing Change" translate="no">​</a></h3>
-<p>The last two principles are deeply linked. Agile retrospectives are about systematically capturing what you've learned so that future iterations improve. Embracing change means treating new requirements as a natural part of the process rather than a disruption.</p>
-<p>In AI tooling, the equivalents are emerging. Tools like SpecKit and OpenSpec have a concept of "achieved" — lessons learned from completed work that get folded back into your project's guiding principles (CLAUDE.md or similar). This is retrospection, formalized.</p>
-<p>Mechanisms like Ralphloop — which allow an AI to iterate on its own approach autonomously — are a form of embracing change, though they require careful oversight to avoid runaway scope drift.</p>
-<p>The underlying idea holds: learning should compound across iterations. Whether that learning lives in a retrospective document, an updated CLAUDE.md, or a refined test suite, the principle is the same. Don't repeat the same mistakes.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-bigger-picture">The Bigger Picture<a href="https://austinxyz.github.io/blogs/blog/2026/03/09/agile-development-in-ai-coding#the-bigger-picture" class="hash-link" aria-label="Direct link to The Bigger Picture" title="Direct link to The Bigger Picture" translate="no">​</a></h2>
-<p>There's a pattern across all of these: Agile principles were designed to manage complexity and uncertainty in human-scale software development. AI doesn't eliminate complexity and uncertainty — in some ways, it amplifies them. The speed of generation goes up; the need for coherent architecture and verified correctness goes up equally.</p>
-<p>A friend who researches AI coding described the ideal as: <strong>"File provides memory, you provide discipline."</strong> I think that's right. The file doesn't discipline itself. The tests don't write themselves. The refactoring doesn't happen automatically.</p>
-<p>What AI does is lower the cost of execution so dramatically that the bottleneck shifts. The bottleneck used to be writing the code. Now it's <em>knowing what to build and verifying that what was built is correct</em>. Those are judgment problems. They're exactly what Agile was designed to develop in engineers.</p>
-<p>I spent twenty years learning these principles from books and practice. I'm glad I did. They don't just survive the AI transition — they've become more essential.</p>
-<p>The engineers who will thrive in this environment aren't the ones who generate the most code. They're the ones who know how to close loops, calibrate iteration size, stay in the conversation, refactor at the right moments, and keep working software at the center.</p>
-<p>That sounds a lot like Agile to me.</p>]]></content:encoded>
-            <author>austin.xyz@gmail.com (Austin Xu)</author>
-            <category>ai</category>
-            <category>cloud-computing</category>
             <category>leadership</category>
             <category>career-development</category>
         </item>
