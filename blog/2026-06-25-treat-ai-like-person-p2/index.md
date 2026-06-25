@@ -10,7 +10,7 @@ image: ./images/cover.jpg
 
 ![Man and glowing AI figure studying a holographic map together at night](./images/cover.jpg)
 
-I ended last time with: *"Treat AI like a person. The confusion mostly goes away."*
+I ended [last time](https://austinxyz.github.io/blogs/blog/treat-ai-like-person) with: *"Treat AI like a person. The confusion mostly goes away."*
 
 I still believe that. But "like a person" is more precise than it sounds — and most people are using it imprecisely.
 
