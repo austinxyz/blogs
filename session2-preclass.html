@@ -155,10 +155,10 @@
     </div>
 
     <h3>Windows：输入 claude 提示"找不到命令"？</h3>
-    <p>安装成功但 <code class="inline">claude</code> 命令不认识，说明 npm 路径没加进 PATH。在 PowerShell 里运行这行，<strong>自动修复</strong>：</p>
+    <p>Claude Code 安装到 <code class="inline">%APPDATA%\npm\</code>，但这个路径有时不在 PATH 里。在 PowerShell 里运行这行，<strong>自动把 claude.exe 所在目录加进去</strong>：</p>
     <div class="cmd-card">
       <div class="cmd-card-header"><span class="cmd-card-title">Windows · PowerShell（自动加 PATH）</span><button class="copy-btn" onclick="copyCmd(this)">复制</button></div>
-      <div class="cmd-body">$npmBin = (npm config get prefix); [Environment]::SetEnvironmentVariable("PATH", [Environment]::GetEnvironmentVariable("PATH","User") + ";" + $npmBin, "User"); $env:PATH += ";" + $npmBin; Write-Host "✅ 已添加 $npmBin 到 PATH，当前窗口立即生效"</div>
+      <div class="cmd-body">$claudeDir = "$env:APPDATA\npm"; [Environment]::SetEnvironmentVariable("PATH", [Environment]::GetEnvironmentVariable("PATH","User") + ";" + $claudeDir, "User"); $env:PATH += ";" + $claudeDir; Write-Host "✅ 已将 $claudeDir 加入 PATH，当前窗口立即生效"</div>
     </div>
     <p>运行后直接在<strong>同一个窗口</strong>输入 <code class="inline">claude</code> 测试，无需重开终端。</p>
   </div>
