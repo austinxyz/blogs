@@ -79,7 +79,9 @@ The reason this track exists at all is that I find most AI infrastructure writin
 | [Stacking OpenSpec and Superpowers, Three Weeks Later](/blog/openspec-superpowers-three-weeks-later) | Five friction points from running the stack across multiple projects, and the plugin that packages the evolved workflow |
 | [Stacking OpenSpec and Superpowers, Then I Added a Harness](/blog/openspec-superpowers-harness) | An independent evaluator subagent spawns per group — fresh context, explicit contract, structured scoring. The workflow now knows what "done" means without asking me. |
 | [OpenSpec + Harness, Then We Added Engineers](/blog/openspec-harness-team-workflow) | What breaks when individual AI acceleration hits the team — branch model, parallel conflict detection, four-layer achieve gate, and JIRA integration that enforces DoD automatically. |
-| [Why Does the AI Field Keep Reinventing Things We Already Knew?](/blog/treat-ai-like-person) | The mental model that cuts through all the new terminology: treat AI like a person, and 90% of concepts resolve to engineering practices you already know. |
+| [Why Does the AI Field Keep Reinventing Things We Already Knew?](/blog/treat-ai-like-person) *(Series: Treat AI Like a Person, Part 1)* | The mental model that cuts through all the new terminology: treat AI like a person, and 90% of concepts resolve to engineering practices you already know. |
+| [Why "Treat AI Like a Person" Is More Precise Than It Sounds](/blog/treat-ai-like-person-p2) *(Part 2)* | AI capability isn't a single axis — it's a jagged frontier. How to read the gap map and use it as a practitioner's tool. |
+| [Why AI Can Do Half of Every Social Skill: A Case for the Consequence Check](/blog/treat-ai-like-person-p3) *(Part 3)* | Every social capability splits: the half rooted in rules and coordination that AI can genuinely carry, and the half rooted in limitedness and belonging that it can only imitate. The dividing line is consequence. |
 
 This track is reported, not researched. Every post in it describes work I actually shipped using the tool described, with the rework rate, defect rate, and time-to-merge attached. That's the reading promise: no methodology I haven't run myself.
 
@@ -147,7 +149,7 @@ What I deliberately don't write about: things I haven't done. There's no shortag
 Pick a track and start. The dates are roughly chronological within each track, so the earliest post in any track is usually a fine entry point. If you want only one piece per track:
 
 - Infrastructure: [Cloud Native → AI Native App Platform](/blog/cloud-native-to-ai-native-app-platform)
-- Methodology: [Stacking OpenSpec and Superpowers](/blog/openspec-superpowers-combined)
+- Methodology: [Why Does the AI Field Keep Reinventing Things We Already Knew?](/blog/treat-ai-like-person) *(start of a 3-part series on the mental model)*
 - Roles: [The Senior Engineer's AI Trap: Why Experience Works Against You](/blog/2026/05/13/senior-engineer-ai-trap)
 - Agents: [Building an AI Agent: From Claude Skills to Production](/blog/2026/05/04/rwh-overlay-lessons)
 
