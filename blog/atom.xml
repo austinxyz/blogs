@@ -2,11 +2,121 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://austinxyz.github.io/blogs/blog</id>
     <title>Austin Xu Blog</title>
-    <updated>2026-06-27T00:00:00.000Z</updated>
+    <updated>2026-07-08T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://austinxyz.github.io/blogs/blog"/>
     <subtitle>Austin Xu Blog</subtitle>
     <icon>https://austinxyz.github.io/blogs/img/favicon.svg</icon>
+    <entry>
+        <title type="html"><![CDATA[After Harness Engineering: How Agents Learn to Evolve Themselves]]></title>
+        <id>https://austinxyz.github.io/blogs/blog/evolutionary-search-harness-next</id>
+        <link href="https://austinxyz.github.io/blogs/blog/evolutionary-search-harness-next"/>
+        <updated>2026-07-08T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Harness Engineering sets the scaffold. Evolutionary Search is what comes next — a map of 2023–2026 research on agents that improve their own prompts, skills, workflows, and harness code. The hard part isn't mutation. It's the evaluator.]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="Five generations of AI robots, each more advanced than the last, evolving left to right against a dark background" src="https://austinxyz.github.io/blogs/assets/images/cover-ab207e9b1f647c157f2467f24ad9934e.jpg" width="1024" height="576" class="img_ev3q"></p>
+<p>Two things landed in the same week and pointed at the same idea.</p>
+<p>Martin Fowler named Harness Engineering as the core software engineering work of the AI era at FOSE Europe — specifically the <strong>Guide/Sensor</strong> model: Guides as feedforward constraints that tell an agent what to do, Sensors as feedback detectors that tell the system when it's drifting. He added an observation worth pinning: token consumption is a proxy metric for harness quality. A better-designed harness means a cheaper, more reliable agent.</p>
+<p>Then Lilian Weng published <a href="https://lilianweng.github.io/posts/2026-07-04-harness/" target="_blank" rel="noopener noreferrer" class="">Harness Engineering for Self-Improvement</a> — a systematic review of 35 papers on agent harness engineering, with a thesis that goes beyond reliability: the harness isn't just the thing that makes an agent work. It's the infrastructure through which the agent continuously improves itself.</p>
+<p>A friend has been telling me for months that a particular company's bet on the future of software development is: systems that automatically optimize their own code and architecture. Fowler said what we should build now. Weng said what comes after. These three converged into the same question, so I'm trying to map the whole space.</p>
+<p>This post maps <strong>Evolutionary Search</strong> — why it's the natural next step for harness engineering, what the paper landscape looks like organized by evolutionary depth, and where the hard problems actually live. The taxonomy here draws heavily on Weng's framework; I've reorganized it by depth of what gets evolved.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="why-evolutionary-search">Why Evolutionary Search<a href="https://austinxyz.github.io/blogs/blog/evolutionary-search-harness-next#why-evolutionary-search" class="hash-link" aria-label="Direct link to Why Evolutionary Search" title="Direct link to Why Evolutionary Search" translate="no">​</a></h2>
+<p>Neural network weights can be optimized with gradient descent because the loss function is differentiable with respect to the parameters. You have a direction, parameters move.</p>
+<p>Harness is code. Workflows are graphs. Skills are text. Prompts are natural language. These are <strong>discrete spaces</strong> — no continuous gradient, no direction to follow, no backpropagation through workflow structure. You can't take the derivative of a prompt.</p>
+<p>Evolutionary Search doesn't need gradients. It needs three things:</p>
+<table><thead><tr><th>Component</th><th>Question</th><th>In agent context</th></tr></thead><tbody><tr><td><strong>Representation</strong></td><td>What does a candidate solution look like?</td><td>Prompt / code diff / workflow graph / skill file</td></tr><tr><td><strong>Mutation</strong></td><td>How do you generate new candidates?</td><td>LLM-guided generation / MCTS / crossover</td></tr><tr><td><strong>Selection</strong></td><td>How do you decide what survives?</td><td>Benchmark score / test pass rate / task completion rate</td></tr></tbody></table>
+<p>Evaluate → select → mutate. Loop. Naturally fits discrete spaces.</p>
+<p>But the three components don't explain why this generation of papers is several levels above classical genetic algorithms.</p>
+<p>The qualitative change is in mutation. Classical mutation is random — flip a bit, swap a segment, with no understanding of what's being changed. <strong>LLM-guided mutation is semantically directed.</strong> The model understands what works, and proposes variants that are more likely to work. Not blind perturbation — directed exploration.</p>
+<p>That's the difference.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-paper-landscape-five-levels-of-depth">The Paper Landscape: Five Levels of Depth<a href="https://austinxyz.github.io/blogs/blog/evolutionary-search-harness-next#the-paper-landscape-five-levels-of-depth" class="hash-link" aria-label="Direct link to The Paper Landscape: Five Levels of Depth" title="Direct link to The Paper Landscape: Five Levels of Depth" translate="no">​</a></h2>
+<p>This direction started in 2023 and exploded in 2025–2026. The taxonomy below reorganizes Weng's map by <strong>evolutionary depth</strong> — which layer of the system is being mutated — rather than publication date. A 2023 paper can occupy a deeper level than a 2025 paper, depending on what it touches.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="level-1-prompt-evolution">Level 1: Prompt Evolution<a href="https://austinxyz.github.io/blogs/blog/evolutionary-search-harness-next#level-1-prompt-evolution" class="hash-link" aria-label="Direct link to Level 1: Prompt Evolution" title="Direct link to Level 1: Prompt Evolution" translate="no">​</a></h3>
+<p><strong>Promptbreeder (2023, arXiv 2309.16797)</strong></p>
+<p>DeepMind. The earliest application of LLMs to evolutionary search.</p>
+<p>The key innovation isn't just evolving prompts. It's that the <strong>mutation-prompt itself is also evolved</strong>. Not just evolving the answer — evolving how to evolve. This recursive structure seeded most of what came after.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="level-2-context--skill-evolution">Level 2: Context / Skill Evolution<a href="https://austinxyz.github.io/blogs/blog/evolutionary-search-harness-next#level-2-context--skill-evolution" class="hash-link" aria-label="Direct link to Level 2: Context / Skill Evolution" title="Direct link to Level 2: Context / Skill Evolution" translate="no">​</a></h3>
+<p><strong>MCE — Multi-agent Collaborative Evolution (2026, arXiv 2601.21557)</strong></p>
+<p>Evolves skills — specifically, context management strategies.</p>
+<p>Result: average +16.9%. The significance isn't the magnitude. It's the claim: skill files are an evolvable representation. You don't need to touch code or retrain a model. You just need to find better skill configurations. Of all the papers in this survey, MCE is the closest to something an individual engineer can apply today.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="level-3-workflow--agent-design-evolution">Level 3: Workflow / Agent Design Evolution<a href="https://austinxyz.github.io/blogs/blog/evolutionary-search-harness-next#level-3-workflow--agent-design-evolution" class="hash-link" aria-label="Direct link to Level 3: Workflow / Agent Design Evolution" title="Direct link to Level 3: Workflow / Agent Design Evolution" translate="no">​</a></h3>
+<p><strong>ADAS (2025, arXiv 2408.08435)</strong></p>
+<p>A meta-agent searches agent designs automatically, with candidates represented as code. Broad coverage — can search single-agent setups through multi-agent orchestration.</p>
+<p><strong>AFlow (2025, arXiv 2410.10762)</strong></p>
+<p>Represents workflows as node graphs, then uses MCTS (Monte Carlo Tree Search) to search the graph structure directionally rather than through random mutation.</p>
+<p>The distinction from ADAS: ADAS mutation is relatively undirected. AFlow's MCTS gives direction. Directed search typically converges faster than undirected. The tradeoff is that MCTS is more expensive to set up.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="level-4-harness-code-evolution">Level 4: Harness Code Evolution<a href="https://austinxyz.github.io/blogs/blog/evolutionary-search-harness-next#level-4-harness-code-evolution" class="hash-link" aria-label="Direct link to Level 4: Harness Code Evolution" title="Direct link to Level 4: Harness Code Evolution" translate="no">​</a></h3>
+<p>This is where the current headline results live, and where Weng's post focuses.</p>
+<p><strong>AlphaEvolve (2025, arXiv 2506.13131)</strong></p>
+<p>Google DeepMind. Evolves code diffs — the agent automatically improves its own code implementations.</p>
+<p>The headline result: AlphaEvolve broke Strassen's matrix multiplication algorithm, which had stood for 56 years without improvement in the general case. The significance isn't that AI beat humans at math. It's the structural point: in domains with a clear evaluation standard, evolutionary search can explore spaces that humans can't exhaust manually. Production use at Google includes chip design and data center cooling optimization — not demos, live systems.</p>
+<p><strong>Darwin Gödel Machine / DGM (2025, arXiv 2505.22954)</strong></p>
+<p>The paper most directly aligned with Weng's harness thesis.</p>
+<p>DGM doesn't evolve prompts or skills. It evolves <strong>harness code itself</strong>. The agent has write access to its own harness codebase, commits changes, evaluates results, keeps what works, discards what doesn't.</p>
+<p>Result: SWE-bench jumped from roughly 20% to roughly 50%. (⚠️ The verified / lite / full subsets have different numbers — check the original paper for specifics.) DGM's code is open-source and runnable on your own SWE-bench tasks.</p>
+<p>This is the strongest empirical demonstration of harness self-evolution to date.</p>
+<p><strong>ShinkaEvolve (2025, arXiv 2509.19349)</strong></p>
+<p>AlphaEvolve variant. Improves parent selection strategy, adds code-novelty rejection to filter candidates that are too similar to existing ones. Engineering-level improvements to sampling efficiency.</p>
+<p><strong>ThetaEvolve (2025, arXiv 2511.23473)</strong></p>
+<p>Combines evolutionary search, reinforcement learning, and in-context learning. Explores whether the global exploration strength of evolution and the local optimization strength of RL can be productively combined.</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="level-5-meta-improvement-self-referential">Level 5: Meta-Improvement (Self-Referential)<a href="https://austinxyz.github.io/blogs/blog/evolutionary-search-harness-next#level-5-meta-improvement-self-referential" class="hash-link" aria-label="Direct link to Level 5: Meta-Improvement (Self-Referential)" title="Direct link to Level 5: Meta-Improvement (Self-Referential)" translate="no">​</a></h3>
+<p>At this level, what's being evolved isn't code or skills — it's <strong>how to evolve</strong>.</p>
+<p><strong>STOP (2023, arXiv 2310.02304)</strong></p>
+<p>Evolves scaffolding code — improving the improver itself.</p>
+<p>Critical finding: if the base model is too weak, mutation diverges. The search gets worse, not better. This isn't a STOP-specific quirk. It's a precondition for all of Level 4–5. Weak foundation models are a convergence stopper.</p>
+<p><strong>Hyperagents (2026, arXiv 2603.19461)</strong></p>
+<p>DGM extended to evolve the improvement mechanism itself, with transfer accumulation across task domains.</p>
+<p>Weng's synthesis: Hyperagents is the current frontier of the meta-harness direction. The core question shifts from "write a better harness" to "write a better harness-writing mechanism."</p>
+<hr>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="summary">Summary<a href="https://austinxyz.github.io/blogs/blog/evolutionary-search-harness-next#summary" class="hash-link" aria-label="Direct link to Summary" title="Direct link to Summary" translate="no">​</a></h3>
+<table><thead><tr><th>Level</th><th>What Evolves</th><th>Key Papers</th><th>Key Result</th><th>Practitioner Access</th></tr></thead><tbody><tr><td>1</td><td>Prompts</td><td>Promptbreeder (2023)</td><td>Self-evolving mutation-prompt</td><td>⭐⭐⭐⭐⭐ Easiest entry point</td></tr><tr><td>2</td><td>Skills / Context</td><td>MCE (2026)</td><td>+16.9%</td><td>⭐⭐⭐⭐ No code changes required</td></tr><tr><td>3</td><td>Workflow / Agent Design</td><td>ADAS, AFlow (2025)</td><td>Automated agent orchestration search</td><td>⭐⭐⭐ Requires evaluator</td></tr><tr><td>4</td><td>Harness Code</td><td>AlphaEvolve, DGM (2025)</td><td>SWE-bench ~20% → ~50%</td><td>⭐⭐ High compute and evaluation bar</td></tr><tr><td>5</td><td>Improvement Mechanism</td><td>STOP (2023), Hyperagents (2026)</td><td>Evolving how to evolve</td><td>⭐ Requires strong base model</td></tr></tbody></table>
+<p>One pattern runs through all levels. The deeper you go, the larger the mutation surface, the higher the potential upside, the higher the risk — and the harder the evaluator is to design.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-hard-part-isnt-mutation">The Hard Part Isn't Mutation<a href="https://austinxyz.github.io/blogs/blog/evolutionary-search-harness-next#the-hard-part-isnt-mutation" class="hash-link" aria-label="Direct link to The Hard Part Isn't Mutation" title="Direct link to The Hard Part Isn't Mutation" translate="no">​</a></h2>
+<p>Most writing about evolutionary search focuses on mutation algorithms — which strategy is better, how LLMs generate candidates, how MCTS provides direction.</p>
+<p>These matter. They're not the hard part.</p>
+<p>The hard part is the <strong>evaluator</strong>. And the evaluator's difficulty traces to a more fundamental question: is your optimization target an open problem or a closed one?</p>
+<p>I wrote about this framework in <a href="https://austinxyz.github.io/blogs/blog/ai-ops-inflection" target="_blank" rel="noopener noreferrer" class="">The Ops Inflection</a>. Closed problems have an unambiguous correctness criterion that can be automatically verified — "did test pass rate improve?", "did the benchmark score go up?" Run it and you know. Open problems require judgment — "is this harness design good?", "is this workflow elegant?" There's no automatic score.</p>
+<p><strong>Evolutionary search only works on closed problems.</strong></p>
+<p>You need an evaluator. The evaluator requires automatic scoring. Automatic scoring requires the problem to be closed. If your target is still open, there's no evaluator to build, and the search can't run.</p>
+<p>This is also why Fowler's observation — token consumption as harness quality proxy — is interesting engineering. "Is this harness architecture good?" is an open problem, hard to evaluate automatically. Token consumption is a measurable number. He partially closes an open problem by mapping it to something quantifiable: "a harness with lower token consumption is better than one with higher consumption." That's an engineering tradeoff, not a complete picture, but it's automatable.</p>
+<p>The evaluator in evolutionary search requires the same tradeoff. Three conditions:</p>
+<ul>
+<li class=""><strong>Automatable.</strong> If evaluation requires a human in the loop each time, the search stalls.</li>
+<li class=""><strong>Trustworthy.</strong> A higher benchmark score doesn't mean better real-world behavior. Optimizing the proxy can degrade the target.</li>
+<li class=""><strong>Sufficient coverage.</strong> A sparse test suite means evolution drifts in the gaps you can't see.</li>
+</ul>
+<p>There's a recursive problem underneath this. The evaluator judges the agent. But evaluator quality is itself hard to measure — if the evaluator passes bad iterations or rejects good ones, the search burns compute in the wrong direction. The ceiling of evolutionary search is the evaluator's ceiling. And improving the evaluator is itself an open problem: there's no automatic score for "is this evaluator good?" You're back to human judgment.</p>
+<p>This is what makes DGM's result matter. It works well enough to demonstrate the loop, which means their evaluator — SWE-bench — is trustworthy enough to drive real improvement. SWE-bench as an evaluator is itself a years-long community artifact. That's not a detail. It's the prerequisite.</p>
+<p>The fitness question to ask before starting: <strong>can your target be closed?</strong></p>
+<table><thead><tr><th></th><th>Works</th><th>Doesn't Work</th></tr></thead><tbody><tr><td><strong>Problem character</strong></td><td>Closed — automatically verifiable</td><td>Open — requires subjective judgment</td></tr><tr><td><strong>Examples</strong></td><td>Test pass rate, task completion rate, benchmark score</td><td>Writing quality, design elegance, creative evaluation</td></tr><tr><td><strong>Search space</strong></td><td>Large enough that manual exploration can't cover it</td><td>Small, or already has a clear optimum</td></tr><tr><td><strong>Base model</strong></td><td>Strong enough (STOP's warning)</td><td>Weak models cause Level 4–5 to diverge</td></tr></tbody></table>
+<p>Level 4–5 are currently learning targets for most practitioners, not immediate deployment options. Level 1–3 applied to closed problems have a real path to use.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-i-already-have">What I Already Have<a href="https://austinxyz.github.io/blogs/blog/evolutionary-search-harness-next#what-i-already-have" class="hash-link" aria-label="Direct link to What I Already Have" title="Direct link to What I Already Have" translate="no">​</a></h2>
+<p>Reading through these papers, I kept recognizing pieces of my own stack.</p>
+<table><thead><tr><th>What I Have</th><th>Evolutionary Search Equivalent</th></tr></thead><tbody><tr><td><strong>OpenSpec</strong> (stable spec files)</td><td>Natural evaluation anchor. The spec doesn't change; the implementation can evolve. The spec file <em>is</em> the selection layer.</td></tr><tr><td><strong>Files as infrastructure</strong> (files as persisted history)</td><td>Persistent evolution history. DGM and meta-harness file system design maps directly to this.</td></tr><tr><td><strong>Skill system</strong></td><td>MCE's representation. Skill files are already in an evolvable form — what's missing is the automated search step.</td></tr><tr><td><strong>Test suite</strong></td><td>Evaluator foundation. A good test suite means you've already done the hardest part of evolutionary search.</td></tr></tbody></table>
+<p>The hardest piece to build well is the evaluator. It's also the most valuable. A trustworthy evaluator is where the search actually begins.</p>
+<p>The Claude Code loop makes this concrete. Write code, run tests, see what fails, iterate. That's already a manual evolutionary search loop — I'm the selector, Claude is the mutator, the test suite is the evaluator. What evolutionary search automates is removing me from the selection step.</p>
+<hr>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-im-building-toward">What I'm Building Toward<a href="https://austinxyz.github.io/blogs/blog/evolutionary-search-harness-next#what-im-building-toward" class="hash-link" aria-label="Direct link to What I'm Building Toward" title="Direct link to What I'm Building Toward" translate="no">​</a></h2>
+<p>My own agent development runs on the OpenSpec + Superpowers framework, with harness thinking already incorporated — Guides and Sensors both present. I wrote about how that came together in <a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-harness" target="_blank" rel="noopener noreferrer" class="">OpenSpec + Superpowers + Harness</a>.</p>
+<p>The missing step is clear: automated evolution. Figuring out how to integrate it is probably the next post in the OpenSpec + Superpowers series.</p>
+<p>The evaluator is where I'll start.</p>]]></content>
+        <author>
+            <name>Austin Xu</name>
+            <email>austin.xyz@gmail.com</email>
+            <uri>https://github.com/austinxyz</uri>
+        </author>
+        <category label="ai" term="ai"/>
+        <category label="agents" term="agents"/>
+        <category label="harness-engineering" term="harness-engineering"/>
+        <category label="evolutionary-search" term="evolutionary-search"/>
+        <category label="llm" term="llm"/>
+        <category label="architecture" term="architecture"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Why AI Can Do Half of Every Social Skill: A Case for the Consequence Check]]></title>
         <id>https://austinxyz.github.io/blogs/blog/treat-ai-like-person-p3</id>
@@ -1852,117 +1962,5 @@ This is the most important architectural principle I settled on, and the one I w
         <category label="ai" term="ai"/>
         <category label="cloud-computing" term="cloud-computing"/>
         <category label="kubernetes" term="kubernetes"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[The AI-Augmented Engineering Manager: How I Run a Team in 2026]]></title>
-        <id>https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai</id>
-        <link href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai"/>
-        <updated>2026-03-23T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Everyone's talking about AI replacing individual contributors. Nobody's talking about what it does to engineering managers — and the difference between EMs who use AI to become 2x managers and those who just produce prettier documents.]]></summary>
-        <content type="html"><![CDATA[<p>Everyone's talking about AI replacing individual contributors. Nobody's talking about what it does to engineering managers.</p>
-<p>That asymmetry is interesting to me, because in my experience, EMs stand to gain <em>more</em> from AI than most ICs — or lose more ground if they ignore it. The difference isn't which tools you use. It's whether you use AI to reclaim the time that actually matters, or just use it to make your status updates look better.</p>
-<p>Here's my honest accounting of what changed after a year of deliberately integrating AI into how I manage my team.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-actually-takes-up-an-ems-time">What Actually Takes Up an EM's Time<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#what-actually-takes-up-an-ems-time" class="hash-link" aria-label="Direct link to What Actually Takes Up an EM's Time" title="Direct link to What Actually Takes Up an EM's Time" translate="no">​</a></h2>
-<p>Before getting into AI, it's worth being honest about the job. An Engineering Manager's responsibilities look clean on paper: delivery, people growth, alignment, technical direction, productivity. In practice, the calendar looks nothing like that.</p>
-<p>The actual day is fragmented across writing status updates, preparing for stakeholder meetings, screending resumes, writing performance reviews, drafting job descriptions, responding to Slack threads, prepping 1-on-1s, and handling whatever operational fire is burning that week. These tasks aren't trivial — they matter — but they're also high-frequency, low-ceiling work. They consume time without compounding.</p>
-<p>During hiring season, a single one-hour interview used to cost me 3–4 hours total: preparation, the interview itself, writing feedback. With 3–4 interviews a week, half my time was gone before I touched anything strategic. During performance review cycles, I worked late just to have enough evidence and documentation to do right by my team. On Fridays, writing the weekly highlight report felt like the most dreaded part of the week.</p>
-<p>AI didn't change what an EM does. It changed how much time the operational layer takes — and by extension, what I can do with the time I recovered.</p>
-<p>The rough number: <strong>the admin layer of my job now takes about a third of the time it used to.</strong></p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="where-ai-actually-helps">Where AI Actually Helps<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#where-ai-actually-helps" class="hash-link" aria-label="Direct link to Where AI Actually Helps" title="Direct link to Where AI Actually Helps" translate="no">​</a></h2>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="staying-technical">Staying Technical<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#staying-technical" class="hash-link" aria-label="Direct link to Staying Technical" title="Direct link to Staying Technical" translate="no">​</a></h3>
-<p>There's a well-documented drift that happens to EMs over time: you move further from the code, and you start relying entirely on your ICs to interpret the technical reality of your systems. The risk is subtle — you think you understand what's happening, but you're really understanding someone else's summary of what's happening, filtered through their perspective and priorities.</p>
-<p>AI coding tools changed this for me. With Claude Code, I can read an unfamiliar repository and understand what it does in a fraction of the time. I can review a PR and form a real opinion on the approach, not just the description. I've used the Claude Code Skills my team built — code review, bug triage — and actually fixed a bug myself, which gave me a level of system detail that no architecture diagram would have surfaced.</p>
-<p>The point isn't that EMs should be writing production code. It's that having your own ground truth in technical conversations makes you a better manager, a better decision-maker, and a better advocate for your team with stakeholders.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="planning-with-data-instead-of-intuition">Planning with Data Instead of Intuition<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#planning-with-data-instead-of-intuition" class="hash-link" aria-label="Direct link to Planning with Data Instead of Intuition" title="Direct link to Planning with Data Instead of Intuition" translate="no">​</a></h3>
-<p>Quarterly planning used to take close to a month. Long meetings. Debate about what to cut and what to keep, often driven more by whoever argued most convincingly than by actual data. Decisions felt right in the room but hard to explain afterward.</p>
-<p>Now the same process takes about two weeks. I feed in the team's current state, our yearly goals, stakeholder priorities, and capacity constraints, and AI helps structure the breakdown, surface dependencies, and generate the first draft of the plan. The decisions are still mine — and the judgment calls still require knowing the team, the codebase, and the organizational context. But the scaffolding is there faster, and the reasoning is documented.</p>
-<p>What changed isn't the quality of the decisions, it's the quality of the conversation around them.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="upward-communication">Upward Communication<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#upward-communication" class="hash-link" aria-label="Direct link to Upward Communication" title="Direct link to Upward Communication" translate="no">​</a></h3>
-<p>Fridays used to be my least favorite day because of the weekly highlight report. Not because writing is hard — because translating technical work into stakeholder-relevant language, under time pressure, at the end of a long week, is genuinely draining.</p>
-<p>A status update that used to take 1–2 hours now takes about 15 minutes. I put in the raw inputs — what shipped, what's at risk, what decisions were made — and AI produces a structured executive summary framed around value and outcomes, not technical implementation. The emails I send to VPs now are tighter, more direct, less cluttered with technical detail that doesn't serve the reader.</p>
-<p>One thing worth flagging: <strong>prettier documents are not the same as better outcomes.</strong> I'll come back to this.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="understanding-your-people-better">Understanding Your People Better<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#understanding-your-people-better" class="hash-link" aria-label="Direct link to Understanding Your People Better" title="Direct link to Understanding Your People Better" translate="no">​</a></h3>
-<p>One of the hardest parts of performance reviews is that the evidence is scattered everywhere — Jira, GitHub, Slack, 1-on-1 notes, email threads. It's easy to inadvertently favor the work you remember most vividly, which is usually the work that happened most recently or created the most noise.</p>
-<p>I now keep each engineer's 1-on-1 notes, their yearly goals, and the company's career development framework loaded in NotebookLM. At any point I can query across the entire history: what growth areas did we identify six months ago? What commitments did they make? Where have I seen patterns? When promotion time comes, the evidence doesn't require a frantic archaeology project — it's already organized.</p>
-<p>The thing I heard most from engineers after implementing this: <em>"You actually remembered that."</em> They mentioned something in a 1-on-1 three months earlier, and I brought it up again with context. That moment of recognition — the feeling that their manager actually pays attention — is not something AI produces. But AI creates the conditions for it to happen consistently, not just when you happen to remember.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="making-better-informed-decisions">Making Better-Informed Decisions<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#making-better-informed-decisions" class="hash-link" aria-label="Direct link to Making Better-Informed Decisions" title="Direct link to Making Better-Informed Decisions" translate="no">​</a></h3>
-<p>Build vs. buy decisions, technical stack choices, team structure changes — these used to involve a lot of time gathering information before I could even form an opinion. Now AI compresses that research phase significantly. I can have a structured pros/cons analysis in minutes, not days.</p>
-<p>To be clear: AI doesn't make the decisions. It can't weigh the organizational politics, the team morale dynamics, or the unstated priorities that any experienced EM knows matter more than the logical case. But arriving at a decision with better information, faster, is genuinely useful.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="six-workflows-that-changed-my-job">Six Workflows That Changed My Job<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#six-workflows-that-changed-my-job" class="hash-link" aria-label="Direct link to Six Workflows That Changed My Job" title="Direct link to Six Workflows That Changed My Job" translate="no">​</a></h2>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="1-upward-management--chatgpt--gemini">1. Upward Management — ChatGPT / Gemini<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#1-upward-management--chatgpt--gemini" class="hash-link" aria-label="Direct link to 1. Upward Management — ChatGPT / Gemini" title="Direct link to 1. Upward Management — ChatGPT / Gemini" translate="no">​</a></h3>
-<p><strong>What I do:</strong> Weekly highlight reports, escalation emails, quarterly business review materials.</p>
-<p><strong>How it works:</strong> I feed in raw notes — project status, key decisions, risks — and AI drafts a structured executive summary. For important emails, I describe the situation and stakeholder context; AI produces a first draft in the right register.</p>
-<p><strong>What changed:</strong> The emails that reach my VP are now focused on impact and outcomes, not implementation details. They're tighter, clearer, and require far fewer revision cycles. The preparation time for a quarterly business review dropped from a full day to a couple of hours.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="2-internal-customer-management--agent--mcp--skills">2. Internal Customer Management — Agent / MCP / Skills<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#2-internal-customer-management--agent--mcp--skills" class="hash-link" aria-label="Direct link to 2. Internal Customer Management — Agent / MCP / Skills" title="Direct link to 2. Internal Customer Management — Agent / MCP / Skills" translate="no">​</a></h3>
-<p><strong>What I do:</strong> My team serves internal engineering teams. I built agents and custom Skills to help those teams find information, run diagnostics, and handle common requests without requiring my team's direct involvement.</p>
-<p><strong>What changed:</strong> Team toil dropped by about 50%. More importantly, incidents dropped from 3–4 per month to roughly 1 — some months, zero. That's time I'm not spending on post-mortems, root cause analyses, and stakeholder communication during an outage. It's also morale: nobody enjoys the reactive work that follows an incident.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="3-people-management-and-performance-reviews--glean--notebooklm">3. People Management and Performance Reviews — Glean / NotebookLM<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#3-people-management-and-performance-reviews--glean--notebooklm" class="hash-link" aria-label="Direct link to 3. People Management and Performance Reviews — Glean / NotebookLM" title="Direct link to 3. People Management and Performance Reviews — Glean / NotebookLM" translate="no">​</a></h3>
-<p><strong>What I do:</strong> 1-on-1 notes, career development plans, promotion documents, and (when necessary) performance improvement plans.</p>
-<p><strong>How it works:</strong> I use Glean to search across an engineer's Jira activity, Slack contributions, documents, and email history. NotebookLM holds the 1-on-1 notes, their yearly goals, and the career framework. When writing a promotion document, the evidence comes from every signal — not just what I happened to notice.</p>
-<p><strong>What changed:</strong> Performance materials are more complete and more credible. More importantly, engineers feel seen. The manager who remembers a specific thing you said three months ago — that's not a memory trick, it's a system. But to the engineer, it feels like genuine attention.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="4-hiring--claude-code--custom-skills-pipeline">4. Hiring — Claude Code + Custom Skills Pipeline<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#4-hiring--claude-code--custom-skills-pipeline" class="hash-link" aria-label="Direct link to 4. Hiring — Claude Code + Custom Skills Pipeline" title="Direct link to 4. Hiring — Claude Code + Custom Skills Pipeline" translate="no">​</a></h3>
-<p><strong>What I do:</strong> End-to-end recruiting workflow, from job description to offer.</p>
-<p><strong>The pipeline:</strong></p>
-<ul>
-<li class=""><strong>JD Creation</strong> — Input role requirements, output calibrated job description</li>
-<li class=""><strong>Resume-JD Matcher</strong> — Batch screening with match scores and key gaps</li>
-<li class=""><strong>Interview Question Generator</strong> — Personalized questions based on the specific candidate's background and the role requirements</li>
-<li class=""><strong>Interview Feedback Collector</strong> — Structured template that prompts for the right evidence; auto-aggregates across interviewers</li>
-<li class=""><strong>Debrief Tool</strong> — Surfaces score divergence across interviewers, prompts discussion of disagreements</li>
-<li class=""><strong>Offer Package Tool</strong> — Generates offer range recommendations based on leveling and market data</li>
-</ul>
-<p><strong>What changed:</strong> Each one-hour interview used to cost me 3–4 hours total. Now it's about 90 minutes. Candidates consistently say the questions feel tailored, not generic. The structured feedback reduces the chance of a strong candidate slipping through on a bad day.</p>
-<p>Most visibly: our hiring cycle went from 3+ months down to 4–6 weeks.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="5-project-management--claude-code">5. Project Management — Claude Code<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#5-project-management--claude-code" class="hash-link" aria-label="Direct link to 5. Project Management — Claude Code" title="Direct link to 5. Project Management — Claude Code" translate="no">​</a></h3>
-<p><strong>What I do:</strong> Quarterly plans, OKR tracking, weekly team health reports.</p>
-<p><strong>How it works:</strong> The planning system integrates yearly goals, breaks them down into sprint-level work, and produces a living quarterly plan. An automated weekly report pulls from Jira and GitHub to flag OKRs at risk before they become problems.</p>
-<p><strong>What changed:</strong> Our team OKR completion rate went from around 50% to 80%. Planning meetings went from 2–3 hours of debate down to a 30-minute alignment check. The improvement isn't just efficiency — it's that people know what we're doing and why, which changes how they make day-to-day decisions.</p>
-<hr>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="6-remote-team-management--claude-code">6. Remote Team Management — Claude Code<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#6-remote-team-management--claude-code" class="hash-link" aria-label="Direct link to 6. Remote Team Management — Claude Code" title="Direct link to 6. Remote Team Management — Claude Code" translate="no">​</a></h3>
-<p><strong>What I do:</strong> Team knowledge base, onboarding system.</p>
-<p><strong>How it works:</strong> Every core system has structured documentation: architecture overview, key modules, environment setup, development workflow, incident response runbook. Onboarding is broken down by day, not week.</p>
-<p><strong>What changed:</strong> A new team member in Dublin previously took about three months to reach full productivity. That's now around six weeks. The improvement comes from reducing the time spent asking people for context — the knowledge is findable without requiring someone to be available.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-side-effects-being-honest">The Side Effects (Being Honest)<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#the-side-effects-being-honest" class="hash-link" aria-label="Direct link to The Side Effects (Being Honest)" title="Direct link to The Side Effects (Being Honest)" translate="no">​</a></h2>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="beautiful-documents-dont-mean-better-execution">Beautiful Documents Don't Mean Better Execution<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#beautiful-documents-dont-mean-better-execution" class="hash-link" aria-label="Direct link to Beautiful Documents Don't Mean Better Execution" title="Direct link to Beautiful Documents Don't Mean Better Execution" translate="no">​</a></h3>
-<p>This is the one I had to learn the hard way. A polished Q2 plan, beautifully structured with clear OKRs and well-defined milestones, is still just a document. If the EM spends time refining the AI's output instead of validating whether the team actually understands and agrees with the plan, you end up with great artifacts and poor execution.</p>
-<p>AI makes it easy to produce documentation that looks authoritative. That can create a false sense of clarity. The calibration still has to come from direct observation and honest conversation — no tool replaces that.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="tool-fatigue-is-real">Tool Fatigue Is Real<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#tool-fatigue-is-real" class="hash-link" aria-label="Direct link to Tool Fatigue Is Real" title="Direct link to Tool Fatigue Is Real" translate="no">​</a></h3>
-<p>In the past year alone, my workflow has gone through: ChatGPT → Glean + NotebookLM → Cline → Claude Code. First I was learning prompt engineering. Then agent frameworks. Then MCP. Now Skills and spec-driven development. Each shift required real time investment to do properly.</p>
-<p>My suggestion: go deep on 2–3 core workflows rather than chasing every new tool. The compounding value comes from depth, not breadth.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="over-reliance-degrades-judgment">Over-Reliance Degrades Judgment<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#over-reliance-degrades-judgment" class="hash-link" aria-label="Direct link to Over-Reliance Degrades Judgment" title="Direct link to Over-Reliance Degrades Judgment" translate="no">​</a></h3>
-<p>If you generate every document through AI, your sense of what a <em>good</em> document looks like atrophies. If you consult AI before forming your own opinion on every decision, the muscle for making independent judgments weakens.</p>
-<p>I keep a deliberate practice: for important decisions, I think through my own view before I ask AI to help structure or pressure-test it. The AI is most useful as a thinking partner, not as a replacement for thinking.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="what-ai-cannot-do-for-you">What AI Cannot Do for You<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#what-ai-cannot-do-for-you" class="hash-link" aria-label="Direct link to What AI Cannot Do for You" title="Direct link to What AI Cannot Do for You" translate="no">​</a></h2>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="build-trust">Build Trust<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#build-trust" class="hash-link" aria-label="Direct link to Build Trust" title="Direct link to Build Trust" translate="no">​</a></h3>
-<p>Trust is accumulated through consistency, follow-through, and genuine care — over time, in individual conversations, in how you handle the hard moments. AI can help you remember things. It cannot make you actually care about your people. Engineers know the difference.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="make-organizational-judgments">Make Organizational Judgments<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#make-organizational-judgments" class="hash-link" aria-label="Direct link to Make Organizational Judgments" title="Direct link to Make Organizational Judgments" translate="no">​</a></h3>
-<p>Stakeholder politics, the unspoken priorities behind a request, the right way to navigate a cross-team conflict — these require context and relationship that no AI has access to. AI gives you information. Judgment comes from knowing the organization, the people, and the history.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="handle-a-crisis">Handle a Crisis<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#handle-a-crisis" class="hash-link" aria-label="Direct link to Handle a Crisis" title="Direct link to Handle a Crisis" translate="no">​</a></h3>
-<p>When an incident fires at 2am and you need to make fast calls with incomplete information — who owns what, what to escalate, how to communicate outward while the team is working — you need your own clarity and calm. Pausing to prompt an AI is not a useful move in the middle of active incident response. The systems you've built help prevent incidents. But handling them when they happen is still on you.</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="generate-curiosity">Generate Curiosity<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#generate-curiosity" class="hash-link" aria-label="Direct link to Generate Curiosity" title="Direct link to Generate Curiosity" translate="no">​</a></h3>
-<p>AI amplifies the curiosity you already have. It doesn't create it. The managers who are growing fastest in this environment are the ones using AI to explore questions they were already interested in — going deeper, moving faster. If you're not naturally curious about your craft, AI won't fix that.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-framework-use-ai-to-manage-information-use-your-time-to-manage-people">The Framework: Use AI to Manage Information, Use Your Time to Manage People<a href="https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai#the-framework-use-ai-to-manage-information-use-your-time-to-manage-people" class="hash-link" aria-label="Direct link to The Framework: Use AI to Manage Information, Use Your Time to Manage People" title="Direct link to The Framework: Use AI to Manage Information, Use Your Time to Manage People" translate="no">​</a></h2>
-<table><thead><tr><th>Work type</th><th>AI can do</th><th>You have to do</th></tr></thead><tbody><tr><td>Documentation &amp; reporting</td><td>Generate, structure, polish</td><td>Decide what's worth writing</td></tr><tr><td>Performance management</td><td>Gather evidence, draft materials</td><td>The actual 1-on-1 conversations</td></tr><tr><td>Hiring</td><td>Screen, generate questions, aggregate feedback</td><td>Final judgment calls, offer conversations</td></tr><tr><td>Project planning</td><td>Break down, track, flag risks</td><td>Priority decisions and tradeoffs</td></tr><tr><td>Technical direction</td><td>Research, compare options, summarize</td><td>Choosing direction and owning the outcome</td></tr></tbody></table>
-<p>The EMs who benefit most from AI are the ones who use it to compress the operational layer — so they can invest more deeply in the irreplaceable parts: genuine relationships, organizational judgment, technical credibility, and the hard conversations that no tool can have for you.</p>
-<p>The EMs who benefit least are the ones who use AI to polish the surface while the underlying work stays the same.</p>
-<p>The gap between those two groups is growing.</p>]]></content>
-        <author>
-            <name>Austin Xu</name>
-            <email>austin.xyz@gmail.com</email>
-            <uri>https://github.com/austinxyz</uri>
-        </author>
-        <category label="ai" term="ai"/>
-        <category label="leadership" term="leadership"/>
-        <category label="management" term="management"/>
-        <category label="career-development" term="career-development"/>
     </entry>
 </feed>
