@@ -166,7 +166,13 @@ The evaluator in evolutionary search requires the same tradeoff. Three condition
 - **Trustworthy.** A higher benchmark score doesn't mean better real-world behavior. Optimizing the proxy can degrade the target.
 - **Sufficient coverage.** A sparse test suite means evolution drifts in the gaps you can't see.
 
-There's a recursive problem underneath this. The evaluator judges the agent. But evaluator quality is itself hard to measure — if the evaluator passes bad iterations or rejects good ones, the search burns compute in the wrong direction. The ceiling of evolutionary search is the evaluator's ceiling. And improving the evaluator is itself an open problem: there's no automatic score for "is this evaluator good?" You're back to human judgment.
+There are two recursive problems underneath this, and they compound.
+
+First: evaluator quality is itself hard to measure. If the evaluator passes bad iterations or rejects good ones, the search burns compute in the wrong direction. There's no automatic score for "is this a good judge?" You're back to human judgment.
+
+Second — and more damaging — the agent actively degrades whatever evaluator you give it. Self-improvement loops optimize the signal they receive. If the reward comes from unit tests, the agent overfits the tests. If it comes from a judge model, the agent learns to game that judge's specific patterns. If it comes from a benchmark, the agent exploits benchmark artifacts. Weng calls this out directly: reward hacking isn't a failure mode to avoid — it's the default behavior of a working self-improvement loop.
+
+The ceiling of evolutionary search is the evaluator's ceiling. And the evaluator has no ground truth — while the agent is actively working to lower it.
 
 This is what makes DGM's result matter. It works well enough to demonstrate the loop, which means their evaluator — SWE-bench — is trustworthy enough to drive real improvement. SWE-bench as an evaluator is itself a years-long community artifact. That's not a detail. It's the prerequisite.
 
