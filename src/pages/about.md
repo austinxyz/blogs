@@ -16,6 +16,8 @@ I currently lead Cloud Platform teams at eBay, where we've migrated 5,000+ appli
 - **Developer Experience**: Creating tools and platforms that make developers more productive
 - **SRE Excellence**: Applying SLO/SLI, MTTD/MTTR, and incident management best practices
 
+→ [LinkedIn: austin-yanzhao-xu](https://www.linkedin.com/in/austin-yanzhao-xu-6301ab6)
+
 Before leading the Cloud Platform team, I:
 - Built eBay's multi-cloud migration platform and CI/CD automation
 - Architected eBay's internal cloud platforms across three generations (VMware, OpenStack, Kubernetes)
