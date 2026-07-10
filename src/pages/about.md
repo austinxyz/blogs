@@ -27,8 +27,10 @@ I run a hands-on course series helping professionals build real AI tools with Cl
 
 - **Session 1 — Claude & Cowork from Zero**: Build a job-search Agent pipeline that analyzes job descriptions, researches companies, drafts outreach, and tracks applications.
 - **Session 2 — Build Your Own AI Tools with Claude Code**: Transition from tool usage to tool creation. Master Claude Code locally, leverage Skills and MCP ecosystems, and structure your professional expertise into AI-usable knowledge bases.
+- **Session 3 — From One Sentence to Finished Work**: Slides, posters, websites — one tool. End-to-end Claude Design workflow for non-designers.
+- **Session 4 — AI Stock Analysis System**: From methodology to runnable Skill — a working agent that runs daily market checks.
 
-Both sessions are taught in Chinese, targeting North American professionals who want to integrate AI into their real workflows — not just experiment with prompts.
+All sessions are taught in Chinese, targeting North American professionals who want to integrate AI into their real workflows — not just experiment with prompts.
 
 → [Course portal](https://austinxyz.github.io/course-portal/?lang=en)
 
