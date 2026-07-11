@@ -8,6 +8,8 @@ slug: pm-ai-era
 image: ./images/cover.jpg
 ---
 
+![Product manager at desk with multiple monitors showing roadmap, code, and wireframes](./images/cover.jpg)
+
 I've written about how AI changes [junior engineers](https://austinxyz.github.io/blogs/blog/2026/03/04/no-junior-engineers), [senior engineers](https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap), [engineering managers](https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai), and [ops engineers](https://austinxyz.github.io/blogs/blog/2026/03/16/platform-engineer-vs-ops-engineer). I kept skipping product managers.
 
 At work, my team has a PM. I kept thinking I was the wrong person to write about a role that belonged to someone else. Then I started building my own projects on the side. I noticed I was spending more time on product decisions than on implementation.
