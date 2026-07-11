@@ -5,7 +5,7 @@ authors: [austin]
 tags: [ai, product-management, engineering, career-development, future-of-work]
 description: "The PM role isn't dying. It went everywhere — into engineering, into every builder who ships with AI. Here's what's actually changing."
 slug: pm-ai-era
-image: ./cover.jpg
+image: ./images/cover.jpg
 ---
 
 I've written about how AI changes [junior engineers](https://austinxyz.github.io/blogs/blog/2026/03/04/no-junior-engineers), [senior engineers](https://austinxyz.github.io/blogs/blog/2026/05/13/senior-engineer-ai-trap), [engineering managers](https://austinxyz.github.io/blogs/blog/2026/03/23/engineering-manager-in-ai), and [ops engineers](https://austinxyz.github.io/blogs/blog/2026/03/16/platform-engineer-vs-ops-engineer). I kept skipping product managers.
