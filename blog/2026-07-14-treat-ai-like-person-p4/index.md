@@ -1,5 +1,5 @@
 ---
-title: "The Philosopher's Warning, the Engineer's Response"
+title: "Treat AI Like a Person: The Philosopher's Warning, the Engineer's Response"
 date: 2026-07-14
 authors: [austin]
 tags: [ai, llm, alignment, software-engineering, mental-model, accountability, ai-governance, harari]
