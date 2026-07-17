@@ -124,16 +124,17 @@ The seats compress asymmetrically. That's the thesis the track exists to defend.
 | [Building a Personal Finance Knowledge Base with LLM Wiki](/blog/2026/05/04/wealth-llm-wiki) | A complete walkthrough of building an investment knowledge base that an LLM can reason over — the data layer for a real agent |
 | [Building an AI Agent: From Claude Skills to Production](/blog/2026/05/04/rwh-overlay-lessons) | A retrospective on extending an open-source LLM wiki into a production-grade personal agent — the engineering reality of turning a working tool into a real agent |
 | [Building an Agent from Scratch: LangGraph, Qdrant, and the Gaps Between the Docs](/blog/building-agent-from-scratch) | The A-layer. End-to-end walkthrough of python-agent — architecture decisions, LangGraph ingest pipeline and ReAct QA agent, SQLite-first data layer, and four specific failures the tutorials don't cover |
+| [After Harness Engineering: How Agents Learn to Evolve Themselves](/blog/evolutionary-search-harness-next) | The research landscape for agents that improve their own prompts, skills, workflows, and harness code — organized by evolutionary depth. The hard part isn't mutation. It's the evaluator. |
+| [The Agent Framework Trap: Why the Harness Drives Your Costs](/blog/agent-framework-comparison) | LangGraph vs CrewAI vs AutoGen — but the number that matters isn't in the benchmarks. Same model, same task, 5× token variance from the harness alone. Includes AWS Strands, Google ADK, Hermes, and OpenClaw. |
 
 ### Coming next
 
 | Post | Why it matters |
 |------|----------------|
-| Comparing Mainstream Agent Frameworks | A practitioner's read on the frameworks I've actually used to build agents — what each is good at, where it leaks, and which I'd pick again. |
 | Agent Platform — Infrastructure Layer | The C-layer view. Bridges Track 1. Where do agent runtimes actually live, and what does the platform have to provide? Still in research mode — I want a thicker case-study base before writing. |
 | Agent Design Patterns | The B-layer. The methodology backbone for the series — the recurring patterns I keep seeing across agent systems. Also still in research mode; the goal is enough patterns from real systems before generalizing. |
 
-This track is also where I learn the most, and where I'm most cautious about writing ahead of my evidence. The hands-on piece is now done. The framework-comparison piece is close. The platform and patterns pieces will land when the case-study base is thick enough to generalize from.
+This track is also where I learn the most, and where I'm most cautious about writing ahead of my evidence. The hands-on pieces are done. The platform and patterns pieces will land when the case-study base is thick enough to generalize from.
 
 ---
 
