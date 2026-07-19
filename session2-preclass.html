@@ -124,22 +124,21 @@
     </div>
     <p>Claude Code 是在”终端”里用的 AI 助手，能直接帮你读写电脑上的文件。选你的系统，把命令<strong>复制</strong>到终端里运行即可——<strong>不需要先装 Node.js</strong>，这条命令会自动搞定一切。</p>
 
-    <div style=”margin: 20px 0; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.15);”>
-      <video controls style=”width: 100%; display: block;” preload=”metadata”>
-        <source src=”videos/claude-code-install.mp4” type=”video/mp4”>
-      </video>
+    <div class=”os-tabs”>
+      <button class=”os-tab active” onclick=”switchOS(this,'cc-win')”>Windows</button>
+      <button class=”os-tab” onclick=”switchOS(this,'cc-mac')”>Mac</button>
     </div>
 
-    <div class="os-tabs">
-      <button class="os-tab active" onclick="switchOS(this,'cc-win')">Windows</button>
-      <button class="os-tab" onclick="switchOS(this,'cc-mac')">Mac</button>
-    </div>
-
-    <div class="os-content active" id="os-cc-win">
-      <p>开始菜单搜索 <span class="ui">PowerShell</span> 并打开，粘贴这行回车：</p>
-      <div class="cmd-card">
-        <div class="cmd-card-header"><span class="cmd-card-title">Windows · PowerShell</span><button class="copy-btn" onclick="copyCmd(this)">复制</button></div>
-        <div class="cmd-body">irm https://claude.ai/install.ps1 | iex</div>
+    <div class=”os-content active” id=”os-cc-win”>
+      <p>开始菜单搜索 <span class=”ui”>PowerShell</span> 并打开，粘贴这行回车：</p>
+      <div class=”cmd-card”>
+        <div class=”cmd-card-header”><span class=”cmd-card-title”>Windows · PowerShell</span><button class=”copy-btn” onclick=”copyCmd(this)”>复制</button></div>
+        <div class=”cmd-body”>irm https://claude.ai/install.ps1 | iex</div>
+      </div>
+      <div style=”margin: 16px 0; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.15);”>
+        <video controls style=”width: 100%; display: block;” preload=”metadata”>
+          <source src=”videos/claude-code-install.mp4” type=”video/mp4”>
+        </video>
       </div>
     </div>
 
