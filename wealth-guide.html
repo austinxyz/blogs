@@ -124,7 +124,7 @@
 
 <div class="hero">
   <h1>财富知识库使用教程</h1>
-  <p class="subtitle">用 Claude Cowork 打造你的专属华人财务顾问，全程不需要任何编程知识</p>
+  <p class="subtitle">用 Claude Projects 打造你的专属华人财务顾问，全程不需要任何编程知识</p>
   <span class="badge">零基础 · 入门 · 中文全程</span>
 </div>
 
@@ -136,7 +136,7 @@
       <li><a href="#step1">下载知识库</a></li>
       <li><a href="#step2">解压文件</a></li>
       <li><a href="#step3">安装 Claude 桌面 App</a></li>
-      <li><a href="#step4">在 Cowork 中创建项目</a></li>
+      <li><a href="#step4">在 Projects 中创建项目</a></li>
       <li><a href="#step5">填写你的个人信息</a></li>
       <li><a href="#step6">开始提问（附现成 Prompt）</a></li>
       <li><a href="#faq">常见问题</a></li>
@@ -156,6 +156,7 @@
       点击下载知识库 ZIP 文件
     </a>
     <p>浏览器会自动保存一个叫 <code class="inline">wealth-llm-wiki.zip</code> 的文件到你的「下载」文件夹。</p>
+    <p style="color:#2d6a4f;font-size:0.9em">🆕 知识库 2026-07 更新：全库事实审计、时效标注、条目重建（年金 / IUL / Roth IRA）。老用户重新下载后替换 wiki/ 文件夹即可。</p>
   </div>
 
   <!-- Step 2 -->
@@ -194,7 +195,7 @@
       <div class="step-num">3</div>
       <div class="step-title">安装 Claude 桌面 App</div>
     </div>
-    <p>Claude Cowork 是 Claude 桌面 App 的核心功能，需要先安装桌面版才能使用。</p>
+    <p>Claude Projects 是 Claude 桌面 App 的核心功能，需要先安装桌面版才能使用。</p>
     <div class="os-tabs">
       <button class="os-tab active" onclick="switchOS(this,'install-win')">Windows</button>
       <button class="os-tab" onclick="switchOS(this,'install-mac')">Mac</button>
@@ -216,8 +217,8 @@
       </ol>
     </div>
     <div class="callout callout-warning">
-      ⚠️ <strong>Cowork 需要付费订阅</strong><br>
-      Claude Cowork 功能<strong>免费账号无法使用</strong>，需要至少订阅 <strong>Pro 版</strong>（每月 $20 美元）。<br>
+      ⚠️ <strong>Projects 需要付费订阅</strong><br>
+      Claude Projects 功能<strong>免费账号无法使用</strong>，需要至少订阅 <strong>Pro 版</strong>（每月 $20 美元）。<br>
       订阅地址：<a href="https://claude.ai/settings/billing" target="_blank" style="color:#c0392b;font-weight:700;">claude.ai/settings/billing</a>
     </div>
     <div class="callout callout-info">
@@ -229,27 +230,24 @@
   <div class="section" id="step4">
     <div class="step-header">
       <div class="step-num">4</div>
-      <div class="step-title">在 Cowork 中创建项目</div>
+      <div class="step-title">在 Projects 中创建项目</div>
     </div>
-    <p>打开 Claude 桌面 App 后，按以下步骤切换到 Cowork 并创建你的财务顾问项目。</p>
+    <p>打开 Claude 桌面 App 后，按以下步骤在 Projects 中创建你的财务顾问项目。</p>
 
-    <h3>① 切换到 Cowork 标签</h3>
+    <h3>① 打开 Projects，点 New project</h3>
     <div class="screen-note">
-      在 App 顶部找到三个标签：<span class="loc">Chat</span> <span class="arrow">|</span> <span class="loc">Cowork</span> <span class="arrow">|</span> <span class="loc">Code</span><br>
-      点击中间的 <span class="loc">Cowork</span>
-    </div>
-
-    <h3>② 选「Use an existing folder」</h3>
-    <div class="screen-note">
-      在左侧栏点击 <span class="loc">Projects</span> → 点击「<span class="loc">+ New project</span>」<br><br>
-      弹出窗口有三个选项，<strong style="color:var(--accent)">选最下面的「Use an existing folder」</strong>
+      在左侧栏点击 <span class="loc">Projects</span> → 右上角点击「<span class="loc">New project</span>」，弹出「Create a project」窗口
     </div>
 
-    <h3>③ 填写三项信息，点 Create</h3>
+    <h3>② 关联知识库文件夹</h3>
     <div class="screen-note">
-      <strong>① Choose folder</strong>：点文件夹图标 → 选桌面上的 <span class="loc">wealth-llm-wiki</span> 文件夹<br><br>
-      <strong>② Name</strong>：填入 <span class="loc">我的财务顾问</span><br><br>
-      <strong>③ Instructions</strong>：把下面这段话复制粘贴进去 ↓
+      点窗口右上角的「<span class="loc">Add folder</span>」按钮 → 选桌面上的 <span class="loc">wealth-llm-wiki</span> 文件夹
+    </div>
+
+    <h3>③ 填写两项信息，点 Create project</h3>
+    <div class="screen-note">
+      <strong>What are you working on?</strong>：填入 <span class="loc">我的财务顾问</span><br><br>
+      <strong>What are you trying to achieve?</strong>：把下面这段话复制粘贴进去 ↓
     </div>
 
     <div class="fill-card" style="margin:0 0 16px;">
@@ -265,20 +263,18 @@
     </div>
 
     <div class="screen-note">
-      填好后点右下角 <span class="loc">Create</span> 按钮
+      填好后点右下角 <span class="loc">Create project</span> 按钮
     </div>
 
     <h3>④ 项目创建成功 — 直接开始输入！</h3>
     <div class="screen-note">
-      Create 完成后，界面变成项目工作区：<br><br>
-      &nbsp;&nbsp;• 右侧面板显示 <span class="loc">Instructions</span>（你填的内容）和 <span class="loc">Context → wealth-llm-wiki</span> 文件夹<br>
-      &nbsp;&nbsp;• 中间输入框提示「What would you like to work on in this project?」<br>
+      Create project 完成后，界面进入项目工作区，中间输入框提示「What would you like to work on in this project?」<br><br>
       &nbsp;&nbsp;• 底部已显示 <span class="loc">我的财务...</span>，说明项目已关联 ✓<br><br>
       <strong style="color:var(--accent)">不需要任何额外操作，直接把下面的 Prompt 粘贴进去发送就行！</strong>
     </div>
 
     <div class="callout callout-tip">
-      💡 以后每次使用：点顶部 <span class="ui">Cowork</span> → 左侧 <span class="ui">Projects</span> → 选「<span class="ui">我的财务顾问</span>」→ 直接开始提问，不需要重复设置。
+      💡 以后每次使用：点左侧 <span class="ui">Projects</span> → 选「<span class="ui">我的财务顾问</span>」→ 直接开始提问，不需要重复设置。
     </div>
   </div>
 
@@ -288,7 +284,7 @@
       <div class="step-num">5</div>
       <div class="step-title">填写你的个人信息</div>
     </div>
-    <p>不需要手动编辑任何文件！把下面的 Prompt 复制粘贴到 Cowork 对话框，Claude 会<strong>逐一问你问题</strong>，然后自动把你的回答保存到 <code class="inline">output/</code> 文件夹。</p>
+    <p>不需要手动编辑任何文件！把下面的 Prompt 复制粘贴到 Projects 对话框，Claude 会<strong>逐一问你问题</strong>，然后自动把你的回答保存到 <code class="inline">output/</code> 文件夹。</p>
     <p>按顺序完成下面 4 个 Prompt，每个大约需要 5 分钟。</p>
 
     <div class="callout callout-info">
@@ -497,7 +493,7 @@
     <h2 class="section-title">❓ 常见问题</h2>
     <div class="faq-item">
       <div class="faq-q">免费账号可以用吗？</div>
-      <div class="faq-a">不可以。Claude Cowork 功能需要至少订阅 <strong>Pro 版</strong>，每月 <strong>$20 美元</strong>。免费账号只能使用基础 Chat 功能，无法访问 Cowork 标签。可在 <a href="https://claude.ai/settings/billing" target="_blank" style="color:var(--primary);">claude.ai/settings/billing</a> 升级。</div>
+      <div class="faq-a">不可以。Claude Projects 功能需要至少订阅 <strong>Pro 版</strong>，每月 <strong>$20 美元</strong>。免费账号只能使用基础 Chat 功能，无法创建/使用 Projects。可在 <a href="https://claude.ai/settings/billing" target="_blank" style="color:var(--primary);">claude.ai/settings/billing</a> 升级。</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">我的财务信息安全吗？</div>
@@ -513,7 +509,7 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">知识库内容会更新吗？</div>
-      <div class="faq-a">会。重新下载新版 zip，解压后把 <code class="inline">wiki/</code> 文件夹替换掉即可，<code class="inline">output/</code> 里你的个人信息不受影响。</div>
+      <div class="faq-a">会。重新下载新版 zip，解压后把 <code class="inline">wiki/</code> 文件夹替换掉即可，<code class="inline">output/</code> 里你的个人信息不受影响。最近一次更新：2026-07（全库审计版）。</div>
     </div>
     <div class="faq-item">
       <div class="faq-q">Claude 给的建议可以直接执行吗？</div>
@@ -528,7 +524,7 @@
     <ul class="checklist">
       <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">下载 ZIP 文件并解压到桌面</span></li>
       <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">安装 Claude 桌面 App 并登录账号</span></li>
-      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">点击顶部 <span class="ui">Cowork</span> → 左侧 <span class="ui">Projects</span> → <span class="ui">New project</span> → 选「Use an existing folder」</span></li>
+      <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">点击左侧 <span class="ui">Projects</span> → <span class="ui">New project</span> → 点 <span class="ui">Add folder</span> 选文件夹</span></li>
       <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">选 <code class="inline">wealth-llm-wiki</code> 文件夹，Name 填「我的财务顾问」，粘贴 Instructions，点 Create</span></li>
       <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">在项目输入框中依次粘贴 4 个填写 Prompt，完成个人信息收集</span></li>
       <li onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">进入「我的财务顾问」，复制「全面财务体检报告」Prompt，直接发送，开始财务分析！🎉</span></li>
