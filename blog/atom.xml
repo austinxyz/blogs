@@ -2,11 +2,67 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://austinxyz.github.io/blogs/blog</id>
     <title>Austin Xu Blog</title>
-    <updated>2026-07-16T00:00:00.000Z</updated>
+    <updated>2026-07-23T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://austinxyz.github.io/blogs/blog"/>
     <subtitle>Austin Xu Blog</subtitle>
     <icon>https://austinxyz.github.io/blogs/img/favicon.svg</icon>
+    <entry>
+        <title type="html"><![CDATA[The Ops Inflection, Verified: A Field Check on the Three Patterns Moving the TOIL Wall]]></title>
+        <id>https://austinxyz.github.io/blogs/blog/ops-inflection-verified</id>
+        <link href="https://austinxyz.github.io/blogs/blog/ops-inflection-verified"/>
+        <updated>2026-07-23T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[A field check on the three AI Ops patterns: principles vs SOPs, graphs vs reasoning, and the validation agent nobody has shipped yet.]]></summary>
+        <content type="html"><![CDATA[<p><img decoding="async" loading="lazy" alt="AI incident control room with a validator agent independently cross-checking the diagnosis" src="https://austinxyz.github.io/blogs/assets/images/cover-e86c097ff886503c7c19a4bb55ee0a2d.jpg" width="1024" height="576" class="img_ev3q"></p>
+<p>A paper at WWW 2025 made a clean empirical case that constraining an LLM-based RCA agent with Standard Operating Procedures improves accuracy. The reasoning is sound: LLMs hallucinate, and SOPs pin them down at the junctures where hallucination hurts most.</p>
+<p>Through 2026, nearly every commercial AI SRE product shipped the opposite bet. Cleric, Resolve.ai, Traversal, Datadog's Bits AI, Microsoft's Azure SRE Agent — all of them investigate incidents by generating hypotheses and testing them against evidence. One industry survey puts it flatly: modern AI SREs "are not runbooks that execute predefined steps; they are agents that plan multi-step investigations based on the specific alert."</p>
+<p>The academics proved constraints help. The vendors bet on reasoning. Both sides have data, and both can't be right. Unless they're right about different points on a curve — and the curve is the interesting part.</p>
+<p>In <a href="https://austinxyz.github.io/blogs/blog/ai-ops-inflection" target="_blank" rel="noopener noreferrer" class=""><em>The Ops Inflection</em></a>, I described three architectural patterns moving the TOIL wall: principles-based agents, knowledge graphs with complete signal access, and independent validation agents. That was a field report from teams I know. Since then I went checking the industry at large. All three patterns are out there, at very different maturity levels. And underneath all three, the same argument keeps happening.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="layer-1-control-flow--principles-vs-sops">Layer 1: Control Flow — Principles vs. SOPs<a href="https://austinxyz.github.io/blogs/blog/ops-inflection-verified#layer-1-control-flow--principles-vs-sops" class="hash-link" aria-label="Direct link to Layer 1: Control Flow — Principles vs. SOPs" title="Direct link to Layer 1: Control Flow — Principles vs. SOPs" translate="no">​</a></h2>
+<p>The contradiction above is the control-flow version of the argument.</p>
+<p>The SOP camp has real evidence. <a href="https://arxiv.org/abs/2502.08224" target="_blank" rel="noopener noreferrer" class="">Flow-of-Action</a> showed that distilling SRE diagnostic steps into explicit procedures and imposing them at key junctures reduces irrational action selection. Microsoft's RCACopilot uses predefined handlers to collect diagnostic data and lets the LLM analyze what the handlers gathered. Constrain the model where it's weakest. Harvest its judgment where it's strongest.</p>
+<p>The principles camp shipped anyway. Cleric generates multiple root-cause hypotheses per alert and works through a transparent hypothesis tree. Resolve.ai describes its investigations as forming and testing theories "like an engineer." Google's own <a href="https://sre.google/resources/practices-and-processes/ai-engineering-reliable-operations/" target="_blank" rel="noopener noreferrer" class="">framework for AI in reliable operations</a> doesn't prescribe procedures at all. It defines guardrails, autonomy levels, and progressive authorization, with humans moving "up the abstraction ladder" to become architects of the boundaries. Anthropic's guidance on building agents lands in the same place: strong heuristics over brittle hardcoded branching.</p>
+<p>Here's the resolution, and it's not a compromise. The two camps are answering different questions. SOPs answer: how do I stop today's model from hallucinating mid-investigation? Principles answer: how do I handle the incident no checklist anticipated? The first question matters exactly as long as model capability makes it matter. The second question is permanent.</p>
+<p>That makes SOP constraints scaffolding, not architecture. Useful, load-bearing even — and temporary by design. Every capability jump shrinks the set of junctures where the model needs pinning down. The checklist handles what you've already seen. The framework handles what you haven't. And the ratio between those two workloads moves in one direction only.</p>
+<p>There's a deeper version of this. An SOP is frozen learning: someone once investigated incidents, distilled what worked, wrote it down — and the learning stopped. A principles-based agent with a feedback loop is the same distillation, still running. Research frameworks like <a href="https://arxiv.org/abs/2510.04618" target="_blank" rel="noopener noreferrer" class="">ACE</a> make the loop explicit: a Generator produces investigation traces, a Reflector distills what worked and what didn't, a Curator folds the lessons into an evolving playbook.</p>
+<p>The hard part isn't extraction. It's validation. A bad case memory only pollutes lookalike incidents; a bad principle generalizes to every future one. The teams that get this right will treat their incident history as a regression suite for candidate principles — replay past incidents with the new principle in place, check whether diagnosis improves, admit it only if it does. The principle is the spec. The incident history is the test suite.</p>
+<p>So the argument at this layer resolves to a bet on capability trajectory. Building for today's model? Constrain it. Building for the model eighteen months out? Give it the framework, and spend your engineering on the feedback loop.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="layer-2-data--the-graph-engine-vs-the-reasoning-agent">Layer 2: Data — The Graph Engine vs. the Reasoning Agent<a href="https://austinxyz.github.io/blogs/blog/ops-inflection-verified#layer-2-data--the-graph-engine-vs-the-reasoning-agent" class="hash-link" aria-label="Direct link to Layer 2: Data — The Graph Engine vs. the Reasoning Agent" title="Direct link to Layer 2: Data — The Graph Engine vs. the Reasoning Agent" translate="no">​</a></h2>
+<p>The knowledge-graph pattern looked like the least controversial of the three. It turned out to contain the same argument, one layer down.</p>
+<p>Half of the pattern is old. Dynatrace has run topology-driven root cause analysis for a decade: Smartscape models the full dependency graph in real time, and the Davis engine traverses it deterministically — visiting affected entities, evaluating findings, establishing causality along known edges. Auditable, reproducible, and bounded by exactly the causal relationships someone encoded.</p>
+<p>The other half is new. By early 2026, the major observability vendors had shipped MCP servers: Datadog, Grafana's full suite covering logs, metrics, traces, and on-call, Red Hat's obs-mcp for OpenShift, IBM Instana. The manual correlation bottleneck — an engineer jumping between four query languages to stitch together a timeline — is becoming an agent pulling any signal it needs at diagnosis time. The "complete signal access" half of the pattern went from custom plumbing to vendor standard in about a year.</p>
+<p>The argument reappears where the two halves meet. One school treats the graph as the reasoner: causality lives in the engine, deterministic and explainable, AI as a presentation layer on top. The other school treats the graph as context: the agent reads the topology, pulls the signals, and does the causal reasoning itself. Research is pushing toward the second. <a href="https://arxiv.org/html/2606.04799v1" target="_blank" rel="noopener noreferrer" class="">UModel</a> proposes modeling observability data as object-centric semantic graphs built for agent consumption — the data substrate itself, redesigned for a reasoning consumer instead of a human dashboard reader.</p>
+<p>Same trade as Layer 1. The deterministic engine handles exactly the causal patterns it encodes, and nothing else. The reasoning agent handles novel relationships, and inherits hallucination risk. As models get better at causal reasoning over structured context, the value of hard-coding causality into the engine declines. The trajectory rhymes.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="layer-3-verification--the-human-is-still-the-validator">Layer 3: Verification — The Human Is Still the Validator<a href="https://austinxyz.github.io/blogs/blog/ops-inflection-verified#layer-3-verification--the-human-is-still-the-validator" class="hash-link" aria-label="Direct link to Layer 3: Verification — The Human Is Still the Validator" title="Direct link to Layer 3: Verification — The Human Is Still the Validator" translate="no">​</a></h2>
+<p>The third pattern — an independent agent, initialized fresh, checking the diagnosis before mitigation — is the one I expected to find everywhere. The bias problem it solves is now well documented. Anchoring in LLMs has been <a href="https://arxiv.org/html/2505.15392v2" target="_blank" rel="noopener noreferrer" class="">measured directly</a>: early conclusions in a context window disproportionately steer everything after. The failure mode has a name — context poisoning. And there's a subtler finding, from a verification framework called <a href="https://arxiv.org/html/2603.24579" target="_blank" rel="noopener noreferrer" class="">MARCH</a>: a verifier that can see the first agent's answer degrades into checking internal coherence instead of checking evidence. Blinding isn't a nice-to-have. It's the mechanism that makes verification work at all.</p>
+<p>The design pattern even has a name now — the verifier pattern. A dedicated agent that never sees the generator's reasoning, only the claim and the raw evidence, so it can't rationalize away a discrepancy the way the generator might.</p>
+<p>What I found in shipped products: almost nothing. New Relic's SRE agent states its position plainly — "Autopilot recommends actions but does not take them. A person reviews and acts." Cleric keeps its agent read-only and shows a transparent hypothesis tree for a human to judge. Across the market, the validation layer exists, and it's made of people.</p>
+<p>It's worth being precise about what a validation agent actually does, because "fresh context" gets misread as "knows nothing." The validator doesn't get the first agent's reasoning path. It does get the claim — root cause X, evidence E1 through E3, this timeline — and the same raw data access. Its job is not to redo the investigation. Diagnosis is open-ended search across a huge hypothesis space. Validation is checking one structured claim against evidence. Does E1 actually appear in the logs? Does the timeline hold, or did correlation get promoted to causation? What else was anomalous in the same window that nobody ruled out?</p>
+<p>The first agent spends twenty minutes searching. The validator spends two minutes checking. But a refutation carries the same weight as the original diagnosis, because the validator's errors are uncorrelated with the searcher's. It never walked the path that produced the bias.</p>
+<p>That's also why the current human-in-the-loop arrangement works: a human reviewer is a fresh-context validator with excellent priors. And it's why the arrangement doesn't survive autonomy. The moment AI triggers mitigation on its own, the human leaves the real-time loop, and something has to replace the checking function the human was quietly performing. The validation agent is that something. It's the role that stays in the loop on our behalf.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-same-argument-three-times">The Same Argument, Three Times<a href="https://austinxyz.github.io/blogs/blog/ops-inflection-verified#the-same-argument-three-times" class="hash-link" aria-label="Direct link to The Same Argument, Three Times" title="Direct link to The Same Argument, Three Times" translate="no">​</a></h2>
+<p>Lay the three layers side by side:</p>
+<table><thead><tr><th>Layer</th><th>Deterministic side</th><th>Reasoning side</th><th>Who's winning</th></tr></thead><tbody><tr><td>Control flow</td><td>SOP-enhanced execution</td><td>Principles-based investigation</td><td>Reasoning, in products; deterministic, in papers</td></tr><tr><td>Data</td><td>Graph engine traverses encoded causality</td><td>Agent reasons over graph-as-context</td><td>Deterministic incumbent, reasoning ascendant</td></tr><tr><td>Verification</td><td>Human reviews and acts</td><td>Blinded validation agent</td><td>Deterministic (humans), by default</td></tr></tbody></table>
+<p>It's one argument, recurring: encode the knowledge into fixed structure, or hand the structure to a reasoner and let it work. Every layer sits at a different point on that spectrum today. Every layer is drifting the same direction, at the speed model capability allows.</p>
+<p>The drift isn't ideology. It's the conversion I keep writing about — open problems becoming closed ones. A checklist, a hard-coded causal graph, a human approval gate: each closes a problem by freezing the answer. A reasoning agent with principles, live topology, and a blinded validator closes the same problems without freezing them. That's the only approach that survives contact with incidents nobody froze an answer for.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-leading-indicator">The Leading Indicator<a href="https://austinxyz.github.io/blogs/blog/ops-inflection-verified#the-leading-indicator" class="hash-link" aria-label="Direct link to The Leading Indicator" title="Direct link to The Leading Indicator" translate="no">​</a></h2>
+<p>One cell in that table is lagging the others, and I think it's the one to watch.</p>
+<p>Validation is the least productized of the three patterns — not because it's hard, but because humans are still doing the job for free. Every vendor's roadmap says autonomous remediation is coming. None of them can ship it while their verification layer is a person, because removing the person removes the check. The order of operations is forced: production-grade validation agents first, autonomous mitigation second.</p>
+<p>The honest caveat: a validation agent is not a free pass. A validator built on the same base model shares its blind spots — fresh context decorrelates the path, not the model. If neither agent understands an obscure protocol, both miss it together. Production-grade here means more than a second prompt. It means a different model, or a different lens per checker — one on causality, one on timelines, one hunting counter-examples. That's a higher bar than it sounds, which is part of why nobody has shipped it yet.</p>
+<p>Which gives you a concrete thing to watch for. Ignore the demos of agents restarting pods. Watch for the first vendor that ships a blinded, fresh-context validation agent as a first-class product feature. That's the vendor about to let go of the human gate — and that's the moment the phase table from the last post advances a row.</p>
+<p>Diagnosis got good because teams did the knowledge work. Autonomy will arrive when verification does. The overnight shift doesn't end when the agent can act. It ends when something we trust is checking the agent's work — and that something won't be us.</p>]]></content>
+        <author>
+            <name>Austin Xu</name>
+            <email>austin.xyz@gmail.com</email>
+            <uri>https://github.com/austinxyz</uri>
+        </author>
+        <category label="devops" term="devops"/>
+        <category label="sre" term="sre"/>
+        <category label="ai" term="ai"/>
+        <category label="platform-engineering" term="platform-engineering"/>
+        <category label="reliability" term="reliability"/>
+        <category label="agents" term="agents"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[The Agent Framework Trap: Why the Harness Drives Your Costs]]></title>
         <id>https://austinxyz.github.io/blogs/blog/agent-framework-comparison</id>
@@ -1751,152 +1807,5 @@ This is the most important architectural principle I settled on, and the one I w
         <category label="kubernetes" term="kubernetes"/>
         <category label="cloud-computing" term="cloud-computing"/>
         <category label="leadership" term="leadership"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Stacking OpenSpec and Superpowers: A Combined SDD Workflow]]></title>
-        <id>https://austinxyz.github.io/blogs/blog/openspec-superpowers-combined</id>
-        <link href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-combined"/>
-        <updated>2026-04-19T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[OpenSpec is great at small-step change management. Superpowers is great at brainstorming, TDD, and code review. Here's how I combined them on a new project — and shipped a mobile UI refactor in 3 hours with 86 new tests.]]></summary>
-        <content type="html"><![CDATA[<p><em>This is a follow-up to <a class="" href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development">From Vibe Coding to Spec-Driven Development</a>. That post documented introducing OpenSpec into an existing Finance project. This one covers a new project where I stacked OpenSpec with Superpowers from day one.</em></p>
-<p>After three months of running <a href="https://github.com/Fission-AI/OpenSpec" target="_blank" rel="noopener noreferrer" class="">OpenSpec</a> on my Finance project, I'd formed a clear picture of what it's good at and where it struggles. On a personal wiki project I'd also been using <a href="https://github.com/obra/superpowers" target="_blank" rel="noopener noreferrer" class="">Superpowers</a>, and its <code>brainstorming</code>, TDD, and code-review skills were landing real hits.</p>
-<p>So I started a new project — a UTR-based tennis team lineup app (<a href="https://github.com/austinxyz/tennis-lineup" target="_blank" rel="noopener noreferrer" class="">tennis-lineup</a>) — specifically to run both tools together and see how they compose. This post is the report.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="where-openspec-alone-fell-short">Where OpenSpec Alone Fell Short<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-combined#where-openspec-alone-fell-short" class="hash-link" aria-label="Direct link to Where OpenSpec Alone Fell Short" title="Direct link to Where OpenSpec Alone Fell Short" translate="no">​</a></h2>
-<p>OpenSpec is excellent at <strong>incremental change management</strong>. The propose → apply → archive loop keeps a clean spec library, and the archive step preserves delta specs as an audit trail. For shipping features one at a time on an existing codebase, it's hard to beat.</p>
-<p>But over three months on the Finance project, four gaps became obvious:</p>
-<ol>
-<li class=""><strong>Project bootstrap is weak.</strong> OpenSpec drives <em>changes</em> well. On a brand-new project — where you need architecture, initial tech stack decisions, domain modeling — <code>opsx:propose</code> has nothing to anchor on.</li>
-<li class=""><strong>Specs capture intent, not interaction.</strong> The spec tells AI <em>what</em> to build. UI details are often underspecified, and the first implementation rarely matches what I had in my head.</li>
-<li class=""><strong>Tasks list what, not how.</strong> <code>tasks.md</code> is a checkbox list. There's no implementation plan per task, so AI fills gaps on its own — sometimes fine, sometimes off-track. Tasks get silently skipped.</li>
-<li class=""><strong>No test discipline.</strong> I pushed "tests first" into <code>config.yaml</code>, but code quality was still inconsistent. Manual testing kept finding bugs a proper TDD cycle would have caught.</li>
-</ol>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="where-superpowers-fills-the-gaps">Where Superpowers Fills the Gaps<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-combined#where-superpowers-fills-the-gaps" class="hash-link" aria-label="Direct link to Where Superpowers Fills the Gaps" title="Direct link to Where Superpowers Fills the Gaps" translate="no">​</a></h2>
-<p>Superpowers is a collection of Claude Code skills. The three that matter most for SDD work:</p>
-<ul>
-<li class=""><code>superpowers:brainstorming</code> — walks you through structured questions before writing any spec. Has a <strong>Visual Companion</strong> that generates HTML mockups you click through in the browser. Outputs a design spec at the end.</li>
-<li class=""><code>superpowers:writing-plans</code> + <code>executing-plans</code> — decomposes a spec into tasks, and each task into a red/green/refactor TDD sequence with exact file paths, commands, expected test output, and commit messages.</li>
-<li class=""><code>superpowers:requesting-code-review</code> — runs automatically after each task. Flags issues at CRITICAL / HIGH / MEDIUM / LOW levels with specific fixes.</li>
-</ul>
-<p>OpenSpec covers change management and long-term spec accumulation. Superpowers covers upfront design, execution discipline, and review. They operate at different layers. They don't conflict — they stack.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-combined-sdlc">The Combined SDLC<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-combined#the-combined-sdlc" class="hash-link" aria-label="Direct link to The Combined SDLC" title="Direct link to The Combined SDLC" translate="no">​</a></h2>
-<p>Here's the workflow I settled on for tennis-lineup:</p>
-<p><strong>Project init (once):</strong></p>
-<ol>
-<li class=""><code>superpowers:brainstorming</code> to pin down requirements and architecture. Outputs a design doc I commit to <code>docs/</code>.</li>
-<li class=""><code>openspec init</code>, then populate <code>config.yaml</code> — tech stack, conventions, test strategy (unit + integration + e2e) stated upfront.</li>
-<li class="">Slice requirements by priority. Treat <code>docs/log/</code> as a living journal; require every session to append to it via <code>CLAUDE.md</code>.</li>
-</ol>
-<p><strong>Per feature:</strong></p>
-<ol>
-<li class="">If the feature is fuzzy, start with <code>superpowers:brainstorming</code> again. Use Visual Companion for anything UI-heavy. The output is a design spec.</li>
-<li class="">Run <code>opsx:propose</code> with that design spec as input. Get <code>proposal.md</code>, <code>design.md</code>, and <code>tasks.md</code>.</li>
-<li class="">Run Superpowers TDD against those tasks. It writes tests first, implements, runs the suite, and runs code review per batch.</li>
-<li class="">Manual sanity check. Rework rate has been low.</li>
-<li class=""><code>opsx:apply</code> to verify everything is ticked off — Superpowers usually already closed everything.</li>
-<li class="">Deploy.</li>
-<li class=""><code>opsx:archive</code> to merge the delta spec back into the main spec library.</li>
-<li class="">Scan the day's log — lift any new gotchas into <code>CLAUDE.md</code> and <code>openspec/config.yaml</code>. Update the README.</li>
-<li class="">Commit and push. Next feature.</li>
-</ol>
-<p>The two tools hand off at clean boundaries: <strong>Superpowers designs and builds; OpenSpec tracks and archives.</strong></p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="one-feature-end-to-end-mobile-ui-optimization">One Feature End-to-End: Mobile UI Optimization<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-combined#one-feature-end-to-end-mobile-ui-optimization" class="hash-link" aria-label="Direct link to One Feature End-to-End: Mobile UI Optimization" title="Direct link to One Feature End-to-End: Mobile UI Optimization" translate="no">​</a></h2>
-<p>To show how this plays out in practice, here's a real feature from 2026-04-19.</p>
-<p><strong>The prompt:</strong></p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">/superpowers:brainstorming I want to use the UI mock capability to optimize</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">the UI for mobile:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  - sidebar should be hideable</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  - when the right side has two columns (e.g., team management), hide the</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    team list once a team is selected</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  - two-column card layouts (e.g., saved lineups) should collapse to a</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">    single column on mobile</span><br></span></code></pre></div></div>
-<p><strong>Step 1 — Brainstorming + Visual Companion.</strong> Superpowers generated HTML mockups I clicked through in the browser, then wrote a <a href="https://github.com/austinxyz/tennis-lineup/blob/main/docs/superpowers/specs/2026-04-19-mobile-ui-optimization-design.md" target="_blank" rel="noopener noreferrer" class="">design spec</a>.</p>
-<p><img decoding="async" loading="lazy" alt="Lineup mockup preview" src="https://austinxyz.github.io/blogs/assets/images/lineup-45120b8c815354ec0cf86ced29ef85ec.png" width="1366" height="1005" class="img_ev3q"></p>
-<p><strong>Step 2 — Propose.</strong> <code>opsx:propose</code> took the design spec and produced an OpenSpec <a href="https://github.com/austinxyz/tennis-lineup/blob/main/openspec/changes/archive/2026-04-19-mobile-ui-optimization/proposal.md" target="_blank" rel="noopener noreferrer" class="">proposal</a> and <a href="https://github.com/austinxyz/tennis-lineup/blob/main/openspec/changes/archive/2026-04-19-mobile-ui-optimization/tasks.md" target="_blank" rel="noopener noreferrer" class="">task list</a> — 8 groups, 37 tasks.</p>
-<p><strong>Step 3 — TDD execution in batches.</strong> A representative batch result:</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Batch 1 — Global shell (no backend changes)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Commit: 2e336bb</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- New AppHeader.vue: hamburger menu + optional back button + title +</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  actions slot; lg:hidden</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Refactored MainLayout.vue: provide('sidebarOpen', ref(false));</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  Escape closes drawer</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">- Decision: SidebarDrawer.vue logic folded into MainLayout (no separate</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  component needed)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Code review fixes:</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  HIGH    inject fallback used a plain object (not a ref) — silently failed standalone</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          → inject('sidebarOpen', ref(false))</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  HIGH    hamburger aria-label was static "open nav" regardless of state</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          → dynamic :aria-label + :aria-expanded</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  HIGH    back button missing aria-label + type="button"</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          → added, safe inside forms</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  HIGH    removing pt-14 from MainLayout caused content to hide behind fixed header</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          → restored pt-14 lg:pt-0</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  MEDIUM  drawer had no Escape-to-close (WCAG 2.1.2)</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          → global keydown listener in MainLayout</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">  LOW     missing overflow-x-hidden could flash horizontal scroll</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">          → added</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">Tests: 381 passing (16 new AppHeader tests)</span><br></span></code></pre></div></div>
-<p>This is the Superpowers loop working as designed: write test → implement → run → review → fix findings → commit. Every batch ended green.</p>
-<p><strong>Step 4 — One honest mistake.</strong> On the Opponent Analysis component, the UI mock only showed the mobile layout and I approved it without re-reading the existing spec. Superpowers implemented against the mock and silently dropped existing desktop functionality.</p>
-<p>Fix:</p>
-<ol>
-<li class="">Re-ran <code>superpowers:brainstorming</code> with the existing spec loaded, re-did the UI design.</li>
-<li class="">Continued Superpowers TDD against the revised design.</li>
-</ol>
-<p>Lesson went into <code>openspec/config.yaml</code> so the next change won't repeat it.</p>
-<p><strong>Step 5 — Deploy, archive, update docs.</strong> <code>opsx:archive</code> synced the delta spec back. <code>CLAUDE.md</code> got updates for E2E dual-render pitfalls, SOCKS5 proxy setup, and Windows localhost dual-stack. <code>config.yaml</code> got dual-render <code>data-testid</code>, backend restart rules, TOCTOU, deploy smoke tests, and "sync before archive."</p>
-<p>Full detail in the <a href="https://github.com/austinxyz/tennis-lineup/blob/main/docs/log/2026-04-19.md" target="_blank" rel="noopener noreferrer" class="">2026-04-19 log</a>.</p>
-<p><strong>Result:</strong></p>
-<div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap"><img src="https://austinxyz.github.io/blogs/assets/images/team-30cfebf45d9e3d9f2a0fda9ee65e4758.jpg" alt="Team page — mobile" style="max-width:45%;max-height:600px;height:auto;object-fit:contain"><img src="https://austinxyz.github.io/blogs/assets/images/lineup-mobile-0d8d28e1abe62cffcdc42c3dc730e89c.jpg" alt="Lineup view — mobile" style="max-width:45%;max-height:600px;height:auto;object-fit:contain"></div>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-numbers">The Numbers<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-combined#the-numbers" class="hash-link" aria-label="Direct link to The Numbers" title="Direct link to The Numbers" translate="no">​</a></h2>
-<p>Window: <code>5c612fe</code> (design spec) to <code>ee4c3bd</code> (archive) — <strong>3 hours 7 minutes</strong>, including brainstorming, 6 implementation batches, one rollback + rework, E2E fixes, deploy, and archive.</p>
-<p><strong>Code delta</strong> (<code>git diff 3f75465..ee4c3bd</code>):</p>
-<table><thead><tr><th>Category</th><th>Files</th><th>+/−</th><th>Net</th></tr></thead><tbody><tr><td>Vue source</td><td>8</td><td>+741 / −297</td><td>+444</td></tr><tr><td>Tests (unit + E2E)</td><td>11</td><td>+1094 / −16</td><td>+1078</td></tr><tr><td>Docs / specs / config</td><td>22</td><td>+2547 / −10</td><td>+2537</td></tr><tr><td>Brainstorming mockups</td><td>19</td><td>+4348 / −0</td><td>+4348</td></tr><tr><td><strong>Total</strong></td><td><strong>60</strong></td><td><strong>+8730 / −323</strong></td><td><strong>+8407</strong></td></tr></tbody></table>
-<p><strong>Tests added:</strong></p>
-<ul>
-<li class="">Unit: +77 (365 → 442)</li>
-<li class="">E2E: +9 (44 → 53)</li>
-<li class=""><strong>Total: +86 test cases</strong></li>
-</ul>
-<p><strong>Timeline:</strong></p>
-<table><thead><tr><th>Time</th><th>Event</th></tr></thead><tbody><tr><td>09:00–09:23</td><td>Brainstorming + design spec + implementation plan</td></tr><tr><td>09:23–09:39</td><td>Batch 1: AppHeader + MainLayout (+16 tests)</td></tr><tr><td>09:39–09:54</td><td>Batch 2: TeamManagerView + TeamDetail (+20 tests)</td></tr><tr><td>09:54–10:00</td><td>Batch 3: LineupCard (+12 tests)</td></tr><tr><td>10:00–10:15</td><td>Batch 4: LineupHistoryView (+9 tests)</td></tr><tr><td>10:15–10:36</td><td>Batch 5: LineupGenerator (+3 tests)</td></tr><tr><td>10:36–10:49</td><td>Batch 6: OpponentAnalysis rewrite (+46) — <strong>rejected by user</strong></td></tr><tr><td>10:49–10:50</td><td>Revert + minimal mobile adaptation</td></tr><tr><td>11:46</td><td>Batch 13: OpponentAnalysis redesign TDD (+15 tests) + E2E fixes</td></tr><tr><td>12:07</td><td>Deploy to fly.io + archive</td></tr></tbody></table>
-<p><strong>ROI observations:</strong></p>
-<ul>
-<li class="">444 net source lines produced 86 test cases (test-to-code ratio ≈ 2.4:1 by line count).</li>
-<li class="">Biggest time sink was Batch 6 — the over-refactor and revert. Lesson cemented in <code>config.yaml</code>.</li>
-<li class="">20 minutes of HTML mockups up front bought 2 hours of zero-rework implementation.</li>
-</ul>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="tasksmd-vs-planmd-what-each-is-good-for"><code>tasks.md</code> vs <code>plan.md</code>: What Each Is Good For<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-combined#tasksmd-vs-planmd-what-each-is-good-for" class="hash-link" aria-label="Direct link to tasksmd-vs-planmd-what-each-is-good-for" title="Direct link to tasksmd-vs-planmd-what-each-is-good-for" translate="no">​</a></h2>
-<p>OpenSpec's <code>tasks.md</code> and Superpowers' <code>plan.md</code> are not the same artifact. They operate at different granularities and for different readers.</p>
-<table><thead><tr><th>Dimension</th><th>OpenSpec <code>tasks.md</code></th><th>Superpowers <code>plan.md</code></th></tr></thead><tbody><tr><td>Length</td><td>~60 lines</td><td>~1300 lines</td></tr><tr><td>Granularity</td><td>8 groups × 37 tasks, one sentence each</td><td>11 Tasks × 4–9 Steps each (write test / run / implement / verify / commit)</td></tr><tr><td>Code blocks</td><td>❌</td><td>✅ Full Vue templates, JS, test cases</td></tr><tr><td>File paths</td><td>Component names only</td><td>✅ Exact paths (<code>frontend/src/components/AppHeader.vue</code>)</td></tr><tr><td>Commands</td><td><code>mvn test</code> / <code>npm test</code></td><td>✅ Precise commands + expected output (<code>Expected: FAIL — ...</code>)</td></tr><tr><td>Testing</td><td>"add/update tests"</td><td>✅ Runnable TDD red-green-refactor</td></tr><tr><td>Commits</td><td>One per group (~8 commits)</td><td>✅ Exact commit message per Task (~11+ commits)</td></tr><tr><td>Self-check</td><td>Spec scenario → task mapping is implicit</td><td>✅ Spec coverage checklist at the end</td></tr><tr><td>Risk notes</td><td>In <code>design.md</code></td><td>✅ Inline (e.g., "Task 8.7 depends on backend")</td></tr><tr><td>Reader assumption</td><td>Developer who knows the repo</td><td>Engineer with zero context can follow it cold</td></tr></tbody></table>
-<p><strong>When each wins:</strong></p>
-<p><code>tasks.md</code> is good for:</p>
-<ul>
-<li class="">Fast scope review and checkbox tracking</li>
-<li class="">Confirming "is the feature done?" (<code>applyRequires</code> lives here)</li>
-<li class="">Cases where you or the AI already know the implementation details</li>
-</ul>
-<p><code>plan.md</code> is good for:</p>
-<ul>
-<li class="">Handing work to a fresh engineer or a subagent with no context</li>
-<li class="">Strict TDD — red / green / refactor made explicit at every step</li>
-<li class="">Small-granularity commits that are easy to <code>git bisect</code></li>
-<li class="">Dispatching tasks to <code>superpowers:subagent-driven-development</code></li>
-</ul>
-<p><strong>How I actually use both:</strong> <code>tasks.md</code> is the scope contract with OpenSpec. <code>plan.md</code> is the execution script for Superpowers. They share the same spec as source of truth — they just serve different phases.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="so-is-openspec-still-needed">So Is OpenSpec Still Needed?<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-combined#so-is-openspec-still-needed" class="hash-link" aria-label="Direct link to So Is OpenSpec Still Needed?" title="Direct link to So Is OpenSpec Still Needed?" translate="no">​</a></h2>
-<p>With Superpowers this capable, is there still a reason to run OpenSpec?</p>
-<p>For me, yes — for three reasons.</p>
-<ol>
-<li class=""><strong>Small-step iteration discipline.</strong> <code>propose → apply → archive</code> is a hard rhythm. It forces each change to have explicit scope, acceptance, and an archive step.</li>
-<li class=""><strong>Long-term spec library.</strong> <code>opsx:archive</code> syncs delta specs into a growing <code>openspec/specs/</code> tree. Over months, this becomes the project's authoritative specification — similar to how I treat my LLM wiki as the core notebook. Superpowers' specs and plans live per-change; they don't accumulate a project-level view.</li>
-<li class=""><strong>Cross-check on completeness.</strong> OpenSpec tasks and Superpowers plans can be diffed against each other. If the Superpowers run finished but an OpenSpec task is still open, something was missed.</li>
-</ol>
-<p>Short version: <strong>OpenSpec owns the spec lifecycle. Superpowers owns the design-and-execute loop inside a change.</strong> The two together give me both long-term structure and per-change rigor.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="token-cost">Token Cost<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-combined#token-cost" class="hash-link" aria-label="Direct link to Token Cost" title="Direct link to Token Cost" translate="no">​</a></h2>
-<p>This change used ~180M tokens — driven by Opus 4.7 plus Visual Companion (which generates and iterates on HTML mockups). I'm on the Claude Code Max plan, so the actual out-of-pocket cost is fixed. For the delivered output — 444 source lines, 86 tests, design-to-archive in 3 hours with near-zero rework — it's acceptable.</p>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="key-takeaways">Key Takeaways<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-combined#key-takeaways" class="hash-link" aria-label="Direct link to Key Takeaways" title="Direct link to Key Takeaways" translate="no">​</a></h2>
-<p><strong>1. Start every new project with brainstorming, not proposing.</strong> OpenSpec can't bootstrap architecture from a one-liner. Superpowers' structured questioning can.</p>
-<p><strong>2. Use Visual Companion for any UI change.</strong> 20 minutes of clickable mockups prevents hours of mismatched implementation. This was the single highest-leverage tool in the workflow.</p>
-<p><strong>3. Let Superpowers enforce TDD. Let OpenSpec enforce archival.</strong> Don't expect either to do both well.</p>
-<p><strong>4. Every mistake goes into <code>config.yaml</code>.</strong> The Batch 6 over-refactor is now a prevention rule. This is the compounding advantage of SDD over Vibe Coding — mistakes turn into structure, not just git history.</p>
-<p><strong>5. Keep a per-day log.</strong> The <code>docs/log/YYYY-MM-DD.md</code> habit makes retrospectives cheap and fuels <code>CLAUDE.md</code> / <code>config.yaml</code> updates.</p>
-<hr>
-<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="references">References<a href="https://austinxyz.github.io/blogs/blog/openspec-superpowers-combined#references" class="hash-link" aria-label="Direct link to References" title="Direct link to References" translate="no">​</a></h2>
-<p><strong>Project</strong></p>
-<ul>
-<li class=""><a href="https://github.com/austinxyz/tennis-lineup" target="_blank" rel="noopener noreferrer" class="">tennis-lineup on GitHub</a> — full source, including <code>CLAUDE.md</code>, OpenSpec config, and day logs</li>
-<li class=""><a href="https://github.com/austinxyz/tennis-lineup/tree/main/openspec/changes/archive/2026-04-19-mobile-ui-optimization" target="_blank" rel="noopener noreferrer" class="">Mobile UI optimization change (archived)</a></li>
-<li class=""><a href="https://github.com/austinxyz/tennis-lineup/blob/main/docs/log/2026-04-19.md" target="_blank" rel="noopener noreferrer" class="">2026-04-19 session log</a></li>
-</ul>
-<p><strong>Tools</strong></p>
-<ul>
-<li class=""><a href="https://github.com/Fission-AI/OpenSpec" target="_blank" rel="noopener noreferrer" class="">OpenSpec</a> — lightweight SDD CLI</li>
-<li class=""><a href="https://github.com/obra/superpowers" target="_blank" rel="noopener noreferrer" class="">Superpowers</a> — Claude Code skills for brainstorming, TDD, and code review</li>
-</ul>
-<p><strong>Related</strong></p>
-<ul>
-<li class=""><a class="" href="https://austinxyz.github.io/blogs/blog/2026/03/06/claude-code-spec-driven-development">From Vibe Coding to Spec-Driven Development</a> — the prior SDD post this one builds on</li>
-</ul>]]></content>
-        <author>
-            <name>Austin Xu</name>
-            <email>austin.xyz@gmail.com</email>
-            <uri>https://github.com/austinxyz</uri>
-        </author>
-        <category label="ai" term="ai"/>
-        <category label="claude-code" term="claude-code"/>
-        <category label="future-of-development" term="future-of-development"/>
     </entry>
 </feed>
