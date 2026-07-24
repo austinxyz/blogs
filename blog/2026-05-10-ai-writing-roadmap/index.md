@@ -51,6 +51,7 @@ Looked at together, the four tracks close a loop. **Track 4** is the thing you'r
 | [IaC and Kubernetes as a Two-Layer Control Plane](/blog/iac-k8s-ai-native) | Why the IaC + K8s split survives the transition |
 | [DevOps at Scale](/blog/2026/04/26/devops-at-scale) | How DevOps practices hold up at hundreds of clusters and tens of thousands of nodes |
 | [The Ops Inflection: How AI Is Converting Open Problems Into Closed Ones](/blog/ai-ops-inflection) | Progress report on two predictions — the TOIL wall is real but moves; three architectural patterns that are shifting the open/closed boundary in ops |
+| [The Ops Inflection, Verified: A Field Check on the Three Patterns Moving the TOIL Wall](/blog/ops-inflection-verified) | The three patterns checked against industry practice — the same deterministic-vs-reasoning argument recurring at three layers, and why the validation agent is the leading indicator for autonomous ops |
 
 ### Coming next
 
