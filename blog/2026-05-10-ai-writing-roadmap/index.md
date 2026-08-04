@@ -84,6 +84,7 @@ The reason this track exists at all is that I find most AI infrastructure writin
 | [Why "Treat AI Like a Person" Is More Precise Than It Sounds](/blog/treat-ai-like-person-p2) *(Part 2)* | AI capability isn't a single axis — it's a jagged frontier. How to read the gap map and use it as a practitioner's tool. |
 | [Why AI Can Do Half of Every Social Skill: A Case for the Consequence Check](/blog/treat-ai-like-person-p3) *(Part 3)* | Every social capability splits: the half rooted in rules and coordination that AI can genuinely carry, and the half rooted in limitedness and belonging that it can only imitate. The dividing line is consequence. |
 | [Treat AI Like a Person: The Philosopher's Warning, the Engineer's Response](/blog/treat-ai-like-person-p4) *(Part 4)* | Harari says AI will hack civilization's language layer. An engineer's response: the threat is real, the mechanism is slightly off — and the consequence check is still the right frame. |
+| [OpenSpec + Sandbox: Your CI Pipeline Is the Wrong Tool for AI Coding Agents](/blog/openspec-sandbox) | Signadot dev-time sandboxes close the integration-testing gap inside the agent's own loop instead of a 20-minute CI wait. Written jointly with Signadot. |
 
 This track is reported, not researched. Every post in it describes work I actually shipped using the tool described, with the rework rate, defect rate, and time-to-merge attached. That's the reading promise: no methodology I haven't run myself.
 
