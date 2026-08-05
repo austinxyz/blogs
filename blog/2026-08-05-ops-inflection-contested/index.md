@@ -63,3 +63,17 @@ I drew this same line, closed problems versus open ones, in [an earlier post on 
 Most agentic work doesn't have that luxury. What's the real target when a robotic arm stacks blocks? Actual physical height is closer to the truth than a camera angle, but height alone still isn't the point, nobody wants a taller stack for its own sake. The real target sits one layer further out, in whatever the stack was supposed to be useful for, and that layer doesn't have a spec file or a test suite. It has to be inferred from downstream consequences: whether the outcome created value someone actually wanted, which is a business question wearing an evaluation question's clothes.
 
 That's the open problem the summit's convergence actually points to. Coding agents get to cheat, in the good sense, because their target was already formalized before any agent showed up. Every other kind of agent has to build that formalization first, out of whatever's cheapest to measure, and live with the gap between that proxy and the real value until enough downstream evidence accumulates to close it. The verifier problem and the value-attribution problem turn out to be the same problem, just visible at different distances from the thing that was actually supposed to happen.
+
+## References
+
+1. [Agentic AI Summit 2026](https://rdi.berkeley.edu/events/agentic-ai-summit-2026) — official event page, Berkeley RDI
+2. [Berkeley RDI YouTube channel](https://www.youtube.com/@BerkeleyRDI/streams) — full recordings across all four stages
+3. [Plenary Stage, August 1st Afternoon](https://www.youtube.com/watch?v=Tcn5Yb2K0h4) — Oriol Vinyals (VP of Research, Google DeepMind) on RSI's evaluation bottleneck
+4. [Nexus Stage, August 1st Morning](https://www.youtube.com/watch?v=LB7IkZhEYic) — Wang Mengdi (Professor, Princeton ECE) on verification in AI for science
+5. [Plenary Stage, August 2nd Morning](https://www.youtube.com/watch?v=UdS3iisKhCk) — Adarsh Hiremath (Co-founder/Co-CEO, Mercor) on enterprise eval-driven deployment
+6. [Atlas Stage, August 2nd Afternoon](https://www.youtube.com/watch?v=-7AJJLwYW1Q) — Sergei Gukov (Professor, Caltech) on evaluators as the ceiling on system quality
+7. [Atlas Stage, August 2nd Morning](https://www.youtube.com/watch?v=LGW_6P1CMC8) — Vincent Chen (Research Fellow, Snorkel AI) on measurement lagging development
+8. [Nexus Stage, August 1st Afternoon](https://www.youtube.com/watch?v=ZIRc3EpzQJs) — reward hacking cases in science and robotics
+9. [OpenSpec + Superpowers, Then I Added a Harness](https://austinxyz.github.io/blogs/blog/openspec-superpowers-harness) — the rubric-based evaluator referenced in this post
+10. [OpenSpec + Sandbox: Your CI Pipeline Is the Wrong Tool for AI Coding Agents](https://austinxyz.github.io/blogs/blog/openspec-sandbox) — the dev-time sandbox referenced in this post
+11. [After Harness Engineering: How Agents Learn to Evolve Themselves](https://austinxyz.github.io/blogs/blog/evolutionary-search-harness-next) — the closed/open problem framework and evaluator trust criteria referenced in this post
