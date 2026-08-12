@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-X56HMVHLS4"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-X56HMVHLS4",{anonymize_ip:!0})</script><link rel="stylesheet" href="/blogs/assets/css/styles.eadeb07f.css">
-<script src="/blogs/assets/js/runtime~main.53509f2b.js" defer="defer"></script>
+<script src="/blogs/assets/js/runtime~main.b9c005e6.js" defer="defer"></script>
 <script src="/blogs/assets/js/main.9fde1f37.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -38,8 +38,7 @@
 <p>I buy the design. I haven&#x27;t seen it validated at scale. The docs don&#x27;t state a concurrency ceiling, and ten threads in one channel versus two could behave very differently. Cache hit rates in collaborative settings are already low. More threads likely makes that worse, not better.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="does-context-explode">Does Context Explode?<a href="#does-context-explode" class="hash-link" aria-label="Direct link to Does Context Explode?" title="Direct link to Does Context Explode?" translate="no">​</a></h3>
 <p>More conversation accumulates more state. When does it get cleared?</p>
-<p>I got this one wrong on my first pass. I&#x27;d attributed a distillation mechanism to Claude Tag, turning specific events into generalizable lessons. Turns out that belongs to a different Anthropic product, Claude Managed Agents, not Claude Tag.</p>
-<p>Claude Tag&#x27;s actual answer is plainer. In Anthropic&#x27;s own words, its memory is a curated note, not a transcript. It accumulates three ways: things a user explicitly asks it to remember, facts it decides on its own are worth keeping, and on-demand reads of past sessions with no full-text search. Nothing gets automatically abstracted into a lesson. What stays is a matter of filtering, not distillation.</p>
+<p>Claude Tag&#x27;s actual answer is more direct. In Anthropic&#x27;s own words, its memory is a curated note, not a transcript. It accumulates three ways: things a user explicitly asks it to remember, facts it decides on its own are worth keeping, and on-demand reads of past sessions with no full-text search. Nothing gets automatically abstracted into a lesson. What stays is a matter of filtering, not distillation.</p>
 <p>That&#x27;s a more conservative answer than I expected, and the risk shifts with it. It&#x27;s not about losing detail through abstraction. It&#x27;s about who decides what the note keeps and what it drops. Right now that judgment call belongs entirely to the model, with no human review layer, which makes drift hard to catch.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="my-own-judgment-channel-coordinates-local-executes">My Own Judgment: Channel Coordinates, Local Executes<a href="#my-own-judgment-channel-coordinates-local-executes" class="hash-link" aria-label="Direct link to My Own Judgment: Channel Coordinates, Local Executes" title="Direct link to My Own Judgment: Channel Coordinates, Local Executes" translate="no">​</a></h3>
 <p>The collaboration channel should own handoff and confirmation of staged deliverables. The actual writing and rewriting happens locally, in Claude Code. The channel isn&#x27;t where development happens. It&#x27;s where handoffs happen.</p>
