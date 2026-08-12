@@ -10,7 +10,7 @@ image: ./images/cover.jpg
 
 ![Three engineers at workstations, a fourth seat held by a translucent glowing wireframe figure, the AI teammate, working alongside them](./images/cover.jpg)
 
-Claude Tag has been the AI news of the last two weeks. Anthropic gave Claude a persistent identity inside Slack — its own account, its own memory of what a channel cares about, the ability to notice a problem and start fixing it without anyone asking. Andrej Karpathy called it the third major redesign of LLM UI/UX: first the LLM was a website you visited, then an app you downloaded, now [a persistent, asynchronous entity with org-wide tools and context, working alongside a team of humans](https://x.com/karpathy/status/2069547676849557725).
+Claude Tag has been the AI story lately. Anthropic gave Claude a persistent identity inside Slack — its own account, its own memory of what a channel cares about, the ability to notice a problem and start fixing it without anyone asking. Andrej Karpathy called it the third major redesign of LLM UI/UX: first the LLM was a website you visited, then an app you downloaded, now [a persistent, asynchronous entity with org-wide tools and context, working alongside a team of humans](https://x.com/karpathy/status/2069547676849557725).
 
 I've been writing about a version of this problem for months. In [*OpenSpec + Harness, Then We Added Engineers*](https://austinxyz.github.io/blogs/blog/openspec-harness-team-workflow), I described what breaks when individual AI acceleration hits a team: spec quality becomes the bottleneck, PR review bandwidth becomes the bottleneck, shared files become a contention point. Claude Tag is the next stop on that same line. It just takes a different road than the one I built.
 
