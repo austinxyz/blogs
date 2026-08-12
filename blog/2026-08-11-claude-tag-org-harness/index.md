@@ -57,9 +57,7 @@ I buy the design. I haven't seen it validated at scale. The docs don't state a c
 
 More conversation accumulates more state. When does it get cleared?
 
-I got this one wrong on my first pass. I'd attributed a distillation mechanism to Claude Tag, turning specific events into generalizable lessons. Turns out that belongs to a different Anthropic product, Claude Managed Agents, not Claude Tag.
-
-Claude Tag's actual answer is plainer. In Anthropic's own words, its memory is a curated note, not a transcript. It accumulates three ways: things a user explicitly asks it to remember, facts it decides on its own are worth keeping, and on-demand reads of past sessions with no full-text search. Nothing gets automatically abstracted into a lesson. What stays is a matter of filtering, not distillation.
+Claude Tag's actual answer is more direct. In Anthropic's own words, its memory is a curated note, not a transcript. It accumulates three ways: things a user explicitly asks it to remember, facts it decides on its own are worth keeping, and on-demand reads of past sessions with no full-text search. Nothing gets automatically abstracted into a lesson. What stays is a matter of filtering, not distillation.
 
 That's a more conservative answer than I expected, and the risk shifts with it. It's not about losing detail through abstraction. It's about who decides what the note keeps and what it drops. Right now that judgment call belongs entirely to the model, with no human review layer, which makes drift hard to catch.
 
