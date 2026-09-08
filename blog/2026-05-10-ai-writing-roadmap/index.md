@@ -129,6 +129,7 @@ The seats compress asymmetrically. That's the thesis the track exists to defend.
 | [Building an Agent from Scratch: LangGraph, Qdrant, and the Gaps Between the Docs](/blog/building-agent-from-scratch) | The A-layer. End-to-end walkthrough of python-agent — architecture decisions, LangGraph ingest pipeline and ReAct QA agent, SQLite-first data layer, and four specific failures the tutorials don't cover |
 | [After Harness Engineering: How Agents Learn to Evolve Themselves](/blog/evolutionary-search-harness-next) | The research landscape for agents that improve their own prompts, skills, workflows, and harness code — organized by evolutionary depth. The hard part isn't mutation. It's the evaluator. |
 | [The Agent Framework Trap: Why the Harness Drives Your Costs](/blog/agent-framework-comparison) | LangGraph vs CrewAI vs AutoGen — but the number that matters isn't in the benchmarks. Same model, same task, 5× token variance from the harness alone. Includes AWS Strands, Google ADK, Hermes, and OpenClaw. |
+| [RSI: What Recursive Self-Improvement Actually Is, and Why Everyone Disagrees About It](/blog/recursive-self-improvement) | One level up from evolutionary search — AI improving the model and the research process itself, not just its own harness. Maps the research paths, the funded companies betting on it, the benchmark evidence on both sides, and the two independent axes (belief vs. sentiment) that explain why the field can't agree on whether it's happening. |
 
 ### Coming next
 
