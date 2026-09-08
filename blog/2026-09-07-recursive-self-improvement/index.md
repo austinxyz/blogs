@@ -103,3 +103,36 @@ If RSI ends up mattering the way its most credentialed believers think it will, 
 ---
 
 This connects to [Track 4 — Agent Engineering](/blog/ai-writing-roadmap) on the roadmap, one level up from the evolutionary search work: that post mapped systems that evolve their own prompts and harness code; this one is the same mechanism aimed at the model and the research process itself. I'll keep tracking AI4AI Bench and the AlphaEvolve production numbers as they update — that's the layer where "is RSI real" actually gets decided, benchmark by benchmark, not headline by headline.
+
+---
+
+## People in This Post
+
+- **Jakub Pachocki** — OpenAI's chief scientist; published "An Alien Mind" on September 6, 2026.
+- **Dario Amodei** — Anthropic's CEO; revealed in May 2026 that Claude is helping design Claude.
+- **Yuandong Tian** — Meta FAIR's former research director, known for ELF OpenGo, an open-source system replicating AlphaZero's core ideas; left Meta the year before, brought Recursive (Recursive Superintelligence) out of stealth in May 2026 with seven co-founders.
+- **Richard Socher** — Co-founder and CEO of Recursive; previously led AI research at Salesforce (founder of MetaMind).
+- **Jeff Dean** — Google employee number 30, 27 years in; left in August 2026 to co-found Discovery Loop.
+- **Sanjay Ghemawat, Oriol Vinyals, Quoc Le** — Co-founded Discovery Loop with Jeff Dean; respectively a senior Google engineer/fellow, a senior DeepMind research scientist, and a founding member of Google Brain.
+- **Helen Toner** — Managing director at Georgetown's Center for Security and Emerging Technology (CSET); former OpenAI board member.
+- **Sayash Kapoor** — Researcher at Princeton.
+- **Yoshua Bengio** — Turing Award laureate, a pioneer of deep learning.
+- **Jack Clark** — Anthropic co-founder, author of the Import AI newsletter.
+- **Peter Wildeford** — AI policy researcher; interviewed 25 AI researchers on attitudes toward RSI.
+
+## References
+
+- Jakub Pachocki, "An Alien Mind," OpenAI, September 6, 2026 — https://openai.com/index/an-alien-mind/
+- Yuandong Tian / Recursive funding coverage, South China Morning Post — https://www.scmp.com/tech/big-tech/article/3353576/ex-meta-chinese-star-researcher-joins-race-self-improving-ai-us46b-start
+- Jeff Dean / Discovery Loop, TechCrunch, August 5, 2026 — https://techcrunch.com/2026/08/05/jeff-dean-and-other-top-ai-researchers-are-leaving-google-to-launch-their-own-startup/
+- AI4AI-Bench: Benchmarking LLM Agents in Algorithmic Design for Recursive Self-Improvement, arXiv 2608.20318 — https://arxiv.org/abs/2608.20318
+- Sayash Kapoor et al., Can AI agents conduct open-ended AI research?, arXiv 2607.27191 — https://arxiv.org/pdf/2607.27191
+- Helen Toner, on the adequacy/parity/supremacy framework, TechCrunch — https://techcrunch.com/2026/05/28/rsi-is-the-new-agi-and-its-just-as-hard-to-pin-down/
+- Jack Clark, probability estimates (30% by 2027 / 60% by 2028), X — https://x.com/jackclarkSF/status/2051312759594471886
+- Yoshua Bengio, calling for a pause, X — https://x.com/Yoshua_Bengio/status/2063292262293844119
+- Peter Wildeford, "Interviewing 25 AI researchers about recursive self-improvement" — https://blog.peterwildeford.com/p/interviewing-25-ai-researchers-about
+- AlphaEvolve: A Gemini-powered coding agent for designing advanced algorithms, Google DeepMind — https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/
+- AlphaEvolve impact report, Google DeepMind — https://deepmind.google/blog/alphaevolve-impact/
+- Darwin Godel Machine: Open-Ended Evolution of Self-Improving Agents, arXiv 2505.22954 — https://arxiv.org/abs/2505.22954
+- Absolute Zero: Reinforced Self-play Reasoning with Zero Data, arXiv 2505.03335 — https://arxiv.org/abs/2505.03335
+- METR, Time Horizon 1.1 — https://metr.org/blog/2026-1-29-time-horizon-1-1/
